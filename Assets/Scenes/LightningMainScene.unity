@@ -982,6 +982,7 @@ MonoBehaviour:
   lightningPreTime: 1
   lightningCount: 3
   lightningHurt: 30
+  lightningWidth: 0.3
   startTime: 0.1
   keepTime: 0.3
   circleHurt: 5

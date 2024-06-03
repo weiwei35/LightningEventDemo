@@ -23,6 +23,9 @@ public class CopyLineController : MonoBehaviour
     EnemyController enemy;
     LightningController lightning;
     PlayerController player;
+    Vector3 midPoint;
+    public GameObject lineCollider;
+    CapsuleCollider capsule;
     private void Start()
     {
         line = GetComponent<LineRenderer>();
@@ -60,25 +63,17 @@ public class CopyLineController : MonoBehaviour
             
         line.SetPosition(0,start);
         line.SetPosition(1,pos.transform.position);
-        RaycastHit[] hits = new RaycastHit[5];
-        Vector3 startPos = new Vector3(start.x,start.y,-5);
-        Vector3 endPos = new Vector3(pos.transform.position.x,pos.transform.position.y,-5);
-        var distance = Vector3.Distance(startPos, endPos);
-        Vector3 direction = endPos - startPos;
-        if(canMove){
-            int count = Physics.RaycastNonAlloc(startPos,direction,hits,distance,layer);
-            if(count > 0)
-            {
-                for (int i = 0; i < count; i++)
-                {
-                    enemy = hits[i].collider.gameObject.GetComponent<EnemyController>();
-                    if(enemy != null && !enemy.isHitting)
-                    {
-                        Debug.Log("雷电攻击：" + hits[i].collider.name);
-                        lightning.HurtEnemy(enemy,HurtType.CopyPlayer);
-                    }
-                }
-            }
+        if(canMove)
+        {
+            midPoint = (start + pos.transform.position) / 2;
+            lineCollider.transform.position = midPoint;
+            Vector3 direction = end.transform.position - start;
+            capsule.isTrigger = true;
+            capsule.radius = line.startWidth/2;
+            capsule.height = direction.magnitude + line.startWidth;
+            capsule.direction = 2;
+            Quaternion lookRotation = Quaternion.LookRotation(end.transform.position - start);
+            lineCollider.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);
         }
     }
 
@@ -118,14 +113,17 @@ public class CopyLineController : MonoBehaviour
 
     public void DrawLinePoints() {
         canMove = false;
-        line.startWidth = 0.3f;
-        line.endWidth = 0.3f;
+        line.startWidth = lightning.lightningWidth;
+        line.endWidth = lightning.lightningWidth;
         pos.transform.position = start;
         pos.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
         {
             canMove = true;
+            lineCollider = Instantiate(lineCollider);
+            lineCollider.transform.position = transform.position;
+            lineCollider.transform.parent = transform;
+            capsule = lineCollider.GetComponent<CapsuleCollider>();
             Invoke("EndLine", keepTime);
-            Invoke("SetEndLine", 0);
         });
     }
 
@@ -142,9 +140,5 @@ public class CopyLineController : MonoBehaviour
         lightning.isEndLight = true;
         lightning.HurtPlayer();
         Destroy(gameObject);
-    }
-
-    public void SetEndLine () {
-        lightning.isSetLight = true;
     }
 }

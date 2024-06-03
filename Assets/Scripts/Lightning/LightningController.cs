@@ -12,6 +12,8 @@ public class LightningController : MonoBehaviour
     public float lightningCount = 3;
     [Header("雷电伤害")]
     public float lightningHurt = 3f;
+    [Header("雷电宽度")]
+    public float lightningWidth = 0.3f;
     [Header("雷电出现时长")]
     public float startTime = 0.1f;
     [Header("雷电持续时长")]
