@@ -133,3 +133,9 @@ MonoBehaviour:
     type: 302
     buff: -1
     specialType: 2
+  - id: 21
+    name: "\u6EA2\u51FA\u96F7"
+    desc: "\u5F53\u96F7\u7535\u51FB\u6740\u602A\u7269\u540E\uFF0C\u6EA2\u51FA\u7684\u4F24\u5BB3\u5C06\u4F1A\u81EA\u52A8\u5F39\u5C04\u5230\u5468\u56F4\u7684\u602A\u7269\u8EAB\u4E0A\uFF0C\u65E0\u9650\u5FAA\u73AF\uFF0C\u76F4\u81F3\u6CA1\u6709\u602A\u7269"
+    type: 303
+    buff: -1
+    specialType: 2

@@ -65,6 +65,9 @@ public class SelectItemUI : MonoBehaviour
                 case 302:
                     player.SetLightningBoom();
                     return true;
+                case 303:
+                    player.SetLightningOverflow();
+                    return true;
                 default:
                     return false;
             }
