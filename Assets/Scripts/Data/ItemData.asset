@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061f64b1eef746a4aab030773170cf4f, type: 3}
+  m_Name: ItemData
+  m_EditorClassIdentifier: 
+  items:
+  - id: 1
+    name: Add Max HP
+    desc: 
+    type: 0
+    buff: 1
+  - id: 2
+    name: Add Max HP
+    desc: 
+    type: 0
+    buff: 2
+  - id: 3
+    name: Add Max HP
+    desc: 
+    type: 0
+    buff: 3
+  - id: 4
+    name: Speed Faster
+    desc: 
+    type: 1
+    buff: 1
+  - id: 5
+    name: Speed Faster
+    desc: 
+    type: 1
+    buff: 2
+  - id: 6
+    name: HP Recover Faster
+    desc: 
+    type: 4
+    buff: 1
+  - id: 7
+    name: HP Recover Faster
+    desc: 
+    type: 4
+    buff: 2
