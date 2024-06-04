@@ -209,7 +209,7 @@ MonoBehaviour:
     type: 3}
   isChecked: 0
   timeCount: 0
-  lineCollider: {fileID: 1882638087667443515, guid: a5445d913c663774da5e26d44566d7d9,
+  lineCollider: {fileID: 1882638087667443515, guid: 5efaab14189b0e14bb942a8d6d503653,
     type: 3}
 --- !u!1 &6243194527875724978
 GameObject:

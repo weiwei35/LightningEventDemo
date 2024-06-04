@@ -24,6 +24,8 @@ public class ItemDataSO : ScriptableObject {
             type.Add(302);
         if(player.isLightningOverflow)
             type.Add(303);
+        if(player.isLightningAttract)
+            type.Add(304);
         for (int i = 0; i < count; i++)
         {
             int randomId;

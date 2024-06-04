@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6794207635166164898}
   - component: {fileID: 5305264980841922644}
-  - component: {fileID: 8933839392835217382}
+  - component: {fileID: 3288734806373408114}
   m_Layer: 0
-  m_Name: LineCollider
+  m_Name: LineColliderMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ CapsuleCollider:
   m_Height: 0
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8933839392835217382
+--- !u!114 &3288734806373408114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -65,6 +65,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1882638087667443515}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de6140a42ce07654c9b966ab50199ae7, type: 3}
+  m_Script: {fileID: 11500000, guid: 77ec4c4efe1952c40a8bdaa70eb977b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

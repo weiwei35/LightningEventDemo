@@ -121,7 +121,7 @@ public class CircleController : MonoBehaviour
             // Debug.DrawLine(startPos, intersectionPoint3, Color.red, 10f); // 在场景中绘制交点
             // 你可以在这里处理交点信息
             float angle =RandomAngle(intersectionPoint2,intersectionPoint3);
-            Vector3 point = center + new Vector3(Mathf.Cos(angle * Mathf.PI/180) * radius,Mathf.Sin(angle * Mathf.PI/180) * radius,-4);
+            Vector3 point = center + new Vector3(Mathf.Cos(angle * Mathf.PI/180) * radius,Mathf.Sin(angle * Mathf.PI/180) * radius,-5);
             // var start = Instantiate(startPointEP);
             // start.transform.position = point;
             // starts.Add(start);
@@ -208,7 +208,7 @@ public class CircleController : MonoBehaviour
     //在圆上取随机点
     Vector3 GetPoint(){
         float angle = Random.Range(0,Mathf.PI * 2);
-        Vector3 point = center + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,-4);
+        Vector3 point = center + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,-5);
         return point;
     }
 
@@ -270,7 +270,7 @@ public class CircleController : MonoBehaviour
             lineCur.transform.position = point;
             LineController lineController = lineCur.GetComponent<LineController>();
             lineController.start = point;
-            lineController.end.transform.position = new Vector3(player.transform.position.x,player.transform.position.y,-4);
+            lineController.end.transform.position = player.transform.position;
             lineController.startTime = startTime;
             lineController.keepTime = keepTime;
             lineController.follow = player;
@@ -282,10 +282,9 @@ public class CircleController : MonoBehaviour
     public void SetLinesCopy (float startTime,float keepTime,List<Vector3> points) {
         foreach(var point in points){
             var lineCur = Instantiate(mirrorLine.gameObject);
-            Vector3 playerPos = new Vector3(player.transform.position.x,player.transform.position.y+1,-4);
-            lineCur.transform.position = playerPos;
+            lineCur.transform.position = player.transform.position;
             MirrorLineController lineController = lineCur.GetComponent<MirrorLineController>();
-            lineController.start = playerPos;
+            lineController.start = player.transform.position;
             lineController.end.transform.position = point;
             lineController.startTime = startTime;
             lineController.keepTime = keepTime;
@@ -295,77 +294,4 @@ public class CircleController : MonoBehaviour
             lineCopys.Add(lineCur.gameObject);
         }
     }
-
-    // //获取摄像机边缘的雷点
-    // public void GetCamLight() {
-    //     // 获取屏幕中心点
-    //     Camera mainCamera = Camera.main;
-    //     float screenWidth = Screen.width;
-    //     float screenHeight = Screen.height;
-    //     Vector3 screenCenter = new Vector3(screenWidth * 0.5f, screenHeight * 0.5f,0);
-    //     Vector3 worldCenter = mainCamera.ScreenToWorldPoint(screenCenter);
-
-    //     //获取屏幕 4个顶点
-    //     float cameraHeight = mainCamera.orthographicSize; // 如果是正交摄像机，获取宽度
-    //     float cameraWidth = cameraHeight * mainCamera.aspect; // 获取高度，考虑屏幕比率
-    //     Vector3 topLeft = worldCenter + new Vector3(-cameraWidth, cameraHeight);
-    //     Vector3 topRight = worldCenter + new Vector3(cameraWidth, cameraHeight);
-    //     Vector3 bottomLeft = worldCenter + new Vector3(-cameraWidth, -cameraHeight);
-    //     Vector3 bottomRight = worldCenter + new Vector3(cameraWidth, -cameraHeight);
-
-    //     for (int i = 0; i < points.Count; i++)
-    //     {
-    //         var startRay = points[i];
-    //         var endRay = new Vector3(player.transform.position.x,player.transform.position.y,-4);
-    //         Ray ray = new Ray(startRay, endRay - startRay);
-    //         // Debug.DrawLine(startRay, endRay, Color.red, 10f); // 在场景中绘制线
-    //         Vector3? intersection1 = GetLineIntersection(startRay, endRay, topLeft, topRight);
-    //         Vector3? intersection2 = GetLineIntersection(startRay, endRay, topLeft, bottomLeft);
-    //         Vector3? intersection3 = GetLineIntersection(startRay, endRay, topRight, bottomRight);
-    //         Vector3? intersection4 = GetLineIntersection(startRay, endRay, bottomLeft, bottomRight);
-    //         //当存在交点时显示屏幕边缘的雷点
-    //         if(intersection1 != null){
-    //             canFollow = true;
-    //             circleLight[i].SetActive(true);
-    //             circleLight[i].transform.position = (Vector3)intersection1;
-    //         }
-    //         if(intersection2 != null){
-    //             canFollow = true;
-    //             circleLight[i].SetActive(true);
-    //             circleLight[i].transform.position = (Vector3)intersection2;
-    //         }
-    //         if(intersection3 != null){
-    //             canFollow = true;
-    //             circleLight[i].SetActive(true);
-    //             circleLight[i].transform.position = (Vector3)intersection3;
-    //         }
-    //         if(intersection4 != null){
-    //             canFollow = true;
-    //             circleLight[i].SetActive(true);
-    //             circleLight[i].transform.position = (Vector3)intersection4;
-    //         }
-    //     }
-
-    // }
-
-    // //取两条线段的交点，没有交点时返回null
-    // public static Vector3? GetLineIntersection(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3)
-    // {
-    //     float s1_x, s1_y, s2_x, s2_y;
-    //     s1_x = p1.x - p0.x;
-    //     s1_y = p1.y - p0.y;
-    //     s2_x = p3.x - p2.x;
-    //     s2_y = p3.y - p2.y;
-    
-    //     float s, t;
-    //     s = (-s1_y * (p0.x - p2.x) + s1_x * (p0.y - p2.y)) / (-s2_x * s1_y + s1_x * s2_y);
-    //     t = (s2_x * (p0.y - p2.y) - s2_y * (p0.x - p2.x)) / (-s2_x * s1_y + s1_x * s2_y);
-    
-    //     if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
-    //     {
-    //         // 交点在两线段范围内
-    //         return new Vector3(p0.x + (t * s1_x), p0.y + (t * s1_y),-5);
-    //     }
-    //     return null;
-    // }
 }

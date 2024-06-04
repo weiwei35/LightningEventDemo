@@ -19,11 +19,10 @@ public class LineController : MonoBehaviour
     bool canMove = false;
     public bool isChecked = false;
     public float timeCount = 0;
-
-    EnemyController enemy;
     LightningController lightning;
     PlayerController player;
     public GameObject lineCollider;
+    GameObject colliderCur;
     private void Start()
     {
         line = GetComponent<LineRenderer>();
@@ -59,28 +58,20 @@ public class LineController : MonoBehaviour
             pos.transform.position = follow.transform.position + new Vector3(0,1f,0);
             // end.transform.position = follow.transform.position;
             // SetCircleLine();
+            colliderCur.GetComponent<LineColliderMain>().start = start;
+            colliderCur.GetComponent<LineColliderMain>().end = end.transform.position;
+            for(int i = 0; i < line.positionCount-1; i++)
+            {
+                Vector3 midPoint = (line.GetPosition(i) + line.GetPosition(i+1)) / 2;
+                colliderCur.transform.position = midPoint;
+                colliderCur.transform.parent = transform;
+                Quaternion lookRotation = Quaternion.LookRotation(line.GetPosition(i+1) - line.GetPosition(i));
+                colliderCur.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);
+            }
         }
         
         line.SetPosition(0,start);
         line.SetPosition(1,pos.transform.position);
-        if(canMove)
-        {
-            for(int i = 0; i < line.positionCount-1; i++)
-            {
-                Vector3 midPoint = (line.GetPosition(i) + line.GetPosition(i+1)) / 2;
-                GameObject collider = Instantiate(lineCollider);
-                collider.transform.position = midPoint;
-                collider.transform.parent = transform;
-                Vector3 direction = line.GetPosition(i+1) - line.GetPosition(i);
-                CapsuleCollider capsuleCollider = collider.GetComponent<CapsuleCollider>();
-                capsuleCollider.isTrigger = true;
-                capsuleCollider.radius = line.startWidth/2;
-                capsuleCollider.height = direction.magnitude + line.startWidth;
-                capsuleCollider.direction = 2;
-                Quaternion lookRotation = Quaternion.LookRotation(line.GetPosition(i+1) - line.GetPosition(i));
-                collider.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);
-            }
-        }
     }
 
     public void CheckCopy() {
@@ -93,7 +84,7 @@ public class LineController : MonoBehaviour
                     lineCurCopy.transform.position = transform.position;
                     CopyLineController lineControllerCopy = lineCurCopy.GetComponent<CopyLineController>();
                     lineControllerCopy.start = start;
-                    lineControllerCopy.end.transform.position = new Vector3(item.transform.position.x,item.transform.position.y,-4);
+                    lineControllerCopy.end.transform.position = new Vector3(item.transform.position.x,item.transform.position.y,-5);
                     lineControllerCopy.startTime = startTime;
                     lineControllerCopy.keepTime = keepTime;
                     lineControllerCopy.follow = item;
@@ -108,7 +99,7 @@ public class LineController : MonoBehaviour
                 lineCurCopy.transform.position = transform.position;
                 CopyLineController lineControllerCopy = lineCurCopy.GetComponent<CopyLineController>();
                 lineControllerCopy.start = start;
-                lineControllerCopy.end.transform.position = new Vector3(playerCopy.transform.position.x,playerCopy.transform.position.y,-4);
+                lineControllerCopy.end.transform.position = new Vector3(playerCopy.transform.position.x,playerCopy.transform.position.y,-5);
                 lineControllerCopy.startTime = startTime;
                 lineControllerCopy.keepTime = keepTime;
                 lineControllerCopy.follow = playerCopy;
@@ -125,10 +116,21 @@ public class LineController : MonoBehaviour
         pos.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
         {
             canMove = true;
-            // lineCollider = Instantiate(lineCollider);
-            // lineCollider.transform.position = transform.position;
-            // lineCollider.transform.parent = transform;
-            // capsule = lineCollider.GetComponent<CapsuleCollider>();
+            for(int i = 0; i < line.positionCount-1; i++)
+            {
+                Vector3 midPoint = (line.GetPosition(i) + line.GetPosition(i+1)) / 2;
+                colliderCur = Instantiate(lineCollider);
+                colliderCur.transform.position = midPoint;
+                colliderCur.transform.parent = transform;
+                Vector3 direction = line.GetPosition(i+1) - line.GetPosition(i);
+                CapsuleCollider capsuleCollider = colliderCur.GetComponent<CapsuleCollider>();
+                capsuleCollider.isTrigger = true;
+                capsuleCollider.radius = line.startWidth/2;
+                capsuleCollider.height = direction.magnitude + line.startWidth;
+                capsuleCollider.direction = 2;
+                Quaternion lookRotation = Quaternion.LookRotation(line.GetPosition(i+1) - line.GetPosition(i));
+                colliderCur.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);
+            }
             Invoke("EndLine", keepTime);
             Invoke("SetEndLine", 0);
         });

@@ -5,6 +5,8 @@ using UnityEngine;
 public class LineCollider : MonoBehaviour
 {
     LightningController lightning;
+    public Vector3 start;
+    public Vector3 end;
     private void OnTriggerEnter(Collider other) {
         lightning = FindObjectOfType<LightningController>();
         if(other.gameObject.layer == 6){

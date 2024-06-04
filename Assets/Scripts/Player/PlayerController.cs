@@ -60,6 +60,8 @@ public class PlayerController : MonoBehaviour
     public bool isLightningBoom = false;
     [Header("雷电法宝3")]
     public bool isLightningOverflow = false;
+    [Header("雷电法宝4")]
+    public bool isLightningAttract = false;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -368,5 +370,10 @@ public class PlayerController : MonoBehaviour
     //雷电法宝3：当雷电攻击怪物后会发生爆炸伤害
     public void SetLightningOverflow() {
         isLightningOverflow = !isLightningOverflow;
+    }
+
+    //雷电法宝4：雷电会将周围的怪物吸附牵引
+    public void SetLightningAttract() {
+        isLightningAttract = !isLightningAttract;
     }
 }

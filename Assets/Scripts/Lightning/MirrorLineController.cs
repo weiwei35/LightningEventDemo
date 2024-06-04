@@ -68,7 +68,7 @@ public class MirrorLineController : MonoBehaviour
                     lineCurCopy.transform.position = transform.position;
                     MirrorLineController lineControllerCopy = lineCurCopy.GetComponent<MirrorLineController>();
                     lineControllerCopy.start = start;
-                    lineControllerCopy.end.transform.position = new Vector3(item.transform.position.x,item.transform.position.y,-4);
+                    lineControllerCopy.end.transform.position = new Vector3(item.transform.position.x,item.transform.position.y,-5);
                     lineControllerCopy.startTime = startTime;
                     lineControllerCopy.keepTime = keepTime;
                     lineControllerCopy.timeCount = lightning.lightningPreTime+1;
@@ -82,7 +82,7 @@ public class MirrorLineController : MonoBehaviour
                 lineCurCopy.transform.position = transform.position;
                 MirrorLineController lineControllerCopy = lineCurCopy.GetComponent<MirrorLineController>();
                 lineControllerCopy.start = start;
-                lineControllerCopy.end.transform.position = new Vector3(playerCopy.transform.position.x,playerCopy.transform.position.y,-4);
+                lineControllerCopy.end.transform.position = new Vector3(playerCopy.transform.position.x,playerCopy.transform.position.y,-5);
                 lineControllerCopy.startTime = startTime;
                 lineControllerCopy.keepTime = keepTime;
                 lineControllerCopy.timeCount = lightning.lightningPreTime+1;

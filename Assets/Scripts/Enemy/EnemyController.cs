@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
@@ -31,6 +32,7 @@ public class EnemyController : MonoBehaviour
     PlayerController player;
     float moreHurt = 0;
     bool isDead = false;
+    Tweener tweener;
 
     public virtual void Start()
     {
@@ -68,6 +70,10 @@ public class EnemyController : MonoBehaviour
         {
             SetMoreHurt(moreHurt);
             Debug.Log("溢出伤害:" + moreHurt);
+        }
+        if (tweener != null)
+        {
+            tweener.Kill();
         }
         StartCoroutine(SetDestroy());
     }
@@ -143,6 +149,12 @@ public class EnemyController : MonoBehaviour
         }
         
     }
+    //移动到雷电上
+    public void MoveToLine(Vector3 pos){
+        if(transform != null)
+            tweener = transform.DOMove(pos,0.1f);
+    }
+
 }
 
 public enum HurtType{
