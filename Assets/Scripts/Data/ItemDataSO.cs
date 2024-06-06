@@ -26,6 +26,10 @@ public class ItemDataSO : ScriptableObject {
             type.Add(303);
         if(player.isLightningAttract)
             type.Add(304);
+        if(player.isBugHP)
+            type.Add(601);
+        if(player.isBugCircle)
+            type.Add(602);
         for (int i = 0; i < count; i++)
         {
             int randomId;

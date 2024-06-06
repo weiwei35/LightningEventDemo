@@ -125,7 +125,7 @@ public class LineController : MonoBehaviour
                 Vector3 direction = line.GetPosition(i+1) - line.GetPosition(i);
                 CapsuleCollider capsuleCollider = colliderCur.GetComponent<CapsuleCollider>();
                 capsuleCollider.isTrigger = true;
-                capsuleCollider.radius = line.startWidth/2;
+                capsuleCollider.radius = line.startWidth/4;
                 capsuleCollider.height = direction.magnitude + line.startWidth;
                 capsuleCollider.direction = 2;
                 Quaternion lookRotation = Quaternion.LookRotation(line.GetPosition(i+1) - line.GetPosition(i));

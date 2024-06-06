@@ -33,6 +33,7 @@ public class EnemyController : MonoBehaviour
     float moreHurt = 0;
     bool isDead = false;
     Tweener tweener;
+    float circleCountTime = 0;
 
     public virtual void Start()
     {
@@ -59,6 +60,16 @@ public class EnemyController : MonoBehaviour
             text.text = HP.ToString();
             if(type == HurtType.Lightning && player.isLightningBoom)
                 SetBoom();
+        }
+    }
+    public virtual void HurtByCircle(float hurt,HurtType type){
+        if(type == HurtType.BugCircle){
+            circleCountTime += Time.deltaTime;
+            if(circleCountTime >= 0.5f){
+                circleCountTime = 0;
+                HP -= hurt;
+                text.text = HP.ToString();
+            }
         }
     }
 
@@ -161,5 +172,6 @@ public enum HurtType{
     Lightning,
     Boom,
     Overflow,
-    CopyPlayer
+    CopyPlayer,
+    BugCircle
 }

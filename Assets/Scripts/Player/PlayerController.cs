@@ -62,6 +62,15 @@ public class PlayerController : MonoBehaviour
     public bool isLightningOverflow = false;
     [Header("雷电法宝4")]
     public bool isLightningAttract = false;
+    [Header("虫虫·1")]
+    public GameObject petBugs;
+    public List<BugController> bugs = new List<BugController>();
+    public bool isBugHP = false;
+    public BugController bugHPPre;
+    [Header("虫虫·2")]
+    public bool isBugCircle = false;
+    public BugController bugCirclePre;
+    public CircleCollider bugCircleCollider;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -72,6 +81,7 @@ public class PlayerController : MonoBehaviour
     [Header("其他引用")]
     public CircleController circle;
     bool ishitting = false;
+    public Transform follow;
     [HideInInspector]
     public bool canHurt = false;
     public GameController gameController;
@@ -217,6 +227,12 @@ public class PlayerController : MonoBehaviour
     }
     void RecoveryHP(){
         HPCurrent += HPSpeed;
+    }
+    public float GetHurtCount(){
+        return HP-HPCurrent;
+    }
+    public void OutsideRecoveryHP(float hp){
+        HPCurrent += hp;
     }
     void RecoveryProtect(){
         protectCurrent += protectSpeed;
@@ -375,5 +391,27 @@ public class PlayerController : MonoBehaviour
     //雷电法宝4：雷电会将周围的怪物吸附牵引
     public void SetLightningAttract() {
         isLightningAttract = !isLightningAttract;
+    }
+
+    //虫虫1：持续2秒回复生命值，每秒给角色回复10%已损失生命值，最小值为1
+    public void SetBugHP() {
+        isBugHP = !isBugHP;
+        var bug1 = Instantiate(bugHPPre.gameObject);
+        BugController bug = bug1.GetComponent<BugController>();
+        bug.transform.parent = petBugs.transform;
+        bug.bugId = bugs.Count;
+        bugs.Add(bug);
+    }
+    //虫虫1：在自身周围形成一个环形造成伤害持续10秒
+    public void SetBugCircle() {
+        isBugCircle = !isBugCircle;
+        var bug1 = Instantiate(bugCirclePre.gameObject);
+        BugCircleController bug = bug1.GetComponent<BugCircleController>();
+        bug.transform.parent = petBugs.transform;
+        bug.bugId = bugs.Count;
+        bugs.Add(bug);
+        bugCircleCollider.minDistance = bug.circleRadiusMin;
+        bugCircleCollider.transform.localScale = new Vector3(bug.circleRadiusMax*2,bug.circleRadiusMax*2,bug.circleRadiusMax*2);
+        bugCircleCollider.hurtCount = bug.hurtCount;
     }
 }

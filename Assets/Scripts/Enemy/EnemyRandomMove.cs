@@ -40,6 +40,11 @@ public class EnemyRandomMove : EnemyController
         base.Hurt(hurt,type);
         anim.Play("hurt1");
     }
+    public override void HurtByCircle(float hurt,HurtType type)
+    {
+        base.Hurt(hurt,type);
+        anim.Play("hurt1");
+    }
     public override void Death(){
         base.Death();
         anim.Play("hurt1");

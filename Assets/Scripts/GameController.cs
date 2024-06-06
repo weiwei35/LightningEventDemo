@@ -9,8 +9,11 @@ public class GameController : MonoBehaviour
 {
     public EnemyPoolController enemyPool;
     public LevelDataSO levelData;
+    [HideInInspector]
     public LevelItem level;
+    public LevelUIController levelUI;
     SelectItemUI selectPanel;
+    [HideInInspector]
     public int levelId = 1;
     float levelTime;
     float rewardTime;
@@ -59,6 +62,7 @@ public class GameController : MonoBehaviour
 
     public void SetLevel(){
         if(selectPanel.SetPlayerStatus()){
+            levelUI.SetLevelPlayer();
             Time.timeScale = 1;
             if(endLevelPanel.activeSelf){
                 endLevelPanel.SetActive(false);

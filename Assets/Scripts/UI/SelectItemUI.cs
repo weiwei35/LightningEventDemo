@@ -23,6 +23,7 @@ public class SelectItemUI : MonoBehaviour
         {
             var selectItem = Instantiate(selectPrefab);
             selectItem.transform.SetParent(selectBar.transform);
+            selectItem.transform.localScale = new Vector3(1,1,1);
             ItemController item = selectItem.GetComponent<ItemController>();
             item.SetItemInfo(items[i]);
         }
@@ -70,6 +71,12 @@ public class SelectItemUI : MonoBehaviour
                     return true;
                 case 304:
                     player.SetLightningAttract();
+                    return true;
+                case 601:
+                    player.SetBugHP();
+                    return true;
+                case 602:
+                    player.SetBugCircle();
                     return true;
                 default:
                     return false;
