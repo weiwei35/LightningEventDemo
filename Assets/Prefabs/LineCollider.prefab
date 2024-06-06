@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6794207635166164898}
   - component: {fileID: 5305264980841922644}
   - component: {fileID: 8933839392835217382}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LineCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,3 +68,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de6140a42ce07654c9b966ab50199ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  start: {x: 0, y: 0, z: 0}
+  end: {x: 0, y: 0, z: 0}

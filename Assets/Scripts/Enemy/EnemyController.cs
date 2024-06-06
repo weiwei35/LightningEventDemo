@@ -47,6 +47,8 @@ public class EnemyController : MonoBehaviour
         // if(HP <= 0 && !isDead){
         //     Death();
         // }
+        text.text = (Mathf.Round(HP * 10.0f) / 10.0f).ToString();
+
     }
     public virtual void Hurt (float hurt,HurtType type) {
         if(!isHitting && !isDead){
@@ -57,7 +59,7 @@ public class EnemyController : MonoBehaviour
                 Death();
             }
             HP -= hurt;
-            text.text = HP.ToString();
+            // text.text = HP.ToString();
             if(type == HurtType.Lightning && player.isLightningBoom)
                 SetBoom();
         }
@@ -65,10 +67,13 @@ public class EnemyController : MonoBehaviour
     public virtual void HurtByCircle(float hurt,HurtType type){
         if(type == HurtType.BugCircle){
             circleCountTime += Time.deltaTime;
-            if(circleCountTime >= 0.5f){
+            if(circleCountTime >= 0.1f){
                 circleCountTime = 0;
                 HP -= hurt;
-                text.text = HP.ToString();
+                // text.text = HP.ToString();
+                if(HP <= 0 && !isDead){
+                    Death();
+                }
             }
         }
     }

@@ -26,8 +26,8 @@ public class EnemyFollowMove : EnemyController
     }
     public override void HurtByCircle(float hurt,HurtType type)
     {
-        base.Hurt(hurt,type);
-        anim.Play("hurt2");
+        base.HurtByCircle(hurt,type);
+        // anim.Play("hurt2");
     }
     public override void Death(){
         base.Death();

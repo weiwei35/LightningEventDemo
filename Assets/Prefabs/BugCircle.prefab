@@ -161,7 +161,7 @@ MonoBehaviour:
   circleTime: 10
   circleRadiusMin: 2
   circleRadiusMax: 5
-  hurtCount: 2
+  hurtCount: 0.1
 --- !u!111 &245349944781997235
 Animation:
   m_ObjectHideFlags: 0
