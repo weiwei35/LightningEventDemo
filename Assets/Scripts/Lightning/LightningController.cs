@@ -71,8 +71,10 @@ public class LightningController : MonoBehaviour
         foreach (Transform item in petBugs.transform)
         {
             BugController bug = item.GetComponent<BugController>();
-            if(bug.canRecoverEnergy)
+            if(bug!= null && bug.canRecoverEnergy)
+            {
                 bug.energyCurrent += (int)lightningCount;
+            }
         }
         yield return new WaitForSeconds(0.5f);
         endLight = false;

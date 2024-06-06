@@ -30,6 +30,8 @@ public class ItemDataSO : ScriptableObject {
             type.Add(601);
         if(player.isBugCircle)
             type.Add(602);
+        if(player.isBugFollow)
+            type.Add(603);
         for (int i = 0; i < count; i++)
         {
             int randomId;

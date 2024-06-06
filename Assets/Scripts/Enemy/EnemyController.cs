@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour
     public float radius = 15f;
     [HideInInspector]
     public bool isHitting = false;
+    public bool isFollowHitting = false;
     [HideInInspector]
     public Vector3 startPosition; // 开始位置
     [HideInInspector]
@@ -34,6 +35,7 @@ public class EnemyController : MonoBehaviour
     bool isDead = false;
     Tweener tweener;
     float circleCountTime = 0;
+    float followCountTime = 0;
 
     public virtual void Start()
     {
@@ -71,6 +73,19 @@ public class EnemyController : MonoBehaviour
                 circleCountTime = 0;
                 HP -= hurt;
                 // text.text = HP.ToString();
+                if(HP <= 0 && !isDead){
+                    Death();
+                }
+            }
+        }
+    }
+    public virtual void HurtByFollow(float hurt,HurtType type){
+        if(type == HurtType.BugFollow){
+            isFollowHitting = true;
+            followCountTime += Time.deltaTime;
+            if(followCountTime >= 0.5f){
+                followCountTime = 0;
+                HP -= hurt;
                 if(HP <= 0 && !isDead){
                     Death();
                 }
@@ -178,5 +193,6 @@ public enum HurtType{
     Boom,
     Overflow,
     CopyPlayer,
-    BugCircle
+    BugCircle,
+    BugFollow
 }

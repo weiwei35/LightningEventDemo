@@ -157,3 +157,9 @@ MonoBehaviour:
     type: 602
     buff: -1
     specialType: 2
+  - id: 25
+    name: "\u86CA\u866B\xB7\u8FFD\u51FB\u6495\u54AC"
+    desc: "\u8FFD\u8E2A3\u540D\u8840\u91CF\u6700\u9AD8\u7684\u654C\u4EBA\u6301\u7EED\u53EE\u54AC8\u79D2\uFF0C\u654C\u4EBA\u6B7B\u4EA1\u65F6\u81EA\u52A8\u5207\u6362\u76EE\u6807"
+    type: 603
+    buff: -1
+    specialType: 2

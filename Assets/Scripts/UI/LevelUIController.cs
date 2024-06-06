@@ -20,7 +20,7 @@ public class LevelUIController : MonoBehaviour
     }
 
     public void SetLevelPlayer() {
-        playerUI.transform.parent = levels[levelId-1].transform;
+        playerUI.transform.SetParent(levels[levelId-1].transform);
         playerUI.transform.localPosition = new Vector3(0,playerUI.transform.localPosition.y,0);
     }
 }

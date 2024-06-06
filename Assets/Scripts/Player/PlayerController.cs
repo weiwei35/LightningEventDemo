@@ -71,6 +71,9 @@ public class PlayerController : MonoBehaviour
     public bool isBugCircle = false;
     public BugController bugCirclePre;
     public CircleCollider bugCircleCollider;
+    [Header("虫虫·3")]
+    public bool isBugFollow = false;
+    public BugController bugFollowPre;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -413,5 +416,14 @@ public class PlayerController : MonoBehaviour
         bugCircleCollider.minDistance = bug.circleRadiusMin;
         bugCircleCollider.transform.localScale = new Vector3(bug.circleRadiusMax*2,bug.circleRadiusMax*2,bug.circleRadiusMax*2);
         bugCircleCollider.hurtCount = bug.hurtCount;
+    }
+    //虫虫3：持续2秒回复生命值，每秒给角色回复10%已损失生命值，最小值为1
+    public void SetBugFollow() {
+        isBugFollow = !isBugFollow;
+        var bug1 = Instantiate(bugFollowPre.gameObject);
+        BugFollowController bug = bug1.GetComponent<BugFollowController>();
+        bug.transform.parent = petBugs.transform;
+        bug.bugId = bugs.Count;
+        bugs.Add(bug);
     }
 }

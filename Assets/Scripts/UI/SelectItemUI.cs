@@ -78,6 +78,9 @@ public class SelectItemUI : MonoBehaviour
                 case 602:
                     player.SetBugCircle();
                     return true;
+                case 603:
+                    player.SetBugFollow();
+                    return true;
                 default:
                     return false;
             }
