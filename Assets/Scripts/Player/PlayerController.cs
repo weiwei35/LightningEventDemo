@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
     public List<BugController> bugs = new List<BugController>();
     public bool isBugHP = false;
     public BugController bugHPPre;
+    public GameObject recoverAnim;
     [Header("虫虫·2")]
     public bool isBugCircle = false;
     public BugController bugCirclePre;
@@ -236,6 +237,11 @@ public class PlayerController : MonoBehaviour
     }
     public void OutsideRecoveryHP(float hp){
         HPCurrent += hp;
+        recoverAnim.SetActive(true);
+        Invoke("SetRecoverAnimOff",1f);
+    }
+    void SetRecoverAnimOff(){
+        recoverAnim.SetActive(false);
     }
     void RecoveryProtect(){
         protectCurrent += protectSpeed;

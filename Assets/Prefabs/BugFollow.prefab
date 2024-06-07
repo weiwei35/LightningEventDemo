@@ -159,7 +159,7 @@ MonoBehaviour:
   canRecoverEnergy: 1
   followTime: 8
   bugCount: 3
-  followHurt: 0.1
+  followHurt: 5
   mesh: {fileID: 6695492876334303694}
   bugFollowPre: {fileID: 2656145119325886395, guid: c3426520b552f1742a930e64e2ae5054,
     type: 3}

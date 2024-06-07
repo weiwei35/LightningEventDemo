@@ -36,7 +36,9 @@ public class BugFollowController : BugController
             mesh.enabled = true;
             foreach (var item in bugCopys)
             {
-                Destroy(item.gameObject);
+                item.isBack = true;
+                // Destroy(item.gameObject);
+                item.target = transform;
             }
             bugCopys.Clear();
             var enemys = Transform.FindObjectsOfType<EnemyController>();
