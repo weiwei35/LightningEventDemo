@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
     public bool isLightningAttract = false;
     [Header("虫虫·1")]
     public GameObject petBugs;
+    [HideInInspector]
     public List<BugController> bugs = new List<BugController>();
     public bool isBugHP = false;
     public BugController bugHPPre;
@@ -75,6 +76,12 @@ public class PlayerController : MonoBehaviour
     [Header("虫虫·3")]
     public bool isBugFollow = false;
     public BugController bugFollowPre;
+    [Header("虫虫·4")]
+    public bool isBugWall = false;
+    public BugController bugWallPre;
+    [Header("虫虫·5")]
+    public bool isBugAttack = false;
+    public BugController bugAttackPre;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -428,6 +435,24 @@ public class PlayerController : MonoBehaviour
         isBugFollow = !isBugFollow;
         var bug1 = Instantiate(bugFollowPre.gameObject);
         BugFollowController bug = bug1.GetComponent<BugFollowController>();
+        bug.transform.parent = petBugs.transform;
+        bug.bugId = bugs.Count;
+        bugs.Add(bug);
+    }
+    //虫虫4：在身体后方召唤一道墙壁阻挡怪物和子弹，持续5秒
+    public void SetBugWall() {
+        isBugWall = !isBugWall;
+        var bug1 = Instantiate(bugWallPre.gameObject);
+        BugWallController bug = bug1.GetComponent<BugWallController>();
+        bug.transform.parent = petBugs.transform;
+        bug.bugId = bugs.Count;
+        bugs.Add(bug);
+    }
+    //虫虫5：自动攻击距离最近的怪物一次
+    public void SetBugAttack() {
+        isBugAttack = !isBugAttack;
+        var bug1 = Instantiate(bugAttackPre.gameObject);
+        BugAttackController bug = bug1.GetComponent<BugAttackController>();
         bug.transform.parent = petBugs.transform;
         bug.bugId = bugs.Count;
         bugs.Add(bug);

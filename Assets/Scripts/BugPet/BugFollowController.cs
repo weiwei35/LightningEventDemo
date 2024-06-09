@@ -20,7 +20,7 @@ public class BugFollowController : BugController
     public override void Update()
     {
         base.Update();
-        if(energyCurrent > energy){
+        if(energyCurrent >= energy){
             canRecoverEnergy = false;
             energyCurrent = 0;
             SetBugsFollow();

@@ -92,6 +92,14 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+    public virtual void HurtByBugAttack(float hurt,HurtType type){
+        if(type == HurtType.BugAttack){
+            HP -= hurt;
+            if(HP <= 0 && !isDead){
+                Death();
+            }
+        }
+    }
 
     public virtual void Death () {
         speed = 0;
@@ -194,5 +202,6 @@ public enum HurtType{
     Overflow,
     CopyPlayer,
     BugCircle,
-    BugFollow
+    BugFollow,
+    BugAttack
 }
