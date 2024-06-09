@@ -44,7 +44,7 @@ public class EnemyFarMove : EnemyController
     public override void Hurt(float hurt,HurtType type)
     {
         base.Hurt(hurt,type);
-        anim.Play("hurt3");
+        // anim.Play("hurt3");
     }
     public override void HurtByCircle(float hurt,HurtType type)
     {
@@ -53,7 +53,7 @@ public class EnemyFarMove : EnemyController
     }
     public override void Death(){
         base.Death();
-        anim.Play("hurt3");
+        // anim.Play("hurt3");
     }
 
     private void FollowMove () {

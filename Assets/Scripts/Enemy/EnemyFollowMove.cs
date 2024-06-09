@@ -5,12 +5,14 @@ using UnityEngine;
 //移动方式：跟随主角；出现方式：屏幕边缘随机位置
 public class EnemyFollowMove : EnemyController
 {
+    SpriteRenderer sprite;
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
         // SpawnAtRandomEdge();
         SpawnAtRandomCircle();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -22,7 +24,7 @@ public class EnemyFollowMove : EnemyController
     public override void Hurt(float hurt,HurtType type)
     {
         base.Hurt(hurt,type);
-        anim.Play("hurt2");
+        // anim.Play("hurt2");
     }
     public override void HurtByCircle(float hurt,HurtType type)
     {
@@ -31,17 +33,17 @@ public class EnemyFollowMove : EnemyController
     }
     public override void Death(){
         base.Death();
-        anim.Play("hurt2");
+        // anim.Play("hurt2");
     }
 
     private void FollowMove () {
         if(target != null){
             transform.position = Vector3.MoveTowards(transform.position,target.position,Time.deltaTime * speed);
-            // if(transform.position.x > target.position.x){
-            //     transform.localScale = new Vector3(1f,1f,1f);
-            // }else if(transform.position.x < target.position.x){
-            //     transform.localScale = new Vector3(-1f,1f,1f);
-            // }
+            if(transform.position.x > target.position.x){
+                sprite.flipX = true;
+            }else if(transform.position.x < target.position.x){
+                sprite.flipX = false;
+            }
         }
     }
 
