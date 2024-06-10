@@ -17,6 +17,7 @@ public class BugController : MonoBehaviour
     public int energyCurrent = 0;
     [HideInInspector]
     public bool canRecoverEnergy = true;
+    public bool isTriggered = false;
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }

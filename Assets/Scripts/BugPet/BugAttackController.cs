@@ -20,6 +20,7 @@ public class BugAttackController : BugController
         }
     }
     void AttackNear(){
+        isTriggered = true;
         var enemys = Transform.FindObjectsOfType<EnemyController>();
         float minDistance = 100;
         foreach (var item in enemys)
@@ -39,6 +40,7 @@ public class BugAttackController : BugController
             attackCopy.bugAttack = GetComponent<BugAttackController>();
             attackCopy.attack = attack;
         }else{
+        isTriggered = false;
             canRecoverEnergy = true;
         }
     }

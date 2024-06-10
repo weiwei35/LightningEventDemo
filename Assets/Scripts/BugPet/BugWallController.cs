@@ -24,16 +24,19 @@ public class BugWallController : BugController
         }
         if(countTime >= wallTime){
             countTime = 0;
+            isTriggered = false;
             startWall = false;
             canRecoverEnergy = true;
-            // Debug.Log("开始充能");
-            Destroy(wall);
         }
     }
 
     void SetWall(){
+        isTriggered = true;
+
         startWall = true;
         wall = Instantiate(wallPre);
+        BugWallCollider bugWall = wall.GetComponent<BugWallCollider>();
+        bugWall.wallTime = wallTime;
         wall.transform.position = transform.position;
     }
 }

@@ -23,6 +23,7 @@ public class BugHPController : BugController
         }
         if(countTime >= recoverTime){
             countTime = 0;
+        isTriggered = false;
             startRecovery = false;
             canRecoverEnergy = true;
             // Debug.Log("开始充能");
@@ -30,6 +31,7 @@ public class BugHPController : BugController
         }
     }
     void RecoveryPlayerHP(){
+        isTriggered = true;
         startRecovery = true;
         InvokeRepeating("SetPlayerHP",0,1);
     }

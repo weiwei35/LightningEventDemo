@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
@@ -82,6 +83,10 @@ public class PlayerController : MonoBehaviour
     [Header("虫虫·5")]
     public bool isBugAttack = false;
     public BugController bugAttackPre;
+    [Header("虫虫·6")]
+    public bool isBugMerge = false;
+    public BugController bugMergePre;
+    bool isTriggerMerge = false;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -218,6 +223,11 @@ public class PlayerController : MonoBehaviour
         }else if(!protectRecovery){
             startProtectRecovery = false;
             CancelInvoke("RecoveryProtect");
+        }
+
+        //虫虫6：4只虫以上才生效
+        if(bugs.Count >= 4 && isBugMerge && !isTriggerMerge){
+            TriggerBugMerge();
         }
     }
 
@@ -456,5 +466,34 @@ public class PlayerController : MonoBehaviour
         bug.transform.parent = petBugs.transform;
         bug.bugId = bugs.Count;
         bugs.Add(bug);
+    }
+    //虫虫6：角色同时存在4只以上蛊虫时，每隔2秒会自动为一只处于充能状态的蛊虫完全充能
+    public void SetBugMerge() {
+        isBugMerge = !isBugMerge;
+        // var bug1 = Instantiate(bugMergePre.gameObject);
+        // BugController bug = bug1.GetComponent<BugController>();
+        // bug.transform.parent = petBugs.transform;
+        // bug.bugId = bugs.Count;
+        // bugs.Add(bug);
+    }
+    void TriggerBugMerge(){
+        isTriggerMerge = true;
+        InvokeRepeating("RandomBugEnergy",0,2);
+    }
+    void RandomBugEnergy(){
+        int id = -1;
+        int count = 0;
+        do
+        {
+            id = UnityEngine.Random.Range(0,bugs.Count);
+            count ++;
+            if(count > 20){
+                return;
+            }
+        } while(bugs[id].isTriggered);
+        if(id >= 0 && !bugs[id].isTriggered){
+            bugs[id].energyCurrent += bugs[id].energy;
+            Debug.Log("充能虫子："+bugs[id].name);
+        }
     }
 }

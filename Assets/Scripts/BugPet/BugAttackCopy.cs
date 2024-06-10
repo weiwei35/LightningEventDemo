@@ -15,6 +15,7 @@ public class BugAttackCopy : MonoBehaviour
                 {
                     transform.DOMove(bugAttack.transform.position,0.2f).OnComplete(()=>
                         {
+        bugAttack.isTriggered = false;
                             bugAttack.canRecoverEnergy = true;
                             bugAttack.mesh.enabled = true;
                             Destroy(gameObject);
@@ -22,6 +23,7 @@ public class BugAttackCopy : MonoBehaviour
                 });
             enemy.HurtByBugAttack(attack,HurtType.BugAttack);
         }else{
+        bugAttack.isTriggered = false;
             bugAttack.canRecoverEnergy = true;
             bugAttack.mesh.enabled = true;
             Destroy(gameObject);

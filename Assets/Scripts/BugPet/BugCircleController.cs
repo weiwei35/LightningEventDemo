@@ -27,6 +27,7 @@ public class BugCircleController : BugController
         }
         if(countTime >= circleTime){
             countTime = 0;
+        isTriggered = false;
             startCircle = false;
             canRecoverEnergy = true;
             // Debug.Log("开始充能");
@@ -36,6 +37,7 @@ public class BugCircleController : BugController
     void SetCircleHurt(){
         anim = GetComponent<Animation>();
         anim.Play();
+        isTriggered = true;
         startCircle = true;
         player.bugCircleCollider.gameObject.SetActive(true);
     }

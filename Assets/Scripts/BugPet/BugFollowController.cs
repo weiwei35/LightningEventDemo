@@ -31,6 +31,7 @@ public class BugFollowController : BugController
         if(countTime >= followTime){
             countTime = 0;
             startFollow = false;
+            isTriggered = false;
             canRecoverEnergy = true;
             // Debug.Log("开始充能");
             mesh.enabled = true;
@@ -50,6 +51,7 @@ public class BugFollowController : BugController
     }
 
     void SetBugsFollow(){
+        isTriggered = true;
         mesh.enabled = false;
         startFollow = true;
         var enemys = Transform.FindObjectsOfType<EnemyController>();
@@ -58,7 +60,7 @@ public class BugFollowController : BugController
         {
             Debug.Log(item.name +":"+item.HP);
             BugFollowCopy bugCopy = Instantiate(bugFollowPre);
-            bugCopy.transform.parent = transform.parent;
+            // bugCopy.transform.parent = transform.parent;
             bugCopy.transform.position = transform.position;
             // BugFollowController bugCopyFollow = bugCopy.GetComponent<BugFollowController>();
             bugCopy.target = item.transform;

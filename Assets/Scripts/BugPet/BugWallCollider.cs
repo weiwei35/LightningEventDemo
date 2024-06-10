@@ -22,4 +22,11 @@ public class BugWallCollider : MonoBehaviour
             boxCollider.isTrigger = true;
         }
     }
+    float countTime = 0;
+    public float wallTime = 5;
+    private void Update() {
+        countTime += Time.deltaTime;
+        if(countTime > wallTime)
+            Destroy(gameObject);
+    }
 }
