@@ -13,7 +13,7 @@ public class MirrorLineController : MonoBehaviour
     public float startTime = 0.1f;
     public float keepTime = 0.5f;
     LineRenderer line;
-    bool canMove = false;
+    // bool canMove = false;
     public bool isChecked = false;
     public float timeCount = 0;
     public GameObject follow;
@@ -23,6 +23,8 @@ public class MirrorLineController : MonoBehaviour
     Vector3 midPoint;
     public GameObject lineCollider;
     CapsuleCollider capsule;
+    public LightningEffect lightningAsset;
+    LightningEffect lightningEffect;
 
     private void Start()
     {
@@ -40,21 +42,25 @@ public class MirrorLineController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(pos.transform.position != end.transform.position && canMove)
-            pos.transform.position = end.transform.position;
+        // if(start != follow.transform.position && canMove && follow!= null){
+        //     start = follow.transform.position + new Vector3(0,1f,0);
+        //     lightningEffect.pos3.transform.position = start;
+        //     lightningEffect.pos4.transform.position = start;
+        // }
         line.SetPosition(0,start);
         line.SetPosition(1,pos.transform.position);
-        if(canMove)
+        if(lineCollider!= null)
         {
-            midPoint = (start + pos.transform.position) / 2;
+            midPoint = (line.GetPosition(0) + line.GetPosition(1)) / 2;
             lineCollider.transform.position = midPoint;
-            Vector3 direction = end.transform.position - start;
+            Vector3 direction = line.GetPosition(1) - line.GetPosition(0);
             capsule.isTrigger = true;
             capsule.radius = line.startWidth/2;
             capsule.height = direction.magnitude + line.startWidth;
             capsule.direction = 2;
-            Quaternion lookRotation = Quaternion.LookRotation(end.transform.position - start);
-            lineCollider.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);
+            if(Vector3.Distance(line.GetPosition(1),line.GetPosition(0)) != 0)
+            {Quaternion lookRotation = Quaternion.LookRotation(line.GetPosition(1) - line.GetPosition(0));
+            lineCollider.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);}
         }
     }
 
@@ -91,19 +97,27 @@ public class MirrorLineController : MonoBehaviour
     }
 
     public void DrawLinePoints() {
-        canMove = false;
+        // canMove = false;
+        lightningEffect = Instantiate(lightningAsset);
+        lightningEffect.transform.parent = transform;
+        lightningEffect.pos1.transform.position = start;
+        lightningEffect.pos2.transform.position = start;
+        lightningEffect.pos1.transform.DOMove(end.transform.position,startTime);
+        lightningEffect.pos2.transform.DOMove(end.transform.position,startTime);
+        lightningEffect.pos3.transform.position = start;
+        lightningEffect.pos4.transform.position = start;
         line.startWidth = lightning.lightningWidth;
         line.endWidth = lightning.lightningWidth;
         pos.transform.position = start;
         pos.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
         {
-            canMove = true;
-            lineCollider = Instantiate(lineCollider);
-            lineCollider.transform.position = transform.position;
-            lineCollider.transform.parent = transform;
-            capsule = lineCollider.GetComponent<CapsuleCollider>();
+            // canMove = true;
             Invoke("EndLine", keepTime);
         });
+        lineCollider = Instantiate(lineCollider);
+        lineCollider.transform.position = transform.position;
+        lineCollider.transform.parent = transform;
+        capsule = lineCollider.GetComponent<CapsuleCollider>();
     }
 
     public void EndLine () {

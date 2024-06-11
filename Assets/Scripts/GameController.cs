@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class Global{
-    public static Queue<List<Vector3>> lightPoint = new Queue<List<Vector3>>();
+    public static bool isSlowDown = false;
 }
 public class GameController : MonoBehaviour
 {

@@ -206,6 +206,8 @@ MonoBehaviour:
   follow: {fileID: 0}
   lineCollider: {fileID: 1882638087667443515, guid: a5445d913c663774da5e26d44566d7d9,
     type: 3}
+  lightningAsset: {fileID: 2054700712137755922, guid: 5ecfe7aaad57bc44085cead9d421d718,
+    type: 3}
 --- !u!1 &6243194527875724978
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
     public float attack = 5f;
     [Header("移动速度")]
     public float speed = 1.0f; // 移动速度
+    float speedSave = 1;
     [Header("UI")]
     public TMP_Text text;
     [Header("随机范围圆心")]
@@ -44,13 +45,19 @@ public class EnemyController : MonoBehaviour
         anim = GetComponent<Animation>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        speedSave = speed;
     }
     public virtual void Update() {
         // if(HP <= 0 && !isDead){
         //     Death();
         // }
         text.text = (Mathf.Round(HP * 10.0f) / 10.0f).ToString();
-
+        //速度处理
+        if(Global.isSlowDown){
+            speed = speedSave/10;
+        }else{
+            speed = speedSave;
+        }
     }
     public virtual void Hurt (float hurt,HurtType type) {
         if(!isHitting && !isDead){
@@ -175,7 +182,7 @@ public class EnemyController : MonoBehaviour
                 OverLineController lineController = lineCur.GetComponent<OverLineController>();
                 lineController.start = transform.position;
                 lineController.end.transform.position = filteredEnemies[enemyId].transform.position;
-                lineController.startTime = 0.1f;
+                lineController.startTime = 0.2f;
                 lineController.keepTime = 0.1f;
                 lineController.showTime = 0;
                 EnemyController hurtEnemy = filteredEnemies[enemyId].GetComponent<EnemyController>();

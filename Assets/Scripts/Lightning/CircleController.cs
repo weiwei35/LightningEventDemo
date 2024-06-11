@@ -51,14 +51,14 @@ public class CircleController : MonoBehaviour
                     lineController.end.transform.position = lineController.follow.transform.position + new Vector3(0,1f,0);
             }
         }
-        foreach (var item in lineCopys)
-        {
-            if(item != null){
-                MirrorLineController lineController = item.GetComponent<MirrorLineController>();
-                if(lineController.follow != null)
-                    lineController.start = lineController.follow.transform.position + new Vector3(0,1f,0);
-            }
-        }
+        // foreach (var item in lineCopys)
+        // {
+        //     if(item != null){
+        //         MirrorLineController lineController = item.GetComponent<MirrorLineController>();
+        //         if(lineController.follow != null)
+        //             lineController.start = lineController.follow.transform.position + new Vector3(0,1f,0);
+        //     }
+        // }
         // //当有雷点出现时，界面边缘的雷点跟随显示
         // if(canFollow)
         //     GetCamLight();
@@ -161,7 +161,7 @@ public class CircleController : MonoBehaviour
                 i++;
             }
         }
-        SetLines(0.1f,0.3f,points);
+        SetLines(lightning.startTime,lightning.keepTime,points);
         // GetCamLight();
     }
         //在圆上取count个数的随机点
@@ -202,7 +202,7 @@ public class CircleController : MonoBehaviour
                 i++;
             }
         }
-        SetLinesCopy(0.1f,0.3f,pointsCopy);
+        SetLinesCopy(lightning.startTime,lightning.keepTime,pointsCopy);
         // GetCamLight();
     }
     //在圆上取随机点
@@ -284,9 +284,9 @@ public class CircleController : MonoBehaviour
             var lineCur = Instantiate(mirrorLine.gameObject);
             lineCur.transform.position = player.transform.position;
             MirrorLineController lineController = lineCur.GetComponent<MirrorLineController>();
-            lineController.start = player.transform.position;
+            lineController.start = player.transform.position + new Vector3(0,1f,0);
             lineController.end.transform.position = point;
-            lineController.startTime = startTime;
+            lineController.startTime = 0.1f;
             lineController.keepTime = keepTime;
             lineController.showTime = 0;
             lineController.follow = player;

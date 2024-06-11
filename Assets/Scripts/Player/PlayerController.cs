@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("移动速度")]
     public float moveSpeed = 5f;
+    float speed = 5f;
     [Header("生命值")]
     public float HP = 100f;
     float HPCurrent;
@@ -118,6 +119,7 @@ public class PlayerController : MonoBehaviour
         sliderPro.value = protectCurrent/protect;
         anim = GetComponent<PlayerAnimation>();
         rb = GetComponent<Rigidbody>();
+        speed = moveSpeed;
     }
  
     // Update is called once per frame
@@ -143,6 +145,12 @@ public class PlayerController : MonoBehaviour
         textPro.text = protectCurrent.ToString();
         sliderHP.value = HPCurrent/HP;
         sliderPro.value = protectCurrent/protect;
+        //速度处理
+        if(Global.isSlowDown){
+            moveSpeed = speed/20;
+        }else{
+            moveSpeed = speed;
+        }
 
         //受伤状态判定
         if(!IsInCircle() && !gameController.isReward){

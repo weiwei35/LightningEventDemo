@@ -166,17 +166,6 @@ public class EnemyFarMove : EnemyController
     }
 
     //攻击逻辑：按频率朝主角方向发射子弹
-    void Attack(){
-        isAttack = true;
-        var curBullet = Instantiate(bullet);
-        curBullet.transform.position = transform.position;
-        Rigidbody bulletRb = curBullet.GetComponent<Rigidbody>();
-        BulletController bulletController = curBullet.GetComponent<BulletController>();
-        bulletController.hurt = bulletHurt;
-        Vector3 direction = target.position - transform.position;
-        direction.Normalize();
-        bulletRb.velocity = direction * bulletSpeed;
-    }
     bool CheckInACircle(){
         var distance = Vector2.Distance(center,transform.position);
         if(distance > radius){
@@ -197,6 +186,8 @@ public class EnemyFarMove : EnemyController
         Vector3 direction = target.position - transform.position;
         direction.Normalize();
         bulletRb.velocity = direction * bulletSpeed;
+        bulletController.bulletSpeed = bulletSpeed;
+        bulletController.direction = direction;
         yield return new WaitForSeconds(bulletTime);
         StartCoroutine(AttackTimer());
     }

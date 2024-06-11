@@ -75,8 +75,8 @@ public class OverLineController : MonoBehaviour
 
     public void DrawLinePoints() {
         canMove = false;
-        line.startWidth = 0.3f;
-        line.endWidth = 0.3f;
+        line.startWidth = 3f;
+        line.endWidth = 3f;
         pos.transform.position = start;
         pos.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
         {

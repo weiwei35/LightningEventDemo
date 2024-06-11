@@ -10,6 +10,7 @@ TagManager:
   - PlayerOnceCopy
   - LightningController
   - PetBugs
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - LineCollider
   - Bullet
   - Wall
-  - 
+  - LightningEffect
   - 
   - 
   - 

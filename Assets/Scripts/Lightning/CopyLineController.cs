@@ -25,7 +25,10 @@ public class CopyLineController : MonoBehaviour
     PlayerController player;
     Vector3 midPoint;
     public GameObject lineCollider;
-    CapsuleCollider capsule;
+    GameObject colliderCur;
+    CapsuleCollider capsuleCollider;
+    public LightningEffect lightningAsset;
+    LightningEffect lightningEffect;
     private void Start()
     {
         line = GetComponent<LineRenderer>();
@@ -57,24 +60,34 @@ public class CopyLineController : MonoBehaviour
     private void FixedUpdate()
     {
         if(pos.transform.position != follow.transform.position && canMove && follow!= null){
-            pos.transform.position = follow.transform.position + new Vector3(0,0.5f,0);
+            pos.transform.position = follow.transform.position + new Vector3(0,1f,0);
             // end.transform.position = follow.transform.position;
+            // SetCircleLine();
+            lightningEffect.pos1.transform.position = pos.transform.position;
+            lightningEffect.pos2.transform.position = pos.transform.position;
         }
-            
+        if(colliderCur != null){
+            colliderCur.GetComponent<LineCollider>().start = start;
+            colliderCur.GetComponent<LineCollider>().end = end.transform.position;
+            for(int i = 0; i < line.positionCount-1; i++)
+            {
+                Vector3 midPoint = (line.GetPosition(i) + line.GetPosition(i+1)) / 2;
+                colliderCur.transform.position = midPoint;
+                colliderCur.transform.parent = transform;
+                Vector3 direction = line.GetPosition(0) - line.GetPosition(1);
+                capsuleCollider = colliderCur.GetComponent<CapsuleCollider>();
+                capsuleCollider.isTrigger = true;
+                capsuleCollider.radius = line.startWidth/4;
+                capsuleCollider.height = direction.magnitude + line.startWidth;
+                capsuleCollider.direction = 2;
+                if(Vector3.Distance(line.GetPosition(i+1),line.GetPosition(i)) != 0){
+                    Quaternion lookRotation = Quaternion.LookRotation(line.GetPosition(i+1) - line.GetPosition(i));
+                    colliderCur.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);
+                }
+            }
+        }
         line.SetPosition(0,start);
         line.SetPosition(1,pos.transform.position);
-        if(canMove)
-        {
-            midPoint = (start + pos.transform.position) / 2;
-            lineCollider.transform.position = midPoint;
-            Vector3 direction = end.transform.position - start;
-            capsule.isTrigger = true;
-            capsule.radius = line.startWidth/2;
-            capsule.height = direction.magnitude + line.startWidth;
-            capsule.direction = 2;
-            Quaternion lookRotation = Quaternion.LookRotation(end.transform.position - start);
-            lineCollider.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);
-        }
     }
 
     public void CheckCopy() {
@@ -85,7 +98,7 @@ public class CopyLineController : MonoBehaviour
                 {
                     var lineCurCopy = Instantiate(gameObject);
                     lineCurCopy.transform.position = transform.position;
-                    LineController lineControllerCopy = lineCurCopy.GetComponent<LineController>();
+                    CopyLineController lineControllerCopy = lineCurCopy.GetComponent<CopyLineController>();
                     lineControllerCopy.start = start;
                     lineControllerCopy.end.transform.position = new Vector3(item.transform.position.x,item.transform.position.y,-5);
                     lineControllerCopy.startTime = startTime;
@@ -98,9 +111,9 @@ public class CopyLineController : MonoBehaviour
         }
         if(player.GetComponent<PlayerController>().isCircleCopy){
                 GameObject playerCopy = GameObject.FindGameObjectWithTag("PlayerCopy");
-                var lineCurCopy = Instantiate(line.gameObject);
+                var lineCurCopy = Instantiate(gameObject);
                 lineCurCopy.transform.position = transform.position;
-                LineController lineControllerCopy = lineCurCopy.GetComponent<LineController>();
+                CopyLineController lineControllerCopy = lineCurCopy.GetComponent<CopyLineController>();
                 lineControllerCopy.start = start;
                 lineControllerCopy.end.transform.position = new Vector3(playerCopy.transform.position.x,playerCopy.transform.position.y,-5);
                 lineControllerCopy.startTime = startTime;
@@ -113,18 +126,36 @@ public class CopyLineController : MonoBehaviour
 
     public void DrawLinePoints() {
         canMove = false;
+        Global.isSlowDown = true;
+        lightningEffect = Instantiate(lightningAsset);
+        lightningEffect.transform.parent = transform;
+        lightningEffect.pos1.transform.position = start;
+        lightningEffect.pos2.transform.position = start;
+        lightningEffect.pos1.transform.DOMove(end.transform.position,startTime);
+        lightningEffect.pos2.transform.DOMove(end.transform.position,startTime);
+        lightningEffect.pos3.transform.position = start;
+        lightningEffect.pos4.transform.position = start;
         line.startWidth = lightning.lightningWidth;
         line.endWidth = lightning.lightningWidth;
         pos.transform.position = start;
         pos.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
         {
+            Global.isSlowDown = false;
             canMove = true;
-            lineCollider = Instantiate(lineCollider);
-            lineCollider.transform.position = transform.position;
-            lineCollider.transform.parent = transform;
-            capsule = lineCollider.GetComponent<CapsuleCollider>();
             Invoke("EndLine", keepTime);
         });
+        Vector3 midPoint = (line.GetPosition(0) + line.GetPosition(1)) / 2;
+        colliderCur = Instantiate(lineCollider);
+        colliderCur.transform.position = midPoint;
+        colliderCur.transform.parent = transform;
+        Vector3 direction = line.GetPosition(0) - line.GetPosition(1);
+        capsuleCollider = colliderCur.GetComponent<CapsuleCollider>();
+        capsuleCollider.isTrigger = true;
+        capsuleCollider.radius = line.startWidth/4;
+        capsuleCollider.height = direction.magnitude + line.startWidth;
+        capsuleCollider.direction = 2;
+
+        // SetCircleLine();
     }
 
     public void EndLine () {

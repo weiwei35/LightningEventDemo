@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    public Vector3 direction;
+    public float bulletSpeed;
     public float hurt;
     public float length = 30;
     public Vector3 center = Vector3.zero;
@@ -14,10 +16,15 @@ public class BulletController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
     private void Update() {
-
         float distance = Vector3.Distance(transform.position,center);
         if(distance >= length){
             Destroy(gameObject);
+        }
+        //速度处理
+        if(Global.isSlowDown){
+            rb.velocity = direction * (bulletSpeed/10);
+        }else{
+            rb.velocity = direction * bulletSpeed;
         }
     }
     public void OnTriggerEnter(Collider other)
