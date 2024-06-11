@@ -140,7 +140,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 20
   attack: 5
-  speed: 0.5
+  speed: 1
   text: {fileID: 4692023589273772047}
   center: {x: 0, y: 0, z: 0}
   radius: 12
@@ -156,7 +156,7 @@ MonoBehaviour:
   attackDistance: 8
   followDistance: 15
   bullet: {fileID: 3500004177450050912, guid: 42cb3612ebf50714487458cd64e60498, type: 3}
-  bulletHurt: 5
+  bulletHurt: 10
   bulletSpeed: 3
   bulletTime: 5
 --- !u!54 &8224236252423854458
