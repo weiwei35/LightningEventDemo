@@ -17,12 +17,16 @@ public class BugFollowController : BugController
     public BugFollowCopy bugFollowPre;
     List<BugFollowCopy> bugCopys = new List<BugFollowCopy>();
     bool startFollow = false;
+    bool trueStart = false;
     public override void Update()
     {
         base.Update();
         if(energyCurrent >= energy){
             canRecoverEnergy = false;
             energyCurrent = 0;
+            trueStart = true;
+        }
+        if(trueStart){
             SetBugsFollow();
         }
         if(startFollow){
@@ -51,21 +55,24 @@ public class BugFollowController : BugController
     }
 
     void SetBugsFollow(){
-        isTriggered = true;
-        mesh.enabled = false;
-        startFollow = true;
         var enemys = Transform.FindObjectsOfType<EnemyController>();
-        var enemyListByHP = enemys.OrderByDescending(p => p.HP).Take(bugCount).ToList();
-        foreach (var item in enemyListByHP)
-        {
-            Debug.Log(item.name +":"+item.HP);
-            BugFollowCopy bugCopy = Instantiate(bugFollowPre);
-            // bugCopy.transform.parent = transform.parent;
-            bugCopy.transform.position = transform.position;
-            // BugFollowController bugCopyFollow = bugCopy.GetComponent<BugFollowController>();
-            bugCopy.target = item.transform;
-            bugCopy.followHurt = followHurt;
-            bugCopys.Add(bugCopy);
+        if(enemys.Length > 0){
+            trueStart = false;
+            isTriggered = true;
+            mesh.enabled = false;
+            startFollow = true;
+            var enemyListByHP = enemys.OrderByDescending(p => p.HP).Take(bugCount).ToList();
+            foreach (var item in enemyListByHP)
+            {
+                Debug.Log(item.name +":"+item.HP);
+                BugFollowCopy bugCopy = Instantiate(bugFollowPre);
+                // bugCopy.transform.parent = transform.parent;
+                bugCopy.transform.position = transform.position;
+                // BugFollowController bugCopyFollow = bugCopy.GetComponent<BugFollowController>();
+                bugCopy.target = item.transform;
+                bugCopy.followHurt = followHurt;
+                bugCopys.Add(bugCopy);
+            }
         }
     }
 }
