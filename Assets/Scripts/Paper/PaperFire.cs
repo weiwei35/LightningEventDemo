@@ -9,8 +9,10 @@ public class PaperFire : PaperModel
     public float countTime = 0;
     public GameObject fireBall;
     SpriteRenderer sprite;
+    Animator anim;
     private void Start() {
         sprite = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
         InvokeRepeating("FireBall",0,1);
     }
     private void Update() {
@@ -20,6 +22,7 @@ public class PaperFire : PaperModel
         if(countTime>=overTime && isOverLoad){
             countTime = 0;
             isOverLoad = false;
+            anim.speed = 1;
             sprite.color = Color.white;
 
             CancelInvoke("FireBall");
@@ -50,7 +53,8 @@ public class PaperFire : PaperModel
         }
     }
     public override void OverLoadFun(){
-        sprite.color = Color.yellow;
+        sprite.color = Color.red;
+        anim.speed = 2;
         CancelInvoke("FireBall");
         
         InvokeRepeating("FireBall",0,0.5f);

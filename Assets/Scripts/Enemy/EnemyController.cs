@@ -37,6 +37,7 @@ public class EnemyController : MonoBehaviour
     Tweener tweener;
     float circleCountTime = 0;
     float followCountTime = 0;
+    public bool iceSpeed = false;
 
     public virtual void Start()
     {
@@ -55,7 +56,10 @@ public class EnemyController : MonoBehaviour
         //速度处理
         if(Global.isSlowDown){
             speed = speedSave/10;
-        }else{
+        }else if(iceSpeed){
+            speed = speedSave/5;
+        }
+        else if(!Global.isSlowDown && !iceSpeed){
             speed = speedSave;
         }
     }
@@ -99,11 +103,25 @@ public class EnemyController : MonoBehaviour
             }
         }
     }
+    public virtual void HurtByPaperIce(float hurt,HurtType type){
+        if(type == HurtType.PaperIce){
+            HP -= hurt;
+            iceSpeed = true;
+            if(HP <= 0 && !isDead){
+                Death();
+            }
+            Invoke("ResetSpeed",5);
+        }
+        
+    }
     public virtual void HurtByBugAttack(float hurt,HurtType type){
         HP -= hurt;
         if(HP <= 0 && !isDead){
             Death();
         }
+    }
+    void ResetSpeed(){
+        iceSpeed = false;
     }
 
     public virtual void Death () {
@@ -215,5 +233,6 @@ public enum HurtType{
     BugCircle,
     BugFollow,
     BugAttack,
-    PaperFireBall
+    PaperFireBall,
+    PaperIce
 }

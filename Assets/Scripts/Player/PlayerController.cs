@@ -92,6 +92,9 @@ public class PlayerController : MonoBehaviour
     public GameObject papers;
     public bool isPaperFireBall = false;
     public PaperController paperFirePre;
+    [Header("符箓·冰剑")]
+    public bool isPaperIce = false;
+    public PaperController paperIcePre;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -513,6 +516,14 @@ public class PlayerController : MonoBehaviour
     public void SetPaperFireBall() {
         isPaperFireBall = !isPaperFireBall;
         var paper = Instantiate(paperFirePre);
+        paper.transform.parent = papers.transform;
+        paper.transform.position = papers.transform.position;
+    }
+
+    //符箓·寒冰：每10轮雷劫再次召唤，剑气围绕符箓旋转，对扫过的敌人造成伤害并减少20%移动速度。
+    public void SetPaperIce() {
+        isPaperIce = !isPaperIce;
+        var paper = Instantiate(paperIcePre);
         paper.transform.parent = papers.transform;
         paper.transform.position = papers.transform.position;
     }
