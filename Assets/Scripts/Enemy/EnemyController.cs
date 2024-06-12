@@ -100,11 +100,9 @@ public class EnemyController : MonoBehaviour
         }
     }
     public virtual void HurtByBugAttack(float hurt,HurtType type){
-        if(type == HurtType.BugAttack){
-            HP -= hurt;
-            if(HP <= 0 && !isDead){
-                Death();
-            }
+        HP -= hurt;
+        if(HP <= 0 && !isDead){
+            Death();
         }
     }
 
@@ -200,6 +198,12 @@ public class EnemyController : MonoBehaviour
         if(transform != null)
             tweener = transform.DOMove(pos,0.1f);
     }
+    private void OnDestroy() {
+        if (tweener != null)
+        {
+            tweener.Kill();
+        }
+    }
 
 }
 
@@ -210,5 +214,6 @@ public enum HurtType{
     CopyPlayer,
     BugCircle,
     BugFollow,
-    BugAttack
+    BugAttack,
+    PaperFireBall
 }

@@ -249,7 +249,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9
   m_Sprite: {fileID: 1178507057, guid: 6f588954c1856a148bddd0d400ab393b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -316,9 +316,11 @@ MonoBehaviour:
   center: {x: 0, y: 0, z: 0}
   radius: 15
   isHitting: 0
+  isFollowHitting: 0
   startPosition: {x: 0, y: 0, z: 0}
   anim: {fileID: 0}
   target: {fileID: 0}
+  lineCopy: {fileID: 0}
   boom: {fileID: 2892117171290514479, guid: 1d385aee270ab194e93a2bd5bf63bd0a, type: 3}
 --- !u!65 &803609741156311503
 BoxCollider:

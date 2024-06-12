@@ -25,6 +25,10 @@ public class CircleController : MonoBehaviour
     public float radius;
     [Header("圆心")]
     public GameObject centerPos;
+    [Header("反射雷出现时长")]
+    public float mirroeStartTime;
+    [Header("反射雷停留时长")]
+    public float mirroeKeepTime;
 
     void Awake()
     {
@@ -202,7 +206,7 @@ public class CircleController : MonoBehaviour
                 i++;
             }
         }
-        SetLinesCopy(lightning.startTime,lightning.keepTime,pointsCopy);
+        SetLinesCopy(mirroeStartTime,mirroeStartTime,pointsCopy);
         // GetCamLight();
     }
     //在圆上取随机点
@@ -286,7 +290,7 @@ public class CircleController : MonoBehaviour
             MirrorLineController lineController = lineCur.GetComponent<MirrorLineController>();
             lineController.start = player.transform.position + new Vector3(0,1f,0);
             lineController.end.transform.position = point;
-            lineController.startTime = 0.1f;
+            lineController.startTime = startTime;
             lineController.keepTime = keepTime;
             lineController.showTime = 0;
             lineController.follow = player;

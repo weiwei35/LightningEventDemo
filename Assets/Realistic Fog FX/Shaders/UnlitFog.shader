@@ -972,7 +972,7 @@ Shader "Archanor VFX/Real Fog/UnlitFog"
 
 	
 	}
-	CustomEditor "UnityEditor.ShaderGraph.PBRMasterGUI"
+	// CustomEditor "UnityEditor.ShaderGraph.PBRMasterGUI"
 	Fallback "Hidden/InternalErrorShader"
 	
 }

@@ -30,12 +30,14 @@ public class LightningController : MonoBehaviour
     CircleController circle;
     PlayerController player;
     GameObject petBugs;
+    GameObject papers;
     // Start is called before the first frame update
     void Start()
     {
         circle = GetComponent<CircleController>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         petBugs = GameObject.FindGameObjectWithTag("PetBugs");
+        papers = GameObject.FindGameObjectWithTag("Papers");
     }
 
     // Update is called once per frame
@@ -74,6 +76,14 @@ public class LightningController : MonoBehaviour
             if(bug!= null && bug.canRecoverEnergy)
             {
                 bug.energyCurrent += (int)lightningCount;
+            }
+        }
+        foreach (Transform item in papers.transform)
+        {
+            PaperController paper = item.GetComponent<PaperController>();
+            if(paper!= null)
+            {
+                paper.countCurrent ++;
             }
         }
         yield return new WaitForSeconds(0.5f);

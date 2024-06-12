@@ -88,7 +88,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fa32aa062bff98b46835dd3d56087b01, type: 2}
+  - {fileID: 2100000, guid: 491c4b2ccf2c79d49ae87d79317cae9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,7 +108,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 9
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
@@ -201,6 +201,8 @@ MonoBehaviour:
   showTime: 0
   startTime: 0.1
   keepTime: 0.1
+  lightningAsset: {fileID: 2054700712137755922, guid: fa5f36cecb2e4104e8aa1dffc0ac911c,
+    type: 3}
 --- !u!1 &6243194527875724978
 GameObject:
   m_ObjectHideFlags: 0

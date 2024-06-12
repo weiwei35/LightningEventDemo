@@ -1,0 +1,58 @@
+using System.Collections;
+using System.Collections.Generic;
+using DG.Tweening;
+using UnityEngine;
+
+public class PaperFire : PaperModel
+{
+    public float overTime;
+    public float countTime = 0;
+    public GameObject fireBall;
+    SpriteRenderer sprite;
+    private void Start() {
+        sprite = GetComponent<SpriteRenderer>();
+        InvokeRepeating("FireBall",0,1);
+    }
+    private void Update() {
+        if(isOverLoad){
+            countTime += Time.deltaTime;
+        }
+        if(countTime>=overTime && isOverLoad){
+            countTime = 0;
+            isOverLoad = false;
+            sprite.color = Color.white;
+
+            CancelInvoke("FireBall");
+        
+            InvokeRepeating("FireBall",0,1);
+        }
+    }
+
+    void FireBall(){
+        var enemys = Transform.FindObjectsOfType<EnemyController>();
+        List<EnemyController> enemyInArea = new List<EnemyController>();
+        foreach (var item in enemys)
+        {
+            float distance = Vector3.Distance(item.transform.position,transform.position);
+            if(distance <= 5){
+                enemyInArea.Add(item);
+            }
+        }
+        if(enemyInArea.Count > 0){
+            int id = Random.Range(0,enemyInArea.Count);
+            Debug.Log("火球攻击"+enemyInArea[id].name);
+            var ball = Instantiate(fireBall);
+            ball.transform.position = transform.position;
+            ball.transform.DOMove(enemyInArea[id].transform.position,0.2f).OnComplete(()=>{
+                Destroy(ball.gameObject);
+                enemyInArea[id].HurtByBugAttack(0.2f,HurtType.PaperFireBall);
+            });
+        }
+    }
+    public override void OverLoadFun(){
+        sprite.color = Color.yellow;
+        CancelInvoke("FireBall");
+        
+        InvokeRepeating("FireBall",0,0.5f);
+    }
+}

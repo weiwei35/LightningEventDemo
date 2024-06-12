@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     public bool isReward = false;
     public GameObject endLevelPanel;
+    GameObject papers;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +32,7 @@ public class GameController : MonoBehaviour
         // enemyPool.SetLevelEnemy();
         enemyPool.SetEnemyArray();
         selectPanel = endLevelPanel.GetComponent<SelectItemUI>();
+        papers = GameObject.FindGameObjectWithTag("Papers");
     }
 
     // Update is called once per frame
@@ -47,6 +49,14 @@ public class GameController : MonoBehaviour
                 levelId ++;
                 Time.timeScale = 0;
                 endLevelPanel.SetActive(true);
+                foreach (Transform item in papers.transform)
+                {
+                    PaperController paper = item.GetComponent<PaperController>();
+                    if(paper!= null)
+                    {
+                        paper.DestroyChild();
+                    }
+                }
                 // SetLevel();
             }
         }else{
@@ -76,6 +86,14 @@ public class GameController : MonoBehaviour
                 rewardTime = level.rewardTime;
                 enemyPool.SetLevel(levelId);
                 enemyPool.SetEnemyArray();
+                foreach (Transform item in papers.transform)
+                {
+                    PaperController paper = item.GetComponent<PaperController>();
+                    if(paper!= null)
+                    {
+                        paper.countCurrent = paper.count;
+                    }
+                }
             }
         }
     }

@@ -28,6 +28,15 @@ public class LineColliderMain : MonoBehaviour
                 enemy.MoveToLine(GetCrossPoin(other.gameObject));
             }
         }
+        if(other.gameObject.layer == 15){
+            PaperModel paper = other.gameObject.GetComponent<PaperModel>();
+            Debug.Log("符箓：" + other.name);
+            //过载符箓
+            if(!paper.isOverLoad){
+                paper.isOverLoad = true;
+                paper.OverLoadFun();
+            }
+        }
     }
 
     //获取敌人与雷电交点

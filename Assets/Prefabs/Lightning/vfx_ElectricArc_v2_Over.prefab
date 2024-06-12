@@ -169,7 +169,7 @@ VFXRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9
 --- !u!114 &7903003747784807102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,7 +519,7 @@ VFXRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9
 --- !u!114 &7997648192463600215
 MonoBehaviour:
   m_ObjectHideFlags: 0

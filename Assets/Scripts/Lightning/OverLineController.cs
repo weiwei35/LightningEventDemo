@@ -18,6 +18,8 @@ public class OverLineController : MonoBehaviour
     EnemyController enemy;
     LightningController lightning;
     PlayerController player;
+    public LightningEffect lightningAsset;
+    LightningEffect lightningEffect;
 
     private void Start()
     {
@@ -75,8 +77,16 @@ public class OverLineController : MonoBehaviour
 
     public void DrawLinePoints() {
         canMove = false;
-        line.startWidth = 3f;
-        line.endWidth = 3f;
+        lightningEffect = Instantiate(lightningAsset);
+        lightningEffect.transform.parent = transform;
+        lightningEffect.pos1.transform.position = start;
+        lightningEffect.pos2.transform.position = start;
+        lightningEffect.pos1.transform.DOMove(end.transform.position,startTime);
+        lightningEffect.pos2.transform.DOMove(end.transform.position,startTime);
+        lightningEffect.pos3.transform.position = start;
+        lightningEffect.pos4.transform.position = start;
+        line.startWidth = 0.3f;
+        line.endWidth = 0.3f;
         pos.transform.position = start;
         pos.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
         {

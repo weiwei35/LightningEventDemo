@@ -88,6 +88,10 @@ public class PlayerController : MonoBehaviour
     public bool isBugMerge = false;
     public BugController bugMergePre;
     bool isTriggerMerge = false;
+    [Header("符箓·火球")]
+    public GameObject papers;
+    public bool isPaperFireBall = false;
+    public PaperController paperFirePre;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -503,5 +507,13 @@ public class PlayerController : MonoBehaviour
             bugs[id].energyCurrent += bugs[id].energy;
             Debug.Log("充能虫子："+bugs[id].name);
         }
+    }
+
+    //符箓·火球：每8轮雷劫再次召唤，对一定范围内敌人每秒喷射一个火球。
+    public void SetPaperFireBall() {
+        isPaperFireBall = !isPaperFireBall;
+        var paper = Instantiate(paperFirePre);
+        paper.transform.parent = papers.transform;
+        paper.transform.position = papers.transform.position;
     }
 }
