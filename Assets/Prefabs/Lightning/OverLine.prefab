@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ea13053e53495419b4f7cde1b72714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  start: {x: 0, y: 0, z: 0}
+  start: {fileID: 6243194527875724978}
   end: {fileID: 9097606053153688989}
   pos: {fileID: 53540674719839735}
   layer:

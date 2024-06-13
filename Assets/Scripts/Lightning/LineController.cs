@@ -3,7 +3,7 @@ using DG.Tweening;
 using System.Collections;
 public class LineController : MonoBehaviour
 {
-    public Vector3 start;
+    public GameObject start;
     public GameObject end;
     public GameObject pos;
     public LayerMask layer;
@@ -47,7 +47,7 @@ public class LineController : MonoBehaviour
         if(timeCount > lightning.lightningPreTime){
             timeCount = 0;
             if(follow == null)
-                end.transform.position = start;
+                end.transform.position = start.transform.position;
             if(!isChecked){
                 isChecked = true;
                 CheckCopy();
@@ -65,7 +65,7 @@ public class LineController : MonoBehaviour
             lightningEffect.pos2.transform.position = pos.transform.position;
         }
         if(colliderCur!= null){
-            colliderCur.GetComponent<LineColliderMain>().start = start;
+            colliderCur.GetComponent<LineColliderMain>().start = start.transform.position;
             colliderCur.GetComponent<LineColliderMain>().end = end.transform.position;
             for(int i = 0; i < line.positionCount-1; i++)
             {
@@ -84,7 +84,7 @@ public class LineController : MonoBehaviour
                 }
             }
         }
-        line.SetPosition(0,start);
+        line.SetPosition(0,start.transform.position);
         line.SetPosition(1,pos.transform.position);
     }
 
@@ -97,8 +97,8 @@ public class LineController : MonoBehaviour
                     var lineCurCopy = Instantiate(copyLine);
                     lineCurCopy.transform.position = transform.position;
                     CopyLineController lineControllerCopy = lineCurCopy.GetComponent<CopyLineController>();
-                    lineControllerCopy.start = start;
-                    lineControllerCopy.end.transform.position = new Vector3(item.transform.position.x,item.transform.position.y,-5);
+                    lineControllerCopy.start.transform.position = start.transform.position;
+                    lineControllerCopy.end.transform.position = new Vector3(item.transform.position.x,item.transform.position.y,-5) + new Vector3(0,0.6f,0);
                     lineControllerCopy.startTime = startTime;
                     lineControllerCopy.keepTime = keepTime;
                     lineControllerCopy.follow = item;
@@ -112,8 +112,8 @@ public class LineController : MonoBehaviour
                 var lineCurCopy = Instantiate(copyLine);
                 lineCurCopy.transform.position = transform.position;
                 CopyLineController lineControllerCopy = lineCurCopy.GetComponent<CopyLineController>();
-                lineControllerCopy.start = start;
-                lineControllerCopy.end.transform.position = new Vector3(playerCopy.transform.position.x,playerCopy.transform.position.y,-5);
+                lineControllerCopy.start.transform.position = start.transform.position;
+                lineControllerCopy.end.transform.position = new Vector3(playerCopy.transform.position.x,playerCopy.transform.position.y,-5) + new Vector3(0,0.6f,0);
                 lineControllerCopy.startTime = startTime;
                 lineControllerCopy.keepTime = keepTime;
                 lineControllerCopy.follow = playerCopy;
@@ -127,19 +127,17 @@ public class LineController : MonoBehaviour
         Global.isSlowDown = true;
         lightningEffect = Instantiate(lightningAsset);
         lightningEffect.transform.parent = transform;
-        lightningEffect.pos1.transform.position = start;
-        lightningEffect.pos2.transform.position = start;
+        lightningEffect.pos1.transform.position = start.transform.position;
+        lightningEffect.pos2.transform.position = start.transform.position;
         lightningEffect.pos1.transform.DOMove(end.transform.position,startTime);
         lightningEffect.pos2.transform.DOMove(end.transform.position,startTime);
-        lightningEffect.pos3.transform.position = start;
-        lightningEffect.pos4.transform.position = start;
+        lightningEffect.pos3.transform.position = start.transform.position;
+        lightningEffect.pos4.transform.position = start.transform.position;
         line.startWidth = lightning.lightningWidth;
         line.endWidth = lightning.lightningWidth;
-        pos.transform.position = start;
+        pos.transform.position = start.transform.position;
         pos.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
         {
-            Global.isSlowDown = false;
-            canMove = true;
             Invoke("EndLine", keepTime);
             Invoke("SetEndLine", 0);
         });
@@ -158,18 +156,26 @@ public class LineController : MonoBehaviour
     }
 
     public void EndLine () {
-        var enemys = Transform.FindObjectsOfType<EnemyController>();
-        foreach (var item in enemys)
+        lightningEffect.pos3.transform.DOMove(end.transform.position,startTime);
+        lightningEffect.pos4.transform.DOMove(end.transform.position,startTime);
+        start.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
         {
-            item.isHitting = false;
-        }
-        if(follow != null && follow.layer == 7){
-            PlayerOnceController copy = follow.GetComponent<PlayerOnceController>();
-            copy.lightningCount ++;
-        }
-        lightning.isEndLight = true;
-        lightning.HurtPlayer();
-        Destroy(gameObject);
+            Global.isSlowDown = false;
+            canMove = true;
+            var enemys = Transform.FindObjectsOfType<EnemyController>();
+            foreach (var item in enemys)
+            {
+                item.isHitting = false;
+            }
+            if(follow != null && follow.layer == 7){
+                PlayerOnceController copy = follow.GetComponent<PlayerOnceController>();
+                copy.lightningCount ++;
+            }
+            lightning.isEndLight = true;
+            lightning.HurtPlayer();
+            Destroy(gameObject);
+        });
+        
     }
 
     public void SetEndLine () {
@@ -178,7 +184,7 @@ public class LineController : MonoBehaviour
     void SetCircleLine(){
         lineB.positionCount = 100;
  
-        Vector3 point0 = start; // 起始点
+        Vector3 point0 = start.transform.position; // 起始点
         Vector3 point3 = end.transform.position; // 结束点
         Vector3 point1 = CenterPoint(point0,point3); // 控制点
         Vector3 point2 = SidePoint(point0,point3); // 控制点

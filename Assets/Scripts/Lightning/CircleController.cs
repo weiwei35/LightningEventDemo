@@ -273,7 +273,7 @@ public class CircleController : MonoBehaviour
             var lineCur = Instantiate(line.gameObject);
             lineCur.transform.position = point;
             LineController lineController = lineCur.GetComponent<LineController>();
-            lineController.start = point;
+            lineController.start.transform.position = point;
             lineController.end.transform.position = player.transform.position;
             lineController.startTime = startTime;
             lineController.keepTime = keepTime;
@@ -288,7 +288,7 @@ public class CircleController : MonoBehaviour
             var lineCur = Instantiate(mirrorLine.gameObject);
             lineCur.transform.position = player.transform.position;
             MirrorLineController lineController = lineCur.GetComponent<MirrorLineController>();
-            lineController.start = player.transform.position + new Vector3(0,1f,0);
+            lineController.start.transform.position = player.transform.position + new Vector3(0,1f,0);
             lineController.end.transform.position = point;
             lineController.startTime = startTime;
             lineController.keepTime = keepTime;

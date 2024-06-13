@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class OverLineController : MonoBehaviour
 {
-    public Vector3 start;
+    public GameObject start;
     public GameObject end;
     public GameObject pos;
     public LayerMask layer;
@@ -13,7 +13,6 @@ public class OverLineController : MonoBehaviour
     public float startTime = 0.1f;
     public float keepTime = 0.5f;
     LineRenderer line;
-    bool canMove = false;
     bool isChecked = false;
     EnemyController enemy;
     LightningController lightning;
@@ -37,9 +36,9 @@ public class OverLineController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(pos.transform.position != end.transform.position && canMove)
+        if(pos.transform.position != end.transform.position)
             pos.transform.position = end.transform.position;
-        line.SetPosition(0,start);
+        line.SetPosition(0,start.transform.position);
         line.SetPosition(1,pos.transform.position);
     }
 
@@ -52,7 +51,7 @@ public class OverLineController : MonoBehaviour
                     var lineCurCopy = Instantiate(gameObject);
                     lineCurCopy.transform.position = transform.position;
                     MirrorLineController lineControllerCopy = lineCurCopy.GetComponent<MirrorLineController>();
-                    lineControllerCopy.start = start;
+                    lineControllerCopy.start.transform.position = start.transform.position;
                     lineControllerCopy.end.transform.position = new Vector3(item.transform.position.x,item.transform.position.y,-5);
                     lineControllerCopy.startTime = startTime;
                     lineControllerCopy.keepTime = keepTime;
@@ -66,7 +65,7 @@ public class OverLineController : MonoBehaviour
                 var lineCurCopy = Instantiate(line.gameObject);
                 lineCurCopy.transform.position = transform.position;
                 MirrorLineController lineControllerCopy = lineCurCopy.GetComponent<MirrorLineController>();
-                lineControllerCopy.start = start;
+                lineControllerCopy.start.transform.position = start.transform.position;
                 lineControllerCopy.end.transform.position = new Vector3(playerCopy.transform.position.x,playerCopy.transform.position.y,-5);
                 lineControllerCopy.startTime = startTime;
                 lineControllerCopy.keepTime = keepTime;
@@ -76,31 +75,35 @@ public class OverLineController : MonoBehaviour
     }
 
     public void DrawLinePoints() {
-        canMove = false;
         lightningEffect = Instantiate(lightningAsset);
         lightningEffect.transform.parent = transform;
-        lightningEffect.pos1.transform.position = start;
-        lightningEffect.pos2.transform.position = start;
+        lightningEffect.pos1.transform.position = start.transform.position;
+        lightningEffect.pos2.transform.position = start.transform.position;
         lightningEffect.pos1.transform.DOMove(end.transform.position,startTime);
         lightningEffect.pos2.transform.DOMove(end.transform.position,startTime);
-        lightningEffect.pos3.transform.position = start;
-        lightningEffect.pos4.transform.position = start;
+        lightningEffect.pos3.transform.position = start.transform.position;
+        lightningEffect.pos4.transform.position = start.transform.position;
         line.startWidth = 0.3f;
         line.endWidth = 0.3f;
-        pos.transform.position = start;
+        pos.transform.position = start.transform.position;
         pos.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
         {
-            canMove = true;
             Invoke("EndLine", keepTime);
         });
     }
 
     public void EndLine () {
-        var enemys = Transform.FindObjectsOfType<EnemyController>();
-        foreach (var item in enemys)
+        lightningEffect.pos3.transform.DOMove(end.transform.position,startTime);
+        lightningEffect.pos4.transform.DOMove(end.transform.position,startTime);
+        start.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
         {
-            item.isHitting = false;
-        }
-        Destroy(gameObject);
+            // Global.isSlowDown = false;
+            var enemys = Transform.FindObjectsOfType<EnemyController>();
+            foreach (var item in enemys)
+            {
+                item.isHitting = false;
+            }
+            Destroy(gameObject);
+        });
     }
 }

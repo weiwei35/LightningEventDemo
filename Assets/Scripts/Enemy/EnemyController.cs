@@ -196,7 +196,7 @@ public class EnemyController : MonoBehaviour
                 var lineCur = Instantiate(lineCopy.gameObject);
                 lineCur.transform.position = transform.position;
                 OverLineController lineController = lineCur.GetComponent<OverLineController>();
-                lineController.start = transform.position;
+                lineController.start.transform.position = transform.position;
                 lineController.end.transform.position = filteredEnemies[enemyId].transform.position;
                 lineController.startTime = 0.2f;
                 lineController.keepTime = 0.1f;
