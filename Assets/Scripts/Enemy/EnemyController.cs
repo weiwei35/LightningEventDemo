@@ -28,6 +28,9 @@ public class EnemyController : MonoBehaviour
     public Animation anim;
     [HideInInspector]
     public Transform target;
+    [HideInInspector]
+    public bool isInBlackHall;
+    public bool isBoomHall;
     public GameObject lineCopy;
 
     public GameObject boom;
@@ -38,6 +41,7 @@ public class EnemyController : MonoBehaviour
     float circleCountTime = 0;
     float followCountTime = 0;
     public bool iceSpeed = false;
+    public Vector3 boomDir;
 
     public virtual void Start()
     {
@@ -62,6 +66,31 @@ public class EnemyController : MonoBehaviour
         else if(!Global.isSlowDown && !iceSpeed){
             speed = speedSave;
         }
+        if(isBoomHall)
+            MoveBoom(boomDir);
+    }
+    public void RandomMoveInHall(Vector3 centerHall,float range)
+    {
+        if(!isBoomHall)
+        {
+            // 生成均匀分布的点
+            float randomAngle = Random.Range(0f, 360f); // 随机角度
+            float randomRadius = Random.Range(0f, range); // 随机半径
+    
+            // 计算坐标
+            float randomX= Mathf.Cos(randomAngle * Mathf.Deg2Rad) * randomRadius;
+            float randomY = Mathf.Sin(randomAngle * Mathf.Deg2Rad) * randomRadius;
+            Vector3 randomPos = centerHall + new Vector3(randomX,randomY,0);
+            tweener = transform.DOMove(randomPos,1).OnComplete(()=>{
+                RandomMoveInHall(centerHall,range);
+            });
+        }
+    }
+    public void MoveBoom(Vector3 direction){
+        Rigidbody rb = GetComponent<Rigidbody>();
+        // rb.velocity = direction * speed *50;
+        rb.velocity = Vector3.zero;
+        rb.AddForce(direction*20,ForceMode.Impulse);
     }
     public virtual void Hurt (float hurt,HurtType type) {
         if(!isHitting && !isDead){
@@ -133,10 +162,7 @@ public class EnemyController : MonoBehaviour
             SetMoreHurt(moreHurt);
             Debug.Log("溢出伤害:" + moreHurt);
         }
-        if (tweener != null)
-        {
-            tweener.Kill();
-        }
+        
         StartCoroutine(SetDestroy());
     }
     IEnumerator SetDestroy(){
@@ -234,5 +260,6 @@ public enum HurtType{
     BugFollow,
     BugAttack,
     PaperFireBall,
-    PaperIce
+    PaperIce,
+    BlackHall
 }

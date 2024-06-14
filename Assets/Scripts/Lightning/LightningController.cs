@@ -84,6 +84,7 @@ public class LightningController : MonoBehaviour
             if(paper!= null)
             {
                 paper.countCurrent ++;
+                paper.isAddLight = true;
             }
         }
         yield return new WaitForSeconds(0.5f);

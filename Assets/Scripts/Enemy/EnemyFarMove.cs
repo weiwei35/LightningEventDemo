@@ -35,10 +35,13 @@ public class EnemyFarMove : EnemyController
     public override void Update()
     {
         base.Update();
-        FollowMove ();
-        if(!CheckInACircle()){
-            isFollow = true;
-            isBack = false;
+        if(!isInBlackHall)
+        {
+            FollowMove ();
+            if(!CheckInACircle()){
+                isFollow = true;
+                isBack = false;
+            }
         }
     }
     public override void Hurt(float hurt,HurtType type)

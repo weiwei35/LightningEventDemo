@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
     public bool isBugHP = false;
     public BugController bugHPPre;
     public GameObject recoverAnim;
+    public GameObject recoverProtectAnim;
     [Header("虫虫·2")]
     public bool isBugCircle = false;
     public BugController bugCirclePre;
@@ -95,6 +96,15 @@ public class PlayerController : MonoBehaviour
     [Header("符箓·冰剑")]
     public bool isPaperIce = false;
     public PaperController paperIcePre;
+    [Header("符箓·回血")]
+    public bool isPaperHP = false;
+    public PaperController paperHPPre;
+    [Header("符箓·回护甲")]
+    public bool isPaperProtect = false;
+    public PaperController paperProtectPre;
+    [Header("符箓·黑洞")]
+    public bool isPaperBlack = false;
+    public PaperController paperBlackPre;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -275,8 +285,19 @@ public class PlayerController : MonoBehaviour
     void SetRecoverAnimOff(){
         recoverAnim.SetActive(false);
     }
+    public void OutsideRecoveryProtect(float protect){
+        protectCurrent += protect;
+        recoverProtectAnim.SetActive(true);
+        Invoke("SetRecoverProtectAnimOff",1.01f);
+    }
+    void SetRecoverProtectAnimOff(){
+        recoverProtectAnim.SetActive(false);
+    }
     void RecoveryProtect(){
         protectCurrent += protectSpeed;
+    }
+    public float GetHurtProtectCount(){
+        return protect-protectCurrent;
     }
     //角色死亡处理：聚焦--场景遮黑--死亡动画--游戏结束
     private void Death()
@@ -524,6 +545,27 @@ public class PlayerController : MonoBehaviour
     public void SetPaperIce() {
         isPaperIce = !isPaperIce;
         var paper = Instantiate(paperIcePre);
+        paper.transform.parent = papers.transform;
+        paper.transform.position = papers.transform.position;
+    }
+    //符箓·寒冰：每10轮雷劫再次召唤，剑气围绕符箓旋转，对扫过的敌人造成伤害并减少20%移动速度。
+    public void SetPaperHP() {
+        isPaperHP = !isPaperHP;
+        var paper = Instantiate(paperHPPre);
+        paper.transform.parent = papers.transform;
+        paper.transform.position = papers.transform.position;
+    }
+    //符箓·寒冰：每10轮雷劫再次召唤，剑气围绕符箓旋转，对扫过的敌人造成伤害并减少20%移动速度。
+    public void SetPaperProtect() {
+        isPaperProtect = !isPaperProtect;
+        var paper = Instantiate(paperProtectPre);
+        paper.transform.parent = papers.transform;
+        paper.transform.position = papers.transform.position;
+    }
+    //符箓·寒冰：每10轮雷劫再次召唤，剑气围绕符箓旋转，对扫过的敌人造成伤害并减少20%移动速度。
+    public void SetPaperBlack() {
+        isPaperBlack = !isPaperBlack;
+        var paper = Instantiate(paperBlackPre);
         paper.transform.parent = papers.transform;
         paper.transform.position = papers.transform.position;
     }

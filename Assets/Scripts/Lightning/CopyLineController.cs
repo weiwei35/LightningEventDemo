@@ -126,7 +126,7 @@ public class CopyLineController : MonoBehaviour
 
     public void DrawLinePoints() {
         canMove = false;
-        Global.isSlowDown = true;
+        // Global.isSlowDown = true;
         lightningEffect = Instantiate(lightningAsset);
         lightningEffect.transform.parent = transform;
         lightningEffect.pos1.transform.position = start.transform.position;

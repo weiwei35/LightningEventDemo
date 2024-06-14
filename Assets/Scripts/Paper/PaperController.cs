@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PaperController : MonoBehaviour
@@ -14,6 +15,8 @@ public class PaperController : MonoBehaviour
     public GameObject paperPre;
     [HideInInspector]
     public int countCurrent = 0;
+    [HideInInspector]
+    public bool isAddLight = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,10 +37,33 @@ public class PaperController : MonoBehaviour
     }
 
     public Vector3 SetRandomPos(){
-        float angle = Random.Range(0,Mathf.PI * 2);
-        float radiusRandom = Random.Range(0,radius);
-        Vector3 point = center + new Vector3(Mathf.Cos(angle) * radiusRandom,Mathf.Sin(angle) * radiusRandom,0);
-        return new Vector3(point.x,point.y,-5);
+        if(Global.papersPosList.Count == 0){
+            Vector3 pointPos;
+            float angle = Random.Range(0,Mathf.PI * 2);
+            float radiusRandom = Random.Range(0,radius);
+            pointPos = center + new Vector3(Mathf.Cos(angle) * radiusRandom,Mathf.Sin(angle) * radiusRandom,-5);
+            Global.papersPosList.Add(pointPos);
+            return pointPos;
+        }else{
+            Vector3 pointPos;
+            
+            float minDis;
+            do
+            {
+                List<float> dis = new List<float>();
+                float angle = Random.Range(0,Mathf.PI * 2);
+                float radiusRandom = Random.Range(0,radius);
+                pointPos = center + new Vector3(Mathf.Cos(angle) * radiusRandom,Mathf.Sin(angle) * radiusRandom,-5);
+                foreach (var item in Global.papersPosList)
+                {
+                    var distance = Vector3.Distance(item,pointPos);
+                    dis.Add(distance);
+                }
+                minDis = dis.Min();
+            } while (minDis < 3);
+            Global.papersPosList.Add(pointPos);
+            return pointPos;
+        }
     }
 
     public void DestroyChild() {

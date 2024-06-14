@@ -146,6 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea49b8e88d72de4d915d17840021233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  direction: {x: 0, y: 0, z: 0}
+  bulletSpeed: 0
   hurt: 0
   length: 24
   center: {x: 0, y: 0, z: 0}

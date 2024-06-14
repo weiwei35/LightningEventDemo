@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {x: 0, y: 0, z: 0}
-  radius: 5
+  radius: 8
   count: 10
   paperPre: {fileID: 6412135369590090812, guid: 8050b756abac7bf41ac0e6485f17d38f,
     type: 3}

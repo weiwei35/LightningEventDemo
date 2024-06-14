@@ -13,7 +13,7 @@ public class PaperFire : PaperModel
     private void Start() {
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        InvokeRepeating("FireBall",0,1);
+        InvokeRepeating("FireBall",1,1);
     }
     private void Update() {
         if(isOverLoad){

@@ -22,18 +22,21 @@ public class EnemyRandomMove : EnemyController
     public override void Update()
     {
         base.Update();
-        if (Vector3.Distance(transform.position, new Vector3(randomX, randomY, target.position.z)) < 0.05f)
+        if(!isInBlackHall)
         {
-            isMoving = false;
+            if (Vector3.Distance(transform.position, new Vector3(randomX, randomY, target.position.z)) < 0.05f)
+            {
+                isMoving = false;
+            }
+            else
+            {
+                isMoving = true;
+            }
+            if(!isMoving)
+                RandomMoveObject();
+            // 平滑移动物体
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(randomX, randomY, target.position.z), speed * Time.deltaTime);
         }
-        else
-        {
-            isMoving = true;
-        }
-        if(!isMoving)
-            RandomMoveObject();
-        // 平滑移动物体
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(randomX, randomY, target.position.z), speed * Time.deltaTime);
     }
     public override void Hurt(float hurt,HurtType type)
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class Global{
     public static bool isSlowDown = false;
+    public static List<Vector3> papersPosList = new List<Vector3>();
 }
 public class GameController : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class GameController : MonoBehaviour
                 levelId ++;
                 Time.timeScale = 0;
                 endLevelPanel.SetActive(true);
+                Global.papersPosList.Clear();
                 foreach (Transform item in papers.transform)
                 {
                     PaperController paper = item.GetComponent<PaperController>();

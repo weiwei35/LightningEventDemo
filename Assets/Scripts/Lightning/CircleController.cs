@@ -152,7 +152,7 @@ public class CircleController : MonoBehaviour
                 // 计算点和圆心连线与正X轴的夹角（角度值）
                 float angle2 = Mathf.Atan2(direction2.y, direction2.x) * Mathf.Rad2Deg;
 
-                if(Mathf.Abs(angle1-angle2) < 15){
+                if(Mathf.Abs(angle1-angle2) < 5){
                     canSave = false;
                     Debug.Log("两雷点离得太近");
                 }

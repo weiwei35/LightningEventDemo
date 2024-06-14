@@ -82,9 +82,11 @@ MonoBehaviour:
   startPosition: {x: 0, y: 0, z: 0}
   anim: {fileID: 0}
   target: {fileID: 0}
+  isInBlackHall: 0
   lineCopy: {fileID: 4832612257934242252, guid: fb3ac1311ea76cc47881da6e204261b9,
     type: 3}
   boom: {fileID: 2892117171290514479, guid: 1d385aee270ab194e93a2bd5bf63bd0a, type: 3}
+  iceSpeed: 0
   range: 12
   offset: 3
 --- !u!54 &8418017223862390613
@@ -95,9 +97,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2311599531590538775}
   serializedVersion: 4
-  m_Mass: 0.0000001
-  m_Drag: 0
-  m_AngularDrag: 0
+  m_Mass: 10
+  m_Drag: 10
+  m_AngularDrag: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}

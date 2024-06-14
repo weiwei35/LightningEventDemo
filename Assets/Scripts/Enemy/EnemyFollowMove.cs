@@ -19,7 +19,10 @@ public class EnemyFollowMove : EnemyController
     public override void Update()
     {
         base.Update();
-        FollowMove ();
+        if(!isInBlackHall)
+        {
+            FollowMove ();
+        }
     }
     public override void Hurt(float hurt,HurtType type)
     {
@@ -39,9 +42,15 @@ public class EnemyFollowMove : EnemyController
     private void FollowMove () {
         if(target != null){
             transform.position = Vector3.MoveTowards(transform.position,target.position,Time.deltaTime * speed);
+            Vector2 v = target.transform.position - transform.position;
+            var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+            var trailRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = trailRotation;
             if(transform.position.x > target.position.x){
-                sprite.flipX = true;
+                // sprite.flipX = true;
+                sprite.flipY = true;
             }else if(transform.position.x < target.position.x){
+                sprite.flipY = false;
                 sprite.flipX = false;
             }
         }
