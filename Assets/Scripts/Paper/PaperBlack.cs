@@ -1,65 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TreeEditor;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class PaperBlack : PaperModel
 {
-    public float overTime;
-    public float countTime = 0;
+    // public float overTime;
+    // public float countTime = 0;
     List<GameObject> enemyInHall = new List<GameObject>();
     PaperController paperController;
-    int maxEnemy = 1;
+    int maxEnemy = 8;
     public GameObject boom;
-    float bigOffset = 0.3f;
+    bool canOverLoad = false;
+    // float bigOffset = 0.3f;
     private void Start() {
         paperController = transform.parent.GetComponent<PaperController>();
     }
     private void Update() {
         BlackHall();
-        if(isOverLoad){
-            countTime += Time.deltaTime;
-        }
-        if(countTime>=overTime && isOverLoad){
-            countTime = 0;
-            bigOffset = bigOffset/2;
-            isOverLoad = false;
-        }
-        if(paperController.isAddLight){
-            paperController.isAddLight = false;
-            if(maxEnemy < 8)
-                SetHallBigger();
-            else
-                SetBoom();
-        }
+        // if(isOverLoad){
+        //     countTime += Time.deltaTime;
+        // }
+        // if(countTime>=overTime && isOverLoad){
+        //     countTime = 0;
+        //     bigOffset = bigOffset/2;
+        //     isOverLoad = false;
+        // }
+        // if(paperController.isAddLight){
+        //     paperController.isAddLight = false;
+        //     if(maxEnemy < 8)
+        //         SetHallBigger();
+        //     else
+        //         SetBoom();
+        // }
         for (int i = 0; i < enemyInHall.Count; i++)
         {
             if(enemyInHall[i] == null)
             {
                 enemyInHall.Remove(enemyInHall[i]);
-            }else{
-                float distance = Vector3.Distance(enemyInHall[i].transform.position,transform.position);
-                if(distance > 3){
-                    EnemyController enemy = enemyInHall[i].GetComponent<EnemyController>();
-                    enemy.isInBlackHall = false;
-                    enemy.isBoomHall = false;
-
-                    enemyInHall.Remove(enemyInHall[i]);
-                }
             }
+            // else{
+            //     float distance = Vector3.Distance(enemyInHall[i].transform.position,transform.position);
+            //     if(distance > 3){
+            //         EnemyController enemy = enemyInHall[i].GetComponent<EnemyController>();
+            //         enemy.isInBlackHall = false;
+            //         enemy.isBoomHall = false;
+
+            //         enemyInHall.Remove(enemyInHall[i]);
+            //     }
+            // }
         }
     }
-    void SetHallBigger(){
-        transform.DOScale(transform.localScale.x+bigOffset,0.5f);
-        maxEnemy ++;
-    }
-    void SetSmaller(){
-        transform.DOScale(2,0.2f);
-        maxEnemy = 1;
+    // void SetHallBigger(){
+    //     transform.DOScale(transform.localScale.x+bigOffset,0.5f);
+    //     maxEnemy ++;
+    // }
+    // void SetSmaller(){
+    //     transform.DOScale(2,0.2f);
+    //     maxEnemy = 1;
+    // }
+    public void SetOverLoad() {
+        canOverLoad = true;
+        isOverLoad = false;
     }
     void BlackHall(){
-        if(enemyInHall.Count < maxEnemy){
+        if(enemyInHall.Count < maxEnemy && canOverLoad){
             var enemys = Transform.FindObjectsOfType<EnemyController>();
             List<EnemyController> enemyInArea = new List<EnemyController>();
             foreach (var item in enemys)
@@ -82,21 +89,30 @@ public class PaperBlack : PaperModel
         }
     }
     public override void OverLoadFun(){
-        bigOffset = bigOffset*2;
+        // bigOffset = bigOffset*2;
+        if(canOverLoad)
+        {
+            SetBoom();
+        }
     }
 
     void SetBoom(){
         foreach (var item in enemyInHall)
         {
             EnemyController enemy = item.GetComponent<EnemyController>();
-            Vector3 direction = enemy.transform.position - transform.position;
-            direction.Normalize();
-            enemy.boomDir = direction;
-            enemy.MoveBoom(direction);
+            // Vector3 direction = enemy.transform.position - transform.position;
+            // direction.Normalize();
+            enemy.boomDir = transform.position;
+            enemy.MoveBoom(transform.position);
             enemy.isBoomHall = true;
         }
         var boomPaper = Instantiate(boom);
         boomPaper.transform.position = transform.position + new Vector3(0,-0.3f,0);
-        SetSmaller();
+        // SetSmaller();
+        var paperBlack = Instantiate(gameObject);
+        paperBlack.transform.parent = transform.parent;
+        paperBlack.transform.position = transform.position;
+        paperBlack.name = "PaperBlack";
+        Destroy(gameObject);
     }
 }

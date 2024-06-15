@@ -66,8 +66,14 @@ public class EnemyController : MonoBehaviour
         else if(!Global.isSlowDown && !iceSpeed){
             speed = speedSave;
         }
-        if(isBoomHall)
+        if(isBoomHall){
             MoveBoom(boomDir);
+            if(Vector3.Distance(transform.position,boomDir) > 3){
+                isBoomHall = false;
+                isInBlackHall = false;
+            }
+        }
+            
     }
     public void RandomMoveInHall(Vector3 centerHall,float range)
     {
@@ -86,14 +92,23 @@ public class EnemyController : MonoBehaviour
             });
         }
     }
-    public void MoveBoom(Vector3 direction){
+    public void MoveBoom(Vector3 target){
+        Vector3 direction = transform.position - target;
+        direction.Normalize();
         Rigidbody rb = GetComponent<Rigidbody>();
         // rb.velocity = direction * speed *50;
         rb.velocity = Vector3.zero;
-        rb.AddForce(direction*20,ForceMode.Impulse);
+        if(direction == Vector3.zero){
+            direction = Vector3.up;
+        }
+        rb.AddForce(direction*30,ForceMode.Impulse);
     }
     public virtual void Hurt (float hurt,HurtType type) {
         if(!isHitting && !isDead){
+            if (tweener != null)
+            {
+                tweener.Kill();
+            }
             isHitting = true;
             if(hurt >= HP){
                 if(type == HurtType.Lightning||type == HurtType.Overflow)
