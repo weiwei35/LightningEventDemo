@@ -23,6 +23,19 @@ public class EnemyFollowMove : EnemyController
         {
             FollowMove ();
         }
+        // 获取当前物体的欧拉角
+        Vector3 currentRotation = transform.rotation.eulerAngles;
+        if(transform.position.x > target.position.x){
+                currentRotation.z = Mathf.Clamp(currentRotation.z, 150, 210);
+            }else if(transform.position.x < target.position.x){
+                if(currentRotation.z < 180)
+                    currentRotation.z = Mathf.Clamp(currentRotation.z, 0, 30);
+                if(currentRotation.z > 180)
+                    currentRotation.z = Mathf.Clamp(currentRotation.z, 330, 360);
+            }
+
+        // 应用限制后的欧拉角
+        transform.rotation = Quaternion.Euler(currentRotation);
     }
     public override void Hurt(float hurt,HurtType type)
     {

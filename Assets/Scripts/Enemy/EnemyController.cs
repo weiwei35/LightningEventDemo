@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     [Header("UI")]
     public TMP_Text text;
     [Header("随机范围圆心")]
-    public Vector3 center = Vector3.zero;
+    public Transform center;
     [Header("随机范围半径")]
     public float radius = 15f;
     [HideInInspector]
@@ -51,6 +51,7 @@ public class EnemyController : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         speedSave = speed;
+        center = GameObject.FindGameObjectWithTag("Center").transform;
     }
     public virtual void Update() {
         // if(HP <= 0 && !isDead){
@@ -197,7 +198,7 @@ public class EnemyController : MonoBehaviour
     //在圆形范围边缘随机生成
     public virtual void SpawnAtRandomCircle(){
         float angle = Random.Range(0,Mathf.PI * 2);
-        Vector3 point = center + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,0);
+        Vector3 point = center.position + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,0);
         transform.position = new Vector3(point.x,point.y,-5);
     }
 

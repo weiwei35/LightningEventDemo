@@ -12,6 +12,7 @@ TagManager:
   - PetBugs
   - Bullet
   - Papers
+  - Center
   layers:
   - Default
   - TransparentFX

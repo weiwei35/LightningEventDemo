@@ -6,7 +6,7 @@ using UnityEngine;
 public class PaperController : MonoBehaviour
 {
     [Header("随机范围圆心")]
-    public Vector3 center = Vector3.zero;
+    public Transform center;
     [Header("随机范围半径")]
     public float radius = 10f;
     [Header("召唤频次")]
@@ -21,6 +21,7 @@ public class PaperController : MonoBehaviour
     void Start()
     {
         // transform.position = SetRandomPos();
+        center = GameObject.FindGameObjectWithTag("Center").transform;
         countCurrent = count;
     }
 
@@ -41,7 +42,7 @@ public class PaperController : MonoBehaviour
             Vector3 pointPos;
             float angle = Random.Range(0,Mathf.PI * 2);
             float radiusRandom = Random.Range(0,radius);
-            pointPos = center + new Vector3(Mathf.Cos(angle) * radiusRandom,Mathf.Sin(angle) * radiusRandom,-5);
+            pointPos = center.position + new Vector3(Mathf.Cos(angle) * radiusRandom,Mathf.Sin(angle) * radiusRandom,-5);
             Global.papersPosList.Add(pointPos);
             return pointPos;
         }else{
@@ -53,7 +54,7 @@ public class PaperController : MonoBehaviour
                 List<float> dis = new List<float>();
                 float angle = Random.Range(0,Mathf.PI * 2);
                 float radiusRandom = Random.Range(0,radius);
-                pointPos = center + new Vector3(Mathf.Cos(angle) * radiusRandom,Mathf.Sin(angle) * radiusRandom,-5);
+                pointPos = center.position + new Vector3(Mathf.Cos(angle) * radiusRandom,Mathf.Sin(angle) * radiusRandom,-5);
                 foreach (var item in Global.papersPosList)
                 {
                     var distance = Vector3.Distance(item,pointPos);

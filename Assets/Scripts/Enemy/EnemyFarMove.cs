@@ -170,7 +170,7 @@ public class EnemyFarMove : EnemyController
 
     //攻击逻辑：按频率朝主角方向发射子弹
     bool CheckInACircle(){
-        var distance = Vector2.Distance(center,transform.position);
+        var distance = Vector2.Distance(center.position,transform.position);
         if(distance > radius){
             return false;
         }else
