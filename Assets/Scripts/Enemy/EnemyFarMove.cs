@@ -23,12 +23,17 @@ public class EnemyFarMove : EnemyController
     bool isInColdTime = false;
     Vector3 direction = new Vector3();
     bool isBack = false;
+    Animator animator;
+    SpriteRenderer sprite;
+
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
         // SpawnAtRandomEdge();
         SpawnAtRandomCircle();
+        animator = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -43,6 +48,31 @@ public class EnemyFarMove : EnemyController
                 isBack = false;
             }
         }
+        Vector2 v = target.transform.position - transform.position;
+            var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+            var trailRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = trailRotation;
+            if(transform.position.x > target.position.x){
+                sprite.flipX = true;
+                sprite.flipY = true;
+            }else if(transform.position.x < target.position.x){
+                sprite.flipY = false;
+                sprite.flipX = true;
+            }
+
+        // 获取当前物体的欧拉角
+        Vector3 currentRotation = transform.rotation.eulerAngles;
+        if(transform.position.x > target.position.x){
+                currentRotation.z = Mathf.Clamp(currentRotation.z, 150, 210);
+            }else if(transform.position.x < target.position.x){
+                if(currentRotation.z < 180)
+                    currentRotation.z = Mathf.Clamp(currentRotation.z, 0, 30);
+                if(currentRotation.z > 180)
+                    currentRotation.z = Mathf.Clamp(currentRotation.z, 330, 360);
+            }
+
+        // 应用限制后的欧拉角
+        transform.rotation = Quaternion.Euler(currentRotation);
     }
     public override void Hurt(float hurt,HurtType type)
     {
@@ -178,9 +208,20 @@ public class EnemyFarMove : EnemyController
     }
 
     IEnumerator AttackTimer(){
+        animator.SetTrigger("attack");
         isAttack = true;
         isInColdTime = true;
         StartCoroutine(SetColdTime());
+        
+        yield return new WaitForSeconds(bulletTime);
+        StartCoroutine(AttackTimer());
+    }
+    IEnumerator SetColdTime(){
+        yield return new WaitForSeconds(bulletTime);
+        isInColdTime = false;
+    }
+
+    public void Fire() {
         var curBullet = Instantiate(bullet);
         curBullet.transform.position = transform.position;
         Rigidbody bulletRb = curBullet.GetComponent<Rigidbody>();
@@ -191,11 +232,5 @@ public class EnemyFarMove : EnemyController
         bulletRb.velocity = direction * bulletSpeed;
         bulletController.bulletSpeed = bulletSpeed;
         bulletController.direction = direction;
-        yield return new WaitForSeconds(bulletTime);
-        StartCoroutine(AttackTimer());
-    }
-    IEnumerator SetColdTime(){
-        yield return new WaitForSeconds(bulletTime);
-        isInColdTime = false;
     }
 }

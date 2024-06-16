@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour
     [HideInInspector]
     public Vector3 startPosition; // 开始位置
     [HideInInspector]
-    public Animation anim;
+    public Animator anim;
     [HideInInspector]
     public Transform target;
     [HideInInspector]
@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
     {
         startPosition = transform.position; // 记录开始位置
         text.text = HP.ToString();
-        anim = GetComponent<Animation>();
+        anim = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         speedSave = speed;
@@ -61,7 +61,9 @@ public class EnemyController : MonoBehaviour
         //速度处理
         if(Global.isSlowDown){
             speed = speedSave/10;
+            anim.speed = 0.5f;
         }else if(iceSpeed){
+            anim.speed = 1;
             speed = speedSave/5;
         }
         else if(!Global.isSlowDown && !iceSpeed){
