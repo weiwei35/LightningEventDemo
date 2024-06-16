@@ -407,7 +407,7 @@ public class PlayerController : MonoBehaviour
         Vector3 toCenter = originalPosition - center;
  
         // 步骤2：反转向量
-        Vector3 symmetricPosition = -toCenter + center * 2;
+        Vector3 symmetricPosition = -toCenter + center;
  
         return symmetricPosition;
     }

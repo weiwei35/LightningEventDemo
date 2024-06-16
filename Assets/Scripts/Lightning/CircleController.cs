@@ -125,7 +125,7 @@ public class CircleController : MonoBehaviour
             // Debug.DrawLine(startPos, intersectionPoint3, Color.red, 10f); // 在场景中绘制交点
             // 你可以在这里处理交点信息
             float angle =RandomAngle(intersectionPoint2,intersectionPoint3);
-            Vector3 point = center + new Vector3(Mathf.Cos(angle * Mathf.PI/180) * radius,Mathf.Sin(angle * Mathf.PI/180) * radius,-5);
+            Vector3 point = center + new Vector3(Mathf.Cos(angle * Mathf.PI/180) * radius,Mathf.Sin(angle * Mathf.PI/180) * radius,0);
             // var start = Instantiate(startPointEP);
             // start.transform.position = point;
             // starts.Add(start);
@@ -212,7 +212,7 @@ public class CircleController : MonoBehaviour
     //在圆上取随机点
     Vector3 GetPoint(){
         float angle = Random.Range(0,Mathf.PI * 2);
-        Vector3 point = center + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,-5);
+        Vector3 point = center + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,0);
         return point;
     }
 

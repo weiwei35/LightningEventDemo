@@ -60,8 +60,8 @@ public class EnemyRandomMove : EnemyController
         float randomRadius = Random.Range(0f, range); // 随机半径
  
         // 计算坐标
-        var x= Mathf.Cos(randomAngle * Mathf.Deg2Rad) * randomRadius;
-        var y = Mathf.Sin(randomAngle * Mathf.Deg2Rad) * randomRadius;
+        var x= center.position.x + Mathf.Cos(randomAngle * Mathf.Deg2Rad) * randomRadius;
+        var y = center.position.y + Mathf.Sin(randomAngle * Mathf.Deg2Rad) * randomRadius;
         Vector3 start = new Vector3(x,y,-5);
         var distance =  Mathf.Abs(Vector3.Distance(start,target.position));
         if(distance < offset)
@@ -77,7 +77,7 @@ public class EnemyRandomMove : EnemyController
         float randomRadius = Random.Range(0f, range); // 随机半径
  
         // 计算坐标
-        randomX= Mathf.Cos(randomAngle * Mathf.Deg2Rad) * randomRadius;
-        randomY = Mathf.Sin(randomAngle * Mathf.Deg2Rad) * randomRadius;
+        randomX= center.position.x + Mathf.Cos(randomAngle * Mathf.Deg2Rad) * randomRadius;
+        randomY = center.position.y + Mathf.Sin(randomAngle * Mathf.Deg2Rad) * randomRadius;
     }
 }
