@@ -25,6 +25,9 @@ public class EnemyFarMove : EnemyController
     bool isBack = false;
     Animator animator;
     SpriteRenderer sprite;
+    public GameObject bulletPos1;
+    public GameObject bulletPos2;
+    Vector3 bulletPos;
 
     // Start is called before the first frame update
     public override void Start()
@@ -48,14 +51,17 @@ public class EnemyFarMove : EnemyController
                 isBack = false;
             }
         }
+        bulletPos = bulletPos2.transform.position;
         Vector2 v = target.transform.position - transform.position;
             var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
             var trailRotation = Quaternion.AngleAxis(angle, Vector3.forward);
             transform.rotation = trailRotation;
             if(transform.position.x > target.position.x){
+                bulletPos = bulletPos2.transform.position;
                 sprite.flipX = true;
                 sprite.flipY = true;
             }else if(transform.position.x < target.position.x){
+                bulletPos = bulletPos2.transform.position;
                 sprite.flipY = false;
                 sprite.flipX = true;
             }
@@ -223,7 +229,7 @@ public class EnemyFarMove : EnemyController
 
     public void Fire() {
         var curBullet = Instantiate(bullet);
-        curBullet.transform.position = transform.position;
+        curBullet.transform.position = bulletPos;
         Rigidbody bulletRb = curBullet.GetComponent<Rigidbody>();
         BulletController bulletController = curBullet.GetComponent<BulletController>();
         bulletController.hurt = bulletHurt;
