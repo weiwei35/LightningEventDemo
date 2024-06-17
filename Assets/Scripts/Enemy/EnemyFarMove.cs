@@ -28,6 +28,7 @@ public class EnemyFarMove : EnemyController
     public GameObject bulletPos1;
     public GameObject bulletPos2;
     Vector3 bulletPos;
+    List<GameObject> bulletList = new List<GameObject>();
 
     // Start is called before the first frame update
     public override void Start()
@@ -79,6 +80,12 @@ public class EnemyFarMove : EnemyController
 
         // 应用限制后的欧拉角
         transform.rotation = Quaternion.Euler(currentRotation);
+
+        //控制子弹数量
+        if(bulletList.Count >2){
+            Destroy(bulletList[0].gameObject);
+            bulletList.RemoveAt(0);
+        }
     }
     public override void Hurt(float hurt,HurtType type)
     {
@@ -228,7 +235,8 @@ public class EnemyFarMove : EnemyController
     }
 
     public void Fire() {
-        var curBullet = Instantiate(bullet);
+        var curBullet = GameObjectPoolTool.GetFromPoolForce(true,"Assets/Resources/Bullet.prefab");
+        // var curBullet = Instantiate(bullet);
         curBullet.transform.position = bulletPos;
         Rigidbody bulletRb = curBullet.GetComponent<Rigidbody>();
         BulletController bulletController = curBullet.GetComponent<BulletController>();
@@ -238,5 +246,8 @@ public class EnemyFarMove : EnemyController
         bulletRb.velocity = direction * bulletSpeed;
         bulletController.bulletSpeed = bulletSpeed;
         bulletController.direction = direction;
+        bulletController.center = center.transform.position;
+        bulletController.length = 15;
+        bulletList.Add(curBullet);
     }
 }

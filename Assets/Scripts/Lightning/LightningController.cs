@@ -24,6 +24,7 @@ public class LightningController : MonoBehaviour
     //雷电结束
     public bool isEndLight = false;
     public bool endLight = false;
+    public bool endConnect = true;
     //雷电到达player
     public bool isSetLight = false;
     public bool endsetLight = false;
@@ -48,7 +49,7 @@ public class LightningController : MonoBehaviour
             curTime = 0;
             circle.RandomPoints(lightningCount);
         }
-            
+        
         if(isEndLight && !endLight){
             endLight = true;
             StartCoroutine(EndLight());
@@ -101,5 +102,9 @@ public class LightningController : MonoBehaviour
         if(player.canHurt){
             player.Hurt(circleHurt);
         }
+    }
+
+    public void ConnectPaper() {
+        lightningCount = 1;
     }
 }

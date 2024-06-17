@@ -105,6 +105,8 @@ public class PlayerController : MonoBehaviour
     [Header("符箓·黑洞")]
     public bool isPaperBlack = false;
     public PaperController paperBlackPre;
+    [Header("符箓·串联")]
+    public bool isPaperConnect = false;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -568,5 +570,11 @@ public class PlayerController : MonoBehaviour
         var paper = Instantiate(paperBlackPre);
         paper.transform.parent = papers.transform;
         paper.transform.position = papers.transform.position;
+    }
+    //符箓·寒冰：每10轮雷劫再次召唤，剑气围绕符箓旋转，对扫过的敌人造成伤害并减少20%移动速度。
+    public void SetPaperConnect() {
+        isPaperConnect = !isPaperConnect;
+        LightningController lightningController = lightning.GetComponent<LightningController>();
+        lightningController.ConnectPaper();
     }
 }

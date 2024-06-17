@@ -55,8 +55,5 @@ public class LineColliderMain : MonoBehaviour
         t = Mathf.Clamp01(t / (lineEnd - lineStart).magnitude);
         Vector3 closestPointOnLine = lineStart + t * (lineEnd - lineStart);
         return closestPointOnLine;
-        // Debug.DrawLine(lineStart, lineEnd, Color.blue); // 画出线段 L
-        // Debug.DrawLine(pointA.transform.position, closestPointOnLine, Color.red); // 画出 A 点到交点的线
-
     }
 }

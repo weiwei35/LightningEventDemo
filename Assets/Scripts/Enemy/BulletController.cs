@@ -8,11 +8,10 @@ public class BulletController : MonoBehaviour
     public float bulletSpeed;
     public float hurt;
     public float length = 30;
-    public Vector3 center = Vector3.zero;
+    public Vector3 center;
     Rigidbody rb;
 
     private void Start() {
-        center = new Vector3(0,0,transform.position.z);
         rb = GetComponent<Rigidbody>();
     }
     private void Update() {

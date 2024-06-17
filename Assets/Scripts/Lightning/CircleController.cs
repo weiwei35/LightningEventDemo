@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class CircleController : MonoBehaviour
     public Material m;
     // [HideInInspector]
     public LineController line;
+    public ConnectLineController connectLine;
     public MirrorLineController mirrorLine;
     public GameObject startPoint;//雷点
     GameObject player;
@@ -15,7 +17,9 @@ public class CircleController : MonoBehaviour
     GameObject[] playerOnceCopy;
     LightningController lightning;
     List<Vector3> points = new List<Vector3>();
+    List<Vector3> pointsConnect = new List<Vector3>();
     List<GameObject> lines = new List<GameObject>();
+    List<GameObject> lineConnects = new List<GameObject>();
     List<GameObject> lineCopys = new List<GameObject>();
     // List<GameObject> starts = new List<GameObject>();
     List<GameObject> circleLight = new List<GameObject>();
@@ -36,13 +40,6 @@ public class CircleController : MonoBehaviour
         center = centerPos.transform.position;
         DrawCircle ();
         lightning = GetComponent<LightningController>();
-        // //初始化界面边缘的雷点
-        // for (int i = 0; i < lightning.lightningCount; i++)
-        // {
-        //     var start = Instantiate(startPoint);
-        //     start.transform.position = Vector3.zero;
-        //     circleLight.Add(start);
-        // }
     }
 
     private void Update() {
@@ -55,6 +52,15 @@ public class CircleController : MonoBehaviour
                     lineController.end.transform.position = lineController.follow.transform.position + new Vector3(0,1f,0);
             }
         }
+        //雷电跟随角色
+        foreach (var item in lineConnects)
+        {
+            if(item != null){
+                ConnectLineController lineController = item.GetComponent<ConnectLineController>();
+                if(lineController.follow != null && lineController.isLastLine)
+                    lineController.end.transform.position = player.transform.position;
+            }
+        }
         // foreach (var item in lineCopys)
         // {
         //     if(item != null){
@@ -63,9 +69,6 @@ public class CircleController : MonoBehaviour
         //             lineController.start = lineController.follow.transform.position + new Vector3(0,1f,0);
         //     }
         // }
-        // //当有雷点出现时，界面边缘的雷点跟随显示
-        // if(canFollow)
-        //     GetCamLight();
     }
 
     //画结界
@@ -95,6 +98,7 @@ public class CircleController : MonoBehaviour
     //在圆上取count个数的随机点
     public void RandomPoints (float count) {
         points.Clear();
+        pointsConnect.Clear();
         //特殊雷点：主角和随机一个怪物连接的射线，左右夹角各15°，中随机一个点位
         Vector3 startPos = new Vector3(player.transform.position.x,player.transform.position.y,0);
         var enemys = Transform.FindObjectsOfType<EnemyController>();
@@ -164,6 +168,16 @@ public class CircleController : MonoBehaviour
                 // starts.Add(start);
                 i++;
             }
+        }
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        if(playerController.isPaperConnect && Global.papersPosList.Count>0){
+            Vector3 pointPos = playerController.GetSymmetricPosition(points[0],centerPos.transform.position);
+            pointsConnect.Add(pointPos);
+            foreach (var item in Global.papersPosList)
+            {
+                pointsConnect.Add(item);
+            }
+            SetConnectLines(lightning.startTime,lightning.keepTime,pointsConnect);
         }
         SetLines(lightning.startTime,lightning.keepTime,points);
         // GetCamLight();
@@ -297,5 +311,49 @@ public class CircleController : MonoBehaviour
             lineController.timeCount = lightning.lightningPreTime +1;
             lineCopys.Add(lineCur.gameObject);
         }
+    }
+    //串联电路
+    public void SetConnectLines (float startTime,float keepTime,List<Vector3> points) {
+        StartCoroutine(IterateWithDelay(startTime,keepTime,points));
+        
+    }
+    IEnumerator IterateWithDelay(float startTime,float keepTime,List<Vector3> points)
+    {
+        float maxDistance = 0;
+        for (int i = 0; i < points.Count-1; i++)
+        {
+            maxDistance += Vector3.Distance(points[i],points[i+1]);
+        }
+        maxDistance += Vector3.Distance(player.transform.position,points[points.Count-1]);
+        for (int i = 0; i < points.Count-1; i++)
+        {
+            var lineCur = Instantiate(connectLine.gameObject);
+            lineCur.transform.position = points[i];
+            ConnectLineController lineController = lineCur.GetComponent<ConnectLineController>();
+            lineController.start.transform.position = points[i];
+            lineController.end.transform.position = points[i+1];
+            float distance = Vector3.Distance(points[i],points[i+1]);
+            lineController.startTime = startTime * (distance/maxDistance);
+            lineController.keepTime = keepTime + (startTime - lineController.startTime);
+            lineController.follow = points[i+1];
+            lineConnects.Add(lineCur.gameObject);
+
+            if(i==0){
+                lineController.isStartLine = true;
+            }
+
+            yield return new WaitForSeconds(startTime * (distance/maxDistance));
+        }
+        var lineCurEnd = Instantiate(connectLine.gameObject);
+        lineCurEnd.transform.position = points[points.Count-1];
+        ConnectLineController lineControllerEnd = lineCurEnd.GetComponent<ConnectLineController>();
+        lineControllerEnd.start.transform.position = points[points.Count-1];
+        lineControllerEnd.end.transform.position = player.transform.position;
+        float dis = Vector3.Distance(points[points.Count-1],player.transform.position);
+        lineControllerEnd.startTime = startTime * (dis/maxDistance);
+        lineControllerEnd.keepTime = keepTime;
+        lineControllerEnd.follow = player.transform.position;
+        lineControllerEnd.isLastLine = true;
+        lineConnects.Add(lineCurEnd.gameObject);
     }
 }

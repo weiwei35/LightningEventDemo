@@ -42,7 +42,7 @@ public class PaperController : MonoBehaviour
             Vector3 pointPos;
             float angle = Random.Range(0,Mathf.PI * 2);
             float radiusRandom = Random.Range(0,radius);
-            pointPos = center.position + new Vector3(Mathf.Cos(angle) * radiusRandom,Mathf.Sin(angle) * radiusRandom,-5);
+            pointPos = center.position + new Vector3(Mathf.Cos(angle) * radiusRandom,Mathf.Sin(angle) * radiusRandom,0);
             Global.papersPosList.Add(pointPos);
             return pointPos;
         }else{
@@ -54,7 +54,7 @@ public class PaperController : MonoBehaviour
                 List<float> dis = new List<float>();
                 float angle = Random.Range(0,Mathf.PI * 2);
                 float radiusRandom = Random.Range(0,radius);
-                pointPos = center.position + new Vector3(Mathf.Cos(angle) * radiusRandom,Mathf.Sin(angle) * radiusRandom,-5);
+                pointPos = center.position + new Vector3(Mathf.Cos(angle) * radiusRandom,Mathf.Sin(angle) * radiusRandom,0);
                 foreach (var item in Global.papersPosList)
                 {
                     var distance = Vector3.Distance(item,pointPos);

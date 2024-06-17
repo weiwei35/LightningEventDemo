@@ -156,6 +156,8 @@ public class LineController : MonoBehaviour
     }
 
     public void EndLine () {
+        lightning.isSetLight = false;
+
         lightningEffect.pos3.transform.DOMove(end.transform.position,startTime);
         lightningEffect.pos4.transform.DOMove(end.transform.position,startTime);
         start.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
