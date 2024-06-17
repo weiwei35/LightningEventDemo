@@ -24,4 +24,8 @@ public class PlayerOnceController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnDestroy() {
+        Global.playerCopyList.Remove(gameObject);
+    }
 }

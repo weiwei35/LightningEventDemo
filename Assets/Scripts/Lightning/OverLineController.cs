@@ -56,7 +56,6 @@ public class OverLineController : MonoBehaviour
                     lineControllerCopy.startTime = startTime;
                     lineControllerCopy.keepTime = keepTime;
                     lineControllerCopy.timeCount = lightning.lightningPreTime+1;
-                    lineControllerCopy.isChecked = true;
                 }
             }
         }
@@ -70,7 +69,6 @@ public class OverLineController : MonoBehaviour
                 lineControllerCopy.startTime = startTime;
                 lineControllerCopy.keepTime = keepTime;
                 lineControllerCopy.timeCount = lightning.lightningPreTime+1;
-                lineControllerCopy.isChecked = true;
         }
     }
 

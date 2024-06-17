@@ -103,7 +103,6 @@ public class LineController : MonoBehaviour
                     lineControllerCopy.keepTime = keepTime;
                     lineControllerCopy.follow = item;
                     lineControllerCopy.timeCount = lightning.lightningPreTime+1;
-                    lineControllerCopy.isChecked = true;
                 }
             }
         }
@@ -118,7 +117,6 @@ public class LineController : MonoBehaviour
                 lineControllerCopy.keepTime = keepTime;
                 lineControllerCopy.follow = playerCopy;
                 lineControllerCopy.timeCount = lightning.lightningPreTime+1;
-                lineControllerCopy.isChecked = true;
         }
     }
 

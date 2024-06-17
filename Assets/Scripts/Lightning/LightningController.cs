@@ -93,7 +93,12 @@ public class LightningController : MonoBehaviour
     }
     IEnumerator SetEndLight(){
         isSetLight = false;
-        circle.RandomPointsCopy(lightningCount);
+        circle.RandomPointsMirror(lightningCount);
+        if(player.isMegaCopy){
+            foreach(var copy in Global.playerCopyList){
+                circle.RandomPointsCopy(lightningCount);
+            }
+        }
         yield return new WaitForSeconds(0.5f);
         endsetLight = false;
     }

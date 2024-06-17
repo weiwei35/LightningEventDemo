@@ -13,8 +13,6 @@ public class MirrorLineController : MonoBehaviour
     public float startTime = 0.1f;
     public float keepTime = 0.5f;
     LineRenderer line;
-    // bool canMove = false;
-    public bool isChecked = false;
     public float timeCount = 0;
     public GameObject follow;
     EnemyController enemy;
@@ -31,10 +29,6 @@ public class MirrorLineController : MonoBehaviour
         line = GetComponent<LineRenderer>();
         lightning = FindObjectOfType<LightningController>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        if(!isChecked){
-            isChecked = true;
-            // CheckCopy();
-        }
         DrawLinePoints();
     }
     private void Update() {
@@ -42,11 +36,6 @@ public class MirrorLineController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        // if(start != follow.transform.position && canMove && follow!= null){
-        //     start = follow.transform.position + new Vector3(0,1f,0);
-        //     lightningEffect.pos3.transform.position = start;
-        //     lightningEffect.pos4.transform.position = start;
-        // }
         line.SetPosition(0,start.transform.position);
         line.SetPosition(1,pos.transform.position);
         if(lineCollider!= null)
@@ -63,39 +52,6 @@ public class MirrorLineController : MonoBehaviour
             lineCollider.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);}
         }
     }
-
-    public void CheckCopy() {
-        if(player.GetComponent<PlayerController>().isOnceLightningCopy || player.GetComponent<PlayerController>().isOnceTimeCopy){
-            GameObject[] playerOnceCopy = GameObject.FindGameObjectsWithTag("PlayerOnceCopy");
-            if(playerOnceCopy.Length > 0){
-                foreach (var item in playerOnceCopy)
-                {
-                    var lineCurCopy = Instantiate(gameObject);
-                    lineCurCopy.transform.position = transform.position;
-                    MirrorLineController lineControllerCopy = lineCurCopy.GetComponent<MirrorLineController>();
-                    lineControllerCopy.start = start;
-                    lineControllerCopy.end.transform.position = new Vector3(item.transform.position.x,item.transform.position.y,-5);
-                    lineControllerCopy.startTime = startTime;
-                    lineControllerCopy.keepTime = keepTime;
-                    lineControllerCopy.timeCount = lightning.lightningPreTime+1;
-                    lineControllerCopy.isChecked = true;
-                }
-            }
-        }
-        if(player.GetComponent<PlayerController>().isCircleCopy){
-                GameObject playerCopy = GameObject.FindGameObjectWithTag("PlayerCopy");
-                var lineCurCopy = Instantiate(line.gameObject);
-                lineCurCopy.transform.position = transform.position;
-                MirrorLineController lineControllerCopy = lineCurCopy.GetComponent<MirrorLineController>();
-                lineControllerCopy.start = start;
-                lineControllerCopy.end.transform.position = new Vector3(playerCopy.transform.position.x,playerCopy.transform.position.y,-5);
-                lineControllerCopy.startTime = startTime;
-                lineControllerCopy.keepTime = keepTime;
-                lineControllerCopy.timeCount = lightning.lightningPreTime+1;
-                lineControllerCopy.isChecked = true;
-        }
-    }
-
     public void DrawLinePoints() {
         // canMove = false;
         lightningEffect = Instantiate(lightningAsset);

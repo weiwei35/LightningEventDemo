@@ -21,9 +21,6 @@ public class CircleController : MonoBehaviour
     List<GameObject> lines = new List<GameObject>();
     List<GameObject> lineConnects = new List<GameObject>();
     List<GameObject> lineCopys = new List<GameObject>();
-    // List<GameObject> starts = new List<GameObject>();
-    List<GameObject> circleLight = new List<GameObject>();
-    // bool canFollow = false;
     Vector3 center;
     [Header("半径")]
     public float radius;
@@ -130,9 +127,6 @@ public class CircleController : MonoBehaviour
             // 你可以在这里处理交点信息
             float angle =RandomAngle(intersectionPoint2,intersectionPoint3);
             Vector3 point = center + new Vector3(Mathf.Cos(angle * Mathf.PI/180) * radius,Mathf.Sin(angle * Mathf.PI/180) * radius,0);
-            // var start = Instantiate(startPointEP);
-            // start.transform.position = point;
-            // starts.Add(start);
             points.Add(point);
         }
         //普通雷点
@@ -163,9 +157,6 @@ public class CircleController : MonoBehaviour
             }
             if(canSave){
                 points.Add(pointCur);
-                // var start = Instantiate(startPoint);
-                // start.transform.position = pointCur;
-                // starts.Add(start);
                 i++;
             }
         }
@@ -183,9 +174,44 @@ public class CircleController : MonoBehaviour
         // GetCamLight();
     }
         //在圆上取count个数的随机点
+    public void RandomPointsMirror (float count) {
+        List<Vector3> pointsMirror = new List<Vector3>();
+        pointsMirror.Clear();
+        //普通雷点
+        for (int i = 0; i < count;)
+        {
+            bool canSave = true;
+            Vector3 pointCur = GetPoint();
+            foreach (var item in pointsMirror)
+            {
+                // 计算圆心到点的方向向量
+                Vector2 direction1 = item - center;
+                // 标准化方向向量以便于计算角度
+                direction1.Normalize();
+                // 计算点和圆心连线与正X轴的夹角（角度值）
+                float angle1 = Mathf.Atan2(direction1.y, direction1.x) * Mathf.Rad2Deg;
+
+                // 计算圆心到点的方向向量
+                Vector2 direction2 = pointCur - center;
+                // 标准化方向向量以便于计算角度
+                direction2.Normalize();
+                // 计算点和圆心连线与正X轴的夹角（角度值）
+                float angle2 = Mathf.Atan2(direction2.y, direction2.x) * Mathf.Rad2Deg;
+
+                if(Mathf.Abs(angle1-angle2) < 15){
+                    canSave = false;
+                    Debug.Log("两雷点离得太近");
+                }
+            }
+            if(canSave){
+                pointsMirror.Add(pointCur);
+                i++;
+            }
+        }
+        SetLinesMirror(mirroeStartTime,mirroeStartTime,pointsMirror);
+    }
     public void RandomPointsCopy (float count) {
         List<Vector3> pointsCopy = new List<Vector3>();
-        pointsCopy.Clear();
         //普通雷点
         for (int i = 0; i < count;)
         {
@@ -214,14 +240,15 @@ public class CircleController : MonoBehaviour
             }
             if(canSave){
                 pointsCopy.Add(pointCur);
-                // var start = Instantiate(startPoint);
-                // start.transform.position = pointCur;
-                // starts.Add(start);
                 i++;
             }
         }
-        SetLinesCopy(mirroeStartTime,mirroeStartTime,pointsCopy);
-        // GetCamLight();
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        if(playerController.isMegaCopy){
+            foreach(var copy in Global.playerCopyList){
+                SetLinesMirrorCopy(mirroeStartTime,mirroeStartTime,pointsCopy,copy);
+            }
+        }
     }
     //在圆上取随机点
     Vector3 GetPoint(){
@@ -297,7 +324,7 @@ public class CircleController : MonoBehaviour
             lines.Add(lineCur.gameObject);
         }
     }
-    public void SetLinesCopy (float startTime,float keepTime,List<Vector3> points) {
+    public void SetLinesMirror (float startTime,float keepTime,List<Vector3> points) {
         foreach(var point in points){
             var lineCur = Instantiate(mirrorLine.gameObject);
             lineCur.transform.position = player.transform.position;
@@ -312,6 +339,24 @@ public class CircleController : MonoBehaviour
             lineCopys.Add(lineCur.gameObject);
         }
     }
+
+    //分身反射雷
+    public void SetLinesMirrorCopy (float startTime,float keepTime,List<Vector3> points,GameObject copy) {
+        foreach(var point in points){
+            var lineCur = Instantiate(mirrorLine.gameObject);
+            lineCur.transform.position = copy.transform.position;
+            MirrorLineController lineController = lineCur.GetComponent<MirrorLineController>();
+            lineController.start.transform.position = copy.transform.position + new Vector3(0,1f,0);
+            lineController.end.transform.position = point;
+            lineController.startTime = startTime;
+            lineController.keepTime = keepTime;
+            lineController.showTime = 0;
+            lineController.follow = copy;
+            lineController.timeCount = lightning.lightningPreTime +1;
+            lineCopys.Add(lineCur.gameObject);
+        }
+    }
+
     //串联电路
     public void SetConnectLines (float startTime,float keepTime,List<Vector3> points) {
         StartCoroutine(IterateWithDelay(startTime,keepTime,points));

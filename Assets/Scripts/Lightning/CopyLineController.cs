@@ -10,17 +10,12 @@ public class CopyLineController : MonoBehaviour
     public GameObject pos;
     public LayerMask layer;
     public GameObject follow;
-    public GameObject startPointEP;//特殊雷点
-    public GameObject startPoint;
     public float showTime = 0;
     public float startTime = 0.1f;
     public float keepTime = 0.5f;
     LineRenderer line;
     bool canMove = false;
-    public bool isChecked = false;
     public float timeCount = 0;
-
-    EnemyController enemy;
     LightningController lightning;
     PlayerController player;
     Vector3 midPoint;
@@ -34,15 +29,6 @@ public class CopyLineController : MonoBehaviour
         line = GetComponent<LineRenderer>();
         lightning = FindObjectOfType<LightningController>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        StartCoroutine(SetStartPoint());
-    }
-    //依次出现雷点
-    IEnumerator SetStartPoint(){
-        yield return new WaitForSeconds(showTime);
-        startPoint.gameObject.SetActive(true);
-        var start = Instantiate(startPointEP);
-        start.transform.position = transform.position;
-        start.transform.parent = transform;
     }
     private void Update() {
         timeCount += Time.deltaTime;
@@ -50,10 +36,6 @@ public class CopyLineController : MonoBehaviour
             timeCount = 0;
             if(follow == null)
                 end.transform.position = start.transform.position;
-            if(!isChecked){
-                isChecked = true;
-                // CheckCopy();
-            }
             DrawLinePoints();
         }
     }
@@ -88,40 +70,6 @@ public class CopyLineController : MonoBehaviour
         }
         line.SetPosition(0,start.transform.position);
         line.SetPosition(1,pos.transform.position);
-    }
-
-    public void CheckCopy() {
-        if(player.GetComponent<PlayerController>().isOnceLightningCopy || player.GetComponent<PlayerController>().isOnceTimeCopy){
-            GameObject[] playerOnceCopy = GameObject.FindGameObjectsWithTag("PlayerOnceCopy");
-            if(playerOnceCopy.Length > 0){
-                foreach (var item in playerOnceCopy)
-                {
-                    var lineCurCopy = Instantiate(gameObject);
-                    lineCurCopy.transform.position = transform.position;
-                    CopyLineController lineControllerCopy = lineCurCopy.GetComponent<CopyLineController>();
-                    lineControllerCopy.start = start;
-                    lineControllerCopy.end.transform.position = new Vector3(item.transform.position.x,item.transform.position.y,-5);
-                    lineControllerCopy.startTime = startTime;
-                    lineControllerCopy.keepTime = keepTime;
-                    lineControllerCopy.follow = item;
-                    lineControllerCopy.timeCount = lightning.lightningPreTime+1;
-                    lineControllerCopy.isChecked = true;
-                }
-            }
-        }
-        if(player.GetComponent<PlayerController>().isCircleCopy){
-                GameObject playerCopy = GameObject.FindGameObjectWithTag("PlayerCopy");
-                var lineCurCopy = Instantiate(gameObject);
-                lineCurCopy.transform.position = transform.position;
-                CopyLineController lineControllerCopy = lineCurCopy.GetComponent<CopyLineController>();
-                lineControllerCopy.start = start;
-                lineControllerCopy.end.transform.position = new Vector3(playerCopy.transform.position.x,playerCopy.transform.position.y,-5);
-                lineControllerCopy.startTime = startTime;
-                lineControllerCopy.keepTime = keepTime;
-                lineControllerCopy.follow = playerCopy;
-                lineControllerCopy.timeCount = lightning.lightningPreTime+1;
-                lineControllerCopy.isChecked = true;
-        }
     }
 
     public void DrawLinePoints() {

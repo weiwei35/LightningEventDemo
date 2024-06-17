@@ -5,6 +5,7 @@ using UnityEngine;
 public static class Global{
     public static bool isSlowDown = false;
     public static List<Vector3> papersPosList = new List<Vector3>();
+    public static List<GameObject> playerCopyList = new List<GameObject>();
 }
 public class GameController : MonoBehaviour
 {

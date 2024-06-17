@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
     public GameObject playerOnceCopyPre;
     [Header("分身法宝3")]
     public bool isOnceTimeCopy = false;
+    [Header("分身法宝4")]
+    public bool isMegaCopy = false;
     [HideInInspector]
     public bool isTimeCopied = false;
     [HideInInspector]
@@ -397,6 +399,7 @@ public class PlayerController : MonoBehaviour
         isCircleCopy = !isCircleCopy;
         if(isCircleCopy){
             playerCopy = Instantiate(playerCopyPre);
+            Global.playerCopyList.Add(playerCopy);
             Vector3 centerPos = new Vector3(circle.centerPos.transform.position.x,circle.centerPos.transform.position.y,transform.position.z);
             playerCopy.transform.position = GetSymmetricPosition(transform.position,centerPos);
             playerCopy.tag = "PlayerCopy";
@@ -422,6 +425,7 @@ public class PlayerController : MonoBehaviour
     public void PlayerOnceLightCopy() {
         isLightCopied = true;
         playerOnceCopy = Instantiate(playerOnceCopyPre);
+        Global.playerCopyList.Add(playerOnceCopy);
         playerOnceCopy.transform.position = transform.position;
         playerOnceCopy.tag = "PlayerOnceCopy";
     }
@@ -430,9 +434,14 @@ public class PlayerController : MonoBehaviour
     public void SetOnceTimeCopy() {
         isOnceTimeCopy = !isOnceTimeCopy;
     }
+    //分身法宝4：雷点法宝适用于分身
+    public void SetMegaCopy() {
+        isMegaCopy = !isMegaCopy;
+    }
     public void PlayerOnceTimeCopy() {
         isTimeCopied = true;
         playerOnceCopy = Instantiate(playerOnceCopyPre);
+        Global.playerCopyList.Add(playerOnceCopy);
         playerOnceCopy.transform.position = transform.position;
         playerOnceCopy.tag = "PlayerOnceCopy";
     }
@@ -571,7 +580,7 @@ public class PlayerController : MonoBehaviour
         paper.transform.parent = papers.transform;
         paper.transform.position = papers.transform.position;
     }
-    //符箓·寒冰：每10轮雷劫再次召唤，剑气围绕符箓旋转，对扫过的敌人造成伤害并减少20%移动速度。
+    //符箓·串联：每轮雷劫只会生成一道雷击，雷击道数会转化成为雷电伤害，并将自动串联所有符箓。
     public void SetPaperConnect() {
         isPaperConnect = !isPaperConnect;
         LightningController lightningController = lightning.GetComponent<LightningController>();
