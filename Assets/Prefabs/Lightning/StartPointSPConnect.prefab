@@ -115,6 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8011304443664593525}
   - component: {fileID: 798626079760196809}
+  - component: {fileID: 2210477042924507296}
   m_Layer: 0
   m_Name: StartPointSPConnect
   m_TagString: Untagged
@@ -154,3 +155,15 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!210 &2210477042924507296
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5971536029102848306}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 9
+  m_SortAtRoot: 0
