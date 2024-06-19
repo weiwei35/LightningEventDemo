@@ -66,6 +66,9 @@ public class PlayerController : MonoBehaviour
     public bool isLightningOverflow = false;
     [Header("雷电法宝4")]
     public bool isLightningAttract = false;
+    [Header("雷电法宝5")]
+    public bool isLightningBoomPlayer = false;
+    public GameObject boom;
     [Header("虫虫·1")]
     public GameObject petBugs;
     [HideInInspector]
@@ -464,6 +467,22 @@ public class PlayerController : MonoBehaviour
     //雷电法宝4：雷电会将周围的怪物吸附牵引
     public void SetLightningAttract() {
         isLightningAttract = !isLightningAttract;
+    }
+    //雷电法宝5：雷电会将周围的怪物吸附牵引
+    public void SetLightningBoomPlayer() {
+        isLightningBoomPlayer = !isLightningBoomPlayer;
+    }
+    public void SetBoom() {
+        var boomCur = Instantiate(boom);
+        boomCur.transform.position = transform.position + new Vector3(0,1,0);
+        var scaleOffset = 1 + 2*(HPCurrent/HP); 
+        boomCur.transform.localScale = new Vector3(scaleOffset,scaleOffset,scaleOffset);
+    }
+    public void SetCopyBoom(GameObject copy) {
+        var boomCur = Instantiate(boom);
+        boomCur.transform.position = copy.transform.position + new Vector3(0,0.6f,0);
+        var scaleOffset = 1 + 2*(HPCurrent/HP); 
+        boomCur.transform.localScale = new Vector3(scaleOffset,scaleOffset,scaleOffset);
     }
 
     //虫虫1：持续2秒回复生命值，每秒给角色回复10%已损失生命值，最小值为1

@@ -238,7 +238,6 @@ public class CircleController : MonoBehaviour
         PlayerController playerController = player.GetComponent<PlayerController>();
         if(playerController.isMegaCopy){
             foreach(var copy in Global.playerCopyList){
-                Debug.Log(copy.name);
                 SetLinesMirrorCopy(mirroeStartTime,mirroeStartTime,pointsCopy,copy);
             }
         }
@@ -334,7 +333,6 @@ public class CircleController : MonoBehaviour
 
     //分身反射雷
     public void SetLinesMirrorCopy (float startTime,float keepTime,List<Vector3> points,GameObject copy) {
-        Debug.Log(copy.name+"_______________"+points.Count);
         foreach(var point in points){
             var lineCur = Instantiate(mirrorLine.gameObject);
             lineCur.transform.position = copy.transform.position;

@@ -105,6 +105,14 @@ public class LightningController : MonoBehaviour
         if(player.canHurt){
             player.Hurt(circleHurt);
         }
+        if(player.isLightningBoomPlayer){
+            player.SetBoom();
+            if(player.isMegaCopy){
+                foreach(var copy in Global.playerCopyList){
+                    player.SetCopyBoom(copy);
+                }
+            }
+        }
     }
 
     public void ConnectPaper() {
