@@ -20,7 +20,6 @@ public class CircleController : MonoBehaviour
     List<Vector3> pointsConnect = new List<Vector3>();
     List<GameObject> lines = new List<GameObject>();
     List<GameObject> lineConnects = new List<GameObject>();
-    List<GameObject> lineCopys = new List<GameObject>();
     Vector3 center;
     [Header("半径")]
     public float radius;
@@ -58,14 +57,6 @@ public class CircleController : MonoBehaviour
                     lineController.end.transform.position = player.transform.position;
             }
         }
-        // foreach (var item in lineCopys)
-        // {
-        //     if(item != null){
-        //         MirrorLineController lineController = item.GetComponent<MirrorLineController>();
-        //         if(lineController.follow != null)
-        //             lineController.start = lineController.follow.transform.position + new Vector3(0,1f,0);
-        //     }
-        // }
     }
 
     //画结界
@@ -212,6 +203,7 @@ public class CircleController : MonoBehaviour
     }
     public void RandomPointsCopy (float count) {
         List<Vector3> pointsCopy = new List<Vector3>();
+        pointsCopy.Clear();
         //普通雷点
         for (int i = 0; i < count;)
         {
@@ -246,6 +238,7 @@ public class CircleController : MonoBehaviour
         PlayerController playerController = player.GetComponent<PlayerController>();
         if(playerController.isMegaCopy){
             foreach(var copy in Global.playerCopyList){
+                Debug.Log(copy.name);
                 SetLinesMirrorCopy(mirroeStartTime,mirroeStartTime,pointsCopy,copy);
             }
         }
@@ -336,12 +329,12 @@ public class CircleController : MonoBehaviour
             lineController.showTime = 0;
             lineController.follow = player;
             lineController.timeCount = lightning.lightningPreTime +1;
-            lineCopys.Add(lineCur.gameObject);
         }
     }
 
     //分身反射雷
     public void SetLinesMirrorCopy (float startTime,float keepTime,List<Vector3> points,GameObject copy) {
+        Debug.Log(copy.name+"_______________"+points.Count);
         foreach(var point in points){
             var lineCur = Instantiate(mirrorLine.gameObject);
             lineCur.transform.position = copy.transform.position;
@@ -353,7 +346,6 @@ public class CircleController : MonoBehaviour
             lineController.showTime = 0;
             lineController.follow = copy;
             lineController.timeCount = lightning.lightningPreTime +1;
-            lineCopys.Add(lineCur.gameObject);
         }
     }
 

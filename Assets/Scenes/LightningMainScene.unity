@@ -2018,7 +2018,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightningTime: 2
   lightningPreTime: 1
-  lightningCount: 3
+  lightningCount: 1
   lightningHurt: 10
   lightningWidth: 0.3
   startTime: 0.3

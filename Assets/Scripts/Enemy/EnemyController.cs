@@ -273,6 +273,7 @@ public enum HurtType{
     Lightning,
     Boom,
     Overflow,
+    MirrorLine,
     CopyPlayer,
     BugCircle,
     BugFollow,
