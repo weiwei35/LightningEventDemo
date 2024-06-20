@@ -122,6 +122,12 @@ public class PlayerController : MonoBehaviour
     public bool isDebuffDizzy = false;
     [Header("Buff·冲击波")]
     public bool isBuffBoom = false;
+    [Header("Buff·无敌")]
+    public bool isBuffSuper = false;
+    public GameObject superEffect;
+    bool isSuper = false;
+    public float superTime = 5;
+    float superTimeCount = 0;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -191,7 +197,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //受伤状态判定
-        if(!IsInCircle() && !gameController.isReward){
+        if(!IsInCircle() && !gameController.isReward && !isSuper){
             canHurt = true;
         }else{
             canHurt = false;
@@ -275,6 +281,20 @@ public class PlayerController : MonoBehaviour
         if(bugs.Count >= 4 && isBugMerge && !isTriggerMerge){
             TriggerBugMerge();
         }
+        //角色定时进入一段无敌状态
+        if(isBuffSuper){
+            superTimeCount += Time.deltaTime;
+            if(superTimeCount > superTime){
+                superEffect.SetActive(true);
+                isSuper = true;
+                Invoke("RestoreSuper",5);
+            }
+        }
+    }
+    void RestoreSuper(){
+        superEffect.SetActive(false);
+        superTimeCount = 0;
+        isSuper = false;
     }
 
     public bool IsInCircle(){
@@ -343,7 +363,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Hurt (float hurt) {
-        if(!ishitting && !gameController.isReward){
+        if(!ishitting && !gameController.isReward && !isSuper){
             ishitting = true;
             anim.PlayHurtAnim();
             float offsetHurt = 0;
@@ -656,5 +676,9 @@ public class PlayerController : MonoBehaviour
         var boomCur = Instantiate(boom);
         boomCur.transform.position = transform.position + new Vector3(0,1,0);
         boomCur.transform.localScale = new Vector3(2,2,2);
+    }
+    //Buff·无敌：角色定时进入一段无敌状态
+    public void SetBuffSuper() {
+        isBuffSuper = !isBuffSuper;
     }
 }
