@@ -54,7 +54,7 @@ public class EnemyFollowMove : EnemyController
 
     private void FollowMove () {
         if(target != null){
-            transform.position = Vector3.MoveTowards(transform.position,target.position,Time.deltaTime * speed);
+            transform.position = Vector3.MoveTowards(transform.position,target.position+new Vector3(0,1,0),Time.deltaTime * speed);
             Vector2 v = target.transform.position - transform.position;
             var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
             var trailRotation = Quaternion.AngleAxis(angle, Vector3.forward);

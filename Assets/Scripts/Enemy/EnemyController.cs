@@ -42,7 +42,8 @@ public class EnemyController : MonoBehaviour
     float followCountTime = 0;
     public bool iceSpeed = false;
     public Vector3 boomDir;
-
+    public bool debuffSlowing = false;
+    float debuffCount = 0;
     public virtual void Start()
     {
         startPosition = transform.position; // 记录开始位置
@@ -63,10 +64,14 @@ public class EnemyController : MonoBehaviour
             speed = speedSave/10;
             anim.speed = 0.5f;
         }else if(iceSpeed){
-            anim.speed = 1;
+            anim.speed = 0.5f;
             speed = speedSave/5;
+        }else if(debuffSlowing){
+            speed = speedSave * 0.5f;
+            anim.speed = 0.5f;
         }
-        else if(!Global.isSlowDown && !iceSpeed){
+        else if(!Global.isSlowDown && !iceSpeed && !debuffSlowing){
+            anim.speed = 1;
             speed = speedSave;
         }
         if(isBoomHall){
@@ -76,7 +81,13 @@ public class EnemyController : MonoBehaviour
                 isInBlackHall = false;
             }
         }
-            
+        if(debuffSlowing && !Global.isSlowDown){
+            debuffCount += Time.deltaTime;
+        }
+        if(debuffCount > 3 && debuffSlowing){
+            debuffSlowing = false;
+            debuffCount = 0;
+        }
     }
     public void RandomMoveInHall(Vector3 centerHall,float range)
     {

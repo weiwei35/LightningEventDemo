@@ -125,7 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 10
   attack: 5
-  speed: 2
+  speed: 5
   text: {fileID: 4692023589273772047}
   center: {fileID: 0}
   radius: 12
@@ -141,6 +141,7 @@ MonoBehaviour:
   boom: {fileID: 2892117171290514479, guid: 1d385aee270ab194e93a2bd5bf63bd0a, type: 3}
   iceSpeed: 0
   boomDir: {x: 0, y: 0, z: 0}
+  debuffSlowing: 0
 --- !u!54 &8866925764117179213
 Rigidbody:
   m_ObjectHideFlags: 0

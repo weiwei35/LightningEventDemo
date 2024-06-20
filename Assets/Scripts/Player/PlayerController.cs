@@ -112,6 +112,9 @@ public class PlayerController : MonoBehaviour
     public PaperController paperBlackPre;
     [Header("符箓·串联")]
     public bool isPaperConnect = false;
+    [Header("Debuff·减速")]
+    public bool isDebuffSlow = false;
+    public GameObject moveSlow;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -134,6 +137,7 @@ public class PlayerController : MonoBehaviour
     public GameObject enemyPool;
     public GameObject lightning;
     public GameObject effect;
+    SpriteRenderer sprite;
     private void Start() {
         HPCurrent = HP;
         protectCurrent = protect;
@@ -144,6 +148,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<PlayerAnimation>();
         rb = GetComponent<Rigidbody>();
         speed = moveSpeed;
+        sprite = GetComponent<SpriteRenderer>();
     }
  
     // Update is called once per frame
@@ -157,9 +162,11 @@ public class PlayerController : MonoBehaviour
         rb.velocity = velocity * moveSpeed;
 
         if(moveX > 0){
-            transform.localScale = new Vector3(-0.8f,0.8f,0.8f);
+            // transform.localScale = new Vector3(-0.8f,0.8f,0.8f);
+            sprite.flipX = true;
         }else if(moveX < 0){
-            transform.localScale = new Vector3(0.8f,0.8f,0.8f);
+            // transform.localScale = new Vector3(0.8f,0.8f,0.8f);
+            sprite.flipX = false;
         }
     }
 
@@ -604,5 +611,10 @@ public class PlayerController : MonoBehaviour
         isPaperConnect = !isPaperConnect;
         LightningController lightningController = lightning.GetComponent<LightningController>();
         lightningController.ConnectPaper();
+    }
+    //Debuff·减速：移动路径上留下一个可以降低怪物速度的减速区域
+    public void SetDebuffSlow() {
+        isDebuffSlow = !isDebuffSlow;
+        moveSlow.SetActive(isDebuffSlow);
     }
 }
