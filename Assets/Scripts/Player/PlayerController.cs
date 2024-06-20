@@ -120,6 +120,8 @@ public class PlayerController : MonoBehaviour
     public GameObject freezeBoom;
     [Header("Debuff·麻痹")]
     public bool isDebuffDizzy = false;
+    [Header("Buff·冲击波")]
+    public bool isBuffBoom = false;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -361,6 +363,11 @@ public class PlayerController : MonoBehaviour
             textPro.text = protectCurrent.ToString();
             sliderHP.value = HPCurrent/HP;
             sliderPro.value = protectCurrent/protect;
+
+            if(isBuffBoom){
+                SetMegaBoom();
+            }
+
             StartCoroutine(HittingCold());
         }
     }
@@ -622,7 +629,7 @@ public class PlayerController : MonoBehaviour
         isDebuffSlow = !isDebuffSlow;
         moveSlow.SetActive(isDebuffSlow);
     }
-    //Debuff·减速：移动路径上留下一个可以降低怪物速度的减速区域
+    //Debuff·冻结：受伤后有几率，将周围的怪物冻结
     public void SetDebuffFreeze() {
         isDebuffFreeze = !isDebuffFreeze;
     }
@@ -633,5 +640,21 @@ public class PlayerController : MonoBehaviour
     //Debuff·麻痹：雷击会让怪物有几率麻痹
     public void SetDebuffDizzy() {
         isDebuffDizzy = !isDebuffDizzy;
+    }
+    //Buff·冲击波：受到伤害后，发出冲击波将周围的怪物击退
+    public void SetBuffBoom() {
+        isBuffBoom = !isBuffBoom;
+    }
+    public void SetMegaBoom() {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 5);
+        foreach (Collider collider in colliders)
+        {
+            if(collider.gameObject.layer == 6)
+                collider.GetComponent<EnemyController>().isBoom = true;
+        }
+
+        var boomCur = Instantiate(boom);
+        boomCur.transform.position = transform.position + new Vector3(0,1,0);
+        boomCur.transform.localScale = new Vector3(2,2,2);
     }
 }

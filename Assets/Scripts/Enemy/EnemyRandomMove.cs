@@ -22,7 +22,7 @@ public class EnemyRandomMove : EnemyController
     public override void Update()
     {
         base.Update();
-        if(!isInBlackHall)
+        if(!isInBlackHall && !isBoom)
         {
             if (Vector3.Distance(transform.position, new Vector3(randomX, randomY, target.position.z)) < 0.05f)
             {

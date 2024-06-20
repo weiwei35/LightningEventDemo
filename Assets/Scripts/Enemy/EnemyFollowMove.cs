@@ -19,7 +19,7 @@ public class EnemyFollowMove : EnemyController
     public override void Update()
     {
         base.Update();
-        if(!isInBlackHall)
+        if(!isInBlackHall && !isBoom)
         {
             FollowMove ();
         }

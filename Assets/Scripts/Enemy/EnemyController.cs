@@ -45,8 +45,12 @@ public class EnemyController : MonoBehaviour
     public bool debuffSlowing = false;
     float debuffCount = 0;
     bool isFreeze = false;
+    public bool isBoom = false;
+    Rigidbody rb;
+    Vector3 randomAngle;
     public virtual void Start()
     {
+        rb = GetComponent<Rigidbody>();
         startPosition = transform.position; // 记录开始位置
         text.text = HP.ToString();
         anim = GetComponent<Animator>();
@@ -54,6 +58,7 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         speedSave = speed;
         center = GameObject.FindGameObjectWithTag("Center").transform;
+        randomAngle = RandomUnitVector();
     }
     public virtual void Update() {
         // if(HP <= 0 && !isDead){
@@ -82,6 +87,10 @@ public class EnemyController : MonoBehaviour
                 isInBlackHall = false;
             }
         }
+        if(isBoom){
+            rb.AddForce(5 * randomAngle, ForceMode.Impulse);
+            Invoke("RestoreBoom",0.5f);
+        }
         if(debuffSlowing && !Global.isSlowDown){
             debuffCount += Time.deltaTime;
         }
@@ -89,6 +98,21 @@ public class EnemyController : MonoBehaviour
             debuffSlowing = false;
             debuffCount = 0;
         }
+    }
+
+    Vector3 RandomUnitVector()
+    {
+        float zenith = Random.Range(0f, Mathf.PI); // 随机选择一个极角
+        float azimuth = Random.Range(0f, Mathf.PI * 2f); // 随机选择一个方位角
+
+        float x = Mathf.Sin(zenith) * Mathf.Cos(azimuth); // 根据球坐标系转换为笛卡尔坐标系
+        float y = Mathf.Sin(zenith) * Mathf.Sin(azimuth);
+        float z = Mathf.Cos(zenith);
+
+        return new Vector3(x, y, z).normalized; // 返回单位向量
+    }
+    void RestoreBoom(){
+        isBoom = false;
     }
     public void RandomMoveInHall(Vector3 centerHall,float range)
     {

@@ -44,7 +44,7 @@ public class EnemyFarMove : EnemyController
     public override void Update()
     {
         base.Update();
-        if(!isInBlackHall)
+        if(!isInBlackHall && !isBoom)
         {
             FollowMove ();
             if(!CheckInACircle()){
