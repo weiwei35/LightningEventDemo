@@ -128,6 +128,10 @@ public class PlayerController : MonoBehaviour
     bool isSuper = false;
     public float superTime = 5;
     float superTimeCount = 0;
+    [Header("瞬移")]
+    public bool isMoveRandom = false;
+    public float moveTime = 5;
+    float moveTimeCount = 0;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -287,7 +291,18 @@ public class PlayerController : MonoBehaviour
             if(superTimeCount > superTime){
                 superEffect.SetActive(true);
                 isSuper = true;
-                Invoke("RestoreSuper",5);
+                Invoke("RestoreSuper",superTime);
+            }
+        }
+        //角色每隔一段时间会朝面向方向瞬移一段距离
+        if(isMoveRandom){
+            moveTimeCount += Time.deltaTime;
+            if(moveTimeCount > moveTime && !Global.isSlowDown){
+                if(sprite.flipX)
+                    rb.AddForce(3 * Vector3.right, ForceMode.Impulse);
+                else
+                    rb.AddForce(3 * Vector3.left, ForceMode.Impulse);
+                Invoke("RestoreMove",0.2f);
             }
         }
     }
@@ -295,6 +310,9 @@ public class PlayerController : MonoBehaviour
         superEffect.SetActive(false);
         superTimeCount = 0;
         isSuper = false;
+    }
+    void RestoreMove(){
+        moveTimeCount = 0;
     }
 
     public bool IsInCircle(){
@@ -680,5 +698,9 @@ public class PlayerController : MonoBehaviour
     //Buff·无敌：角色定时进入一段无敌状态
     public void SetBuffSuper() {
         isBuffSuper = !isBuffSuper;
+    }
+    //位移：角色每隔一段时间会朝面向方向瞬移一段距离
+    public void SetMoveRandom() {
+        isMoveRandom = !isMoveRandom;
     }
 }
