@@ -134,6 +134,12 @@ public class EnemyController : MonoBehaviour
             // text.text = HP.ToString();
             if(type == HurtType.Lightning && player.isLightningBoom)
                 SetBoom();
+            if(player.isDebuffDizzy){
+                int random = Random.Range(1,11);
+                if(random > 5){
+                    Freeze();
+                }
+            }
         }
     }
     public virtual void HurtByCircle(float hurt,HurtType type){

@@ -118,6 +118,8 @@ public class PlayerController : MonoBehaviour
     [Header("Debuff·冰冻")]
     public bool isDebuffFreeze = false;
     public GameObject freezeBoom;
+    [Header("Debuff·麻痹")]
+    public bool isDebuffDizzy = false;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -627,5 +629,9 @@ public class PlayerController : MonoBehaviour
     public void SetFreezeBoom() {
         var boomCur = Instantiate(freezeBoom);
         boomCur.transform.position = transform.position + new Vector3(0,1,0);
+    }
+    //Debuff·麻痹：雷击会让怪物有几率麻痹
+    public void SetDebuffDizzy() {
+        isDebuffDizzy = !isDebuffDizzy;
     }
 }
