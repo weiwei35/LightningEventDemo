@@ -115,6 +115,9 @@ public class PlayerController : MonoBehaviour
     [Header("Debuff·减速")]
     public bool isDebuffSlow = false;
     public GameObject moveSlow;
+    [Header("Debuff·冰冻")]
+    public bool isDebuffFreeze = false;
+    public GameObject freezeBoom;
     [HideInInspector]
     public float moveX;
     [HideInInspector]
@@ -616,5 +619,13 @@ public class PlayerController : MonoBehaviour
     public void SetDebuffSlow() {
         isDebuffSlow = !isDebuffSlow;
         moveSlow.SetActive(isDebuffSlow);
+    }
+    //Debuff·减速：移动路径上留下一个可以降低怪物速度的减速区域
+    public void SetDebuffFreeze() {
+        isDebuffFreeze = !isDebuffFreeze;
+    }
+    public void SetFreezeBoom() {
+        var boomCur = Instantiate(freezeBoom);
+        boomCur.transform.position = transform.position + new Vector3(0,1,0);
     }
 }

@@ -44,6 +44,7 @@ public class EnemyController : MonoBehaviour
     public Vector3 boomDir;
     public bool debuffSlowing = false;
     float debuffCount = 0;
+    bool isFreeze = false;
     public virtual void Start()
     {
         startPosition = transform.position; // 记录开始位置
@@ -70,7 +71,7 @@ public class EnemyController : MonoBehaviour
             speed = speedSave * 0.5f;
             anim.speed = 0.5f;
         }
-        else if(!Global.isSlowDown && !iceSpeed && !debuffSlowing){
+        else if(!Global.isSlowDown && !iceSpeed && !debuffSlowing && !isFreeze){
             anim.speed = 1;
             speed = speedSave;
         }
@@ -177,6 +178,15 @@ public class EnemyController : MonoBehaviour
         if(HP <= 0 && !isDead){
             Death();
         }
+    }
+    public virtual void Freeze(){
+        isFreeze = true;
+        speed = 0;
+        Invoke("ResetFreeze",3);
+    }
+    void ResetFreeze(){
+        speed = speedSave;
+        isFreeze = false;
     }
     void ResetSpeed(){
         iceSpeed = false;
