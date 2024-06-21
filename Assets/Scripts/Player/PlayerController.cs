@@ -298,10 +298,11 @@ public class PlayerController : MonoBehaviour
         if(isMoveRandom){
             moveTimeCount += Time.deltaTime;
             if(moveTimeCount > moveTime && !Global.isSlowDown){
-                if(sprite.flipX)
-                    rb.AddForce(3 * Vector3.right, ForceMode.Impulse);
-                else
-                    rb.AddForce(3 * Vector3.left, ForceMode.Impulse);
+                // if(sprite.flipX)
+                //     rb.AddForce(3 * Vector3.right, ForceMode.Impulse);
+                // else
+                //     rb.AddForce(3 * Vector3.left, ForceMode.Impulse);
+                moveSpeed = speed*2.5f;
                 Invoke("RestoreMove",0.2f);
             }
         }

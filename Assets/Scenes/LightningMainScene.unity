@@ -512,7 +512,7 @@ GameObject:
   - component: {fileID: 110784670}
   - component: {fileID: 110784671}
   - component: {fileID: 110784672}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: MoveStep
   m_TagString: Untagged
   m_Icon: {fileID: 0}

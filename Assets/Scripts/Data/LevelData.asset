@@ -17,7 +17,7 @@ MonoBehaviour:
     levelTime: 40
     levelEnemy:
     - enemies:
-      - type: {fileID: 2311599531590538775, guid: 5a3a3939e56fabf458d6fdf2caa47960,
+      - type: {fileID: 2311599531590538775, guid: 18084ec6f6abded418f727e45df04473,
           type: 3}
         count: 5
       startTime: 0
