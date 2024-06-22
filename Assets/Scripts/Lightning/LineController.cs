@@ -45,6 +45,8 @@ public class LineController : MonoBehaviour
     private void Update() {
         timeCount += Time.deltaTime;
         if(timeCount > lightning.lightningPreTime){
+            Global.isSlowDown = true;
+
             timeCount = 0;
             if(follow == null)
                 end.transform.position = start.transform.position;
@@ -122,7 +124,7 @@ public class LineController : MonoBehaviour
 
     public void DrawLinePoints() {
         canMove = false;
-        Global.isSlowDown = true;
+        // Global.isSlowDown = true;
         lightningEffect = Instantiate(lightningAsset);
         lightningEffect.transform.parent = transform;
         lightningEffect.pos1.transform.position = start.transform.position;

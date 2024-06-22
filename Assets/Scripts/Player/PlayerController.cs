@@ -130,6 +130,7 @@ public class PlayerController : MonoBehaviour
     float superTimeCount = 0;
     [Header("瞬移")]
     public bool isMoveRandom = false;
+    bool isMoving = false;
     public float moveTime = 5;
     float moveTimeCount = 0;
     [HideInInspector]
@@ -297,15 +298,22 @@ public class PlayerController : MonoBehaviour
         //角色每隔一段时间会朝面向方向瞬移一段距离
         if(isMoveRandom){
             moveTimeCount += Time.deltaTime;
-            if(moveTimeCount > moveTime && !Global.isSlowDown){
-                // if(sprite.flipX)
-                //     rb.AddForce(3 * Vector3.right, ForceMode.Impulse);
-                // else
-                //     rb.AddForce(3 * Vector3.left, ForceMode.Impulse);
-                moveSpeed = speed*2.5f;
-                Invoke("RestoreMove",0.2f);
+            if(moveTimeCount > moveTime && !Global.isSlowDown && !isMoving){
+                isMoving = true;
+                MoveRandom();
             }
         }
+    }
+    void MoveRandom(){
+        Vector3 centerPos = new Vector3(circle.centerPos.transform.position.x,circle.centerPos.transform.position.y,transform.position.z);
+        Vector3 playerPos = GetSymmetricPosition(transform.position,centerPos);
+        Vector3 endpos = RandomMoveObject(playerPos);
+        transform.DOScale(Vector3.zero,0.1f).OnComplete( ()=>{
+            transform.position = endpos;
+            transform.DOScale(new Vector3(0.8f,0.8f,0.8f),0.1f);
+            RestoreMove();
+        });
+        // Invoke("RestoreMove",0.2f);
     }
     void RestoreSuper(){
         superEffect.SetActive(false);
@@ -313,6 +321,7 @@ public class PlayerController : MonoBehaviour
         isSuper = false;
     }
     void RestoreMove(){
+        isMoving = false;
         moveTimeCount = 0;
     }
 
@@ -476,6 +485,23 @@ public class PlayerController : MonoBehaviour
         Vector3 symmetricPosition = -toCenter + center;
  
         return symmetricPosition;
+    }
+    //在pos周围范围内随机点
+    public Vector3 RandomMoveObject(Vector3 pos)
+    {
+        Vector3 random;
+
+        do
+        {// 生成均匀分布的点
+        float randomAngle = UnityEngine.Random.Range(0f, 360f); // 随机角度
+        float randomRadius = UnityEngine.Random.Range(0f, 5); // 随机半径
+ 
+        // 计算坐标
+        random.x = pos.x + Mathf.Cos(randomAngle * Mathf.Deg2Rad) * randomRadius;
+        random.y = pos.y + Mathf.Sin(randomAngle * Mathf.Deg2Rad) * randomRadius;
+        random.z = transform.position.z;}
+        while(Vector3.Distance(random,circle.centerPos.transform.position) > circle.radius);
+        return random;
     }
 
     //分身法宝2：每被雷击中三次召唤一个一次性分身
