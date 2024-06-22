@@ -19,12 +19,13 @@ public class EnemyController : MonoBehaviour
     public Transform center;
     [Header("随机范围半径")]
     public float radius = 15f;
+    [Header("眩晕动画")]
+    public GameObject duzzyEffect;
     [HideInInspector]
     public bool isHitting = false;
     public bool isFollowHitting = false;
     [HideInInspector]
     public Vector3 startPosition; // 开始位置
-    [HideInInspector]
     public Animator anim;
     [HideInInspector]
     public Transform target;
@@ -53,7 +54,6 @@ public class EnemyController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position; // 记录开始位置
         text.text = HP.ToString();
-        anim = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         speedSave = speed;
@@ -212,9 +212,11 @@ public class EnemyController : MonoBehaviour
     public virtual void Freeze(){
         isFreeze = true;
         speed = 0;
+        duzzyEffect.SetActive(true);
         Invoke("ResetFreeze",3);
     }
     void ResetFreeze(){
+        duzzyEffect.SetActive(false);
         speed = speedSave;
         isFreeze = false;
     }

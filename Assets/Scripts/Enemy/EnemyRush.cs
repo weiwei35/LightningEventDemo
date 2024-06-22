@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class EnemyRush : EnemyController
 {
-    SpriteRenderer sprite;
-    Animator animator;
+    public SpriteRenderer sprite;
+    public Transform mainEnemy;
+    public Animator animator;
     Vector3 rushDis;
     bool isRushing = false;
 
@@ -15,8 +16,8 @@ public class EnemyRush : EnemyController
     {
         base.Start();
         SpawnAtRandomCircle();
-        sprite = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
+        // sprite = GetComponent<SpriteRenderer>();
+        // animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -28,7 +29,7 @@ public class EnemyRush : EnemyController
             FollowMove();
         }
         // 获取当前物体的欧拉角
-        Vector3 currentRotation = transform.rotation.eulerAngles;
+        Vector3 currentRotation = mainEnemy.rotation.eulerAngles;
         if(transform.position.x > target.position.x){
                 currentRotation.z = Mathf.Clamp(currentRotation.z, 150, 210);
             }else if(transform.position.x < target.position.x){
@@ -39,7 +40,7 @@ public class EnemyRush : EnemyController
             }
 
         // 应用限制后的欧拉角
-        transform.rotation = Quaternion.Euler(currentRotation);
+        mainEnemy.rotation = Quaternion.Euler(currentRotation);
 
         if(Vector3.Distance(target.position,transform.position) < 5 && !isRushing){
             //向主角方向冲刺
@@ -54,7 +55,7 @@ public class EnemyRush : EnemyController
             Vector2 v = target.transform.position - transform.position;
             var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
             var trailRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.rotation = trailRotation;
+            mainEnemy.rotation = trailRotation;
             if(transform.position.x > target.position.x){
                 sprite.flipX = false;
                 sprite.flipY = true;

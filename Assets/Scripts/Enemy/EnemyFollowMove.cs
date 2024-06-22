@@ -5,14 +5,15 @@ using UnityEngine;
 //移动方式：跟随主角；出现方式：屏幕边缘随机位置
 public class EnemyFollowMove : EnemyController
 {
-    SpriteRenderer sprite;
+    public SpriteRenderer sprite;
+    public Transform mainEnemy;
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
         // SpawnAtRandomEdge();
         SpawnAtRandomCircle();
-        sprite = GetComponent<SpriteRenderer>();
+        // sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -35,7 +36,7 @@ public class EnemyFollowMove : EnemyController
             }
 
         // 应用限制后的欧拉角
-        transform.rotation = Quaternion.Euler(currentRotation);
+        mainEnemy.rotation = Quaternion.Euler(currentRotation);
     }
     public override void Hurt(float hurt,HurtType type)
     {
@@ -58,7 +59,7 @@ public class EnemyFollowMove : EnemyController
             Vector2 v = target.transform.position - transform.position;
             var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
             var trailRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.rotation = trailRotation;
+            mainEnemy.rotation = trailRotation;
             if(transform.position.x > target.position.x){
                 // sprite.flipX = true;
                 sprite.flipY = true;

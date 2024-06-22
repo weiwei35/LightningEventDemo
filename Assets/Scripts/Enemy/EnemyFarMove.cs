@@ -23,11 +23,12 @@ public class EnemyFarMove : EnemyController
     bool isInColdTime = false;
     Vector3 direction = new Vector3();
     bool isBack = false;
-    Animator animator;
-    SpriteRenderer sprite;
+    public SpriteRenderer sprite;
+    public Transform mainEnemy;
+    public Animator animator;
     public GameObject bulletPos1;
     public GameObject bulletPos2;
-    Vector3 bulletPos;
+    public Vector3 bulletPos;
     List<GameObject> bulletList = new List<GameObject>();
 
     // Start is called before the first frame update
@@ -36,8 +37,8 @@ public class EnemyFarMove : EnemyController
         base.Start();
         // SpawnAtRandomEdge();
         SpawnAtRandomCircle();
-        animator = GetComponent<Animator>();
-        sprite = GetComponent<SpriteRenderer>();
+        // animator = GetComponent<Animator>();
+        // sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -52,13 +53,13 @@ public class EnemyFarMove : EnemyController
                 isBack = false;
             }
         }
-        bulletPos = bulletPos2.transform.position;
+        bulletPos = bulletPos1.transform.position;
         Vector2 v = target.transform.position - transform.position;
             var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
             var trailRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.rotation = trailRotation;
+            mainEnemy.rotation = trailRotation;
             if(transform.position.x > target.position.x){
-                bulletPos = bulletPos2.transform.position;
+                bulletPos = bulletPos1.transform.position;
                 sprite.flipX = true;
                 sprite.flipY = true;
             }else if(transform.position.x < target.position.x){
@@ -79,7 +80,7 @@ public class EnemyFarMove : EnemyController
             }
 
         // 应用限制后的欧拉角
-        transform.rotation = Quaternion.Euler(currentRotation);
+        mainEnemy.rotation = Quaternion.Euler(currentRotation);
 
         //控制子弹数量
         if(bulletList.Count >2){
