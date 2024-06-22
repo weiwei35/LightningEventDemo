@@ -10,6 +10,7 @@ public class EnemyController : MonoBehaviour
     public float HP = 20f;
     [Header("攻击力")]
     public float attack = 5f;
+    float attackSave = 5f;
     [Header("移动速度")]
     public float speed = 1.0f; // 移动速度
     float speedSave = 1;
@@ -21,6 +22,8 @@ public class EnemyController : MonoBehaviour
     public float radius = 15f;
     [Header("眩晕动画")]
     public GameObject duzzyEffect;
+    [Header("暴走动画")]
+    public GameObject crazyEffect;
     [HideInInspector]
     public bool isHitting = false;
     public bool isFollowHitting = false;
@@ -46,6 +49,7 @@ public class EnemyController : MonoBehaviour
     public bool debuffSlowing = false;
     float debuffCount = 0;
     bool isFreeze = false;
+    bool isCrazy = false;
     public bool isBoom = false;
     Rigidbody rb;
     Vector3 randomAngle;
@@ -57,6 +61,7 @@ public class EnemyController : MonoBehaviour
         target = GameObject.FindGameObjectWithTag("Player").transform;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         speedSave = speed;
+        attackSave = attack;
         center = GameObject.FindGameObjectWithTag("Center").transform;
         randomAngle = RandomUnitVector();
     }
@@ -75,11 +80,15 @@ public class EnemyController : MonoBehaviour
         }else if(debuffSlowing){
             speed = speedSave * 0.5f;
             anim.speed = 0.5f;
-        }
-        else if(!Global.isSlowDown && !iceSpeed && !debuffSlowing && !isFreeze){
+        }else if(isCrazy){
+            speed = speedSave + 1;
+            attack = attackSave +1;
+            anim.speed = 2;
+        }else if(!Global.isSlowDown && !iceSpeed && !debuffSlowing && !isFreeze && !isCrazy){
             anim.speed = 1;
             speed = speedSave;
         }
+
         if(isBoomHall){
             MoveBoom(boomDir);
             if(Vector3.Distance(transform.position,boomDir) > 3){
@@ -222,6 +231,21 @@ public class EnemyController : MonoBehaviour
     }
     void ResetSpeed(){
         iceSpeed = false;
+    }
+    public void SetCrazy () {
+        isCrazy = true;
+        speed = speedSave + 1;
+        attack = attackSave +1;
+        anim.speed = 2;
+        crazyEffect.SetActive(true);
+        Invoke("ResetCrazy",5);
+    }
+    public void ResetCrazy () {
+        crazyEffect.SetActive(false);
+        isCrazy = false;
+        speed = speedSave;
+        attack = attackSave;
+        anim.speed = 1;
     }
 
     public virtual void Death () {
