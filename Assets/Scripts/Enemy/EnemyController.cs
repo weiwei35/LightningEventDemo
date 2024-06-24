@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
 {
     [Header("生命值")]
     public float HP = 20f;
+    float maxHP = 0;
     [Header("攻击力")]
     public float attack = 5f;
     float attackSave = 5f;
@@ -24,6 +25,8 @@ public class EnemyController : MonoBehaviour
     public GameObject duzzyEffect;
     [Header("暴走动画")]
     public GameObject crazyEffect;
+    [Header("回血动画")]
+    public GameObject recoverEffect;
     [HideInInspector]
     public bool isHitting = false;
     public bool isFollowHitting = false;
@@ -55,6 +58,7 @@ public class EnemyController : MonoBehaviour
     Vector3 randomAngle;
     public virtual void Start()
     {
+        maxHP = HP;
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position; // 记录开始位置
         text.text = HP.ToString();
@@ -246,6 +250,21 @@ public class EnemyController : MonoBehaviour
         speed = speedSave;
         attack = attackSave;
         anim.speed = 1;
+    }
+    public void Recover (float hp) {
+        if(HP < maxHP){
+            if(hp > (maxHP-HP)){
+                HP = maxHP;
+            }else{
+                HP += hp;
+            }
+            text.text = HP.ToString();
+            recoverEffect.SetActive(true);
+            Invoke("ResetRecover",1);
+        }
+    }
+    void ResetRecover(){
+        recoverEffect.SetActive(false);
     }
 
     public virtual void Death () {
