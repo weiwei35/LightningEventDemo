@@ -2572,7 +2572,7 @@ MonoBehaviour:
   lightningTime: 2
   lightningPreTime: 1
   lightningCount: 1
-  lightningHurt: 5
+  lightningHurt: 10
   lightningWidth: 0.3
   startTime: 0.3
   keepTime: 0.1
@@ -9987,7 +9987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50de334c6a9b25418a3362af7826e25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 8
   HP: 50
   HPSpeed: 1
   textHP: {fileID: 1228584642}
