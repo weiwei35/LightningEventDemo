@@ -27,6 +27,9 @@ public class LineCollider : MonoBehaviour
                 }
             }
         }
+        if(other.gameObject.layer == 17){
+            other.gameObject.SetActive(false);
+        }
 
         if(player.isMegaCopy){
             if(other.gameObject.layer == 8 && player.isLightningAttract){

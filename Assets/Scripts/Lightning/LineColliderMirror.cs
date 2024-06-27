@@ -22,5 +22,8 @@ public class LineColliderMirror : MonoBehaviour
                 lightning.HurtEnemy(enemy,HurtType.MirrorLine);
             }
         }
+        if(other.gameObject.layer == 17){
+            other.gameObject.SetActive(false);
+        }
     }
 }

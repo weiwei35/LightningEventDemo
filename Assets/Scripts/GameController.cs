@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class Global{
     public static bool isSlowDown = false;
+    public static bool isEndBoss = false;
     public static List<Vector3> papersPosList = new List<Vector3>();
     public static List<GameObject> playerCopyList = new List<GameObject>();
 }
@@ -25,14 +26,16 @@ public class GameController : MonoBehaviour
     public GameObject endLevelPanel;
     GameObject papers;
     // Start is called before the first frame update
-    void Start()
-    {
+    private void Awake() {
         level = levelData.GetLevelDataById(levelId);
         levelTime = level.levelTime;
         rewardTime = level.rewardTime;
         enemyPool.SetLevel(levelId);
         // enemyPool.SetLevelEnemy();
         enemyPool.SetEnemyArray();
+    }
+    void Start()
+    {
         selectPanel = endLevelPanel.GetComponent<SelectItemUI>();
         papers = GameObject.FindGameObjectWithTag("Papers");
     }
@@ -40,35 +43,46 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isReward){
-            timeCur += Time.deltaTime;
-            rewardTime = level.rewardTime;
-            if(timeCur >= rewardTime){
-                //奖励关卡结束下一关
-                enemyPool.DestroyAllEnemy();
-                isReward = false;
-                timeCur = 0;
-                levelId ++;
-                Time.timeScale = 0;
-                endLevelPanel.SetActive(true);
-                Global.papersPosList.Clear();
-                foreach (Transform item in papers.transform)
-                {
-                    PaperController paper = item.GetComponent<PaperController>();
-                    if(paper!= null)
-                    {
-                        paper.DestroyChild();
-                    }
+        if(level.levelType == LevelType.Normal){
+            if(isReward){
+                timeCur += Time.deltaTime;
+                rewardTime = level.rewardTime;
+                if(timeCur >= rewardTime){
+                    //奖励关卡结束下一关
+                    NextLevel();
                 }
-                // SetLevel();
+            }else{
+                timeCur += Time.deltaTime;
+                if(timeCur >= (levelTime)){
+                    //结束关卡，进入奖励关卡
+                    enemyPool.SetRewardEnemyArray();
+                    isReward = true;
+                    timeCur = 0;
+                }
             }
-        }else{
-            timeCur += Time.deltaTime;
-            if(timeCur >= (levelTime)){
-                //结束关卡，进入奖励关卡
-                enemyPool.SetRewardEnemyArray();
-                isReward = true;
-                timeCur = 0;
+        }
+        else if(level.levelType == LevelType.Boss) {
+            if(Global.isEndBoss){
+                NextLevel();
+            }
+        }
+    }
+
+    public void NextLevel() {
+        Global.isEndBoss = false;
+        enemyPool.DestroyAllEnemy();
+        isReward = false;
+        timeCur = 0;
+        levelId ++;
+        Time.timeScale = 0;
+        endLevelPanel.SetActive(true);
+        Global.papersPosList.Clear();
+        foreach (Transform item in papers.transform)
+        {
+            PaperController paper = item.GetComponent<PaperController>();
+            if(paper!= null)
+            {
+                paper.DestroyChild();
             }
         }
     }

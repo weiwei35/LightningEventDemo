@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour
 {
     [Header("生命值")]
     public float HP = 20f;
-    float maxHP = 0;
+    public float maxHP = 0;
     [Header("攻击力")]
     public float attack = 5f;
     float attackSave = 5f;
@@ -51,7 +51,7 @@ public class EnemyController : MonoBehaviour
     public Vector3 boomDir;
     public bool debuffSlowing = false;
     float debuffCount = 0;
-    bool isFreeze = false;
+    public bool isFreeze = false;
     bool isCrazy = false;
     public bool isBoom = false;
     Rigidbody rb;
@@ -174,7 +174,7 @@ public class EnemyController : MonoBehaviour
             if(player.isDebuffDizzy){
                 int random = Random.Range(1,11);
                 if(random > 5){
-                    Freeze();
+                    Freeze(3);
                 }
             }
         }
@@ -222,11 +222,11 @@ public class EnemyController : MonoBehaviour
             Death();
         }
     }
-    public virtual void Freeze(){
+    public virtual void Freeze(float time){
         isFreeze = true;
         speed = 0;
         duzzyEffect.SetActive(true);
-        Invoke("ResetFreeze",3);
+        Invoke("ResetFreeze",time);
     }
     void ResetFreeze(){
         duzzyEffect.SetActive(false);

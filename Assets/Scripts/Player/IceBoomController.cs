@@ -10,7 +10,7 @@ public class IceBoomController : MonoBehaviour
         if(other.tag == "Enemy")
         {
             EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
-            enemy.Freeze();
+            enemy.Freeze(3);
         }
     }
 

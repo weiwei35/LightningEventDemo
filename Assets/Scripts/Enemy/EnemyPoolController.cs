@@ -8,7 +8,6 @@ public class EnemyPoolController : MonoBehaviour
 {
     public LevelDataSO levelData;
     LevelItem level;
-    List<GameObject> enemys = new List<GameObject>();
     public void SetLevel(int levelId) {
         level = levelData.GetLevelDataById(levelId);
     }
@@ -71,5 +70,14 @@ public class EnemyPoolController : MonoBehaviour
             Destroy(item.gameObject);
             // Debug.Log(item.gameObject.name); 
         }
+    }
+
+    public int GetAllEnemyCount() {
+        int i = 0;
+        foreach (Transform item in transform)
+        {
+            i++;
+        }
+        return i;
     }
 }

@@ -10,6 +10,8 @@ public class EnemyRush : EnemyController
     public Animator animator;
     Vector3 rushDis;
     bool isRushing = false;
+    bool isColdTime = false;
+    float coldTime = 0;
 
     // Start is called before the first frame update
     public override void Start()
@@ -41,8 +43,14 @@ public class EnemyRush : EnemyController
 
         // 应用限制后的欧拉角
         mainEnemy.rotation = Quaternion.Euler(currentRotation);
+        if(isColdTime){
+            coldTime += Time.deltaTime;
+        }
+        if(coldTime > 3){
+            isColdTime = false;
+        }
 
-        if(Vector3.Distance(target.position,transform.position) < 5 && !isRushing){
+        if(Vector3.Distance(target.position,transform.position) < 5 && !isRushing && !isColdTime){
             //向主角方向冲刺
             isRushing = true;
             RushToPlayer();
@@ -75,6 +83,8 @@ public class EnemyRush : EnemyController
                 transform.DOMove(transform.position+rushDis*5,0.5f).OnComplete( ()=>
                     {
                         animator.SetBool("rush",false);
+
+                        isColdTime = true;
 
                         isRushing = false;
                     }

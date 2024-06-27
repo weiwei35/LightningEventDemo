@@ -22,6 +22,7 @@ public class LevelDataSO : ScriptableObject {
 [System.Serializable]
 public class LevelItem{
     public int levelId;
+    public LevelType levelType;
     public float levelTime;
     public EnemyArray[] levelEnemy;
     public float rewardTime;
@@ -39,4 +40,8 @@ public struct EnemyArray
 {
     public EnemyCount[] enemies;
     public float startTime;
+}
+public enum LevelType{
+    Normal,
+    Boss
 }

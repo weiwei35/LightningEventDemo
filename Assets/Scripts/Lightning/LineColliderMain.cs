@@ -37,6 +37,9 @@ public class LineColliderMain : MonoBehaviour
                 paper.OverLoadFun();
             }
         }
+        if(other.gameObject.layer == 17){
+            other.gameObject.SetActive(false);
+        }
     }
 
     //获取敌人与雷电交点

@@ -14,13 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - levelId: 1
+    levelType: 1
     levelTime: 80
     levelEnemy:
     - enemies:
-      - type: {fileID: 2311599531590538775, guid: 2df7242b35310e44a8c9a1a5d801b00f,
+      - type: {fileID: 6454216383232186743, guid: b82feed61e408a948ba282aa75b7761f,
           type: 3}
         count: 1
       startTime: 0
+    - enemies:
+      - type: {fileID: 2311599531590538775, guid: cbc271b00c6891f4aa192b5d24e72fc4,
+          type: 3}
+        count: 3
+      startTime: 3
     rewardTime: 10
     rewardEnemy:
     - enemies:

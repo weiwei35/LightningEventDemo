@@ -19,12 +19,12 @@ public class Boss1AnimController : MonoBehaviour
 
     public void PlayLeftFoot () {
         var left = Instantiate(footLeft);
-        left.transform.position = transform.position + new Vector3(0,0.07f,0);
+        left.transform.position = transform.position + new Vector3(0,-1.7f,0);
         left.SetActive(true);
     }
     public void PlayRightFoot () {
         var right = Instantiate(footRight);
-        right.transform.position = transform.position + new Vector3(0,0.05f,0);
+        right.transform.position = transform.position + new Vector3(0,-1.72f,0);
         right.SetActive(true);
     }
 }
