@@ -113,9 +113,6 @@ public class LightningController : MonoBehaviour
                 }
             }
         }
-        if(player.isDebuffFreeze){
-            player.SetFreezeBoom();
-        }
     }
 
     public void ConnectPaper() {

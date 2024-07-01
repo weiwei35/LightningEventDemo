@@ -415,6 +415,10 @@ public class PlayerController : MonoBehaviour
             if(isBuffBoom){
                 SetMegaBoom();
             }
+            
+            if(isDebuffFreeze){
+                SetFreezeBoom();
+            }
 
             StartCoroutine(HittingCold());
         }

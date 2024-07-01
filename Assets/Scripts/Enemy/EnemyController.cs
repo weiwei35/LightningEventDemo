@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
     float speedSave = 1;
     [Header("UI")]
     public TMP_Text text;
+    public Animator hurtUI;
     [Header("随机范围圆心")]
     public Transform center;
     [Header("随机范围半径")]
@@ -61,7 +62,6 @@ public class EnemyController : MonoBehaviour
         maxHP = HP;
         rb = GetComponent<Rigidbody>();
         startPosition = transform.position; // 记录开始位置
-        text.text = HP.ToString();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         speedSave = speed;
@@ -163,20 +163,27 @@ public class EnemyController : MonoBehaviour
             }
             isHitting = true;
             if(hurt >= HP){
+                text.text = hurt.ToString();
+                hurtUI.SetTrigger("hurt");
                 if(type == HurtType.Lightning||type == HurtType.Overflow)
                     moreHurt = hurt - HP;
                 Death();
-            }
-            HP -= hurt;
-            // text.text = HP.ToString();
-            if(type == HurtType.Lightning && player.isLightningBoom)
-                SetBoom();
-            if(player.isDebuffDizzy){
-                int random = Random.Range(1,11);
-                if(random > 5){
-                    Freeze(3);
+            }else{
+                anim.SetTrigger("hurt");
+                text.text = hurt.ToString();
+                hurtUI.SetTrigger("hurt");
+                HP -= hurt;
+                // text.text = HP.ToString();
+                if(type == HurtType.Lightning && player.isLightningBoom)
+                    SetBoom();
+                if(player.isDebuffDizzy){
+                    int random = Random.Range(1,11);
+                    if(random > 5){
+                        Duzzy(3);
+                    }
                 }
             }
+            
         }
     }
     public virtual void HurtByCircle(float hurt,HurtType type){
@@ -184,7 +191,10 @@ public class EnemyController : MonoBehaviour
             circleCountTime += Time.deltaTime;
             if(circleCountTime >= 0.1f){
                 circleCountTime = 0;
+                text.text = hurt.ToString();
+                hurtUI.SetTrigger("hurt");
                 HP -= hurt;
+                anim.SetTrigger("hurt");
                 // text.text = HP.ToString();
                 if(HP <= 0 && !isDead){
                     Death();
@@ -198,7 +208,10 @@ public class EnemyController : MonoBehaviour
             followCountTime += Time.deltaTime;
             if(followCountTime >= 0.5f){
                 followCountTime = 0;
+                text.text = hurt.ToString();
+                hurtUI.SetTrigger("hurt");
                 HP -= hurt;
+                anim.SetTrigger("hurt");
                 if(HP <= 0 && !isDead){
                     Death();
                 }
@@ -207,7 +220,10 @@ public class EnemyController : MonoBehaviour
     }
     public virtual void HurtByPaperIce(float hurt,HurtType type){
         if(type == HurtType.PaperIce){
+            text.text = hurt.ToString();
+            hurtUI.SetTrigger("hurt");
             HP -= hurt;
+            anim.SetTrigger("hurt");
             iceSpeed = true;
             if(HP <= 0 && !isDead){
                 Death();
@@ -217,7 +233,10 @@ public class EnemyController : MonoBehaviour
         
     }
     public virtual void HurtByBugAttack(float hurt,HurtType type){
+        text.text = hurt.ToString();
+        hurtUI.SetTrigger("hurt");
         HP -= hurt;
+        anim.SetTrigger("hurt");
         if(HP <= 0 && !isDead){
             Death();
         }
@@ -225,10 +244,22 @@ public class EnemyController : MonoBehaviour
     public virtual void Freeze(float time){
         isFreeze = true;
         speed = 0;
-        duzzyEffect.SetActive(true);
+        // duzzyEffect.SetActive(true);
+        anim.SetTrigger("freeze");
         Invoke("ResetFreeze",time);
     }
     void ResetFreeze(){
+        // duzzyEffect.SetActive(false);
+        speed = speedSave;
+        isFreeze = false;
+    }
+    public virtual void Duzzy(float time){
+        isFreeze = true;
+        speed = 0;
+        duzzyEffect.SetActive(true);
+        Invoke("ResetDuzzy",time);
+    }
+    void ResetDuzzy(){
         duzzyEffect.SetActive(false);
         speed = speedSave;
         isFreeze = false;
@@ -268,6 +299,7 @@ public class EnemyController : MonoBehaviour
     }
 
     public virtual void Death () {
+        anim.SetTrigger("dead");
         speed = 0;
         isDead = true;
         gameObject.tag = "Untagged";
@@ -280,7 +312,7 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(SetDestroy());
     }
     IEnumerator SetDestroy(){
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 

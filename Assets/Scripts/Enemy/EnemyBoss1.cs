@@ -79,7 +79,7 @@ public class EnemyBoss1 : EnemyController
             if(ballCount == 0){
                 isAttacking = false;
                 HP -= maxHP*0.2f;
-                Freeze(4);
+                Duzzy(4);
                 isBig = false;
                 circleAnim.enabled = true;
                 bigCollider.SetActive(false);
