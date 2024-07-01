@@ -14,7 +14,7 @@ public class SelectItemUI : MonoBehaviour
     PlayerController player;
     // Start is called before the first frame update
     void OnEnable() {
-        itemData = AssetDatabase.LoadAssetAtPath<ItemDataSO>("Assets/Resources/ItemData.asset");
+        // itemData = AssetDatabase.LoadAssetAtPath<ItemDataSO>("Assets/Resources/ItemData.asset");
         items = itemData.GetRandomSelectItem(3);
         ShowSelectItem();
     }
