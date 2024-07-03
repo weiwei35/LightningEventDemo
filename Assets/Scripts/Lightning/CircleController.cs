@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class CircleController : MonoBehaviour
 {
     [HideInInspector]
+    LineRenderer l;
     public Material m;
     // [HideInInspector]
     public LineController line;
@@ -29,6 +31,16 @@ public class CircleController : MonoBehaviour
     public float mirroeStartTime;
     [Header("反射雷停留时长")]
     public float mirroeKeepTime;
+    float myValue = 1f;
+    float myValue2 = 1f;
+    bool isSide = false;
+    bool isSideBack = false;
+    float angle;
+    float saveAngle;
+    Tweener tweener1;
+    Tweener tweener2;
+    public GameObject spark;
+
 
     void Awake()
     {
@@ -57,30 +69,87 @@ public class CircleController : MonoBehaviour
                     lineController.end.transform.position = player.transform.position;
             }
         }
+        if(Global.isSlowDown){
+            if(tweener1 != null)
+                tweener1.timeScale = 0.1f;
+            if(tweener2 != null)
+                tweener2.timeScale = 0.1f;
+        }else{
+            if(tweener1 != null)
+                tweener1.timeScale = 1f;
+            if(tweener2 != null)
+                tweener2.timeScale = 1f;
+        }
+        if(Mathf.Abs(Vector3.Distance(player.transform.position,center) - radius) <= 0.1f && !isSide){
+            isSide = true;
+            angle = Mathf.Atan2(player.transform.position.y - center.y, player.transform.position.x - center.x) * (180 / Mathf.PI);
+            spark.SetActive(false);
+            spark.transform.rotation = Quaternion.Euler(angle, 90, 0);
+            if(angle>=90 && angle<=180)
+                angle = angle - 360;
+            spark.transform.position = player.transform.position;
+            spark.SetActive(true);
+
+            myValue = 1;
+            tweener1 = DOTween.To(() => myValue, x => myValue = x, 10f, 0.2f).OnComplete(()=>{
+                myValue2 = 10;
+                saveAngle = angle;
+                isSideBack = true;
+                tweener2 = DOTween.To(() => myValue2, x => myValue2 = x, 1f, 0.1f).OnComplete(()=>{
+                isSideBack = false;
+            });
+                isSide = false;
+            });//用两秒的时间从0,0,0变化到10,10,10
+        }
+        if(isSide){
+            SetWidth(angle+270);
+        }
+        if(isSideBack){
+            ResetWidth(saveAngle+270);
+        }
     }
 
     //画结界
     public void DrawCircle () {
-        LineRenderer line = GetComponent<LineRenderer>();
+        l = GetComponent<LineRenderer>();
 
-        line.material = m;
-        line.loop = true;
-        line.startWidth = 0.1f;
-        line.endWidth = 0.1f;
-        line.positionCount = 360;
+        l.material = m;
+        l.loop = true;
+        l.startWidth = 0.1f;
+        l.endWidth = 0.1f;
+        l.positionCount = 360;
 
-        float angleOnce = 360/line.positionCount;
-        Vector3[] circlePoints = new Vector3[line.positionCount];
+        float angleOnce = 360/l.positionCount;
+        Vector3[] circlePoints = new Vector3[l.positionCount];
 
         Vector3 vecStart = new Vector3(0,radius,0);
 
-        for (int i = 0; i < line.positionCount; i++)
+        for (int i = 0; i < l.positionCount; i++)
         {
             circlePoints[i] = Quaternion.Euler(0,0,angleOnce*i)*vecStart+center;
         }
 
-        line.SetPositions(circlePoints);
+        l.SetPositions(circlePoints);
+        
 
+    }
+
+    public void SetWidth(float angle) {
+        AnimationCurve curve = new AnimationCurve();
+        
+        curve.AddKey((angle-10)/360f, 1f);
+        curve.AddKey(angle/360f, myValue);
+        curve.AddKey((angle+10)/360f, 1f);
+        l.widthCurve = curve;
+        l.widthMultiplier = 0.1f;
+    }
+    public void ResetWidth(float angle) {
+        AnimationCurve curve = new AnimationCurve();
+        curve.AddKey((angle-10)/360f, 1f);
+        curve.AddKey(angle/360f, myValue2);
+        curve.AddKey((angle+10)/360f, 1f);
+        l.widthCurve = curve;
+        l.widthMultiplier = 0.1f;
     }
 
     //在圆上取count个数的随机点
