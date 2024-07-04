@@ -35,6 +35,7 @@ public class CircleController : MonoBehaviour
     float myValue2 = 1f;
     bool isSide = false;
     bool isSideBack = false;
+    bool checkBack = false;
     float angle;
     float saveAngle;
     Tweener tweener1;
@@ -92,15 +93,22 @@ public class CircleController : MonoBehaviour
 
             myValue = 1;
             tweener1 = DOTween.To(() => myValue, x => myValue = x, 10f, 0.2f).OnComplete(()=>{
+                isSide = false;
+                checkBack = true;
+            });
+        }
+        if(checkBack){
+            if(Mathf.Abs(Vector3.Distance(player.transform.position,center) - radius) >= 2f && !isSideBack){
+                checkBack = false;
                 myValue2 = 10;
                 saveAngle = angle;
                 isSideBack = true;
                 tweener2 = DOTween.To(() => myValue2, x => myValue2 = x, 1f, 0.1f).OnComplete(()=>{
-                isSideBack = false;
-            });
-                isSide = false;
-            });//用两秒的时间从0,0,0变化到10,10,10
+                    isSideBack = false;
+                });
+            }
         }
+        
         if(isSide){
             SetWidth(angle+270);
         }

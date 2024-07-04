@@ -328,7 +328,7 @@ public class PlayerController : MonoBehaviour
         // 计算物体与此脚本所附加物体之间的距离
         float distance = Vector3.Distance(transform.position,circle.centerPos.transform.position);
         // 如果物体在范围内，输出信息
-        if (distance <= circle.radius)
+        if (distance <= circle.radius + 1)
         {
             return true;
         }
