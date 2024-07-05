@@ -143,6 +143,8 @@ public class PlayerController : MonoBehaviour
     public CircleController circle;
     bool ishitting = false;
     public Transform follow;
+    public Transform follow_left;
+    public Transform follow_right;
     [HideInInspector]
     public bool canHurt = false;
     public GameController gameController;
@@ -181,9 +183,11 @@ public class PlayerController : MonoBehaviour
         if(moveX > 0){
             // transform.localScale = new Vector3(-0.8f,0.8f,0.8f);
             sprite.flipX = true;
+            follow.transform.position = follow_left.transform.position;
         }else if(moveX < 0){
             // transform.localScale = new Vector3(0.8f,0.8f,0.8f);
             sprite.flipX = false;
+            follow.transform.position = follow_right.transform.position;
         }
     }
 
@@ -210,6 +214,8 @@ public class PlayerController : MonoBehaviour
         if(HPCurrent <= 0){
             HPCurrent = 0.1f;
             isDead = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
+            Debug.Log(transform.position);
             Death();
         }
         //移动范围判定
@@ -370,18 +376,30 @@ public class PlayerController : MonoBehaviour
     //角色死亡处理：聚焦--场景遮黑--死亡动画--游戏结束
     private void Death()
     {
-        transform.localPosition = new Vector3(transform.localPosition.x,transform.localPosition.y,-6);
+        
         moveSpeed = 0f;
+        transform.position = new Vector3(transform.position.x,transform.position.y,-20);
+        Camera camera = Camera.main;
+        camera.transform.position = new Vector3(camera.transform.position.x,camera.transform.position.y,-25);
+        Debug.Log(transform.position);
+        sprite.sortingOrder = 21;
+        
+        blackBG.SetActive(true);
+        Invoke("SetCam",0.5f);
+        
+    }
+    void SetCam(){
         enemyPool.SetActive(false);
         lightning.SetActive(false);
         canvas.SetActive(false);
         effect.SetActive(false);
-        blackBG.SetActive(true);
+        petBugs.SetActive(false);
         Camera camera = Camera.main;
-        camera.transform.DOMoveX(transform.position.x - 3,2);
-        camera.transform.DOMoveY(transform.position.y,2).OnComplete(() =>
+        camera.transform.position = new Vector3(camera.transform.position.x,camera.transform.position.y,-25);
+        camera.transform.DOMoveX(transform.position.x,1f);
+        camera.transform.DOMoveY(transform.position.y+1f,1f).OnComplete(() =>
         {
-            DOTween.To(()=>camera.orthographicSize, x =>camera.orthographicSize = x,5,2).OnComplete(()=>
+            DOTween.To(()=>camera.orthographicSize, x =>camera.orthographicSize = x,3,1).OnComplete(()=>
                 {
                     anim.PlayDeadAnim();
                 }
