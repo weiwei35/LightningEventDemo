@@ -62,10 +62,13 @@ public class EnemyFollowMove : EnemyController
             mainEnemy.rotation = trailRotation;
             if(transform.position.x > target.position.x){
                 // sprite.flipX = true;
-                sprite.flipY = true;
+                // sprite.flipY = true;
+                sprite.transform.localScale = new Vector3(1,-1,1);
             }else if(transform.position.x < target.position.x){
-                sprite.flipY = false;
-                sprite.flipX = false;
+                // sprite.flipY = false;
+                // sprite.flipX = false;
+                sprite.transform.localScale = new Vector3(1,1,1);
+
             }
         }
     }

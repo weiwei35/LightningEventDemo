@@ -5243,6 +5243,7 @@ GameObject:
   - component: {fileID: 2669794019712558568}
   - component: {fileID: 1078211529289127740}
   - component: {fileID: 8634586151763726500}
+  - component: {fileID: 4011006716601702632}
   m_Layer: 0
   m_Name: MainEnemy
   m_TagString: Untagged
@@ -5391,6 +5392,18 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
+--- !u!210 &4011006716601702632
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197648978393852794}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 9
+  m_SortAtRoot: 0
 --- !u!1 &6454216383232186743
 GameObject:
   m_ObjectHideFlags: 0

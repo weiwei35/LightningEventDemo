@@ -39,7 +39,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 880036173334628733}
-  m_Material: {fileID: 13400000, guid: 3bf48b3226781c8459016ead1513e060, type: 2}
+  m_Material: {fileID: 13400000, guid: 464b11a224c98514f8add6bfd8edccef, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 7279990782740928090}
   - component: {fileID: 76922882607789433}
   - component: {fileID: 6647951438045503786}
+  - component: {fileID: 9103023610908368913}
   m_Layer: 6
   m_Name: MainEnemy
   m_TagString: Untagged
@@ -343,6 +344,18 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
+--- !u!210 &9103023610908368913
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2536455354743121212}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 9
+  m_SortAtRoot: 0
 --- !u!1 &3831916133596836556
 GameObject:
   m_ObjectHideFlags: 0

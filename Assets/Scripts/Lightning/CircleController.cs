@@ -70,17 +70,17 @@ public class CircleController : MonoBehaviour
                     lineController.end.transform.position = player.transform.position;
             }
         }
-        if(Global.isSlowDown){
-            if(tweener1 != null)
-                tweener1.timeScale = 0.1f;
-            if(tweener2 != null)
-                tweener2.timeScale = 0.1f;
-        }else{
-            if(tweener1 != null)
-                tweener1.timeScale = 1f;
-            if(tweener2 != null)
-                tweener2.timeScale = 1f;
-        }
+        // if(Global.isSlowDown){
+        //     if(tweener1 != null)
+        //         tweener1.timeScale = 0.1f;
+        //     if(tweener2 != null)
+        //         tweener2.timeScale = 0.1f;
+        // }else{
+        //     if(tweener1 != null)
+        //         tweener1.timeScale = 1f;
+        //     if(tweener2 != null)
+        //         tweener2.timeScale = 1f;
+        // }
         if(Mathf.Abs(Vector3.Distance(player.transform.position,center) - radius) <= 0.1f && !isSide){
             isSide = true;
             angle = Mathf.Atan2(player.transform.position.y - center.y, player.transform.position.x - center.x) * (180 / Mathf.PI);

@@ -60,12 +60,14 @@ public class EnemyFarMove : EnemyController
             mainEnemy.rotation = trailRotation;
             if(transform.position.x > target.position.x){
                 bulletPos = bulletPos1.transform.position;
-                sprite.flipX = true;
-                sprite.flipY = true;
+                // sprite.flipX = true;
+                // sprite.flipY = true;
+                sprite.transform.localScale = new Vector3(-1,-1,1);
             }else if(transform.position.x < target.position.x){
                 bulletPos = bulletPos2.transform.position;
-                sprite.flipY = false;
-                sprite.flipX = true;
+                // sprite.flipY = false;
+                // sprite.flipX = true;
+                sprite.transform.localScale = new Vector3(-1,1,1);
             }
 
         // 获取当前物体的欧拉角

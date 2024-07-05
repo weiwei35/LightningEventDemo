@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4865141036316631142}
   - component: {fileID: 7197599118877607843}
   - component: {fileID: 4007681647812769247}
+  - component: {fileID: 8827988192367813297}
   m_Layer: 6
   m_Name: MainEnemy
   m_TagString: Enemy
@@ -161,6 +162,18 @@ SpriteMask:
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
   m_SpriteSortPoint: 0
+--- !u!210 &8827988192367813297
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1556795134662261815}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 9
+  m_SortAtRoot: 0
 --- !u!1 &2311599531590538775
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +345,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2423591581592616502}
-  m_Material: {fileID: 13400000, guid: 3bf48b3226781c8459016ead1513e060, type: 2}
+  m_Material: {fileID: 13400000, guid: 464b11a224c98514f8add6bfd8edccef, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
