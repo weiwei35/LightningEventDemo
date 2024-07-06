@@ -73,7 +73,7 @@ public class EnemyController : MonoBehaviour
         // if(HP <= 0 && !isDead){
         //     Death();
         // }
-        text.text = (Mathf.Round(HP * 10.0f) / 10.0f).ToString();
+        // text.text = (Mathf.Round(HP * 10.0f) / 10.0f).ToString();
         //速度处理
         if(Global.isSlowDown){
             speed = speedSave/10;
@@ -289,12 +289,15 @@ public class EnemyController : MonoBehaviour
             }else{
                 HP += hp;
             }
-            text.text = HP.ToString();
+            text.text = hp.ToString();
+            hurtUI.SetTrigger("hurt");
+            text.color = Color.green;
             recoverEffect.SetActive(true);
             Invoke("ResetRecover",1);
         }
     }
     void ResetRecover(){
+        text.color = Color.white;
         recoverEffect.SetActive(false);
     }
 
