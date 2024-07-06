@@ -56,7 +56,7 @@ public class EnemyRandomFire : EnemyController
         {
             bulletTimeCount += Time.deltaTime;
         }
-        if(bulletTimeCount >= bulletTime){
+        if(bulletTimeCount >= bulletTime && Vector3.Distance(transform.position, target.transform.position) <= 8f){
             // Fire();
             anim.SetTrigger("attack");
             bulletTimeCount = 0;

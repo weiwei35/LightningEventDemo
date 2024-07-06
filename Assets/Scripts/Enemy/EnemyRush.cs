@@ -80,11 +80,22 @@ public class EnemyRush : EnemyController
     }
 
     public void RushToPlayer(){
+        if(transform.position.x > target.position.x){
+            // sprite.flipX = false;
+            // sprite.flipY = true;
+            sprite.transform.localScale = new Vector3(-1,1,1);
+        }else if(transform.position.x < target.position.x){
+            // sprite.flipY = false;
+            // sprite.flipX = false;
+            sprite.transform.localScale = new Vector3(1,1,1);
+        }
         transform.DOMove(transform.position+rushDis*5,0.5f).OnComplete( ()=>
             {
                 animator.SetBool("rush",false);
                 isRushing = false;
                 isIdle = true;
+                isColdTime = true;
+                coldTime = 0;
                 Invoke("SetIdle",2);
             }
         );
@@ -93,5 +104,6 @@ public class EnemyRush : EnemyController
     void SetIdle(){
         isIdle = false;
         isColdTime = true;
+        coldTime = 0;
     }
 }
