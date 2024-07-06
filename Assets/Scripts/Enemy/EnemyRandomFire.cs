@@ -20,7 +20,11 @@ public class EnemyRandomFire : EnemyController
     bool isMoving = false;
     float randomX;
     float randomY;
-    List<GameObject> bulletList = new List<GameObject>();
+    public GameObject bulletPos1;
+    public GameObject bulletPos2;
+    public Vector3 bulletPos;
+    public SpriteRenderer sprite;
+    public List<GameObject> bulletList = new List<GameObject>();
 
     // Start is called before the first frame update
     public override void Start()
@@ -53,9 +57,21 @@ public class EnemyRandomFire : EnemyController
             bulletTimeCount += Time.deltaTime;
         }
         if(bulletTimeCount >= bulletTime){
-            Fire();
+            // Fire();
             anim.SetTrigger("attack");
             bulletTimeCount = 0;
+        }
+
+        if(transform.position.x > target.position.x){
+            // sprite.flipX = false;
+            // sprite.flipY = true;
+            bulletPos = bulletPos2.transform.position;
+            sprite.transform.localScale = new Vector3(-1,1,1);
+        }else if(transform.position.x < target.position.x){
+            // sprite.flipY = false;
+            // sprite.flipX = false;
+            bulletPos = bulletPos1.transform.position;
+            sprite.transform.localScale = new Vector3(1,1,1);
         }
 
         //控制子弹数量

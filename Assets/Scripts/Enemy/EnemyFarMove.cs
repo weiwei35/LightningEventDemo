@@ -29,7 +29,7 @@ public class EnemyFarMove : EnemyController
     public GameObject bulletPos1;
     public GameObject bulletPos2;
     public Vector3 bulletPos;
-    List<GameObject> bulletList = new List<GameObject>();
+    public List<GameObject> bulletList = new List<GameObject>();
 
     // Start is called before the first frame update
     public override void Start()

@@ -12,6 +12,7 @@ public class EnemyRush : EnemyController
     bool isRushing = false;
     bool isColdTime = false;
     float coldTime = 0;
+    bool isIdle = false;
 
     // Start is called before the first frame update
     public override void Start()
@@ -26,7 +27,7 @@ public class EnemyRush : EnemyController
     public override void Update()
     {
         base.Update();
-        if(!isInBlackHall && !isBoom && !isRushing)
+        if(!isInBlackHall && !isBoom && !isRushing && !isIdle)
         {
             FollowMove();
         }
@@ -42,7 +43,7 @@ public class EnemyRush : EnemyController
             }
 
         // 应用限制后的欧拉角
-        mainEnemy.rotation = Quaternion.Euler(currentRotation);
+        // mainEnemy.rotation = Quaternion.Euler(currentRotation);
         if(isColdTime){
             coldTime += Time.deltaTime;
         }
@@ -53,7 +54,9 @@ public class EnemyRush : EnemyController
         if(Vector3.Distance(target.position,transform.position) < 5 && !isRushing && !isColdTime){
             //向主角方向冲刺
             isRushing = true;
-            RushToPlayer();
+            rushDis = target.position - transform.position;
+            rushDis.Normalize();
+            animator.SetBool("rush",true);
         }
     }
 
@@ -63,34 +66,32 @@ public class EnemyRush : EnemyController
             Vector2 v = target.transform.position - transform.position;
             var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
             var trailRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            mainEnemy.rotation = trailRotation;
+            // mainEnemy.rotation = trailRotation;
             if(transform.position.x > target.position.x){
-                sprite.flipX = false;
-                sprite.flipY = true;
+                // sprite.flipX = false;
+                // sprite.flipY = true;
+                sprite.transform.localScale = new Vector3(-1,1,1);
             }else if(transform.position.x < target.position.x){
-                sprite.flipY = false;
-                sprite.flipX = false;
+                // sprite.flipY = false;
+                // sprite.flipX = false;
+                sprite.transform.localScale = new Vector3(1,1,1);
             }
         }
     }
 
-    void RushToPlayer(){
-        rushDis = target.position - transform.position;
-        rushDis.Normalize();
-        transform.DOMove(transform.position,1).OnComplete( ()=>
+    public void RushToPlayer(){
+        transform.DOMove(transform.position+rushDis*5,0.5f).OnComplete( ()=>
             {
-                animator.SetBool("rush",true);
-                transform.DOMove(transform.position+rushDis*5,0.5f).OnComplete( ()=>
-                    {
-                        animator.SetBool("rush",false);
-
-                        isColdTime = true;
-
-                        isRushing = false;
-                    }
-                );
+                animator.SetBool("rush",false);
+                isRushing = false;
+                isIdle = true;
+                Invoke("SetIdle",2);
             }
         );
-        
+    }
+
+    void SetIdle(){
+        isIdle = false;
+        isColdTime = true;
     }
 }

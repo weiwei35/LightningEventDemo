@@ -199,6 +199,7 @@ MonoBehaviour:
   bulletPos1: {fileID: 984409113518571540}
   bulletPos2: {fileID: 4200051173167446883}
   bulletPos: {x: 0, y: 0, z: 0}
+  bulletList: []
 --- !u!54 &8224236252423854458
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5607,6 +5608,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyFarMove: {fileID: 5851598326312140267}
+  enemyRandomFire: {fileID: 6554066473957423523, guid: b93cfd70507182b46a64894613e9014a,
+    type: 3}
 --- !u!331 &1077122107824169096
 SpriteMask:
   m_ObjectHideFlags: 0
