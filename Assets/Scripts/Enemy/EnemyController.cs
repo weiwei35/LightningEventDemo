@@ -321,7 +321,7 @@ public class EnemyController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag == "Player" && !isDead)
         {
             PlayerController player = other.GetComponent<PlayerController>();
             if(!player.isDead)

@@ -14,9 +14,11 @@ public static class Global{
 public class GameController : MonoBehaviour
 {
     public EnemyPoolController enemyPool;
-    public LevelDataSO levelData;
+    // public LevelDataSO levelData;
+    public LevelDataExcelSO levelData;
     [HideInInspector]
-    public LevelItem level;
+    // public LevelItem level;
+    public Level level;
     public LevelUIController levelUI;
     SelectItemUI selectPanel;
     [HideInInspector]
@@ -27,6 +29,7 @@ public class GameController : MonoBehaviour
     [HideInInspector]
     public bool isReward = false;
     public GameObject endLevelPanel;
+    public GameObject rewardTitle;
     GameObject papers;
     // Start is called before the first frame update
     private void Awake() {
@@ -58,6 +61,7 @@ public class GameController : MonoBehaviour
                 timeCur += Time.deltaTime;
                 if(timeCur >= (levelTime)){
                     //结束关卡，进入奖励关卡
+                    rewardTitle.SetActive(true);
                     enemyPool.SetRewardEnemyArray();
                     isReward = true;
                     timeCur = 0;
@@ -73,6 +77,7 @@ public class GameController : MonoBehaviour
 
     public void NextLevel() {
         Global.isEndBoss = false;
+        rewardTitle.SetActive(false);
         enemyPool.DestroyAllEnemy();
         isReward = false;
         timeCur = 0;
