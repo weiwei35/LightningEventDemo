@@ -5,16 +5,17 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
+    public TMP_Text buffIcon;
     public TMP_Text buffName;
-    public TMP_Text buffNum;
+    public TMP_Text buffDesc;
+    public TMP_Text buffStory;
     SelectItem itemCurrent;
     SelectItemUI select;
     public void SetItemInfo(SelectItem item) {
+        buffIcon.text = item.name[0].ToString();
         buffName.text = item.name;
-        if(item.buff != -1)
-            buffNum.text = item.buff.ToString();
-        else
-            buffNum.text = "";
+        buffDesc.text = item.desc;
+        buffStory.text = item.story;
         itemCurrent = item;
     }
     public void ChooseItem(){

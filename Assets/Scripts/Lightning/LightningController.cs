@@ -20,6 +20,8 @@ public class LightningController : MonoBehaviour
     public float keepTime = 0.5f;
     [Header("结界伤害")]
     public float circleHurt = 5f;
+    [Header("UI")]
+    public InfoUIController uiController;
     float curTime = 0;
     //雷电结束
     public bool isEndLight = false;
@@ -39,6 +41,10 @@ public class LightningController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         petBugs = GameObject.FindGameObjectWithTag("PetBugs");
         papers = GameObject.FindGameObjectWithTag("Papers");
+
+        uiController.SetLightningCountText(lightningCount);
+        uiController.SetLightningHurtText(lightningHurt);
+        uiController.SetLightningSpeedText(lightningTime);
     }
 
     // Update is called once per frame

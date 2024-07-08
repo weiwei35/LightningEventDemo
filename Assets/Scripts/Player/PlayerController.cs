@@ -26,8 +26,9 @@ public class PlayerController : MonoBehaviour
     public TMP_Text textPro;
     public Slider sliderHP;
     public Slider sliderPro;
+    public InfoUIController uiController;
     [Header("受伤保护时长")]
-    public float coldTime = 2f;
+    public float coldTime = 0.1f;
     [Header("护甲值")]
     public float protect = 100f;
     float protectCurrent = 100f;
@@ -149,7 +150,7 @@ public class PlayerController : MonoBehaviour
     public bool canHurt = false;
     public GameController gameController;
     [Header("死亡动画处理")]
-    bool isDead = false;
+    public bool isDead = false;
     public GameObject blackBG;
     public Material blackM;
     public GameObject canvas;
@@ -168,6 +169,10 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         speed = moveSpeed;
         sprite = GetComponent<SpriteRenderer>();
+
+        uiController.SetHPText(HPCurrent);
+        uiController.SetProtectText(protectCurrent);
+        uiController.SetSpeedText(moveSpeed);
     }
  
     // Update is called once per frame
@@ -381,11 +386,10 @@ public class PlayerController : MonoBehaviour
         transform.position = new Vector3(transform.position.x,transform.position.y,-20);
         Camera camera = Camera.main;
         camera.transform.position = new Vector3(camera.transform.position.x,camera.transform.position.y,-25);
-        Debug.Log(transform.position);
         sprite.sortingOrder = 21;
         
         blackBG.SetActive(true);
-        Invoke("SetCam",0.5f);
+        Invoke("SetCam",0.6f);
         
     }
     void SetCam(){
@@ -446,7 +450,38 @@ public class PlayerController : MonoBehaviour
     }
 
     public void EndGame () {
+        GameObject[] gameObjects = getDontDestroyOnLoadGameObjects();
+        foreach (var item in gameObjects)
+        {
+            Destroy(item);
+        }
+        // SceneController.Instance.SetUI();
         SceneManager.LoadSceneAsync("UIScene");
+    }
+    private GameObject[] getDontDestroyOnLoadGameObjects()
+    {
+        var allGameObjects = new List<GameObject>();
+        allGameObjects.AddRange(FindObjectsOfType<GameObject>());
+        //移除所有场景包含的对象
+        for (var i = 0; i < SceneManager.sceneCount; i++)
+        {
+            var scene = SceneManager.GetSceneAt(i);
+            var objs = scene.GetRootGameObjects();
+            for (var j = 0; j < objs.Length; j++)
+            {
+                allGameObjects.Remove(objs[j]);
+            }
+        }
+        //移除父级不为null的对象
+        int k = allGameObjects.Count;
+        while (--k >= 0)
+        {
+            if (allGameObjects[k].transform.parent != null)
+            {
+                allGameObjects.RemoveAt(k);
+            }
+        }
+        return allGameObjects.ToArray();
     }
     bool CheckPlayerInView(){
         // 获取屏幕中心点
@@ -471,13 +506,18 @@ public class PlayerController : MonoBehaviour
     public void SetHP(int buff) {
         HP += buff;
         HPCurrent = HP;
+        
+        uiController.SetHPText(HPCurrent);
     }
     public void SetSpeed(int buff) {
         moveSpeed += buff;
+        uiController.SetSpeedText(moveSpeed);
     }
     public void SetProtect(int buff) {
         protect += buff;
         protectCurrent = protect;
+        
+        uiController.SetProtectText(protectCurrent);
     }
     public void SetHPSpeed(int buff) {
         HPSpeed += buff;

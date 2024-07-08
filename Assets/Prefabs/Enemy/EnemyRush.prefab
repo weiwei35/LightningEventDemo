@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 880036173334628733}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -135,8 +135,6 @@ MonoBehaviour:
   sprite: {fileID: 7279990782740928090}
   mainEnemy: {fileID: 8998107444400640731}
   animator: {fileID: 76922882607789433}
-  isRushing: 0
-  isColdTime: 0
 --- !u!65 &2091843079683216607
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -156,8 +154,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1.9779917, z: 1}
-  m_Center: {x: 0, y: 0.004570067, z: 0}
+  m_Size: {x: 1.411305, y: 1.9779917, z: 1}
+  m_Center: {x: 0.20565248, y: 0.004570067, z: 0}
 --- !u!54 &8224236252423854458
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -264,7 +262,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 9
-  m_Sprite: {fileID: 525406017, guid: 3e55dca6c32c7da46812e0c68e19356d, type: 3}
+  m_Sprite: {fileID: -385881267, guid: 3e55dca6c32c7da46812e0c68e19356d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

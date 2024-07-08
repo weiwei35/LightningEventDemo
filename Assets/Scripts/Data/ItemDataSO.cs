@@ -57,4 +57,5 @@ public class SelectItem{
     public int type;
     public int buff;
     public int specialType;
+    public string story;
 }

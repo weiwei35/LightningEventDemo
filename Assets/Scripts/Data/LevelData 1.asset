@@ -15,7 +15,7 @@ MonoBehaviour:
   levels:
   - levelId: 1
     levelType: 0
-    levelTime: 80
+    levelTime: 10
     levelEnemy:
     - enemies:
       - type: {fileID: 2311599531590538775, guid: 18084ec6f6abded418f727e45df04473,
@@ -27,10 +27,21 @@ MonoBehaviour:
           type: 3}
         count: 3
       startTime: 3
-    rewardTime: 10
-    rewardEnemy:
+    rewardTime: 0
+    rewardEnemy: []
+  - levelId: 2
+    levelType: 0
+    levelTime: 10
+    levelEnemy:
     - enemies:
-      - type: {fileID: 2311599531590538775, guid: 2df7242b35310e44a8c9a1a5d801b00f,
+      - type: {fileID: 2311599531590538775, guid: 18084ec6f6abded418f727e45df04473,
           type: 3}
-        count: 1
+        count: 3
       startTime: 0
+    - enemies:
+      - type: {fileID: 2311599531590538775, guid: b93cfd70507182b46a64894613e9014a,
+          type: 3}
+        count: 3
+      startTime: 3
+    rewardTime: 0
+    rewardEnemy: []

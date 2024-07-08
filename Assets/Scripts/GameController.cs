@@ -7,6 +7,9 @@ public static class Global{
     public static bool isEndBoss = false;
     public static List<Vector3> papersPosList = new List<Vector3>();
     public static List<GameObject> playerCopyList = new List<GameObject>();
+    public static List<SelectItem> item1Current = new List<SelectItem>();
+    public static List<SelectItem> item2Current = new List<SelectItem>();
+    public static List<SelectItem> item3Current = new List<SelectItem>();
 }
 public class GameController : MonoBehaviour
 {

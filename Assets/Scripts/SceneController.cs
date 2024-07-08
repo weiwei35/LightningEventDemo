@@ -3,15 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.UI;
+using System;
 
 public class SceneController : MonoBehaviour
 {
-    public GameObject startPanel;
-    public GameObject mainCanvas;
+    public static SceneController Instance{get;set;}
+    public Animator fadeAnim;
+    public GameObject canvas;
+    public GameObject hideUI;
+    public GameObject lightEvent;
     // Start is called before the first frame update
     void Start()
     {
-        
+        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(canvas);
     }
 
     // Update is called once per frame
@@ -21,15 +27,31 @@ public class SceneController : MonoBehaviour
     }
 
     public void StartGame () {
-        CanvasGroup startGroup = startPanel.GetComponent<CanvasGroup>();
-        CanvasGroup canvasGroup = mainCanvas.GetComponent<CanvasGroup>();
-        DOTween.To(()=>startGroup.alpha, x =>startGroup.alpha = x,0,1).OnComplete(()=>
-        {
-            DOTween.To(()=>canvasGroup.alpha, x =>canvasGroup.alpha = x,0,1).OnComplete(()=>
-            {
-                SceneManager.LoadSceneAsync("LightningMainScene");
-            });
-        });
-        
+        StartCoroutine(SetScene());
+    }
+    IEnumerator SetScene(){
+        fadeAnim.SetTrigger("fade");
+        lightEvent.SetActive(false);
+        yield return new WaitForSeconds(1);
+        hideUI.SetActive(false);
+        AsyncOperation async = SceneManager.LoadSceneAsync("LightningMainScene");
+        async.completed += UnloadScene;
+    }
+
+    private void UnloadScene(AsyncOperation operation)
+    {
+        fadeAnim.SetTrigger("fade");
+    }
+
+    public void SetUI() {
+        fadeAnim.SetTrigger("fade");
+        StartCoroutine(SetUIScene());
+    }
+
+    IEnumerator SetUIScene(){
+        hideUI.SetActive(true);
+        SceneManager.UnloadSceneAsync("LightningMainScene");
+        yield return new WaitForSeconds(1);
+        fadeAnim.SetTrigger("fade");
     }
 }

@@ -321,10 +321,10 @@ public class EnemyController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && !isDead)
+        if(other.tag == "Player")
         {
             PlayerController player = other.GetComponent<PlayerController>();
-            if(player.HP > 0)
+            if(!player.isDead)
                 player.Hurt(attack);
         }
     }
