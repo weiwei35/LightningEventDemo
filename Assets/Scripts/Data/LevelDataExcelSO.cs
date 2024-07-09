@@ -41,6 +41,7 @@ public class Level{
     public float rewardTime;
     public EnemyGroup rewardGroupId;
     public LevelType levelType;
+    public GameObject boss;
 }
 [System.Serializable]
 public class EnemyGroup{

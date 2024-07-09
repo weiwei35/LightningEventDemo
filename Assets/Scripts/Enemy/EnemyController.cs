@@ -32,7 +32,7 @@ public class EnemyController : MonoBehaviour
     public bool isHitting = false;
     public bool isFollowHitting = false;
     [HideInInspector]
-    public Vector3 startPosition; // 开始位置
+    public int startPos; // 开始位置
     public Animator anim;
     [HideInInspector]
     public Transform target;
@@ -61,7 +61,6 @@ public class EnemyController : MonoBehaviour
     {
         maxHP = HP;
         rb = GetComponent<Rigidbody>();
-        startPosition = transform.position; // 记录开始位置
         target = GameObject.FindGameObjectWithTag("Player").transform;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         speedSave = speed;
@@ -330,8 +329,15 @@ public class EnemyController : MonoBehaviour
     }
     //在圆形范围边缘随机生成
     public virtual void SpawnAtRandomCircle(){
-        float angle = Random.Range(0,Mathf.PI * 2);
-        Vector3 point = center.position + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,0);
+        // float angle = Random.Range(0,Mathf.PI * 2);
+        // Vector3 point = center.position + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,0);
+        // transform.position = new Vector3(point.x,point.y,-5);
+
+        float angle = -(Mathf.PI * 2/12)*startPos + Mathf.PI/2;
+        Vector3 startCenter = center.position + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,0);
+        Debug.Log(startCenter);
+        float randomAngle = Random.Range(0,Mathf.PI * 2);
+        Vector3 point = startCenter + new Vector3(Mathf.Cos(randomAngle) * 3,Mathf.Sin(randomAngle) * 3,0);
         transform.position = new Vector3(point.x,point.y,-5);
     }
 

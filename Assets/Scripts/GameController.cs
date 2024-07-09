@@ -59,12 +59,17 @@ public class GameController : MonoBehaviour
                 }
             }else{
                 timeCur += Time.deltaTime;
-                if(timeCur >= (levelTime)){
-                    //结束关卡，进入奖励关卡
-                    rewardTitle.SetActive(true);
-                    enemyPool.SetRewardEnemyArray();
-                    isReward = true;
-                    timeCur = 0;
+                if(timeCur >= levelTime){
+                    if(rewardTime > 0){
+                        //结束关卡，进入奖励关卡
+                        rewardTitle.SetActive(true);
+                        enemyPool.SetRewardEnemyArray();
+                        isReward = true;
+                        timeCur = 0;
+                    }else{
+                        NextLevel();
+                    }
+                    
                 }
             }
         }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - levelId: 1
-    levelTime: 80
+    levelTime: 50
     enemyLevel1Group:
       type: {fileID: 2311599531590538775, guid: 5a3a3939e56fabf458d6fdf2caa47960,
         type: 3}
@@ -30,7 +30,7 @@ MonoBehaviour:
     enemyLevel4Group:
       type: {fileID: 2311599531590538775, guid: 2df7242b35310e44a8c9a1a5d801b00f,
         type: 3}
-      count: 1
+      count: 2
     enemyLevel5Group:
       type: {fileID: 0}
       count: 0
@@ -49,6 +49,7 @@ MonoBehaviour:
         type: 3}
       count: 20
     levelType: 0
+    boss: {fileID: 6454216383232186743, guid: b82feed61e408a948ba282aa75b7761f, type: 3}
   - levelId: 2
     levelTime: 80
     enemyLevel1Group:
@@ -83,5 +84,43 @@ MonoBehaviour:
     rewardGroupId:
       type: {fileID: 2311599531590538775, guid: 5a3a3939e56fabf458d6fdf2caa47960,
         type: 3}
-      count: 20
+      count: 30
     levelType: 0
+    boss: {fileID: 0}
+  - levelId: 3
+    levelTime: 80
+    enemyLevel1Group:
+      type: {fileID: 2311599531590538775, guid: 5a3a3939e56fabf458d6fdf2caa47960,
+        type: 3}
+      count: 3
+    enemyLevel2Group:
+      type: {fileID: 2311599531590538775, guid: cbc271b00c6891f4aa192b5d24e72fc4,
+        type: 3}
+      count: 2
+    enemyLevel3Group:
+      type: {fileID: 2311599531590538775, guid: 5a3a3939e56fabf458d6fdf2caa47960,
+        type: 3}
+      count: 5
+    enemyLevel4Group:
+      type: {fileID: 2311599531590538775, guid: 2df7242b35310e44a8c9a1a5d801b00f,
+        type: 3}
+      count: 1
+    enemyLevel5Group:
+      type: {fileID: 0}
+      count: 0
+    enemyLevel6Group:
+      type: {fileID: 0}
+      count: 0
+    enemyLevel7Group:
+      type: {fileID: 0}
+      count: 0
+    enemyLevel8Group:
+      type: {fileID: 0}
+      count: 0
+    rewardTime: 10
+    rewardGroupId:
+      type: {fileID: 2311599531590538775, guid: 5a3a3939e56fabf458d6fdf2caa47960,
+        type: 3}
+      count: 30
+    levelType: 0
+    boss: {fileID: 0}

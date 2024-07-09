@@ -5642,7 +5642,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1edb34327c251b45ad4023f50c1662f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 1000
+  HP: 30
   maxHP: 0
   attack: 5
   speed: 0.5
@@ -5655,7 +5655,7 @@ MonoBehaviour:
   recoverEffect: {fileID: 4304490059461719471}
   isHitting: 0
   isFollowHitting: 0
-  startPosition: {x: 0, y: 0, z: 0}
+  startPos: 0
   anim: {fileID: 1078211529289127740}
   target: {fileID: 0}
   isInBlackHall: 0

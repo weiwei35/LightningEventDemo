@@ -8755,7 +8755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 978b2abf5cb3b7f48bc49512784fa023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInitTime: 10
+  enemyInitTime: 5
   level2Count: 3
   level3Count: 6
   level4Count: 7

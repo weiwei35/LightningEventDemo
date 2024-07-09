@@ -65,17 +65,23 @@ public class SelectItemUI : MonoBehaviour
                         uIController.AddItem1(itemIcon);
                     }else{
                         itemIcon.icon.text = saveItem.name[0].ToString();
+                        itemIcon.itemName.text = saveItem.name.ToString();
+                        itemIcon.desc.text = saveItem.desc.ToString();
                         uIController.SetItem1(itemIcon);
                     }
                     return;
                 case 2:
                     Global.item2Current.Add(saveItem);
                     itemIcon.icon.text = saveItem.name[0].ToString();
+                    itemIcon.itemName.text = saveItem.name.ToString();
+                    itemIcon.desc.text = saveItem.desc.ToString();
                     uIController.SetItem2(itemIcon);
                     return;
                 case 3:
                     Global.item3Current.Add(saveItem);
                     itemIcon.icon.text = saveItem.name[0].ToString();
+                    itemIcon.itemName.text = saveItem.name.ToString();
+                    itemIcon.desc.text = saveItem.desc.ToString();
                     uIController.SetItem3(itemIcon);
                     return;
             }

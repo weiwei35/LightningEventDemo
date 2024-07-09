@@ -33,7 +33,6 @@ public class BulletController : MonoBehaviour
             Destroy(gameObject);
             PlayerController player = other.GetComponent<PlayerController>();
             if(!player.isDead){
-                Debug.Log("==========");
                 player.Hurt(hurt);
             }
         }

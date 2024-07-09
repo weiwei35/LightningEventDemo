@@ -64,17 +64,23 @@ public class EnemyPoolController : MonoBehaviour
         enemyTimeCount = 0;
         if(level1Count % level2Count == 0 && level.enemyLevel2Group.count>0 && level1Count!=0 && !triggered){
             SetLevel2Once();
-        }else if(level1Count % level3Count == 0 && level.enemyLevel3Group.count>0 && level1Count!=0 && !triggered){
+        }
+        if(level1Count % level3Count == 0 && level.enemyLevel3Group.count>0 && level1Count!=0 && !triggered){
             SetLevel3Once();
-        }else if(level1Count % level4Count == 0 && level.enemyLevel4Group.count>0 && level1Count!=0 && !triggered){
+        }
+        if(level1Count % level4Count == 0 && level.enemyLevel4Group.count>0 && level1Count!=0 && !triggered){
             SetLevel4Once();
-        }else if(level1Count % level5Count == 0 && level.enemyLevel5Group.count>0 && level1Count!=0 && !triggered){
+        }
+        if(level1Count % level5Count == 0 && level.enemyLevel5Group.count>0 && level1Count!=0 && !triggered){
             SetLevel5Once();
-        }else if(level1Count % level6Count == 0 && level.enemyLevel6Group.count>0 && level1Count!=0 && !triggered){
+        }
+        if(level1Count % level6Count == 0 && level.enemyLevel6Group.count>0 && level1Count!=0 && !triggered){
             SetLevel6Once();
-        }else if(level1Count % level7Count == 0 && level.enemyLevel7Group.count>0 && level1Count!=0 && !triggered){
+        }
+        if(level1Count % level7Count == 0 && level.enemyLevel7Group.count>0 && level1Count!=0 && !triggered){
             SetLevel7Once();
-        }else if(level1Count % level8Count == 0 && level.enemyLevel8Group.count>0 && level1Count!=0 && !triggered){
+        }
+        if(level1Count % level8Count == 0 && level.enemyLevel8Group.count>0 && level1Count!=0 && !triggered){
             SetLevel8Once();
         }
     }
@@ -83,6 +89,12 @@ public class EnemyPoolController : MonoBehaviour
     public void SetEnemyArray(){
         canCount = true;
         level1Count = 0;
+
+        if(level.levelType == LevelType.Boss){
+            var enemyNew = Instantiate(level.boss);
+            enemyNew.transform.parent = transform;
+            enemyNew.transform.position = transform.position;
+        }
     }
     void SetLevel1Once(){
         level1Count ++;
@@ -92,6 +104,8 @@ public class EnemyPoolController : MonoBehaviour
             var enemyNew = Instantiate(level.enemyLevel1Group.type);
             enemyNew.transform.parent = transform;
             enemyNew.transform.position = transform.position;
+            EnemyController enemy = enemyNew.GetComponent<EnemyController>();
+            enemy.startPos = level1Count-1;
         }
     }
     void SetLevel2Once(){
@@ -101,6 +115,8 @@ public class EnemyPoolController : MonoBehaviour
             var enemyNew = Instantiate(level.enemyLevel2Group.type);
             enemyNew.transform.parent = transform;
             enemyNew.transform.position = transform.position;
+            EnemyController enemy = enemyNew.GetComponent<EnemyController>();
+            enemy.startPos = level1Count-1;
         }
     }
     void SetLevel3Once(){
@@ -110,6 +126,8 @@ public class EnemyPoolController : MonoBehaviour
             var enemyNew = Instantiate(level.enemyLevel3Group.type);
             enemyNew.transform.parent = transform;
             enemyNew.transform.position = transform.position;
+            EnemyController enemy = enemyNew.GetComponent<EnemyController>();
+            enemy.startPos = level1Count-1;
         }
     }
     void SetLevel4Once(){
@@ -119,6 +137,8 @@ public class EnemyPoolController : MonoBehaviour
             var enemyNew = Instantiate(level.enemyLevel4Group.type);
             enemyNew.transform.parent = transform;
             enemyNew.transform.position = transform.position;
+            EnemyController enemy = enemyNew.GetComponent<EnemyController>();
+            enemy.startPos = level1Count-1;
         }
     }
     void SetLevel5Once(){
@@ -128,6 +148,8 @@ public class EnemyPoolController : MonoBehaviour
             var enemyNew = Instantiate(level.enemyLevel5Group.type);
             enemyNew.transform.parent = transform;
             enemyNew.transform.position = transform.position;
+            EnemyController enemy = enemyNew.GetComponent<EnemyController>();
+            enemy.startPos = level1Count-1;
         }
     }
     void SetLevel6Once(){
@@ -137,6 +159,8 @@ public class EnemyPoolController : MonoBehaviour
             var enemyNew = Instantiate(level.enemyLevel6Group.type);
             enemyNew.transform.parent = transform;
             enemyNew.transform.position = transform.position;
+            EnemyController enemy = enemyNew.GetComponent<EnemyController>();
+            enemy.startPos = level1Count-1;
         }
     }
     void SetLevel7Once(){
@@ -146,6 +170,8 @@ public class EnemyPoolController : MonoBehaviour
             var enemyNew = Instantiate(level.enemyLevel7Group.type);
             enemyNew.transform.parent = transform;
             enemyNew.transform.position = transform.position;
+            EnemyController enemy = enemyNew.GetComponent<EnemyController>();
+            enemy.startPos = level1Count-1;
         }
     }
     void SetLevel8Once(){
@@ -155,6 +181,8 @@ public class EnemyPoolController : MonoBehaviour
             var enemyNew = Instantiate(level.enemyLevel8Group.type);
             enemyNew.transform.parent = transform;
             enemyNew.transform.position = transform.position;
+            EnemyController enemy = enemyNew.GetComponent<EnemyController>();
+            enemy.startPos = level1Count-1;
         }
     }
     //设置奖励组怪物
