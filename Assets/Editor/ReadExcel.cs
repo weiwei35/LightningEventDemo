@@ -33,7 +33,10 @@ public class Startup
                 {
                     //用反射对item赋值，将数据类型附加到赋值内容中
                     FieldInfo typeInfo = itemType.GetField(worksheet.GetValue(1, j).ToString());
-                    string itemValue = worksheet.GetValue(i, j).ToString();
+                    string itemValue = "";
+                    if (worksheet.GetValue(i, j) != null){
+                        itemValue = worksheet.GetValue(i, j).ToString();
+                    }
                     typeInfo.SetValue(item,Convert.ChangeType(itemValue,typeInfo.FieldType));
                 }
                 //当前行赋值结束，添加到列表中

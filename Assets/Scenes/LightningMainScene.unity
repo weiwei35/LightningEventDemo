@@ -3311,6 +3311,7 @@ MonoBehaviour:
   startTime: 0.3
   keepTime: 0.1
   circleHurt: 20
+  lightningExp: 5
   uiController: {fileID: 1940039263}
   isEndLight: 0
   endLight: 0

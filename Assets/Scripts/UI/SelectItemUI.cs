@@ -117,6 +117,9 @@ public class SelectItemUI : MonoBehaviour
                 case 203:
                     player.SetOnceTimeCopy();
                     return;
+                case 204:
+                    player.SetMegaCopy();
+                    return;
                 case 301:
                     player.SetLightningMirror();
                     return;
@@ -129,14 +132,56 @@ public class SelectItemUI : MonoBehaviour
                 case 304:
                     player.SetLightningAttract();
                     return;
-                case 601:
+                case 305:
+                    player.SetLightningBoomPlayer();
+                    return;
+                case 401:
+                    player.SetPaperFireBall();
+                    return;
+                case 402:
+                    player.SetPaperIce();
+                    return;
+                case 403:
+                    player.SetPaperHP();
+                    return;
+                case 404:
+                    player.SetPaperProtect();
+                    return;
+                case 405:
+                    player.SetPaperBlack();
+                    return;
+                case 406:
+                    player.SetPaperConnect();
+                    return;
+                case 501:
                     player.SetBugHP();
                     return;
-                case 602:
+                case 502:
                     player.SetBugCircle();
                     return;
-                case 603:
+                case 503:
+                    player.SetBugWall();
+                    return;
+                case 504:
                     player.SetBugFollow();
+                    return;
+                case 505:
+                    player.SetBugMerge();
+                    return;
+                case 506:
+                    player.SetBugAttack();
+                    return;
+                case 601:
+                    player.SetDebuffSlow();
+                    return;
+                case 602:
+                    player.SetDebuffDizzy();
+                    return;
+                case 603:
+                    player.SetBuffSuper();
+                    return;
+                case 604:
+                    player.SetMoveRandom();
                     return;
                 default:
                     return;

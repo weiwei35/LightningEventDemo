@@ -18,6 +18,8 @@ public class ItemDataSO : ScriptableObject {
             type.Add(202);
         if(player.isOnceTimeCopy)
             type.Add(203);
+        if(player.isMegaCopy)
+            type.Add(204);
         if(player.isLightningMirror)
             type.Add(301);
         if(player.isLightningBoom)
@@ -26,12 +28,40 @@ public class ItemDataSO : ScriptableObject {
             type.Add(303);
         if(player.isLightningAttract)
             type.Add(304);
+        if(player.isLightningBoomPlayer)
+            type.Add(305);
+        if(player.isPaperFireBall)
+            type.Add(401);
+        if(player.isPaperIce)
+            type.Add(402);
+        if(player.isPaperHP)
+            type.Add(403);
+        if(player.isPaperProtect)
+            type.Add(404);
+        if(player.isPaperBlack)
+            type.Add(405);
+        if(player.isPaperConnect)
+            type.Add(406);
         if(player.isBugHP)
-            type.Add(601);
+            type.Add(501);
         if(player.isBugCircle)
-            type.Add(602);
+            type.Add(502);
+        if(player.isBugWall)
+            type.Add(503);
         if(player.isBugFollow)
+            type.Add(504);
+        if(player.isBugMerge)
+            type.Add(505);
+        if(player.isBugAttack)
+            type.Add(506);
+        if(player.isDebuffSlow)
+            type.Add(601);
+        if(player.isDebuffDizzy)
+            type.Add(602);
+        if(player.isBuffSuper)
             type.Add(603);
+        if(player.isMoveRandom)
+            type.Add(604);
         for (int i = 0; i < count; i++)
         {
             int randomId;
