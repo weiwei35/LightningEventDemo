@@ -66,6 +66,9 @@ public class GameController : MonoBehaviour
     {
         selectPanel = endLevelPanel.GetComponent<SelectItemUI>();
         papers = GameObject.FindGameObjectWithTag("Papers");
+
+        Time.timeScale = 0;
+        endLevelPanel.SetActive(true);
     }
 
     // Update is called once per frame
@@ -77,11 +80,6 @@ public class GameController : MonoBehaviour
             //升级
             Global.exp_level++;
             Global.exp = Global.exp - Global.exp_max;
-            // if(Global.exp_level < expList.Count){
-            //     Global.exp_max = expList[Global.exp_level];
-            // }else{
-            //     Global.exp_max = expList[expList.Count-1];
-            // }
             if(Global.exp_level < expLevelData.GetLevelCount()){
                 Global.exp_max = expLevelData.GetExpMaxByLevel(Global.exp_level);
             }else{
@@ -134,9 +132,8 @@ public class GameController : MonoBehaviour
         enemyPool.DestroyAllEnemy();
         isReward = false;
         timeCur = 0;
+        SetLevelItem();
         levelId ++;
-        // Time.timeScale = 0;
-        // endLevelPanel.SetActive(true);
         Global.papersPosList.Clear();
         foreach (Transform item in papers.transform)
         {
@@ -147,8 +144,11 @@ public class GameController : MonoBehaviour
             }
         }
         bgChangeLevel.SetActive(true);
-        Invoke("SetLevel",1);
-        // SetLevel();
+        Invoke("SetLevel",2);
+    }
+    void SetLevelItem(){
+        Time.timeScale = 0;
+        endLevelPanel.SetActive(true);
     }
 
     public void SetLevel(){

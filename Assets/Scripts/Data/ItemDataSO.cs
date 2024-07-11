@@ -24,9 +24,9 @@ public class ItemDataSO : ScriptableObject {
             type.Add(301);
         if(player.isLightningBoom)
             type.Add(302);
-        if(player.isLightningOverflow)
-            type.Add(303);
         if(player.isLightningAttract)
+            type.Add(303);
+        if(player.isLightningOverflow)
             type.Add(304);
         if(player.isLightningBoomPlayer)
             type.Add(305);
@@ -70,12 +70,28 @@ public class ItemDataSO : ScriptableObject {
             {
                 randomId = Random.Range(0,items.Count);
                 typeId = items[randomId].type;
-            } while (random.Contains(randomId) || type.Contains(typeId));
+            } while (random.Contains(randomId) || type.Contains(typeId) || items[randomId].specialType == 3);
             random.Add(randomId);
             type.Add(typeId);
             item.Add(items[randomId]);
         }
         return item;
+    }
+
+    public SelectItem GetRandomTrans(){
+        int randomId = Random.Range(0,6);
+        int i = 0;
+        foreach (var item in items)
+        {
+            if(item.specialType == 3){
+                if(i == randomId){
+                    return item;
+                }else{
+                    i++;
+                }
+            }
+        }
+        return null;
     }
 }
 

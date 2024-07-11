@@ -55,7 +55,13 @@ public class LightningController : MonoBehaviour
         curTime += Time.deltaTime;
         if(curTime >= lightningTime){
             curTime = 0;
-            circle.RandomPoints(lightningCount);
+            float random = (lightningCount - Mathf.Floor(lightningCount))*100;
+            int i = Random.Range(0,101);
+            if(i < random){
+                circle.RandomPoints(Mathf.Floor(lightningCount)+1);
+            }else{
+                circle.RandomPoints(Mathf.Floor(lightningCount));
+            }
         }
         
         if(isEndLight && !endLight){

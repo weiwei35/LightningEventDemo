@@ -5501,7 +5501,7 @@ GameObject:
   - component: {fileID: 7051856260155031281}
   m_Layer: 6
   m_Name: MainEnemy
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

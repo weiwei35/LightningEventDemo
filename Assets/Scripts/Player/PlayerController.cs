@@ -158,6 +158,10 @@ public class PlayerController : MonoBehaviour
     public GameObject lightning;
     public GameObject effect;
     SpriteRenderer sprite;
+
+    float startHP = 0;
+    float startProtect = 0;
+    float startSpeed = 0;
     private void Start() {
         HPCurrent = HP;
         protectCurrent = protect;
@@ -173,6 +177,10 @@ public class PlayerController : MonoBehaviour
         uiController.SetHPText(HPCurrent);
         uiController.SetProtectText(protectCurrent);
         uiController.SetSpeedText(moveSpeed);
+
+        startHP = HPCurrent;
+        startProtect = protectCurrent;
+        startSpeed = speed;
     }
  
     // Update is called once per frame
@@ -506,18 +514,30 @@ public class PlayerController : MonoBehaviour
     public void SetHP(int buff) {
         HP += buff;
         HPCurrent = HP;
-        
         uiController.SetHPText(HPCurrent);
+        if(hpToLCount)
+            TranslateHPToLCount();
+        if(hpToLHurt)
+            TranslateHPToLHurt();
     }
     public void SetSpeed(int buff) {
-        moveSpeed += buff;
+        speed += buff;
+        moveSpeed = speed;
         uiController.SetSpeedText(moveSpeed);
+        if(speedToLSpeed)
+            TranslateSpeedToLSpeed();
+        if(speedToLCount)
+            TranslateSpeedToLCount();
     }
     public void SetProtect(int buff) {
         protect += buff;
         protectCurrent = protect;
         
         uiController.SetProtectText(protectCurrent);
+        if(protectToLHurt)
+            TranslateProtectToLHurt();
+        if(protectToLSpeed)
+            TranslateProtectToLSpeed();
     }
     public void SetHPSpeed(int buff) {
         HPSpeed += buff;
@@ -525,6 +545,66 @@ public class PlayerController : MonoBehaviour
     public void SetProtectSpeed(int buff) {
         protectSpeed += buff;
     }
+
+    /*
+    雷电伤害=原本雷电伤害+相对应增加数值*0.5
+    雷电道数=原本雷电道数+相应增加数值/10（取整）
+    雷电频率=2-相应增加数值*0.01
+    */
+    public bool speedToLSpeed = false;
+    public bool speedToLCount = false;
+    public bool hpToLCount = false;
+    public bool hpToLHurt = false;
+    public bool protectToLHurt = false;
+    public bool protectToLSpeed = false;
+    //数值转换：将自身速度按一定比例转化为雷劫频率
+    public void TranslateSpeedToLSpeed(){
+        LightningController lightningController = lightning.GetComponent<LightningController>();
+        lightningController.lightningTime -= (speed-startSpeed)*0.01f;
+        startSpeed = speed;
+        uiController.SetLightningSpeedText(lightningController.lightningTime);
+    }
+    //数值转换：将自身速度按一定比例转化为雷劫道数
+    public void TranslateSpeedToLCount(){
+        LightningController lightningController = lightning.GetComponent<LightningController>();
+        lightningController.lightningCount += (speed-startSpeed)/10f;
+        // if(Mathf.Floor((speed-startSpeed)/10f) >= 1){
+            startSpeed = speed;
+        // }
+        uiController.SetLightningCountText(lightningController.lightningCount);
+    }
+    //数值转换：将自身生命值按一定比例转化为雷劫道数
+    public void TranslateHPToLCount(){
+        LightningController lightningController = lightning.GetComponent<LightningController>();
+        lightningController.lightningCount += (HP - startHP)/10f;
+        // if(Mathf.Floor((HP - startHP)/10f) >= 1){
+            startHP = HP;
+        // }
+        uiController.SetLightningCountText(lightningController.lightningCount);
+    }
+    //数值转换：将自身生命值按一定比例转化为雷劫伤害
+    public void TranslateHPToLHurt(){
+        LightningController lightningController = lightning.GetComponent<LightningController>();
+        lightningController.lightningHurt += (HP - startHP)*0.5f;
+        startHP = HP;
+        uiController.SetLightningHurtText(lightningController.lightningHurt);
+    }
+    //数值转换：将自身护甲值按一定比例转化为雷劫伤害
+    public void TranslateProtectToLHurt(){
+        LightningController lightningController = lightning.GetComponent<LightningController>();
+        lightningController.lightningHurt += (protect - startProtect)*0.5f;
+        startProtect = protect;
+        uiController.SetLightningHurtText(lightningController.lightningHurt);
+    }
+    //数值转换：将自身护甲值按一定比例转化为雷劫频率
+    public void TranslateProtectToLSpeed(){
+        LightningController lightningController = lightning.GetComponent<LightningController>();
+        lightningController.lightningTime -= (protect - startProtect)*0.01f;
+        startProtect = protect;
+        uiController.SetLightningSpeedText(lightningController.lightningTime);
+    }
+
+
     //分身法宝01：围绕圆心生成角色分身，角色以及分身同时吸引雷劫
     public void SetCircleCopy() {
         isCircleCopy = !isCircleCopy;
@@ -791,4 +871,6 @@ public class PlayerController : MonoBehaviour
     public void SetMoveRandom() {
         isMoveRandom = !isMoveRandom;
     }
+
+
 }

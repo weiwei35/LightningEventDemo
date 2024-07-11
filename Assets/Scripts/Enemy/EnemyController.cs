@@ -389,6 +389,7 @@ public class EnemyController : MonoBehaviour
             }
             Debug.Log("距离最近的敌人："+enemyId);
             if(enemyId<filteredEnemies.Length && enemyId>=0){
+                Debug.Log(filteredEnemies[enemyId].transform.position);
                 var lineCur = Instantiate(lineCopy.gameObject);
                 lineCur.transform.position = transform.position;
                 OverLineController lineController = lineCur.GetComponent<OverLineController>();
@@ -398,7 +399,8 @@ public class EnemyController : MonoBehaviour
                 lineController.keepTime = 0.1f;
                 lineController.showTime = 0;
                 EnemyController hurtEnemy = filteredEnemies[enemyId].GetComponent<EnemyController>();
-                hurtEnemy.Hurt(hurt,HurtType.Overflow);
+                if(hurtEnemy != null)
+                    hurtEnemy.Hurt(hurt,HurtType.Overflow);
             }else if(enemyId>filteredEnemies.Length-1){
                 SetMoreHurt(hurt);
             }else if(enemyId<0){

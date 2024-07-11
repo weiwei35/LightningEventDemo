@@ -5059,7 +5059,7 @@ GameObject:
   - component: {fileID: 4566312718165931291}
   - component: {fileID: 5928352997011797486}
   - component: {fileID: 6015828965384039371}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5313,7 +5313,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2538797364434740933}
   - component: {fileID: 1183192991886820844}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5482,7 +5482,7 @@ GameObject:
   - component: {fileID: 4216736211228855772}
   m_Layer: 6
   m_Name: MainEnemy
-  m_TagString: Enemy
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

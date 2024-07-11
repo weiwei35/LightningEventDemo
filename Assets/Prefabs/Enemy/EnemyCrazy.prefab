@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6886918352042114365}
   - component: {fileID: 2043102897305994756}
   - component: {fileID: 7445999210709497430}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -571,7 +571,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6656734255191317404}
   - component: {fileID: 7351487632693985790}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5600,7 +5600,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2356214534198655987}
   - component: {fileID: 747671334383475317}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

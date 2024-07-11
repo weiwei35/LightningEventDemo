@@ -12,12 +12,18 @@ public class SelectItemUI : MonoBehaviour
     public GameObject selectBar;
     public GameObject selectPrefab;
     SelectItem saveItem;
-    List<SelectItem> items;
+    List<SelectItem> items = new List<SelectItem>();
     PlayerController player;
     // Start is called before the first frame update
     void OnEnable() {
         // itemData = AssetDatabase.LoadAssetAtPath<ItemDataSO>("Assets/Resources/ItemData.asset");
-        items = itemData.GetRandomSelectItem(3);
+        if(Global.exp_level > 0){
+            items = itemData.GetRandomSelectItem(3);
+        }else{
+            items.Clear();
+            items.Add(itemData.GetRandomTrans());
+        }
+        
         ShowSelectItem();
     }
     void ShowSelectItem(){
@@ -29,6 +35,7 @@ public class SelectItemUI : MonoBehaviour
             selectItem.transform.localPosition = Vector3.zero;
             ItemController item = selectItem.GetComponent<ItemController>();
             item.SetItemInfo(items[i]);
+            saveItem = items[i];
         }
     }
     public void SaveChooseItem(SelectItem item){
@@ -127,10 +134,10 @@ public class SelectItemUI : MonoBehaviour
                     player.SetLightningBoom();
                     return;
                 case 303:
-                    player.SetLightningOverflow();
+                    player.SetLightningAttract();
                     return;
                 case 304:
-                    player.SetLightningAttract();
+                    player.SetLightningOverflow();
                     return;
                 case 305:
                     player.SetLightningBoomPlayer();
@@ -183,11 +190,28 @@ public class SelectItemUI : MonoBehaviour
                 case 604:
                     player.SetMoveRandom();
                     return;
+                case 1001:
+                    player.speedToLSpeed = true;
+                    return;
+                case 1002:
+                    player.speedToLCount = true;
+                    return;
+                case 1003:
+                    player.hpToLCount = true;
+                    return;
+                case 1004:
+                    player.hpToLHurt = true;
+                    return;
+                case 1005:
+                    player.protectToLHurt = true;
+                    return;
+                case 1006:
+                    player.protectToLSpeed = true;
+                    return;
                 default:
                     return;
             }
     }
-
     private void OnDisable() {
         items.Clear();
         saveItem = new SelectItem();
