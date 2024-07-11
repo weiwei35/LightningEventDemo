@@ -22,7 +22,7 @@ public class LineColliderMain : MonoBehaviour
         if(other.gameObject.layer == 8 && player.isLightningAttract){
             //需要吸附对应敌人
             EnemyController enemy = other.gameObject.GetComponentInParent<EnemyController>();
-            if(enemy != null)
+            if(enemy != null && enemy.canHurt)
             {
                 Debug.Log("雷电吸附：" + other.name);
                 enemy.MoveToLine(GetCrossPoin(other.gameObject));

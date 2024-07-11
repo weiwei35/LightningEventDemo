@@ -57,6 +57,8 @@ public class EnemyController : MonoBehaviour
     public bool isBoom = false;
     Rigidbody rb;
     Vector3 randomAngle;
+    bool preStart = true;
+    public bool canHurt = false;
     public virtual void Start()
     {
         maxHP = HP;
@@ -74,22 +76,28 @@ public class EnemyController : MonoBehaviour
         // }
         // text.text = (Mathf.Round(HP * 10.0f) / 10.0f).ToString();
         //速度处理
-        if(Global.isSlowDown){
-            speed = speedSave/10;
-            anim.speed = 0.5f;
-        }else if(iceSpeed){
-            anim.speed = 0.5f;
-            speed = speedSave/5;
-        }else if(debuffSlowing){
-            speed = speedSave * 0.5f;
-            anim.speed = 0.5f;
-        }else if(isCrazy){
-            speed = speedSave + 1;
-            attack = attackSave +1;
-            anim.speed = 2;
-        }else if(!Global.isSlowDown && !iceSpeed && !debuffSlowing && !isFreeze && !isCrazy){
-            anim.speed = 1;
-            speed = speedSave;
+        
+        if(preStart){
+            speed = 0;
+            Invoke("TrueStart",1.5f);
+        }else{
+            if(Global.isSlowDown){
+                speed = speedSave/10;
+                anim.speed = 0.5f;
+            }else if(iceSpeed){
+                anim.speed = 0.5f;
+                speed = speedSave/5;
+            }else if(debuffSlowing){
+                speed = speedSave * 0.5f;
+                anim.speed = 0.5f;
+            }else if(isCrazy){
+                speed = speedSave + 1;
+                attack = attackSave +1;
+                anim.speed = 2;
+            }else if(!Global.isSlowDown && !iceSpeed && !debuffSlowing && !isFreeze && !isCrazy){
+                anim.speed = 1;
+                speed = speedSave;
+            }
         }
 
         if(isBoomHall){
@@ -111,7 +119,10 @@ public class EnemyController : MonoBehaviour
             debuffCount = 0;
         }
     }
-
+    void TrueStart(){
+        preStart = false;
+        canHurt = true;
+    }
     Vector3 RandomUnitVector()
     {
         float zenith = Random.Range(0f, Mathf.PI); // 随机选择一个极角
@@ -155,7 +166,7 @@ public class EnemyController : MonoBehaviour
         rb.AddForce(direction*30,ForceMode.Impulse);
     }
     public virtual void Hurt (float hurt,HurtType type) {
-        if(!isHitting && !isDead){
+        if(!isHitting && !isDead && canHurt){
             if (tweener != null)
             {
                 tweener.Kill();
@@ -186,7 +197,7 @@ public class EnemyController : MonoBehaviour
         }
     }
     public virtual void HurtByCircle(float hurt,HurtType type){
-        if(type == HurtType.BugCircle){
+        if(type == HurtType.BugCircle && canHurt){
             circleCountTime += Time.deltaTime;
             if(circleCountTime >= 0.1f){
                 circleCountTime = 0;
@@ -202,7 +213,7 @@ public class EnemyController : MonoBehaviour
         }
     }
     public virtual void HurtByFollow(float hurt,HurtType type){
-        if(type == HurtType.BugFollow){
+        if(type == HurtType.BugFollow && canHurt){
             isFollowHitting = true;
             followCountTime += Time.deltaTime;
             if(followCountTime >= 0.5f){
@@ -218,7 +229,7 @@ public class EnemyController : MonoBehaviour
         }
     }
     public virtual void HurtByPaperIce(float hurt,HurtType type){
-        if(type == HurtType.PaperIce){
+        if(type == HurtType.PaperIce && canHurt){
             text.text = hurt.ToString();
             hurtUI.SetTrigger("hurt");
             HP -= hurt;
@@ -310,7 +321,7 @@ public class EnemyController : MonoBehaviour
             SetMoreHurt(moreHurt);
             Debug.Log("溢出伤害:" + moreHurt);
         }
-        
+        Global.exp += maxHP;
         StartCoroutine(SetDestroy());
     }
     IEnumerator SetDestroy(){
@@ -329,16 +340,20 @@ public class EnemyController : MonoBehaviour
     }
     //在圆形范围边缘随机生成
     public virtual void SpawnAtRandomCircle(){
-        // float angle = Random.Range(0,Mathf.PI * 2);
-        // Vector3 point = center.position + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,0);
-        // transform.position = new Vector3(point.x,point.y,-5);
+        
+        if(Global.isReward){
+            float angle = Random.Range(0,Mathf.PI * 2);
+            Vector3 point = center.position + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,0);
+            transform.position = new Vector3(point.x,point.y,-5);
+        }else{
+            float angle = -(Mathf.PI * 2/12)*startPos + Mathf.PI/2;
+            Vector3 startCenter = center.position + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,0);
+            float randomAngle = Random.Range(0,Mathf.PI * 2);
+            Vector3 point = startCenter + new Vector3(Mathf.Cos(randomAngle) * 3,Mathf.Sin(randomAngle) * 3,0);
+            transform.position = new Vector3(point.x,point.y,-5);
+        }
 
-        float angle = -(Mathf.PI * 2/12)*startPos + Mathf.PI/2;
-        Vector3 startCenter = center.position + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,0);
-        Debug.Log(startCenter);
-        float randomAngle = Random.Range(0,Mathf.PI * 2);
-        Vector3 point = startCenter + new Vector3(Mathf.Cos(randomAngle) * 3,Mathf.Sin(randomAngle) * 3,0);
-        transform.position = new Vector3(point.x,point.y,-5);
+        
     }
 
     //受伤后产生爆炸

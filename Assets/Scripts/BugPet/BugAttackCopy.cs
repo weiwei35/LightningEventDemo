@@ -9,7 +9,7 @@ public class BugAttackCopy : MonoBehaviour
     public EnemyController enemy;
     public BugAttackController bugAttack;
     private void Start() {
-        if(enemy != null){
+        if(enemy != null  && enemy.canHurt){
             Vector3 targetPos = new Vector3(enemy.transform.position.x,enemy.transform.position.y,-10);
             transform.DOMove(targetPos,0.2f).OnComplete(()=>
                 {

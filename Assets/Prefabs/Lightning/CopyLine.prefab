@@ -199,13 +199,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   follow: {fileID: 0}
-  startPointEP: {fileID: 5971536029102848306, guid: d54773b0f12d5834b950d8b217de0af4,
-    type: 3}
-  startPoint: {fileID: 6243194527875724978}
   showTime: 0
   startTime: 0.1
   keepTime: 0.5
-  isChecked: 0
   timeCount: 0
   lineCollider: {fileID: 1882638087667443515, guid: a5445d913c663774da5e26d44566d7d9,
     type: 3}

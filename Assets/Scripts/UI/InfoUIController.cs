@@ -16,6 +16,7 @@ public class InfoUIController : MonoBehaviour
     public GameObject item2Parent;
     public GameObject item3Parent;
     List<ItemIcon> item1List = new List<ItemIcon>();
+    public ItemIcon item;
 
     
     public void SetSayingText(string text) {
@@ -40,29 +41,42 @@ public class InfoUIController : MonoBehaviour
         lightningCount.text = text.ToString();
     }
 
-    public void SetItem1(ItemIcon item) {
+    public void SetItem1(string name,string nameT,string desc,int type) {
         var icon = Instantiate(item.gameObject);
         icon.transform.parent = item1Parent.transform;
         icon.transform.localScale = new Vector3(1,1,1);
+        icon.GetComponent<ItemIcon>().icon.text = name;
+        icon.GetComponent<ItemIcon>().count.gameObject.SetActive(false);
+        icon.GetComponent<ItemIcon>().itemName.text = nameT;
+        icon.GetComponent<ItemIcon>().desc.text = desc;
+        icon.GetComponent<ItemIcon>().itemType = type;
         item1List.Add(icon.GetComponent<ItemIcon>());
     }
-    public void AddItem1(ItemIcon itemCurrent){
+    public void AddItem1(string name,int count,int type){
         foreach (var item in item1List)
         {
-            if(item.itemType == itemCurrent.itemType){
+            if(item.itemType == type){
                 item.count.gameObject.SetActive(true);
-                item.count = itemCurrent.count;
+                item.count.text = count.ToString();
             }
         }
     }
-    public void SetItem2(ItemIcon item) {
+    public void SetItem2(string name,string nameT,string desc) {
         var icon = Instantiate(item.gameObject);
         icon.transform.parent = item2Parent.transform;
         icon.transform.localScale = new Vector3(1,1,1);
+        icon.GetComponent<ItemIcon>().count.gameObject.SetActive(false);
+        icon.GetComponent<ItemIcon>().icon.text = name;
+        icon.GetComponent<ItemIcon>().itemName.text = nameT;
+        icon.GetComponent<ItemIcon>().desc.text = desc;
     }
-    public void SetItem3(ItemIcon item) {
+    public void SetItem3(string name,string nameT,string desc) {
         var icon = Instantiate(item.gameObject);
         icon.transform.parent = item3Parent.transform;
         icon.transform.localScale = new Vector3(1,1,1);
+        icon.GetComponent<ItemIcon>().count.gameObject.SetActive(false);
+        icon.GetComponent<ItemIcon>().icon.text = name;
+        icon.GetComponent<ItemIcon>().itemName.text = nameT;
+        icon.GetComponent<ItemIcon>().desc.text = desc;
     }
 }

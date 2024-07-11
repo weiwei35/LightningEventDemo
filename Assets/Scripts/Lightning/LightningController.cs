@@ -20,6 +20,8 @@ public class LightningController : MonoBehaviour
     public float keepTime = 0.5f;
     [Header("结界伤害")]
     public float circleHurt = 5f;
+    [Header("雷劫经验")]
+    public float lightningExp = 5f;
     [Header("UI")]
     public InfoUIController uiController;
     float curTime = 0;
@@ -75,6 +77,7 @@ public class LightningController : MonoBehaviour
 
     IEnumerator EndLight(){
         isEndLight = false;
+        Global.exp += lightningExp;
         if(player.isOnceLightningCopy)
             player.lightningCount ++;
         foreach (Transform item in petBugs.transform)

@@ -7,7 +7,7 @@ using UnityEngine;
 public class SelectItemUI : MonoBehaviour
 {
     public InfoUIController uIController;
-    public ItemIcon itemIcon;
+    // public ItemIcon itemIcon;
     public ItemDataSO itemData;
     public GameObject selectBar;
     public GameObject selectPrefab;
@@ -26,6 +26,7 @@ public class SelectItemUI : MonoBehaviour
             var selectItem = Instantiate(selectPrefab);
             selectItem.transform.SetParent(selectBar.transform);
             selectItem.transform.localScale = new Vector3(1,1,1);
+            selectItem.transform.localPosition = Vector3.zero;
             ItemController item = selectItem.GetComponent<ItemController>();
             item.SetItemInfo(items[i]);
         }
@@ -58,31 +59,34 @@ public class SelectItemUI : MonoBehaviour
                             count++;
                         }
                     }
-                    itemIcon.itemType = saveItem.type;
+                    // itemIcon.itemType = saveItem.type;
+                    // itemIcon.count.text = "";
                     if(count > 1)
                     {
-                        itemIcon.count.text = count.ToString();
-                        uIController.AddItem1(itemIcon);
+                        // itemIcon.count.text = count.ToString();
+                        uIController.AddItem1(saveItem.name[0].ToString(),count,saveItem.type);
                     }else{
-                        itemIcon.icon.text = saveItem.name[0].ToString();
-                        itemIcon.itemName.text = saveItem.name.ToString();
-                        itemIcon.desc.text = saveItem.desc.ToString();
-                        uIController.SetItem1(itemIcon);
+                        // itemIcon.icon.text = saveItem.name[0].ToString();
+                        // itemIcon.itemName.text = saveItem.name.ToString();
+                        // itemIcon.desc.text = saveItem.desc.ToString();
+                        uIController.SetItem1(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString(),saveItem.type);
                     }
                     return;
                 case 2:
                     Global.item2Current.Add(saveItem);
-                    itemIcon.icon.text = saveItem.name[0].ToString();
-                    itemIcon.itemName.text = saveItem.name.ToString();
-                    itemIcon.desc.text = saveItem.desc.ToString();
-                    uIController.SetItem2(itemIcon);
+                    // itemIcon.count.text = "";
+                    // itemIcon.icon.text = saveItem.name[0].ToString();
+                    // itemIcon.itemName.text = saveItem.name.ToString();
+                    // itemIcon.desc.text = saveItem.desc.ToString();
+                    uIController.SetItem2(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString());
                     return;
                 case 3:
                     Global.item3Current.Add(saveItem);
-                    itemIcon.icon.text = saveItem.name[0].ToString();
-                    itemIcon.itemName.text = saveItem.name.ToString();
-                    itemIcon.desc.text = saveItem.desc.ToString();
-                    uIController.SetItem3(itemIcon);
+                    // itemIcon.count.text = "";
+                    // itemIcon.icon.text = saveItem.name[0].ToString();
+                    // itemIcon.itemName.text = saveItem.name.ToString();
+                    // itemIcon.desc.text = saveItem.desc.ToString();
+                    uIController.SetItem3(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString());
                     return;
             }
     }

@@ -26,7 +26,8 @@ public class BugFollowCopy : MonoBehaviour
                 Vector3 targetPosition = new Vector3(target.position.x, target.position.y, -10);
                 transform.position = Vector3.Lerp(transform.position, targetPosition, 8 * Time.deltaTime);
                 anim.SetActive(true);
-                enemys[i].HurtByFollow(followHurt,HurtType.BugFollow);
+                if(enemys[i].canHurt)
+                    enemys[i].HurtByFollow(followHurt,HurtType.BugFollow);
             }
         }else if(target != null && !isBack){
             EnemyController enemy = target.gameObject.GetComponent<EnemyController>();
@@ -34,7 +35,8 @@ public class BugFollowCopy : MonoBehaviour
                 Vector3 targetPosition = new Vector3(target.position.x, target.position.y, -10);
                 transform.position = Vector3.Lerp(transform.position, targetPosition, 8 * Time.deltaTime);
                 anim.SetActive(true);
-                enemy.HurtByFollow(followHurt,HurtType.BugFollow);
+                if(enemy.canHurt)
+                    enemy.HurtByFollow(followHurt,HurtType.BugFollow);
             }else{
                 int i = -1;
                 do
@@ -48,7 +50,8 @@ public class BugFollowCopy : MonoBehaviour
                     Vector3 targetPosition = new Vector3(target.position.x, target.position.y, -10);
                     transform.position = Vector3.Lerp(transform.position, targetPosition, 8 * Time.deltaTime);
                     anim.SetActive(true);
-                    enemys[i].HurtByFollow(followHurt,HurtType.BugFollow);
+                    if(enemys[i].canHurt)
+                        enemys[i].HurtByFollow(followHurt,HurtType.BugFollow);
                 }
             }
         }else if(isBack){
