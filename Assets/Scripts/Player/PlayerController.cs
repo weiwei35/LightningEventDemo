@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     float HPCurrent;
     [Header("生命恢复速度(值/s)")]
     public float HPSpeed = 1f;
-    bool needRecovery = false;
+    public bool needRecovery = false;
     bool startRecovery = false;
     [Header("UI")]
     public TMP_Text textHP;
@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     float protectCurrent = 100f;
     [Header("护甲恢复速度(值/s)")]
     public float protectSpeed = 1f;
-    bool protectRecovery = false;
+    public bool protectRecovery = false;
     bool startProtectRecovery = false;
     [Header("分身法宝1")]
     public bool isCircleCopy = false;

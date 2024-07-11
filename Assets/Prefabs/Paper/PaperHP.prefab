@@ -126,6 +126,7 @@ MonoBehaviour:
   overTime: 4
   countTime: 0
   treeEffect: {fileID: 7932615386278996108}
+  HPBall: {fileID: 3500004177450050912, guid: 2f1f499a654420f4abe45eb9e46bca2f, type: 3}
 --- !u!65 &2035732888619254410
 BoxCollider:
   m_ObjectHideFlags: 0

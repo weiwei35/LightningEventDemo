@@ -126,6 +126,8 @@ MonoBehaviour:
   overTime: 3
   countTime: 0
   protectEffect: {fileID: 3369242191784083578}
+  ProtectBall: {fileID: 3500004177450050912, guid: b8432881143b0a34aa0bd53c45f8b1bf,
+    type: 3}
 --- !u!65 &2035732888619254410
 BoxCollider:
   m_ObjectHideFlags: 0
