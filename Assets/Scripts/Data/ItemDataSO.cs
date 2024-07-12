@@ -93,6 +93,16 @@ public class ItemDataSO : ScriptableObject {
         }
         return null;
     }
+
+    public SelectItem GetSelectItemById(int idSave){
+        foreach (var item in items)
+        {
+            if(item.id == idSave){
+                return item;
+            }
+        }
+        return null;
+    }
 }
 
 [System.Serializable]

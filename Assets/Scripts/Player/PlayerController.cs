@@ -228,7 +228,6 @@ public class PlayerController : MonoBehaviour
             HPCurrent = 0.1f;
             isDead = true;
             rb.constraints = RigidbodyConstraints.FreezeAll;
-            Debug.Log(transform.position);
             Death();
         }
         //移动范围判定
@@ -457,39 +456,17 @@ public class PlayerController : MonoBehaviour
         ishitting = false;
     }
 
+    public GameObject finalPanel;
+    public void ShowFinalPanel() {
+        finalPanel.SetActive(true);
+    }
+    public void ReStart() {
+        SceneManager.LoadSceneAsync("LightningMainScene");
+    }
+
     public void EndGame () {
-        GameObject[] gameObjects = getDontDestroyOnLoadGameObjects();
-        foreach (var item in gameObjects)
-        {
-            Destroy(item);
-        }
         // SceneController.Instance.SetUI();
         SceneManager.LoadSceneAsync("UIScene");
-    }
-    private GameObject[] getDontDestroyOnLoadGameObjects()
-    {
-        var allGameObjects = new List<GameObject>();
-        allGameObjects.AddRange(FindObjectsOfType<GameObject>());
-        //移除所有场景包含的对象
-        for (var i = 0; i < SceneManager.sceneCount; i++)
-        {
-            var scene = SceneManager.GetSceneAt(i);
-            var objs = scene.GetRootGameObjects();
-            for (var j = 0; j < objs.Length; j++)
-            {
-                allGameObjects.Remove(objs[j]);
-            }
-        }
-        //移除父级不为null的对象
-        int k = allGameObjects.Count;
-        while (--k >= 0)
-        {
-            if (allGameObjects[k].transform.parent != null)
-            {
-                allGameObjects.RemoveAt(k);
-            }
-        }
-        return allGameObjects.ToArray();
     }
     bool CheckPlayerInView(){
         // 获取屏幕中心点

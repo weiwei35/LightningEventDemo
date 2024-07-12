@@ -1,24 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-public static class Global{
-    public static float exp = 0;
-    public static int exp_level = 0;
-    public static float exp_max = 0;
-    public static bool isSlowDown = false;
-    public static bool isEndBoss = false;
-    public static bool isReward = false;
-    public static List<Vector3> papersPosList = new List<Vector3>();
-    public static List<GameObject> playerCopyList = new List<GameObject>();
-    public static List<SelectItem> item1Current = new List<SelectItem>();
-    public static List<SelectItem> item2Current = new List<SelectItem>();
-    public static List<SelectItem> item3Current = new List<SelectItem>();
-}
 public class GameController : MonoBehaviour
 {
     public List<float> expList = new List<float>();
@@ -48,6 +36,13 @@ public class GameController : MonoBehaviour
     public GameObject bgChangeLevel;
     // Start is called before the first frame update
     private void Awake() {
+        DOTween.SetTweensCapacity(800,200);
+        selectPanel = endLevelPanel.GetComponent<SelectItemUI>();
+        Global.exp = 0;
+        if(Global.continueGame){
+            LoadData();
+            selectPanel.LoadItem();
+        }
         bgChangeLevel.SetActive(false);
         level = levelData.GetLevelDataById(levelId);
         levelTime = level.levelTime;
@@ -55,20 +50,55 @@ public class GameController : MonoBehaviour
         enemyPool.SetLevel(levelId);
         // enemyPool.SetLevelEnemy();
         enemyPool.SetEnemyArray();
-        // Global.exp_max = expList[Global.exp_level];
         if(Global.exp_level < expLevelData.GetLevelCount()){
             Global.exp_max = expLevelData.GetExpMaxByLevel(Global.exp_level);
         }else{
             Global.exp_max = expLevelData.GetExpMaxByLevel(expLevelData.GetLevelCount() - 1);
         }
+
+        GameObject[] gameObjects = getDontDestroyOnLoadGameObjects();
+        foreach (var item in gameObjects)
+        {
+            if(item.layer == 19)
+                Destroy(item);
+        }
+    }
+    private GameObject[] getDontDestroyOnLoadGameObjects()
+    {
+        var allGameObjects = new List<GameObject>();
+        allGameObjects.AddRange(FindObjectsOfType<GameObject>());
+        //移除所有场景包含的对象
+        for (var i = 0; i < SceneManager.sceneCount; i++)
+        {
+            var scene = SceneManager.GetSceneAt(i);
+            var objs = scene.GetRootGameObjects();
+            for (var j = 0; j < objs.Length; j++)
+            {
+                allGameObjects.Remove(objs[j]);
+            }
+        }
+        //移除父级不为null的对象
+        int k = allGameObjects.Count;
+        while (--k >= 0)
+        {
+            if (allGameObjects[k].transform.parent != null)
+            {
+                allGameObjects.RemoveAt(k);
+            }
+        }
+        return allGameObjects.ToArray();
     }
     void Start()
     {
-        selectPanel = endLevelPanel.GetComponent<SelectItemUI>();
         papers = GameObject.FindGameObjectWithTag("Papers");
 
-        Time.timeScale = 0;
-        endLevelPanel.SetActive(true);
+        if(levelId == 1){
+            Time.timeScale = 0;
+            endLevelPanel.SetActive(true);
+        }
+        if(Global.isEndLevel){
+            NextLevel();
+        }
     }
 
     // Update is called once per frame
@@ -149,6 +179,7 @@ public class GameController : MonoBehaviour
     void SetLevelItem(){
         Time.timeScale = 0;
         endLevelPanel.SetActive(true);
+        SaveEndtData();
     }
 
     public void SetLevel(){
@@ -160,6 +191,7 @@ public class GameController : MonoBehaviour
             bgChangeLevel.SetActive(true);
             SceneManager.LoadSceneAsync("UIScene");
         }else{
+            SaveStartData();
             level = levelData.GetLevelDataById(levelId);
             levelTime = level.levelTime;
             rewardTime = level.rewardTime;
@@ -183,5 +215,52 @@ public class GameController : MonoBehaviour
                 endLevelPanel.SetActive(false);
             }
         }
+    }
+
+    public GameSaveManager gameSave;
+    public PlayerController player;
+    public LightningController lightning;
+    void SaveStartData(){
+        gameSave.data.levelId = levelId;
+        gameSave.data.isEndLevel = false;
+
+        gameSave.data.speed = player.moveSpeed;
+        gameSave.data.HP = player.HP;
+        gameSave.data.protect = player.protect;
+        gameSave.data.HPSpeed = player.HPSpeed;
+        gameSave.data.protectSpeed = player.protectSpeed;
+
+        gameSave.data.lightningTime = lightning.lightningTime;
+        gameSave.data.lightningCount = lightning.lightningCount;
+        gameSave.data.lightningHurt = lightning.lightningHurt;
+
+        gameSave.data.exp = Global.exp;
+        gameSave.data.exp_level = Global.exp_level;
+
+        gameSave.Save();
+    }
+    void SaveEndtData(){
+        SaveStartData();
+        gameSave.data.isEndLevel = true;
+        gameSave.Save();
+    }
+
+    void LoadData(){
+        gameSave.Load();
+        levelId = gameSave.data.levelId;
+        Global.isEndLevel = gameSave.data.isEndLevel;
+
+        player.moveSpeed = gameSave.data.speed;
+        player.HP = gameSave.data.HP;
+        player.protect = gameSave.data.protect;
+        player.HPSpeed = gameSave.data.HPSpeed;
+        player.protectSpeed = gameSave.data.protectSpeed;
+
+        lightning.lightningTime = gameSave.data.lightningTime;
+        lightning.lightningCount = gameSave.data.lightningCount;
+        lightning.lightningHurt = gameSave.data.lightningHurt;
+
+        Global.exp = gameSave.data.exp;
+        Global.exp_level = gameSave.data.exp_level;
     }
 }

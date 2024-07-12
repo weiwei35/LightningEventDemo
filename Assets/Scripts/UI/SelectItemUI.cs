@@ -14,11 +14,27 @@ public class SelectItemUI : MonoBehaviour
     SelectItem saveItem;
     List<SelectItem> items = new List<SelectItem>();
     PlayerController player;
+    public GameSaveManager gameSave;
     // Start is called before the first frame update
     void OnEnable() {
         // itemData = AssetDatabase.LoadAssetAtPath<ItemDataSO>("Assets/Resources/ItemData.asset");
         if(Global.exp_level > 0){
-            items = itemData.GetRandomSelectItem(3);
+            if(Global.continueGame && gameSave.data.isEndLevel){
+                items.Clear();
+                foreach (var item in gameSave.data.selectItemId)
+                {
+                    items.Add(itemData.GetSelectItemById(item));
+                }
+                Global.continueGame = false;
+            }else{
+                items = itemData.GetRandomSelectItem(3);
+                gameSave.data.selectItemId.Clear();
+                foreach (var item in items)
+                {
+                    gameSave.data.selectItemId.Add(item.id);
+                }
+                gameSave.Save();
+            }
         }else{
             items.Clear();
             items.Add(itemData.GetRandomTrans());
@@ -47,10 +63,50 @@ public class SelectItemUI : MonoBehaviour
         {
             SwitchUI();
             SwitchLogic();
+            gameSave.data.currentItemId.Add(saveItem.id);
             return true;
         }else{
             return false;
         }
+    }
+    public void LoadItem() {
+        if(Global.continueGame){
+            foreach (var item in gameSave.data.currentItemId)
+            {
+                LoadItemUI(itemData.GetSelectItemById(item));
+                LoadItemLogic(itemData.GetSelectItemById(item));
+            }
+        }
+    }
+    void LoadItemUI(SelectItem currentItem){
+        //处理UI显示
+            switch (currentItem.specialType) {
+                case 1:
+                    Global.item1Current.Add(currentItem);
+                    int count = 0;
+                    foreach (var item in Global.item1Current)
+                    {
+                        Debug.Log(item.name);
+                        if(item.type == currentItem.type){
+                            count++;
+                        }
+                    }
+                    if(count > 1)
+                    {
+                        uIController.AddItem1(currentItem.name[0].ToString(),count,currentItem.type);
+                    }else{
+                        uIController.SetItem1(currentItem.name[0].ToString(),currentItem.name.ToString(),currentItem.desc.ToString(),currentItem.type);
+                    }
+                    return;
+                case 2:
+                    Global.item2Current.Add(currentItem);
+                    uIController.SetItem2(currentItem.name[0].ToString(),currentItem.name.ToString(),currentItem.desc.ToString());
+                    return;
+                case 3:
+                    Global.item3Current.Add(currentItem);
+                    uIController.SetItem3(currentItem.name[0].ToString(),currentItem.name.ToString(),currentItem.desc.ToString());
+                    return;
+            }
     }
 
     void SwitchUI(){
@@ -66,34 +122,122 @@ public class SelectItemUI : MonoBehaviour
                             count++;
                         }
                     }
-                    // itemIcon.itemType = saveItem.type;
-                    // itemIcon.count.text = "";
                     if(count > 1)
                     {
-                        // itemIcon.count.text = count.ToString();
                         uIController.AddItem1(saveItem.name[0].ToString(),count,saveItem.type);
                     }else{
-                        // itemIcon.icon.text = saveItem.name[0].ToString();
-                        // itemIcon.itemName.text = saveItem.name.ToString();
-                        // itemIcon.desc.text = saveItem.desc.ToString();
                         uIController.SetItem1(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString(),saveItem.type);
                     }
                     return;
                 case 2:
                     Global.item2Current.Add(saveItem);
-                    // itemIcon.count.text = "";
-                    // itemIcon.icon.text = saveItem.name[0].ToString();
-                    // itemIcon.itemName.text = saveItem.name.ToString();
-                    // itemIcon.desc.text = saveItem.desc.ToString();
                     uIController.SetItem2(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString());
                     return;
                 case 3:
                     Global.item3Current.Add(saveItem);
-                    // itemIcon.count.text = "";
-                    // itemIcon.icon.text = saveItem.name[0].ToString();
-                    // itemIcon.itemName.text = saveItem.name.ToString();
-                    // itemIcon.desc.text = saveItem.desc.ToString();
                     uIController.SetItem3(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString());
+                    return;
+            }
+    }
+
+    void LoadItemLogic(SelectItem currentItem){
+        //处理数值逻辑
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+            switch (currentItem.type) {
+                case 201:
+                    player.SetCircleCopy();
+                    return;
+                case 202:
+                    player.SetOnceLightningCopy();
+                    return;
+                case 203:
+                    player.SetOnceTimeCopy();
+                    return;
+                case 204:
+                    player.SetMegaCopy();
+                    return;
+                case 301:
+                    player.SetLightningMirror();
+                    return;
+                case 302:
+                    player.SetLightningBoom();
+                    return;
+                case 303:
+                    player.SetLightningAttract();
+                    return;
+                case 304:
+                    player.SetLightningOverflow();
+                    return;
+                case 305:
+                    player.SetLightningBoomPlayer();
+                    return;
+                case 401:
+                    player.SetPaperFireBall();
+                    return;
+                case 402:
+                    player.SetPaperIce();
+                    return;
+                case 403:
+                    player.SetPaperHP();
+                    return;
+                case 404:
+                    player.SetPaperProtect();
+                    return;
+                case 405:
+                    player.SetPaperBlack();
+                    return;
+                case 406:
+                    player.SetPaperConnect();
+                    return;
+                case 501:
+                    player.SetBugHP();
+                    return;
+                case 502:
+                    player.SetBugCircle();
+                    return;
+                case 503:
+                    player.SetBugWall();
+                    return;
+                case 504:
+                    player.SetBugFollow();
+                    return;
+                case 505:
+                    player.SetBugMerge();
+                    return;
+                case 506:
+                    player.SetBugAttack();
+                    return;
+                case 601:
+                    player.SetDebuffSlow();
+                    return;
+                case 602:
+                    player.SetDebuffDizzy();
+                    return;
+                case 603:
+                    player.SetBuffSuper();
+                    return;
+                case 604:
+                    player.SetMoveRandom();
+                    return;
+                case 1001:
+                    player.speedToLSpeed = true;
+                    return;
+                case 1002:
+                    player.speedToLCount = true;
+                    return;
+                case 1003:
+                    player.hpToLCount = true;
+                    return;
+                case 1004:
+                    player.hpToLHurt = true;
+                    return;
+                case 1005:
+                    player.protectToLHurt = true;
+                    return;
+                case 1006:
+                    player.protectToLSpeed = true;
+                    return;
+                default:
                     return;
             }
     }

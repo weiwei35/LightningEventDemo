@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 157502684}
   - component: {fileID: 157502683}
   - component: {fileID: 157502682}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: AboutUs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   - component: {fileID: 224455951}
   - component: {fileID: 224455950}
   - component: {fileID: 224455952}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: StartPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 353722522}
   - component: {fileID: 353722521}
   - component: {fileID: 353722520}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: ExitGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 399130632}
   - component: {fileID: 399130631}
   - component: {fileID: 399130635}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Fade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 439473114}
   - component: {fileID: 439473115}
   - component: {fileID: 439473116}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -670,7 +670,7 @@ GameObject:
   - component: {fileID: 629638784}
   - component: {fileID: 629638786}
   - component: {fileID: 629638785}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -745,7 +745,7 @@ GameObject:
   - component: {fileID: 768695329}
   - component: {fileID: 768695331}
   - component: {fileID: 768695330}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -820,7 +820,7 @@ GameObject:
   - component: {fileID: 809827217}
   - component: {fileID: 809827219}
   - component: {fileID: 809827218}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -897,7 +897,7 @@ GameObject:
   - component: {fileID: 844975542}
   - component: {fileID: 844975541}
   - component: {fileID: 844975543}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -988,7 +988,7 @@ PrefabInstance:
     - target: {fileID: 128273854664289833, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
       propertyPath: m_Layer
-      value: 5
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 128273854664289833, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
@@ -1003,7 +1003,7 @@ PrefabInstance:
     - target: {fileID: 128273855067150025, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
       propertyPath: m_Layer
-      value: 5
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 128273855067150025, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
@@ -1023,7 +1023,7 @@ PrefabInstance:
     - target: {fileID: 128273855203330304, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
       propertyPath: m_Layer
-      value: 5
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 128273855203330304, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
@@ -1038,7 +1038,7 @@ PrefabInstance:
     - target: {fileID: 128273855257123713, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
       propertyPath: m_Layer
-      value: 5
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 128273855257123713, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
@@ -1053,7 +1053,7 @@ PrefabInstance:
     - target: {fileID: 128273855572090424, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
       propertyPath: m_Layer
-      value: 5
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 128273855572090424, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
@@ -1073,7 +1073,7 @@ PrefabInstance:
     - target: {fileID: 128273855697236415, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
       propertyPath: m_Layer
-      value: 5
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 128273855697236415, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
@@ -1103,7 +1103,7 @@ PrefabInstance:
     - target: {fileID: 128273855887258401, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
       propertyPath: m_Layer
-      value: 5
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 128273855887258402, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
@@ -1178,7 +1178,7 @@ PrefabInstance:
     - target: {fileID: 128273855949849428, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
       propertyPath: m_Layer
-      value: 5
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 128273855949849428, guid: 5bff3484590cb8c489969ce7f62d070b,
         type: 3}
@@ -1216,7 +1216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1049027930}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1257,7 +1257,7 @@ GameObject:
   - component: {fileID: 1447785989}
   - component: {fileID: 1447785990}
   - component: {fileID: 1447785991}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1346,7 +1346,7 @@ GameObject:
   - component: {fileID: 1480363479}
   - component: {fileID: 1480363481}
   - component: {fileID: 1480363480}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1422,7 +1422,7 @@ GameObject:
   - component: {fileID: 1521287638}
   - component: {fileID: 1521287636}
   - component: {fileID: 1521287639}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1511,7 +1511,7 @@ GameObject:
   - component: {fileID: 1547258461}
   - component: {fileID: 1547258463}
   - component: {fileID: 1547258462}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1587,7 +1587,7 @@ GameObject:
   - component: {fileID: 1713058595}
   - component: {fileID: 1713058596}
   - component: {fileID: 1713058597}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1678,7 +1678,7 @@ GameObject:
   - component: {fileID: 1826165467}
   - component: {fileID: 1826165466}
   - component: {fileID: 1826165470}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1930,7 +1930,7 @@ GameObject:
   - component: {fileID: 1863719996}
   - component: {fileID: 1863719995}
   - component: {fileID: 1863719998}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2015,7 +2015,7 @@ GameObject:
   - component: {fileID: 1923152332}
   - component: {fileID: 1923152331}
   - component: {fileID: 1923152330}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Start
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2199,7 +2199,7 @@ GameObject:
   - component: {fileID: 1963833019}
   - component: {fileID: 1963833018}
   - component: {fileID: 1963833017}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: Continue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2271,7 +2271,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1547258462}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1863719998}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: CountinueGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1963833018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2321,7 +2333,7 @@ GameObject:
   - component: {fileID: 1986604586}
   - component: {fileID: 1986604588}
   - component: {fileID: 1986604587}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: PlayerPic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2396,7 +2408,7 @@ GameObject:
   - component: {fileID: 2021336435}
   - component: {fileID: 2021336436}
   - component: {fileID: 2021336437}
-  m_Layer: 5
+  m_Layer: 19
   m_Name: ButtonList
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -46,6 +46,7 @@ public class EnemyController : MonoBehaviour
     float moreHurt = 0;
     bool isDead = false;
     Tweener tweener;
+    Tweener tweener1;
     float circleCountTime = 0;
     float followCountTime = 0;
     public bool iceSpeed = false;
@@ -412,12 +413,12 @@ public class EnemyController : MonoBehaviour
     //移动到雷电上
     public void MoveToLine(Vector3 pos){
         if(transform != null)
-            tweener = transform.DOMove(pos,0.1f);
+            tweener1 = transform.DOMove(pos,0.1f);
     }
     private void OnDestroy() {
-        if (tweener != null)
+        if (tweener1 != null)
         {
-            tweener.Kill();
+            tweener1.Kill();
         }
     }
 

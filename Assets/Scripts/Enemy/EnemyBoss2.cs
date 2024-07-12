@@ -17,7 +17,7 @@ public class EnemyBoss2 : EnemyController
     float rushTimeCount = 0;
     bool isRush;
     EnemyPoolController enemyPool;
-    bool secondSection;
+    // bool secondSection;
     List<GameObject> littles = new List<GameObject>();
     Vector3 endPos;
     // Start is called before the first frame update
@@ -42,7 +42,7 @@ public class EnemyBoss2 : EnemyController
             rushTimeCount += Time.deltaTime;
         }
         if(enemyPool.GetAllEnemyCount()==1){
-            secondSection = true;
+            // secondSection = true;
         }
         if(rushTimeCount >= rushTime && !isRush && !isFreeze && !Global.isSlowDown){
             Rush();

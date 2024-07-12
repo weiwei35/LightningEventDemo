@@ -43,7 +43,7 @@ public class InfoUIController : MonoBehaviour
 
     public void SetItem1(string name,string nameT,string desc,int type) {
         var icon = Instantiate(item.gameObject);
-        icon.transform.parent = item1Parent.transform;
+        icon.transform.SetParent(item1Parent.transform);
         icon.transform.localScale = new Vector3(1,1,1);
         icon.GetComponent<ItemIcon>().icon.text = name;
         icon.GetComponent<ItemIcon>().count.gameObject.SetActive(false);
@@ -63,7 +63,7 @@ public class InfoUIController : MonoBehaviour
     }
     public void SetItem2(string name,string nameT,string desc) {
         var icon = Instantiate(item.gameObject);
-        icon.transform.parent = item2Parent.transform;
+        icon.transform.SetParent(item2Parent.transform);
         icon.transform.localScale = new Vector3(1,1,1);
         icon.GetComponent<ItemIcon>().count.gameObject.SetActive(false);
         icon.GetComponent<ItemIcon>().icon.text = name;
@@ -72,7 +72,7 @@ public class InfoUIController : MonoBehaviour
     }
     public void SetItem3(string name,string nameT,string desc) {
         var icon = Instantiate(item.gameObject);
-        icon.transform.parent = item3Parent.transform;
+        icon.transform.SetParent(item3Parent.transform);
         icon.transform.localScale = new Vector3(1,1,1);
         icon.GetComponent<ItemIcon>().count.gameObject.SetActive(false);
         icon.GetComponent<ItemIcon>().icon.text = name;

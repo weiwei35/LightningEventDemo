@@ -7,12 +7,15 @@ public class HPBall : MonoBehaviour
 {
     public float hp;
     PlayerController player;
+    Tweener tweener;
+    bool isMoving = false;
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
     private void Update() {
         if(player.needRecovery){
-            if(Vector3.Distance(transform.position,player.transform.position) <= 2){
+            if(Vector3.Distance(transform.position,player.transform.position) <= 2 && !isMoving){
+                isMoving = true;
                 RecoveryHP();
             }
         }
@@ -21,14 +24,15 @@ public class HPBall : MonoBehaviour
         if(other.tag == "Player"){
             PlayerController playerCollider = other.GetComponent<PlayerController>();
             playerCollider.OutsideRecoveryHP(hp);
-
             Destroy(gameObject);
         }
     }
+    private void OnDestroy() {
+        if(tweener != null){
+            tweener.Kill();
+        }
+    }
     void RecoveryHP(){
-        transform.DOMove(player.transform.position,0.2f).OnComplete( ()=>{
-            player.OutsideRecoveryHP(hp);
-            Destroy(gameObject);
-        });
+        tweener = transform.DOMove(player.transform.position,0.2f);
     }
 }

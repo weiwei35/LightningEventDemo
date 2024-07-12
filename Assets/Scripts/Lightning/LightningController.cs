@@ -10,6 +10,7 @@ public class LightningController : MonoBehaviour
     public float lightningPreTime = 3f;
     [Header("雷电点数")]
     public float lightningCount = 3;
+    float lightningCountCurrent = 0;
     [Header("雷电伤害")]
     public float lightningHurt = 0;
     [Header("雷电宽度")]
@@ -58,10 +59,15 @@ public class LightningController : MonoBehaviour
             float random = (lightningCount - Mathf.Floor(lightningCount))*100;
             int i = Random.Range(0,101);
             if(i < random){
-                circle.RandomPoints(Mathf.Floor(lightningCount)+1);
+                lightningCountCurrent = Mathf.Floor(lightningCount)+1;
             }else{
-                circle.RandomPoints(Mathf.Floor(lightningCount));
+                lightningCountCurrent = Mathf.Floor(lightningCount);
             }
+
+            if(player.isPaperConnect){
+                lightningCountCurrent = 1;
+            }
+            circle.RandomPoints(lightningCountCurrent);
         }
         
         if(isEndLight && !endLight){
@@ -108,9 +114,9 @@ public class LightningController : MonoBehaviour
     }
     IEnumerator SetEndLight(){
         isSetLight = false;
-        circle.RandomPointsMirror(lightningCount);
+        circle.RandomPointsMirror(lightningCountCurrent);
         if(player.isMegaCopy){
-            circle.RandomPointsCopy(lightningCount);
+            circle.RandomPointsCopy(lightningCountCurrent);
         }
         yield return new WaitForSeconds(0.5f);
         endsetLight = false;

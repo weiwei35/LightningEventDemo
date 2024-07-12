@@ -54,4 +54,9 @@ public class SceneController : MonoBehaviour
         yield return new WaitForSeconds(1);
         fadeAnim.SetTrigger("fade");
     }
+
+    public void CountinueGame() {
+        Global.continueGame = true;
+        StartGame();
+    }
 }

@@ -11,7 +11,6 @@ public class EnemyBoss2_Little : EnemyController
     public float startTime = 0;
     public EnemyBoss2 bossBat;
     bool canFollow = false;
-    bool canHurt = false;
     Tweener tweener;
     public override void Start()
     {
