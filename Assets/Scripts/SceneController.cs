@@ -13,6 +13,7 @@ public class SceneController : MonoBehaviour
     public GameObject canvas;
     public GameObject hideUI;
     public GameObject lightEvent;
+    public AudioSource audioBgm;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +33,7 @@ public class SceneController : MonoBehaviour
     IEnumerator SetScene(){
         fadeAnim.SetTrigger("fade");
         lightEvent.SetActive(false);
+        DOTween.To(()=>audioBgm.volume, x =>audioBgm.volume = x,0,1);
         yield return new WaitForSeconds(1);
         hideUI.SetActive(false);
         AsyncOperation async = SceneManager.LoadSceneAsync("LightningMainScene");
