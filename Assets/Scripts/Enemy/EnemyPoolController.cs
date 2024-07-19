@@ -14,13 +14,14 @@ public class EnemyPoolController : MonoBehaviour
     // public LevelDataSO levelData;
     // LevelItem level;
     public float enemyInitTime = 10;
-    public int level2Count = 3;
-    public int level3Count = 4;
-    public int level4Count = 5;
-    public int level5Count = 6;
-    public int level6Count = 7;
-    public int level7Count = 8;
-    public int level8Count = 9;
+    public EnemyGroupDataSO enemyGroup;
+    int level2Count = 3;
+    int level3Count = 4;
+    int level4Count = 5;
+    int level5Count = 6;
+    int level6Count = 7;
+    int level7Count = 8;
+    int level8Count = 9;
     float enemyTimeCount = 0;
     int level1Count = 0;
     bool canCount = false;
@@ -29,6 +30,14 @@ public class EnemyPoolController : MonoBehaviour
     Level level;
     public void SetLevel(int levelId) {
         level = levelData.GetLevelDataById(levelId);
+        
+        level2Count = enemyGroup.GetCountById(levelId,1);
+        level3Count = enemyGroup.GetCountById(levelId,2);
+        level4Count = enemyGroup.GetCountById(levelId,3);
+        level5Count = enemyGroup.GetCountById(levelId,4);
+        level6Count = enemyGroup.GetCountById(levelId,5);
+        level7Count = enemyGroup.GetCountById(levelId,6);
+        level8Count = enemyGroup.GetCountById(levelId,7);
     }
     // public void SetEnemyArray(){
     //     for(int i = 0; i < level.levelEnemy.Count(); i++) {
@@ -52,6 +61,8 @@ public class EnemyPoolController : MonoBehaviour
     //         }
     //     }
     // }
+    private void Start() {
+    }
     private void Update() {
         if(canCount)
             enemyTimeCount += Time.deltaTime;
@@ -62,26 +73,40 @@ public class EnemyPoolController : MonoBehaviour
     void CheckLevel(){
         SetLevel1Once();
         enemyTimeCount = 0;
-        if(level1Count % level2Count == 0 && level.enemyLevel2Group.count>0 && level1Count!=0 && !triggered){
-            SetLevel2Once();
+        if(level2Count > 0){
+            if(level1Count % level2Count == 0 && level.enemyLevel2Group.count>0 && level1Count!=0 && !triggered){
+                SetLevel2Once();
+            }
         }
-        if(level1Count % level3Count == 0 && level.enemyLevel3Group.count>0 && level1Count!=0 && !triggered){
-            SetLevel3Once();
+        if(level3Count > 0){
+            if(level1Count % level3Count == 0 && level.enemyLevel3Group.count>0 && level1Count!=0 && !triggered){
+                SetLevel3Once();
+            }
         }
-        if(level1Count % level4Count == 0 && level.enemyLevel4Group.count>0 && level1Count!=0 && !triggered){
-            SetLevel4Once();
+        if(level4Count > 0){
+            if(level1Count % level4Count == 0 && level.enemyLevel4Group.count>0 && level1Count!=0 && !triggered){
+                SetLevel4Once();
+            }
         }
-        if(level1Count % level5Count == 0 && level.enemyLevel5Group.count>0 && level1Count!=0 && !triggered){
-            SetLevel5Once();
+        if(level5Count > 0){
+            if(level1Count % level5Count == 0 && level.enemyLevel5Group.count>0 && level1Count!=0 && !triggered){
+                SetLevel5Once();
+            }
         }
-        if(level1Count % level6Count == 0 && level.enemyLevel6Group.count>0 && level1Count!=0 && !triggered){
-            SetLevel6Once();
+        if(level6Count > 0){
+            if(level1Count % level6Count == 0 && level.enemyLevel6Group.count>0 && level1Count!=0 && !triggered){
+                SetLevel6Once();
+            }
         }
-        if(level1Count % level7Count == 0 && level.enemyLevel7Group.count>0 && level1Count!=0 && !triggered){
-            SetLevel7Once();
+        if(level7Count > 0){
+            if(level1Count % level7Count == 0 && level.enemyLevel7Group.count>0 && level1Count!=0 && !triggered){
+                SetLevel7Once();
+            }
         }
-        if(level1Count % level8Count == 0 && level.enemyLevel8Group.count>0 && level1Count!=0 && !triggered){
-            SetLevel8Once();
+        if(level8Count > 0){
+            if(level1Count % level8Count == 0 && level.enemyLevel8Group.count>0 && level1Count!=0 && !triggered){
+                SetLevel8Once();
+            }
         }
     }
 
