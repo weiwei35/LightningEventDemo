@@ -89,6 +89,7 @@ public class CopyLineController : MonoBehaviour
         pos.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
         {
             canMove = true;
+            lightning.HurtPlayer();
             Invoke("EndLine", keepTime);
         });
         Vector3 midPoint = (line.GetPosition(0) + line.GetPosition(1)) / 2;
@@ -122,7 +123,6 @@ public class CopyLineController : MonoBehaviour
                 copy.lightningCount ++;
             }
             lightning.isEndLight = true;
-            lightning.HurtPlayer();
             Destroy(gameObject);
         });
     }

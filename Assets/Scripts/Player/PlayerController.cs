@@ -162,6 +162,13 @@ public class PlayerController : MonoBehaviour
     float startHP = 0;
     float startProtect = 0;
     float startSpeed = 0;
+
+    [Header("闪现冲刺相关")]
+    public Slider coldSlider;
+    float rushColdTime = 3;
+    float rushTime = 0;
+    bool canRush = true;
+    public bool rushing = false;
     private void Start() {
         HPCurrent = HP;
         protectCurrent = protect;
@@ -202,9 +209,36 @@ public class PlayerController : MonoBehaviour
             sprite.flipX = false;
             follow.transform.position = follow_right.transform.position;
         }
+
+        
+    }
+    void RushMove(){
+        canRush = false;
+        rushTime = 0;
+        coldSlider.gameObject.SetActive(true);
+        Vector3 dir = new Vector2(moveX, moveY);
+        dir.Normalize();
+        Vector3 end = transform.position + dir*3;
+        // transform.DOMove(end,0.2f);
+        transform.DOScale(Vector3.zero,0.1f).OnComplete( ()=>{
+            transform.position = end;
+            rushing = false;
+            transform.DOScale(new Vector3(0.8f,0.8f,0.8f),0.1f);
+        });
     }
 
     private void Update() {
+        if(Input.GetKeyDown(KeyCode.Space) && !Global.isSlowDown && canRush && new Vector2(moveX, moveY) != Vector2.zero){
+            rushing = true;
+            RushMove();
+        }
+        if(!canRush)
+            rushTime += Time.deltaTime;
+        coldSlider.value = rushTime/rushColdTime;
+        if(rushTime >= rushColdTime){
+            canRush = true;
+            coldSlider.gameObject.SetActive(false);
+        }
         //UI显示
         textHP.text = HPCurrent.ToString();
         textPro.text = protectCurrent.ToString();
@@ -396,6 +430,7 @@ public class PlayerController : MonoBehaviour
         sprite.sortingOrder = 21;
         
         blackBG.SetActive(true);
+        anim.PlayDeadAnim();
         Invoke("SetCam",0.6f);
         
     }
@@ -407,21 +442,20 @@ public class PlayerController : MonoBehaviour
         petBugs.SetActive(false);
         Camera camera = Camera.main;
         camera.transform.position = new Vector3(camera.transform.position.x,camera.transform.position.y,-25);
-        camera.transform.DOMoveX(transform.position.x,1f);
-        camera.transform.DOMoveY(transform.position.y+1f,1f).OnComplete(() =>
-        {
-            DOTween.To(()=>camera.orthographicSize, x =>camera.orthographicSize = x,3,1).OnComplete(()=>
-                {
-                    anim.PlayDeadAnim();
-                }
-            );
-        });
+        // camera.transform.DOMoveX(transform.position.x,1f);
+        // camera.transform.DOMoveY(transform.position.y+1f,1f).OnComplete(() =>
+        // {
+        //     DOTween.To(()=>camera.orthographicSize, x =>camera.orthographicSize = x,3,1).OnComplete(()=>
+        //         {
+                    
+        //         }
+        //     );
+        // });
     }
 
     public void Hurt (float hurt) {
         if(!ishitting && !gameController.isReward && !isSuper){
             ishitting = true;
-            anim.PlayHurtAnim();
             float offsetHurt = 0;
             //优先伤害护甲
             if(protectCurrent > 0){
@@ -447,6 +481,9 @@ public class PlayerController : MonoBehaviour
             if(isDebuffFreeze){
                 SetFreezeBoom();
             }
+
+            if(HPCurrent > 0)
+                anim.PlayHurtAnim();
 
             StartCoroutine(HittingCold());
         }

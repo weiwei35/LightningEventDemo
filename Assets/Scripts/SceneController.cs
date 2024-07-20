@@ -61,4 +61,9 @@ public class SceneController : MonoBehaviour
         Global.continueGame = true;
         StartGame();
     }
+
+    public void ExitGame() {
+        Time.timeScale = 0;
+        Application.Quit();
+    }
 }

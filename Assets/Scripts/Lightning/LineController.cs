@@ -26,6 +26,12 @@ public class LineController : MonoBehaviour
     CapsuleCollider capsuleCollider;
     public LightningEffect lightningAsset;
     LightningEffect lightningEffect;
+
+    //冲刺折线相关
+    Vector3 endPos1;
+    public bool isRush = false;
+    public GameObject lineRush;
+    public bool canCopy = true;
     private void Start()
     {
         line = GetComponent<LineRenderer>();
@@ -44,13 +50,22 @@ public class LineController : MonoBehaviour
     }
     private void Update() {
         timeCount += Time.deltaTime;
-        if(timeCount > lightning.lightningPreTime){
+        if(timeCount > lightning.lightningPreTime - 0.3f){
+            if(Input.GetKeyDown(KeyCode.Space) && !Global.isSlowDown && player.rushing){
+                endPos1 = player.transform.position;
+                isRush = true;
+            }
+        }
+        if(timeCount > lightning.lightningPreTime - 0.1f){
             Global.isSlowDown = true;
+        }
+        if(timeCount > lightning.lightningPreTime){
+            // Global.isSlowDown = true;
 
             timeCount = 0;
             if(follow == null)
                 end.transform.position = start.transform.position;
-            if(!isChecked){
+            if(!isChecked && canCopy){
                 isChecked = true;
                 CheckCopy();
             }
@@ -59,7 +74,8 @@ public class LineController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(pos.transform.position != follow.transform.position && canMove && follow!= null){
+        if(!isRush)
+        {if(pos.transform.position != follow.transform.position && canMove && follow!= null){
             pos.transform.position = follow.transform.position + new Vector3(0,1f,0);
             // end.transform.position = follow.transform.position;
             // SetCircleLine();
@@ -87,7 +103,37 @@ public class LineController : MonoBehaviour
             }
         }
         line.SetPosition(0,start.transform.position);
-        line.SetPosition(1,pos.transform.position);
+        line.SetPosition(1,pos.transform.position);}
+        else{
+            end.transform.position = endPos1;
+            // if(pos.transform.position != endPos1 && canMove && follow!= null){
+            //     pos.transform.position = endPos1;
+            //     lightningEffect.pos1.transform.position = endPos1;
+            //     lightningEffect.pos2.transform.position = endPos1;
+            // }
+            if(colliderCur!= null){
+                colliderCur.GetComponent<LineColliderMain>().start = start.transform.position;
+                colliderCur.GetComponent<LineColliderMain>().end = endPos1;
+                for(int i = 0; i < line.positionCount-1; i++)
+                {
+                    Vector3 midPoint = (line.GetPosition(i) + line.GetPosition(i+1)) / 2;
+                    colliderCur.transform.position = midPoint;
+                    colliderCur.transform.parent = transform;
+                    Vector3 direction = line.GetPosition(0) - line.GetPosition(1);
+                    capsuleCollider = colliderCur.GetComponent<CapsuleCollider>();
+                    capsuleCollider.isTrigger = true;
+                    capsuleCollider.radius = line.startWidth/4;
+                    capsuleCollider.height = direction.magnitude + line.startWidth;
+                    capsuleCollider.direction = 2;
+                    if(Vector3.Distance(line.GetPosition(i+1),line.GetPosition(i)) != 0){
+                        Quaternion lookRotation = Quaternion.LookRotation(line.GetPosition(i+1) - line.GetPosition(i));
+                        colliderCur.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);
+                    }
+                }
+            }
+            line.SetPosition(0,start.transform.position);
+            line.SetPosition(1,endPos1);
+        }
     }
 
     public void CheckCopy() {
@@ -129,18 +175,44 @@ public class LineController : MonoBehaviour
         lightningEffect.transform.parent = transform;
         lightningEffect.pos1.transform.position = start.transform.position;
         lightningEffect.pos2.transform.position = start.transform.position;
-        lightningEffect.pos1.transform.DOMove(end.transform.position,startTime);
-        lightningEffect.pos2.transform.DOMove(end.transform.position,startTime);
+        if(!isRush)
+        {
+            lightningEffect.pos1.transform.DOMove(end.transform.position,startTime);
+            lightningEffect.pos2.transform.DOMove(end.transform.position,startTime);
+            pos.transform.position = start.transform.position;
+            pos.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
+            {
+                Invoke("EndLine", keepTime);
+                Invoke("SetEndLine", 0);
+            });
+        }
+        else{
+            lightningEffect.pos1.transform.DOMove(endPos1,startTime);
+            lightningEffect.pos2.transform.DOMove(endPos1,startTime);
+            pos.transform.position = start.transform.position;
+            pos.transform.DOMove(endPos1,startTime).OnComplete(()=>
+            {
+                Invoke("EndLine", keepTime);
+                Invoke("SetEndLine", 0);
+
+                var lineCur = Instantiate(lineRush);
+                lineCur.transform.position = endPos1;
+                LineController lineController = lineCur.GetComponent<LineController>();
+                lineController.start.transform.position = endPos1;
+                lineController.end.transform.position = player.transform.position + new Vector3(0,1f,0);;
+                lineController.startTime = startTime;
+                lineController.keepTime = keepTime;
+                lineController.follow = player.gameObject;
+                lineController.isRush = false;
+                lineController.timeCount = lightning.lightningPreTime+1;
+                lineController.canCopy = false;
+            });
+        }
         lightningEffect.pos3.transform.position = start.transform.position;
         lightningEffect.pos4.transform.position = start.transform.position;
         line.startWidth = lightning.lightningWidth;
         line.endWidth = lightning.lightningWidth;
-        pos.transform.position = start.transform.position;
-        pos.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
-        {
-            Invoke("EndLine", keepTime);
-            Invoke("SetEndLine", 0);
-        });
+        
         Vector3 midPoint = (line.GetPosition(0) + line.GetPosition(1)) / 2;
         colliderCur = Instantiate(lineCollider);
         colliderCur.transform.position = midPoint;
@@ -157,10 +229,23 @@ public class LineController : MonoBehaviour
 
     public void EndLine () {
         lightning.isSetLight = false;
+        Vector3 endPos;
+        if(!isRush)
+        {
+            lightningEffect.pos3.transform.DOMove(end.transform.position,startTime);
+            lightningEffect.pos4.transform.DOMove(end.transform.position,startTime);
 
-        lightningEffect.pos3.transform.DOMove(end.transform.position,startTime);
-        lightningEffect.pos4.transform.DOMove(end.transform.position,startTime);
-        start.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
+            endPos = end.transform.position;
+        }
+        else
+        {
+            lightningEffect.pos3.transform.DOMove(endPos1,startTime);
+            lightningEffect.pos4.transform.DOMove(endPos1,startTime);
+
+            endPos = endPos1;
+        }
+
+        start.transform.DOMove(endPos,startTime).OnComplete(()=>
         {
             Global.isSlowDown = false;
             canMove = true;
@@ -174,14 +259,18 @@ public class LineController : MonoBehaviour
                 copy.lightningCount ++;
             }
             lightning.isEndLight = true;
-            lightning.HurtPlayer();
             Destroy(gameObject);
         });
         
     }
 
     public void SetEndLine () {
+        lightning.HurtPlayer();
         lightning.isSetLight = true;
+    }
+
+    private void OnDestroy() {
+        isRush = false;
     }
     void SetCircleLine(){
         lineB.positionCount = 100;
