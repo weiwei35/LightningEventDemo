@@ -9,12 +9,14 @@ public class SelectItemUI : MonoBehaviour
     public InfoUIController uIController;
     // public ItemIcon itemIcon;
     public ItemDataSO itemData;
+    public ItemLevelRankSO itemLevelRank;
     public GameObject selectBar;
     public GameObject selectPrefab;
     SelectItem saveItem;
     List<SelectItem> items = new List<SelectItem>();
     PlayerController player;
     public GameSaveManager gameSave;
+    public GameController gameController;
     // Start is called before the first frame update
     void OnEnable() {
         // itemData = AssetDatabase.LoadAssetAtPath<ItemDataSO>("Assets/Resources/ItemData.asset");
@@ -27,7 +29,10 @@ public class SelectItemUI : MonoBehaviour
                 }
                 Global.continueGame = false;
             }else{
-                items = itemData.GetRandomSelectItem(3);
+                float item1Rank = itemLevelRank.GetItem1RankByLevel(gameController.levelId);
+                float item2Rank = itemLevelRank.GetItem2RankByLevel(gameController.levelId);
+                float item3Rank = itemLevelRank.GetItem3RankByLevel(gameController.levelId);
+                items = itemData.GetRandomSelectItem(3,item1Rank,item2Rank,item3Rank);
                 gameSave.data.selectItemId.Clear();
                 foreach (var item in items)
                 {
