@@ -5643,7 +5643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1edb34327c251b45ad4023f50c1662f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 30
+  HP: 1000
   maxHP: 0
   attack: 5
   speed: 0.5
@@ -5676,6 +5676,9 @@ MonoBehaviour:
   circleAnim: {fileID: 2378976958899832963}
   bigCollider: {fileID: 866038975878735458}
   bigBoom: {fileID: 6154859577302099349}
+  bulletHurt: 5
+  bulletSpeed: 2
+  bulletTime: 5
 --- !u!65 &803609741156311503
 BoxCollider:
   m_ObjectHideFlags: 0

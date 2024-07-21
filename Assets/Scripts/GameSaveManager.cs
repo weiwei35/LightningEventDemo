@@ -7,6 +7,8 @@ using UnityEngine;
 public static class Global{
     public static bool continueGame = false;
     public static bool isEndLevel = false;
+    public static bool isChangeLevel = false;
+    public static bool isGameOver = false;
 
     public static float exp = 0;
     public static int exp_level = 0;
@@ -85,13 +87,24 @@ public class GameSaveManager : MonoBehaviour
  
     }
     //加载
-    public void Load()
+    public bool Load()
     {
-        //与上述Save为逆过程
-        // string DecryptedData 
-        // = SaveDataEncryption.DecryInNegation(File.ReadAllText(Path.Combine(directoryInfo.FullName, SaveFileName)));
-        data = JsonUtility.FromJson<SaveData>(File.ReadAllText(Path.Combine(directoryInfo.FullName, SaveFileName)));
- 
+        if(File.Exists(Application.persistentDataPath+"/"+SaveFolder+"/"+SaveFileName)){
+            //与上述Save为逆过程
+            // string DecryptedData 
+            // = SaveDataEncryption.DecryInNegation(File.ReadAllText(Path.Combine(directoryInfo.FullName, SaveFileName)));
+            data = JsonUtility.FromJson<SaveData>(File.ReadAllText(Path.Combine(directoryInfo.FullName, SaveFileName)));
+            return true;
+        }else{
+            return false;
+        }
+    }
+    //角色死亡删除存档
+    public void Delet () {
+        if (directoryInfo.Exists) 
+        {
+            File.Delete(Application.persistentDataPath+"/"+SaveFolder+"/"+SaveFileName);
+        }
     }
 }
 

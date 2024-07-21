@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
-    public List<float> expList = new List<float>();
     public ExpLevelDataSO expLevelData;
     public EnemyPoolController enemyPool;
     // public LevelDataSO levelData;
@@ -33,14 +32,16 @@ public class GameController : MonoBehaviour
     bool isLevelUp = false;
 
     public GameObject bgChangeLevel;
+    public Image levelImg;
+    public List<Sprite> levelSprite = new List<Sprite>();
     // Start is called before the first frame update
     private void Awake() {
         DOTween.SetTweensCapacity(800,200);
         selectPanel = endLevelPanel.GetComponent<SelectItemUI>();
         Global.exp = 0;
         if(Global.continueGame){
-            LoadData();
-            selectPanel.LoadItem();
+            if(LoadData())
+                selectPanel.LoadItem();
         }
         bgChangeLevel.SetActive(false);
         level = levelData.GetLevelDataById(levelId);
@@ -92,12 +93,16 @@ public class GameController : MonoBehaviour
         papers = GameObject.FindGameObjectWithTag("Papers");
 
         if(levelId == 1){
-            Time.timeScale = 0;
             endLevelPanel.SetActive(true);
+            Invoke("SetTimeStop",0.5f);
         }
         if(Global.isEndLevel){
             NextLevel();
         }
+    }
+
+    void SetTimeStop(){
+        Time.timeScale = 0;
     }
 
     // Update is called once per frame
@@ -118,8 +123,7 @@ public class GameController : MonoBehaviour
         }
         if(isLevelUp && !Global.isSlowDown){
             isLevelUp = false;
-
-            Time.timeScale = 0;
+            Invoke("SetTimeStop",0.5f);
             endLevelPanel.SetActive(true);
         }
         if(level.levelType == LevelType.Normal){
@@ -153,6 +157,10 @@ public class GameController : MonoBehaviour
                 NextLevel();
             }
         }
+
+        if(Global.isGameOver){
+            gameSave.Delet();
+        }
     }
 
     public void NextLevel() {
@@ -173,21 +181,26 @@ public class GameController : MonoBehaviour
             }
         }
         bgChangeLevel.SetActive(true);
-        Invoke("SetLevel",2);
+        levelImg.gameObject.SetActive(true);
+        levelImg.sprite = levelSprite[levelId-1];
+        Global.isChangeLevel = true;
+        Invoke("SetLevel",3.5f);
     }
     void SetLevelItem(){
-        Time.timeScale = 0;
         endLevelPanel.SetActive(true);
+        Invoke("SetTimeStop",0.5f);
         SaveEndtData();
     }
 
     public void SetLevel(){
         bgChangeLevel.SetActive(false);
+        Global.isChangeLevel = false;
 
         if(levelId > levelData.GetLevelCount()){
             // Time.timeScale = 0;
             // Application.Quit();
             bgChangeLevel.SetActive(true);
+            levelImg.gameObject.SetActive(false);
             SceneManager.LoadSceneAsync("UIScene");
         }else{
             SaveStartData();
@@ -208,11 +221,17 @@ public class GameController : MonoBehaviour
     }
     public void SetItem(){
         if(selectPanel.SetPlayerStatus()){
-            levelUI.SetLevelPlayer();
             Time.timeScale = 1;
-            if(endLevelPanel.activeSelf){
-                endLevelPanel.SetActive(false);
-            }
+            Animation animation = selectPanel.GetComponent<Animation>();
+            animation.Play("Pick3Close");
+            levelUI.SetLevelPlayer();
+            Invoke("CloseEndPanel",0.4f);
+        }
+    }
+
+    void CloseEndPanel(){
+        if(endLevelPanel.activeSelf){
+            endLevelPanel.SetActive(false);
         }
     }
 
@@ -244,22 +263,26 @@ public class GameController : MonoBehaviour
         gameSave.Save();
     }
 
-    void LoadData(){
-        gameSave.Load();
-        levelId = gameSave.data.levelId;
-        Global.isEndLevel = gameSave.data.isEndLevel;
+    bool LoadData(){
+        if(gameSave.Load()){
+            levelId = gameSave.data.levelId;
+            Global.isEndLevel = gameSave.data.isEndLevel;
 
-        player.moveSpeed = gameSave.data.speed;
-        player.HP = gameSave.data.HP;
-        player.protect = gameSave.data.protect;
-        player.HPSpeed = gameSave.data.HPSpeed;
-        player.protectSpeed = gameSave.data.protectSpeed;
+            player.moveSpeed = gameSave.data.speed;
+            player.HP = gameSave.data.HP;
+            player.protect = gameSave.data.protect;
+            player.HPSpeed = gameSave.data.HPSpeed;
+            player.protectSpeed = gameSave.data.protectSpeed;
 
-        lightning.lightningTime = gameSave.data.lightningTime;
-        lightning.lightningCount = gameSave.data.lightningCount;
-        lightning.lightningHurt = gameSave.data.lightningHurt;
+            lightning.lightningTime = gameSave.data.lightningTime;
+            lightning.lightningCount = gameSave.data.lightningCount;
+            lightning.lightningHurt = gameSave.data.lightningHurt;
 
-        Global.exp = gameSave.data.exp;
-        Global.exp_level = gameSave.data.exp_level;
+            Global.exp = gameSave.data.exp;
+            Global.exp_level = gameSave.data.exp_level;
+            return true;
+        }else{
+            return false;
+        }
     }
 }

@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
 
         // 根据玩家的输入设置角色的初速度
         Vector2 velocity = new Vector2(moveX, moveY);
-        rb.velocity = velocity * moveSpeed;
+        rb.velocity = velocity * moveSpeed * 0.2f;
 
         if(moveX > 0){
             // transform.localScale = new Vector3(-0.8f,0.8f,0.8f);
@@ -422,7 +422,7 @@ public class PlayerController : MonoBehaviour
     //角色死亡处理：聚焦--场景遮黑--死亡动画--游戏结束
     private void Death()
     {
-        
+        Global.isGameOver = true;
         moveSpeed = 0f;
         transform.position = new Vector3(transform.position.x,transform.position.y,-20);
         Camera camera = Camera.main;

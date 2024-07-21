@@ -38,7 +38,7 @@ public class ItemLevelRankSO : ScriptableObject {
                 int random;
                 do
                 {
-                    random = Random.Range(1,101);
+                    random = (int)Random.Range(1,item.item3Rank+item.item2Rank+item.item1Rank+1);
                     if(random<=item.item1Rank){
                         return 1;
                     }else if(random>item.item1Rank && random<=item.item2Rank+item.item1Rank){
@@ -58,7 +58,7 @@ public class ItemLevelRankSO : ScriptableObject {
                 int random;
                 do
                 {
-                    random = Random.Range(1,101);
+                    random = (int)Random.Range(1,item.smallRank+item.midRank+item.largeRank+1);
                     if(random<=item.smallRank){
                         return 1;
                     }else if(random>item.smallRank && random<=item.smallRank+item.midRank){
@@ -78,7 +78,7 @@ public class ItemLevelRankSO : ScriptableObject {
                 int random;
                 do
                 {
-                    random = Random.Range(1,101);
+                    random = (int)Random.Range(1,item.littleRank+item.bigRank+1);
                     if(random<=item.littleRank){
                         return 1;
                     }else if(random>item.littleRank && random<=item.littleRank+item.bigRank){

@@ -19,6 +19,8 @@ public class SelectItemUI : MonoBehaviour
     public GameController gameController;
     // Start is called before the first frame update
     void OnEnable() {
+        Animation animation = GetComponent<Animation>();
+        animation.Play("Pick3Show");
         // itemData = AssetDatabase.LoadAssetAtPath<ItemDataSO>("Assets/Resources/ItemData.asset");
         if(Global.exp_level > 0){
             if(Global.continueGame && gameSave.data.isEndLevel){

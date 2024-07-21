@@ -47,6 +47,7 @@ public class EnemyBoss1 : EnemyController
         }
         if(!Global.isSlowDown && !isFreeze){
             rushTimeCount += Time.deltaTime;
+            bulletTimeCount += Time.deltaTime;
         }
         if(Global.isSlowDown){
             circleAnim.speed = 0.5f;
@@ -85,10 +86,22 @@ public class EnemyBoss1 : EnemyController
                 bigCollider.SetActive(false);
             }
         }
-        if(enemyPool.GetAllEnemyCount()==1){
-            secondSection = true;
-        }
+        // if(enemyPool.GetAllEnemyCount()==1){
+        //     secondSection = true;
+        // }
 
+        if(bulletTimeCount >= bulletTime && !isShoot && !isRush && !Global.isSlowDown){
+            isShoot = true;
+            if(fireSwitch){
+                StartFire();
+                fireSwitch = false;
+            }else{
+                StartFire2();
+                fireSwitch = true;
+            }
+            
+            Invoke("ResetFire",2f);
+        }
     }
     public override void Hurt(float hurt,HurtType type)
     {
@@ -110,6 +123,65 @@ public class EnemyBoss1 : EnemyController
         if(target != null){
             transform.position = Vector3.MoveTowards(transform.position,target.position+new Vector3(0,1,0),Time.deltaTime * speed);
         }
+    }
+    //面朝角色扇形攻击
+    [Header("武器伤害")]
+    public float bulletHurt = 5f;
+    [Header("武器速度")]
+    public float bulletSpeed = 2f;
+    [Header("武器频率")]
+    public float bulletTime = 5f;
+    float bulletTimeCount = 0;
+    bool isShoot = false;
+    bool fireSwitch = false;
+    void StartFire(){
+        float angleInterval = 100 / 10; // 计算角度间隔
+        float startAngle = (Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * (180 / Mathf.PI)) - 50;
+        for (int i = 0; i < 10; i++)
+        {
+            float angle = startAngle + i * angleInterval; // 计算当前物体的角度
+            float x = 3 * Mathf.Cos(angle * Mathf.Deg2Rad); // 计算 x 坐标
+            float y = 3 * Mathf.Sin(angle * Mathf.Deg2Rad); // 计算 y 坐标
+
+            Vector3 position = new Vector3(x, y, 0); // 转换为笛卡尔坐标系
+
+            // 在计算出的位置生成物体
+            Fire(position);
+        }
+    }
+    void StartFire2(){
+        float angleInterval = 360 / 30; // 计算角度间隔
+        float startAngle = (Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * (180 / Mathf.PI)) - 50;
+        for (int i = 0; i < 30; i++)
+        {
+            float angle = startAngle + i * angleInterval; // 计算当前物体的角度
+            float x = 3 * Mathf.Cos(angle * Mathf.Deg2Rad); // 计算 x 坐标
+            float y = 3 * Mathf.Sin(angle * Mathf.Deg2Rad); // 计算 y 坐标
+
+            Vector3 position = new Vector3(x, y, 0); // 转换为笛卡尔坐标系
+
+            // 在计算出的位置生成物体
+            Fire(position);
+        }
+    }
+    void Fire(Vector3 direction){
+        var curBullet = GameObjectPoolTool.GetFromPoolForce(true,"Assets/Resources/Bullet.prefab");
+        // var curBullet = Instantiate(bullet);
+        curBullet.transform.position = transform.position;
+        Rigidbody bulletRb = curBullet.GetComponent<Rigidbody>();
+        BulletController bulletController = curBullet.GetComponent<BulletController>();
+        bulletController.hurt = bulletHurt;
+        // Vector3 direction = target.position - transform.position;
+        direction.Normalize();
+        bulletRb.velocity = direction * bulletSpeed;
+        bulletController.bulletSpeed = bulletSpeed;
+        bulletController.direction = direction;
+        bulletController.center = center.transform.position;
+        bulletController.length = 15;
+    }
+    void ResetFire(){
+        bulletTimeCount = 0;
+        isShoot = false;
     }
 
     void RushToPlayer(){

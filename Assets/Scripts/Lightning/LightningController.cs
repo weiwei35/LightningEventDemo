@@ -53,7 +53,13 @@ public class LightningController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        curTime += Time.deltaTime;
+        if(Global.isChangeLevel){
+            curTime = 0;
+        }
+        if(!Global.isSlowDown && !Global.isChangeLevel){
+            curTime += Time.deltaTime;
+        }
+        
         if(curTime >= lightningTime){
             curTime = 0;
             float random = (lightningCount - Mathf.Floor(lightningCount))*100;
