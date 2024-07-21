@@ -7,7 +7,7 @@ public class ItemDataSO : ScriptableObject {
     public List<SelectItem> GetSelectItems(){
         return items;
     }
-    public List<SelectItem> GetRandomSelectItem(int count,float item1Rank,float item2Rank,float item3Rank){
+    public List<SelectItem> GetRandomSelectItem(int count,List<int> specType,List<int> detailType){
         List<SelectItem> item = new List<SelectItem>();
         List<int> random = new List<int>();
         List<int> type = new List<int>();
@@ -219,53 +219,61 @@ public class ItemDataSO : ScriptableObject {
             //type.Add(604);
         for (int i = 0; i < count; i++)
         {
-            bool canSaveItem = true;
-            int currentSpecType = Random.Range(1,101);
-            Debug.Log(currentSpecType);
             //随机到神通道具
-            if(currentSpecType <= item3Rank*100 && canSaveItem){
-                canSaveItem = false;
+            if(specType[i] == 3){
                 List<SelectItem> type3Item = new List<SelectItem>();
                 foreach (var t in saveItem)
                 {
                     if(t.specialType == 3){
-                        type3Item.Add(t);
+                        if(detailType[i] > 0){
+                            if(t.detailType == detailType[i])
+                                type3Item.Add(t);
+                        }
                     }
                 }
                 int randomId = Random.Range(0,type3Item.Count);
                 item.Add(type3Item[randomId]);
                 for (int j = 0; j < saveItem.Count; j++)
                 {
-                    if(saveItem[j].type == type3Item[randomId].type)
+                    if(saveItem[j].type == type3Item[randomId].type){
                         saveItem.Remove(saveItem[j]);
+                        j--;
+                    }
                 }
             }
             //随机到法宝道具
-            else if(currentSpecType <= item2Rank*100 && canSaveItem){
-                canSaveItem = false;
+            else if(specType[i] == 2){
                 List<SelectItem> type2Item = new List<SelectItem>();
                 foreach (var t in saveItem)
                 {
                     if(t.specialType == 2){
-                        type2Item.Add(t);
+                        if(detailType[i] > 0){
+                            if(t.detailType == detailType[i])
+                                type2Item.Add(t);
+                        }
                     }
                 }
                 int randomId = Random.Range(0,type2Item.Count);
                 item.Add(type2Item[randomId]);
                 for (int j = 0; j < saveItem.Count; j++)
                 {
-                    if(saveItem[j].type == type2Item[randomId].type)
+                    if(saveItem[j].type == type2Item[randomId].type){
                         saveItem.Remove(saveItem[j]);
+                        j--;
+                    }
                 }
             }
             //随机到碎片道具
-            else if(currentSpecType <= item1Rank*100 && canSaveItem){
-                canSaveItem = false;
+            else if(specType[i] == 1){
                 List<SelectItem> type1Item = new List<SelectItem>();
                 foreach (var t in saveItem)
                 {
                     if(t.specialType == 1){
-                        type1Item.Add(t);
+                        if(detailType[i] > 0){
+                            if(t.detailType == detailType[i]){
+                                type1Item.Add(t);
+                            }
+                        }
                     }
                 }
                 int randomId = Random.Range(0,type1Item.Count);
@@ -278,9 +286,6 @@ public class ItemDataSO : ScriptableObject {
                         j--;
                     }
                 }
-            }
-            else if(currentSpecType > item1Rank*100 && currentSpecType > item2Rank*100 && currentSpecType > item3Rank*100){
-                i--;
             }
         }
         
@@ -307,7 +312,7 @@ public class ItemDataSO : ScriptableObject {
         int i = 0;
         foreach (var item in items)
         {
-            if(item.specialType == 3){
+            if(item.specialType == 4){
                 if(i == randomId){
                     return item;
                 }else{
@@ -338,4 +343,5 @@ public class SelectItem{
     public int buff;
     public int specialType;
     public string story;
+    public int detailType;
 }

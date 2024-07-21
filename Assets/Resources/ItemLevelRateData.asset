@@ -15,13 +15,28 @@ MonoBehaviour:
   itemLevelRanks:
   - levelId: 1
     item1Rank: 95
-    item2Rank: 5
-    item3Rank: 0
+    item2Rank: 0
+    item3Rank: 5
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
   - levelId: 2
     item1Rank: 95
-    item2Rank: 5
-    item3Rank: 0
+    item2Rank: 0
+    item3Rank: 5
+    smallRank: 40
+    midRank: 40
+    largeRank: 20
+    littleRank: 80
+    bigRank: 20
   - levelId: 3
     item1Rank: 80
-    item2Rank: 20
-    item3Rank: 0
+    item2Rank: 0
+    item3Rank: 20
+    smallRank: 20
+    midRank: 30
+    largeRank: 50
+    littleRank: 70
+    bigRank: 30

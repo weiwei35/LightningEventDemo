@@ -29,10 +29,22 @@ public class SelectItemUI : MonoBehaviour
                 }
                 Global.continueGame = false;
             }else{
-                float item1Rank = itemLevelRank.GetItem1RankByLevel(gameController.levelId);
-                float item2Rank = itemLevelRank.GetItem2RankByLevel(gameController.levelId);
-                float item3Rank = itemLevelRank.GetItem3RankByLevel(gameController.levelId);
-                items = itemData.GetRandomSelectItem(3,item1Rank,item2Rank,item3Rank);
+                List<int> specType = new List<int>();
+                List<int> detailType = new List<int>();
+
+                for (int i = 0; i < 3; i++)
+                {
+                    int spec = itemLevelRank.GetItemSpecType(gameController.levelId);
+                    specType.Add(spec);
+                    if(spec == 3){
+                        int detail = itemLevelRank.GetTreasureType(gameController.levelId);
+                        detailType.Add(detail);
+                    }else if(spec == 1){
+                        int detail = itemLevelRank.GetPieceType(gameController.levelId);
+                        detailType.Add(detail);
+                    }
+                }
+                items = itemData.GetRandomSelectItem(3,specType,detailType);
                 gameSave.data.selectItemId.Clear();
                 foreach (var item in items)
                 {
@@ -111,6 +123,10 @@ public class SelectItemUI : MonoBehaviour
                     Global.item3Current.Add(currentItem);
                     uIController.SetItem3(currentItem.name[0].ToString(),currentItem.name.ToString(),currentItem.desc.ToString());
                     return;
+                case 4:
+                    Global.item3Current.Add(currentItem);
+                    uIController.SetItem3(currentItem.name[0].ToString(),currentItem.name.ToString(),currentItem.desc.ToString());
+                    return;
             }
     }
 
@@ -122,7 +138,6 @@ public class SelectItemUI : MonoBehaviour
                     int count = 0;
                     foreach (var item in Global.item1Current)
                     {
-                        Debug.Log(item.name);
                         if(item.type == saveItem.type){
                             count++;
                         }
@@ -139,6 +154,10 @@ public class SelectItemUI : MonoBehaviour
                     uIController.SetItem2(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString());
                     return;
                 case 3:
+                    Global.item3Current.Add(saveItem);
+                    uIController.SetItem3(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString());
+                    return;
+                case 4:
                     Global.item3Current.Add(saveItem);
                     uIController.SetItem3(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString());
                     return;

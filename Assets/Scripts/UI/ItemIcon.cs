@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ItemIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -15,9 +16,12 @@ public class ItemIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public GameObject tips;
     public TMP_Text itemName;
     public TMP_Text desc;
+    RectTransform rectTransform;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        rectTransform = GetComponent<RectTransform>();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
         tips.SetActive(true);
     }
 
