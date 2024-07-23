@@ -174,6 +174,7 @@ public class GameController : MonoBehaviour
     }
 
     public void NextLevel() {
+        timeCur = 0;
         Global.isEndBoss = false;
         rewardTitle.SetActive(false);
         enemyPool.DestroyAllEnemy();

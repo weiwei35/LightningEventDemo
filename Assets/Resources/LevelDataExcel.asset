@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levels:
   - levelId: 1
-    levelTime: 50
+    levelTime: 20
     enemyLevel1Group:
       type: {fileID: 2311599531590538775, guid: 5a3a3939e56fabf458d6fdf2caa47960,
         type: 3}
@@ -43,7 +43,7 @@ MonoBehaviour:
     enemyLevel8Group:
       type: {fileID: 0}
       count: 0
-    rewardTime: 10
+    rewardTime: 0
     rewardGroupId:
       type: {fileID: 2311599531590538775, guid: 5a3a3939e56fabf458d6fdf2caa47960,
         type: 3}

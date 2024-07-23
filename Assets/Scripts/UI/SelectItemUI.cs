@@ -22,7 +22,7 @@ public class SelectItemUI : MonoBehaviour
         Animation animation = GetComponent<Animation>();
         animation.Play("Pick3Show");
         // itemData = AssetDatabase.LoadAssetAtPath<ItemDataSO>("Assets/Resources/ItemData.asset");
-        if(Global.exp_level > 0){
+        if(Global.exp_level > 0 || Global.exp > 0){
             if(Global.continueGame && gameSave.data.isEndLevel){
                 items.Clear();
                 foreach (var item in gameSave.data.selectItemId)

@@ -66,7 +66,7 @@ public class EnemyPoolController : MonoBehaviour
     private void Update() {
         if(canCount)
             enemyTimeCount += Time.deltaTime;
-        if(enemyTimeCount >= enemyInitTime){
+        if(enemyTimeCount >= enemyInitTime && !Global.isChangeLevel){
             CheckLevel();
         }
     }
@@ -236,9 +236,10 @@ public class EnemyPoolController : MonoBehaviour
     }
     IEnumerator DestroyEnemy(GameObject enemy,float time){
         yield return new WaitForSeconds(time);
-        if(enemy.GetComponent<EnemyController>() != null)
+        if(enemy!=null && enemy.GetComponent<EnemyController>() != null){
             enemy.GetComponent<EnemyController>().anim.SetTrigger("dead");
-        StartCoroutine(SetDestroy(enemy));
+            StartCoroutine(SetDestroy(enemy));
+        }
     }
     IEnumerator SetDestroy(GameObject gameObject){
         yield return new WaitForSeconds(1f);
