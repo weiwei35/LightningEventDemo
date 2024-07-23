@@ -230,7 +230,7 @@ public class EnemyPoolController : MonoBehaviour
         {
             // Destroy(item.gameObject);
             enemyArray.Add(item.gameObject);
-            float time = Vector3.Distance(item.transform.position,center.transform.position) * 0.1f;
+            float time = Vector3.Distance(item.transform.position,center.transform.position) * 0.05f;
             StartCoroutine(DestroyEnemy(item.gameObject,time));
         }
     }

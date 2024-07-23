@@ -43,8 +43,8 @@ GameObject:
   - component: {fileID: 5853287268270458424}
   - component: {fileID: 8791542643398544232}
   m_Layer: 0
-  m_Name: LineRush
-  m_TagString: Lightning
+  m_Name: LineEndShow
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -209,12 +209,13 @@ MonoBehaviour:
     type: 3}
   isChecked: 0
   timeCount: 0
-  lineCollider: {fileID: 1882638087667443515, guid: 5efaab14189b0e14bb942a8d6d503653,
+  lineCollider: {fileID: 1882638087667443515, guid: 30a19c8f99dc59a4aae12be74c7fd4d1,
     type: 3}
   lightningAsset: {fileID: 2054700712137755922, guid: a1d3a3913e0d99c48a2672aecea7283c,
     type: 3}
   isRush: 0
-  lineRush: {fileID: 4832612257934242252}
+  lineRush: {fileID: 4832612257934242252, guid: 18a309795884ba1479a1948d91fb3b7b,
+    type: 3}
   canCopy: 1
 --- !u!1 &6243194527875724978
 GameObject:

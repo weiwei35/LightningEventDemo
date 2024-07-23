@@ -36,6 +36,8 @@ public class GameController : MonoBehaviour
     public List<Sprite> levelSprite = new List<Sprite>();
 
     bool startCheckingEnemy = false;
+    [Header("圆心")]
+    public GameObject centerPos;
     // Start is called before the first frame update
     private void Awake() {
         DOTween.SetTweensCapacity(800,200);
@@ -133,7 +135,7 @@ public class GameController : MonoBehaviour
             if(isReward){
                 timeCur += Time.deltaTime;
                 rewardTime = level.rewardTime;
-                if(timeCur >= rewardTime){
+                if(timeCur >= rewardTime && !Global.isSlowDown && !endLevelPanel.activeInHierarchy){
                     //奖励关卡结束下一关
                     Global.isReward = false;
                     NextLevel();
@@ -148,7 +150,7 @@ public class GameController : MonoBehaviour
                         enemyPool.SetRewardEnemyArray();
                         isReward = true;
                         timeCur = 0;
-                    }else{
+                    }else if(!Global.isSlowDown && !endLevelPanel.activeInHierarchy){
                         NextLevel();
                     }
                     
@@ -156,7 +158,7 @@ public class GameController : MonoBehaviour
             }
         }
         else if(level.levelType == LevelType.Boss) {
-            if(Global.isEndBoss){
+            if(Global.isEndBoss && !Global.isSlowDown && !endLevelPanel.activeInHierarchy){
                 NextLevel();
             }
         }
@@ -168,13 +170,15 @@ public class GameController : MonoBehaviour
         if(startCheckingEnemy){
             if(enemyPool.GetAllEnemyCount() == 0){
                 startCheckingEnemy = false;
-                Invoke("SetNextLevel",1);
+                // Invoke("SetNextLevel",3);
+                StartCoroutine(SetNextLevel());
             }
         }
     }
 
     public void NextLevel() {
         timeCur = 0;
+        Global.isChangeLevel = true;
         Global.isEndBoss = false;
         rewardTitle.SetActive(false);
         enemyPool.DestroyAllEnemy();
@@ -188,16 +192,17 @@ public class GameController : MonoBehaviour
                 paper.DestroyChild();
             }
         }
-        Global.isChangeLevel = true;
         startCheckingEnemy = true;
     }
-    void SetNextLevel(){
+    IEnumerator SetNextLevel(){
+        yield return new WaitForSeconds(0.5f);
         timeCur = 0;
         SetLevelItem();
         levelId ++;
         bgChangeLevel.SetActive(true);
         levelImg.gameObject.SetActive(true);
         levelImg.sprite = levelSprite[levelId-1];
+        player.transform.position = centerPos.transform.position;
         Invoke("SetLevel",3.5f);
     }
     void SetLevelItem(){
@@ -208,7 +213,6 @@ public class GameController : MonoBehaviour
 
     public void SetLevel(){
         bgChangeLevel.SetActive(false);
-        Global.isChangeLevel = false;
 
         if(levelId > levelData.GetLevelCount()){
             // Time.timeScale = 0;
@@ -239,11 +243,12 @@ public class GameController : MonoBehaviour
             Animation animation = selectPanel.GetComponent<Animation>();
             animation.Play("Pick3Close");
             levelUI.SetLevelPlayer();
-            Invoke("CloseEndPanel",0.4f);
+            Invoke("CloseEndPanel",1f);
         }
     }
 
     void CloseEndPanel(){
+        Global.isChangeLevel = false;
         if(endLevelPanel.activeSelf){
             endLevelPanel.SetActive(false);
         }

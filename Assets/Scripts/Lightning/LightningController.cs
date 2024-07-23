@@ -37,6 +37,7 @@ public class LightningController : MonoBehaviour
     PlayerController player;
     GameObject petBugs;
     GameObject papers;
+    bool showEndLight = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,12 +56,25 @@ public class LightningController : MonoBehaviour
     {
         if(Global.isChangeLevel){
             curTime = 0;
+            GameObject[] taggedObjects = GameObject.FindGameObjectsWithTag("Lightning");
+            foreach (var obj in taggedObjects)
+            {
+                Destroy(obj);
+            }
+            if(!showEndLight){
+                circle.CirclePoints();
+                showEndLight = true;
+            }
+        }else{
+            if(showEndLight){
+                showEndLight = false;
+            }
         }
         if(!Global.isSlowDown && !Global.isChangeLevel){
             curTime += Time.deltaTime;
         }
         
-        if(curTime >= lightningTime){
+        if(curTime >= lightningTime && !Global.isChangeLevel){
             curTime = 0;
             float random = (lightningCount - Mathf.Floor(lightningCount))*100;
             int i = Random.Range(0,101);
@@ -95,7 +109,8 @@ public class LightningController : MonoBehaviour
 
     IEnumerator EndLight(){
         isEndLight = false;
-        Global.exp += lightningExp;
+        if(!Global.isChangeLevel)
+            Global.exp += lightningExp;
         if(player.isOnceLightningCopy)
             player.lightningCount ++;
         foreach (Transform item in petBugs.transform)

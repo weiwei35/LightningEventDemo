@@ -92,13 +92,15 @@ public class LineController : MonoBehaviour
                 colliderCur.transform.parent = transform;
                 Vector3 direction = line.GetPosition(0) - line.GetPosition(1);
                 capsuleCollider = colliderCur.GetComponent<CapsuleCollider>();
-                capsuleCollider.isTrigger = true;
-                capsuleCollider.radius = line.startWidth/4;
-                capsuleCollider.height = direction.magnitude + line.startWidth;
-                capsuleCollider.direction = 2;
-                if(Vector3.Distance(line.GetPosition(i+1),line.GetPosition(i)) != 0){
-                    Quaternion lookRotation = Quaternion.LookRotation(line.GetPosition(i+1) - line.GetPosition(i));
-                    colliderCur.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);
+                if(capsuleCollider != null){
+                    capsuleCollider.isTrigger = true;
+                    capsuleCollider.radius = line.startWidth/4;
+                    capsuleCollider.height = direction.magnitude + line.startWidth;
+                    capsuleCollider.direction = 2;
+                    if(Vector3.Distance(line.GetPosition(i+1),line.GetPosition(i)) != 0){
+                        Quaternion lookRotation = Quaternion.LookRotation(line.GetPosition(i+1) - line.GetPosition(i));
+                        colliderCur.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);
+                    }
                 }
             }
         }
@@ -121,14 +123,17 @@ public class LineController : MonoBehaviour
                     colliderCur.transform.parent = transform;
                     Vector3 direction = line.GetPosition(0) - line.GetPosition(1);
                     capsuleCollider = colliderCur.GetComponent<CapsuleCollider>();
-                    capsuleCollider.isTrigger = true;
-                    capsuleCollider.radius = line.startWidth/4;
-                    capsuleCollider.height = direction.magnitude + line.startWidth;
-                    capsuleCollider.direction = 2;
-                    if(Vector3.Distance(line.GetPosition(i+1),line.GetPosition(i)) != 0){
-                        Quaternion lookRotation = Quaternion.LookRotation(line.GetPosition(i+1) - line.GetPosition(i));
-                        colliderCur.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);
+                    if(capsuleCollider != null){
+                        capsuleCollider.isTrigger = true;
+                        capsuleCollider.radius = line.startWidth/4;
+                        capsuleCollider.height = direction.magnitude + line.startWidth;
+                        capsuleCollider.direction = 2;
+                        if(Vector3.Distance(line.GetPosition(i+1),line.GetPosition(i)) != 0){
+                            Quaternion lookRotation = Quaternion.LookRotation(line.GetPosition(i+1) - line.GetPosition(i));
+                            colliderCur.transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);
+                        }
                     }
+                    
                 }
             }
             line.SetPosition(0,start.transform.position);
@@ -218,12 +223,13 @@ public class LineController : MonoBehaviour
         colliderCur.transform.position = midPoint;
         colliderCur.transform.parent = transform;
         Vector3 direction = line.GetPosition(0) - line.GetPosition(1);
-        capsuleCollider = colliderCur.GetComponent<CapsuleCollider>();
-        capsuleCollider.isTrigger = true;
-        capsuleCollider.radius = line.startWidth/4;
-        capsuleCollider.height = direction.magnitude + line.startWidth;
-        capsuleCollider.direction = 2;
-
+        if(capsuleCollider != null){
+            capsuleCollider = colliderCur.GetComponent<CapsuleCollider>();
+            capsuleCollider.isTrigger = true;
+            capsuleCollider.radius = line.startWidth/4;
+            capsuleCollider.height = direction.magnitude + line.startWidth;
+            capsuleCollider.direction = 2;
+        }
         // SetCircleLine();
     }
 
@@ -265,7 +271,8 @@ public class LineController : MonoBehaviour
     }
 
     public void SetEndLine () {
-        lightning.HurtPlayer();
+        if(!Global.isChangeLevel)
+            lightning.HurtPlayer();
         lightning.isSetLight = true;
     }
 

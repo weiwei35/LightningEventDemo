@@ -11,6 +11,7 @@ public class CircleController : MonoBehaviour
     public Material m;
     // [HideInInspector]
     public LineController line;
+    public LineController lineEndShow;
     public ConnectLineController connectLine;
     public MirrorLineController mirrorLine;
     public GameObject startPoint;//雷点
@@ -241,6 +242,21 @@ public class CircleController : MonoBehaviour
         SetLines(lightning.startTime,lightning.keepTime,points);
         // GetCamLight();
     }
+    public void CirclePoints () {
+        points.Clear();
+        pointsConnect.Clear();
+        //普通雷点
+        for (int i = 0; i < 20;)
+        {
+            float angle = (Mathf.PI * 2/20)*i;
+            Vector3 pointCur = center + new Vector3(Mathf.Cos(angle) * radius,Mathf.Sin(angle) * radius,0);
+            pointCur = new Vector3(pointCur.x,pointCur.y,-5);
+            points.Add(pointCur);
+            i++;
+        }
+        SetCircleLines(lightning.startTime,lightning.keepTime,points);
+        // GetCamLight();
+    }
         //在圆上取count个数的随机点
     public void RandomPointsMirror (float count) {
         List<Vector3> pointsMirror = new List<Vector3>();
@@ -390,6 +406,20 @@ public class CircleController : MonoBehaviour
             lineController.follow = player;
             lineController.showTime = i * timeOffset;
             i++;
+            lines.Add(lineCur.gameObject);
+        }
+    }
+    public void SetCircleLines (float startTime,float keepTime,List<Vector3> points) {
+        foreach(var point in points){
+            var lineCur = Instantiate(lineEndShow.gameObject);
+            lineCur.transform.position = point;
+            LineController lineController = lineCur.GetComponent<LineController>();
+            lineController.start.transform.position = point;
+            lineController.end.transform.position = center;
+            lineController.startTime = startTime;
+            lineController.keepTime = keepTime;
+            lineController.follow = centerPos;
+            lineController.timeCount = lightning.lightningPreTime +1;
             lines.Add(lineCur.gameObject);
         }
     }

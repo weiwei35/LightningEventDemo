@@ -3422,6 +3422,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m: {fileID: 2100000, guid: 6145927c9869c644a8fdd0b7177ecaed, type: 2}
   line: {fileID: 8791542643398544232, guid: 4ac59918925b392489e1235cdecedc13, type: 3}
+  lineEndShow: {fileID: 8791542643398544232, guid: db9b756f1d8cb4e4195f42ce72c0ea5f,
+    type: 3}
   connectLine: {fileID: 8760961180005881326, guid: 060026c3abe991a47a6ac05f096dcdf2,
     type: 3}
   mirrorLine: {fileID: 1794671161717706478, guid: 85f64c27027daa840b4b5c1f76929f29,
@@ -6431,6 +6433,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ee1e7e3298614314dbe0d69d698fb184, type: 3}
   - {fileID: 21300000, guid: 087bbbe258701a441a7233a0ba1fb21b, type: 3}
   - {fileID: 21300000, guid: c1dd97d6563ef534bacdb8f1e3e160c9, type: 3}
+  centerPos: {fileID: 2121480821}
   gameSave: {fileID: 413076641}
   player: {fileID: 1152297608}
   lightning: {fileID: 308169835}
