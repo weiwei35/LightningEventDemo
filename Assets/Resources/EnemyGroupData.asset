@@ -21,3 +21,19 @@ MonoBehaviour:
     count6: 0
     count7: 0
     count8: 0
+  - levelId: 2
+    count2: 4
+    count3: 5
+    count4: 6
+    count5: 0
+    count6: 0
+    count7: 0
+    count8: 0
+  - levelId: 3
+    count2: 4
+    count3: 5
+    count4: 6
+    count5: 0
+    count6: 0
+    count7: 0
+    count8: 0
