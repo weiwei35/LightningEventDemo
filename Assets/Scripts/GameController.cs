@@ -34,11 +34,14 @@ public class GameController : MonoBehaviour
     public GameObject bgChangeLevel;
     public Image levelImg;
     public List<Sprite> levelSprite = new List<Sprite>();
+
+    bool startCheckingEnemy = false;
     // Start is called before the first frame update
     private void Awake() {
         DOTween.SetTweensCapacity(800,200);
         selectPanel = endLevelPanel.GetComponent<SelectItemUI>();
         Global.exp = 0;
+        levelId = 1;
         if(Global.continueGame){
             if(LoadData())
                 selectPanel.LoadItem();
@@ -161,6 +164,13 @@ public class GameController : MonoBehaviour
         if(Global.isGameOver){
             gameSave.Delet();
         }
+
+        if(startCheckingEnemy){
+            if(enemyPool.GetAllEnemyCount() == 0){
+                startCheckingEnemy = false;
+                Invoke("SetNextLevel",1);
+            }
+        }
     }
 
     public void NextLevel() {
@@ -168,9 +178,6 @@ public class GameController : MonoBehaviour
         rewardTitle.SetActive(false);
         enemyPool.DestroyAllEnemy();
         isReward = false;
-        timeCur = 0;
-        SetLevelItem();
-        levelId ++;
         Global.papersPosList.Clear();
         foreach (Transform item in papers.transform)
         {
@@ -180,10 +187,16 @@ public class GameController : MonoBehaviour
                 paper.DestroyChild();
             }
         }
+        Global.isChangeLevel = true;
+        startCheckingEnemy = true;
+    }
+    void SetNextLevel(){
+        timeCur = 0;
+        SetLevelItem();
+        levelId ++;
         bgChangeLevel.SetActive(true);
         levelImg.gameObject.SetActive(true);
         levelImg.sprite = levelSprite[levelId-1];
-        Global.isChangeLevel = true;
         Invoke("SetLevel",3.5f);
     }
     void SetLevelItem(){

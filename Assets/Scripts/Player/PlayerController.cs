@@ -209,8 +209,6 @@ public class PlayerController : MonoBehaviour
             sprite.flipX = false;
             follow.transform.position = follow_right.transform.position;
         }
-
-        
     }
     void RushMove(){
         canRush = false;

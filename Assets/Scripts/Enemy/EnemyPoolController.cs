@@ -220,12 +220,29 @@ public class EnemyPoolController : MonoBehaviour
             enemyNew.transform.position = transform.position;
         }
     }
+    public GameObject center;
+    List<GameObject> enemyArray = new List<GameObject>();
+    int i = 0;
     public void DestroyAllEnemy() {
+        i=0;
+        
         foreach (Transform item in transform)
         {
-            Destroy(item.gameObject);
-            // Debug.Log(item.gameObject.name); 
+            // Destroy(item.gameObject);
+            enemyArray.Add(item.gameObject);
+            float time = Vector3.Distance(item.transform.position,center.transform.position) * 0.1f;
+            StartCoroutine(DestroyEnemy(item.gameObject,time));
         }
+    }
+    IEnumerator DestroyEnemy(GameObject enemy,float time){
+        yield return new WaitForSeconds(time);
+        if(enemy.GetComponent<EnemyController>() != null)
+            enemy.GetComponent<EnemyController>().anim.SetTrigger("dead");
+        StartCoroutine(SetDestroy(enemy));
+    }
+    IEnumerator SetDestroy(GameObject gameObject){
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
     public int GetAllEnemyCount() {
         int i = 0;

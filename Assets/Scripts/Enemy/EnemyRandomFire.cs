@@ -90,10 +90,6 @@ public class EnemyRandomFire : EnemyController
         base.HurtByCircle(hurt,type);
         // anim.Play("hurt1");
     }
-    public override void Death(){
-        base.Death();
-        // anim.Play("hurt1");
-    }
     //在范围内&距离角色一定距离随机出生点
     void RandomStartObject()
     {

@@ -48,10 +48,6 @@ public class EnemyFollowMove : EnemyController
         base.HurtByCircle(hurt,type);
         // anim.Play("hurt2");
     }
-    public override void Death(){
-        base.Death();
-        // anim.Play("hurt2");
-    }
 
     private void FollowMove () {
         if(target != null){

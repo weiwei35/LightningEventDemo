@@ -45,7 +45,7 @@ public class LightningController : MonoBehaviour
         petBugs = GameObject.FindGameObjectWithTag("PetBugs");
         papers = GameObject.FindGameObjectWithTag("Papers");
 
-        uiController.SetLightningCountText(lightningCount);
+        uiController.SetLightningCountText(Mathf.Round(lightningCount * 10) /10);
         uiController.SetLightningHurtText(lightningHurt);
         uiController.SetLightningSpeedText(lightningTime);
     }

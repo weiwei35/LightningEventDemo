@@ -99,10 +99,6 @@ public class EnemyFarMove : EnemyController
         base.HurtByCircle(hurt,type);
         // anim.Play("hurt3");
     }
-    public override void Death(){
-        base.Death();
-        // anim.Play("hurt3");
-    }
 
     private void FollowMove () {
         float distance = Mathf.Abs(Vector3.Distance(transform.position,target.position));
