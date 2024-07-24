@@ -39,6 +39,7 @@ public class SaveData
     public float protectSpeed = 1f;
     //雷电
     public float lightningTime = 3f;
+    public float lightningTimeOriginal = 3f;
     public float lightningCount = 3;
     public float lightningHurt = 0;
     //道具

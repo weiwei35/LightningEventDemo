@@ -4353,6 +4353,7 @@ MonoBehaviour:
   enemyInitTime: 5
   enemyGroup: {fileID: 11400000, guid: 342b58862cf5e2445be998117478092a, type: 2}
   levelData: {fileID: 11400000, guid: afa8f323d9aa29542b4b363b92c8a7cc, type: 2}
+  lightning: {fileID: 308169835}
   center: {fileID: 2121480821}
 --- !u!1 &410087039
 GameObject:

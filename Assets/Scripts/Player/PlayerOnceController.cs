@@ -11,7 +11,8 @@ public class PlayerOnceController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
     }
     private void Update() {
-        timeCount += Time.deltaTime;
+        if(!Global.isSlowDown)
+            timeCount += Time.deltaTime;
         if(lightningCount >= 1){
             Destroy(gameObject);
             player.isLightCopied = false;

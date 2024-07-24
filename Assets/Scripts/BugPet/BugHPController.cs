@@ -18,7 +18,7 @@ public class BugHPController : BugController
             energyCurrent = 0;
             RecoveryPlayerHP();
         }
-        if(startRecovery){
+        if(startRecovery && !Global.isSlowDown){
             countTime += Time.deltaTime;
         }
         if(countTime >= recoverTime){

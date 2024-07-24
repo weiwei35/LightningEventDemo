@@ -16,7 +16,7 @@ public class PaperFire : PaperModel
         InvokeRepeating("FireBall",1,1);
     }
     private void Update() {
-        if(isOverLoad){
+        if(isOverLoad && !Global.isSlowDown){
             countTime += Time.deltaTime;
         }
         if(countTime>=overTime && isOverLoad){

@@ -237,7 +237,7 @@ public class PlayerController : MonoBehaviour
             rushing = true;
             RushMove();
         }
-        if(!canRush)
+        if(!canRush && !Global.isSlowDown)
             rushTime += Time.deltaTime;
         coldSlider.value = rushTime/rushColdTime;
         if(rushTime >= rushColdTime){
@@ -294,7 +294,7 @@ public class PlayerController : MonoBehaviour
             lightningCount = 0;
 
         //处理时间间隔分身
-        if(isOnceTimeCopy)
+        if(isOnceTimeCopy && !Global.isSlowDown)
             copyTimeCount += Time.deltaTime;
         else
             copyTimeCount = 0;
@@ -343,7 +343,7 @@ public class PlayerController : MonoBehaviour
             TriggerBugMerge();
         }
         //角色定时进入一段无敌状态
-        if(isBuffSuper){
+        if(isBuffSuper && !Global.isSlowDown){
             superTimeCount += Time.deltaTime;
             if(superTimeCount > superTime){
                 superEffect.SetActive(true);
@@ -352,7 +352,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         //角色每隔一段时间会朝面向方向瞬移一段距离
-        if(isMoveRandom){
+        if(isMoveRandom && !Global.isSlowDown){
             moveTimeCount += Time.deltaTime;
             if(moveTimeCount > moveTime && !Global.isSlowDown && !isMoving){
                 isMoving = true;

@@ -15,7 +15,7 @@ public class PaperHP : PaperModel
         InvokeRepeating("HPRecover",4,4);
     }
     private void Update() {
-        if(isOverLoad){
+        if(isOverLoad && !Global.isSlowDown){
             countTime += Time.deltaTime;
         }
         if(countTime>=overTime && isOverLoad){

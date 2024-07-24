@@ -19,7 +19,7 @@ public class BugWallController : BugController
             energyCurrent = 0;
             SetWall();
         }
-        if(startWall){
+        if(startWall && !Global.isSlowDown){
             countTime += Time.deltaTime;
         }
         if(countTime >= wallTime){

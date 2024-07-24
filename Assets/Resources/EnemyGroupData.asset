@@ -21,6 +21,7 @@ MonoBehaviour:
     count6: 0
     count7: 0
     count8: 0
+    hardLevel: 0
   - levelId: 2
     count2: 4
     count3: 5
@@ -29,6 +30,7 @@ MonoBehaviour:
     count6: 0
     count7: 0
     count8: 0
+    hardLevel: 0
   - levelId: 3
     count2: 4
     count3: 5
@@ -37,3 +39,4 @@ MonoBehaviour:
     count6: 0
     count7: 0
     count8: 0
+    hardLevel: 0

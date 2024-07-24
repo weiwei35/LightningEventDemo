@@ -44,7 +44,7 @@ public class EnemyRush : EnemyController
 
         // 应用限制后的欧拉角
         // mainEnemy.rotation = Quaternion.Euler(currentRotation);
-        if(isColdTime){
+        if(isColdTime && !Global.isSlowDown){
             coldTime += Time.deltaTime;
         }
         if(coldTime > 3){

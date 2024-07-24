@@ -27,7 +27,8 @@ public class EnemyCrazy : EnemyController
         {
             FollowMove ();
         }
-        crazyTimeCount += Time.deltaTime;
+        if(!Global.isSlowDown)
+            crazyTimeCount += Time.deltaTime;
         if(crazyTimeCount > crazyTime && !isInCrazy){
             isInCrazy = true;
             Crazy();

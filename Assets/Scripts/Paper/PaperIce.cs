@@ -13,7 +13,7 @@ public class PaperIce : PaperModel
         sprite = GetComponent<SpriteRenderer>();
     }
     private void Update() {
-        if(isOverLoad){
+        if(isOverLoad && !Global.isSlowDown){
             countTime += Time.deltaTime;
         }
         if(countTime>=overTime && isOverLoad){

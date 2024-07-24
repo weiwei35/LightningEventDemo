@@ -32,6 +32,15 @@ public class EnemyGroupDataSO : ScriptableObject {
         }
         return -1;
     }
+    public int GetHardLevelById(int level){
+        foreach (var item in enemyLevelGroups)
+        {
+            if(item.levelId == level){
+                return item.hardLevel;
+            }
+        }
+        return -1;
+    }
 }
 [System.Serializable]
 public class EnemyLevelGroup{
@@ -43,4 +52,5 @@ public class EnemyLevelGroup{
     public int count6;
     public int count7;
     public int count8;
+    public int hardLevel;
 }

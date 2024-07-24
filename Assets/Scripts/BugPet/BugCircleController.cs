@@ -22,7 +22,7 @@ public class BugCircleController : BugController
             energyCurrent = 0;
             SetCircleHurt();
         }
-        if(startCircle){
+        if(startCircle && !Global.isSlowDown){
             countTime += Time.deltaTime;
         }
         if(countTime >= circleTime){

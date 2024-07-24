@@ -28,9 +28,11 @@ public class EnemyPoolController : MonoBehaviour
     bool triggered = false;
     public LevelDataExcelSO levelData;
     Level level;
+    public LightningController lightning;
+    int levelIdCurrent;
     public void SetLevel(int levelId) {
         level = levelData.GetLevelDataById(levelId);
-        
+        levelIdCurrent = levelId;
         level2Count = enemyGroup.GetCountById(levelId,1);
         level3Count = enemyGroup.GetCountById(levelId,2);
         level4Count = enemyGroup.GetCountById(levelId,3);
@@ -38,6 +40,8 @@ public class EnemyPoolController : MonoBehaviour
         level6Count = enemyGroup.GetCountById(levelId,5);
         level7Count = enemyGroup.GetCountById(levelId,6);
         level8Count = enemyGroup.GetCountById(levelId,7);
+
+        enemyInitTime =  lightning.lightningTimeOriginal* 2/(enemyGroup.GetHardLevelById(levelId)+1);//生成频率成长公式 =  2N/（HardLevel+1）（基础雷劫频率）
     }
     // public void SetEnemyArray(){
     //     for(int i = 0; i < level.levelEnemy.Count(); i++) {
@@ -64,7 +68,7 @@ public class EnemyPoolController : MonoBehaviour
     private void Start() {
     }
     private void Update() {
-        if(canCount)
+        if(canCount && !Global.isSlowDown)
             enemyTimeCount += Time.deltaTime;
         if(enemyTimeCount >= enemyInitTime && !Global.isChangeLevel){
             CheckLevel();
@@ -110,6 +114,11 @@ public class EnemyPoolController : MonoBehaviour
         }
     }
 
+    void SetEnemytState(EnemyController enemy){
+        enemy.HP = enemy.HP * (1 + 0.5f * enemyGroup.GetHardLevelById(levelIdCurrent));
+        enemy.attack = enemy.attack * (1 + 0.5f * enemyGroup.GetHardLevelById(levelIdCurrent));
+    }
+
     //初始化关卡怪物每10s生成1组怪
     public void SetEnemyArray(){
         canCount = true;
@@ -131,6 +140,7 @@ public class EnemyPoolController : MonoBehaviour
             enemyNew.transform.position = transform.position;
             EnemyController enemy = enemyNew.GetComponent<EnemyController>();
             enemy.startPos = level1Count-1;
+            SetEnemytState(enemy);
         }
     }
     void SetLevel2Once(){
@@ -142,6 +152,7 @@ public class EnemyPoolController : MonoBehaviour
             enemyNew.transform.position = transform.position;
             EnemyController enemy = enemyNew.GetComponent<EnemyController>();
             enemy.startPos = level1Count-1;
+            SetEnemytState(enemy);
         }
     }
     void SetLevel3Once(){
@@ -153,6 +164,7 @@ public class EnemyPoolController : MonoBehaviour
             enemyNew.transform.position = transform.position;
             EnemyController enemy = enemyNew.GetComponent<EnemyController>();
             enemy.startPos = level1Count-1;
+            SetEnemytState(enemy);
         }
     }
     void SetLevel4Once(){
@@ -164,6 +176,7 @@ public class EnemyPoolController : MonoBehaviour
             enemyNew.transform.position = transform.position;
             EnemyController enemy = enemyNew.GetComponent<EnemyController>();
             enemy.startPos = level1Count-1;
+            SetEnemytState(enemy);
         }
     }
     void SetLevel5Once(){
@@ -175,6 +188,7 @@ public class EnemyPoolController : MonoBehaviour
             enemyNew.transform.position = transform.position;
             EnemyController enemy = enemyNew.GetComponent<EnemyController>();
             enemy.startPos = level1Count-1;
+            SetEnemytState(enemy);
         }
     }
     void SetLevel6Once(){
@@ -186,6 +200,7 @@ public class EnemyPoolController : MonoBehaviour
             enemyNew.transform.position = transform.position;
             EnemyController enemy = enemyNew.GetComponent<EnemyController>();
             enemy.startPos = level1Count-1;
+            SetEnemytState(enemy);
         }
     }
     void SetLevel7Once(){
@@ -197,6 +212,7 @@ public class EnemyPoolController : MonoBehaviour
             enemyNew.transform.position = transform.position;
             EnemyController enemy = enemyNew.GetComponent<EnemyController>();
             enemy.startPos = level1Count-1;
+            SetEnemytState(enemy);
         }
     }
     void SetLevel8Once(){
@@ -208,6 +224,7 @@ public class EnemyPoolController : MonoBehaviour
             enemyNew.transform.position = transform.position;
             EnemyController enemy = enemyNew.GetComponent<EnemyController>();
             enemy.startPos = level1Count-1;
+            SetEnemytState(enemy);
         }
     }
     //设置奖励组怪物

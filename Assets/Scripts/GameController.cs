@@ -133,7 +133,8 @@ public class GameController : MonoBehaviour
         }
         if(level.levelType == LevelType.Normal){
             if(isReward){
-                timeCur += Time.deltaTime;
+                if(!Global.isSlowDown)
+                    timeCur += Time.deltaTime;
                 rewardTime = level.rewardTime;
                 if(timeCur >= rewardTime && !Global.isSlowDown && !endLevelPanel.activeInHierarchy){
                     //奖励关卡结束下一关
@@ -141,7 +142,8 @@ public class GameController : MonoBehaviour
                     NextLevel();
                 }
             }else{
-                timeCur += Time.deltaTime;
+                if(!Global.isSlowDown)
+                    timeCur += Time.deltaTime;
                 if(timeCur >= levelTime){
                     if(rewardTime > 0){
                         Global.isReward = true;
@@ -276,6 +278,7 @@ public class GameController : MonoBehaviour
         gameSave.data.protectSpeed = player.protectSpeed;
 
         gameSave.data.lightningTime = lightning.lightningTime;
+        gameSave.data.lightningTimeOriginal = lightning.lightningTimeOriginal;
         gameSave.data.lightningCount = lightning.lightningCount;
         gameSave.data.lightningHurt = lightning.lightningHurt;
 
@@ -303,6 +306,7 @@ public class GameController : MonoBehaviour
             player.protectSpeed = gameSave.data.protectSpeed;
 
             lightning.lightningTime = gameSave.data.lightningTime;
+            lightning.lightningTimeOriginal = gameSave.data.lightningTimeOriginal;
             lightning.lightningCount = gameSave.data.lightningCount;
             lightning.lightningHurt = gameSave.data.lightningHurt;
 

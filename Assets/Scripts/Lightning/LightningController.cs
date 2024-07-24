@@ -6,6 +6,7 @@ public class LightningController : MonoBehaviour
 {
     [Header("雷电频率")]
     public float lightningTime = 3f;
+    public float lightningTimeOriginal = 3f;
     [Header("雷电预告时长")]
     public float lightningPreTime = 3f;
     [Header("雷电点数")]
@@ -49,6 +50,8 @@ public class LightningController : MonoBehaviour
         uiController.SetLightningCountText(Mathf.Round(lightningCount * 10) /10);
         uiController.SetLightningHurtText(lightningHurt);
         uiController.SetLightningSpeedText(lightningTime);
+
+        lightningTimeOriginal = lightningTime;
     }
 
     // Update is called once per frame

@@ -14,7 +14,7 @@ public class PaperProtect : PaperModel
         InvokeRepeating("ProtectRecover",5,5);
     }
     private void Update() {
-        if(isOverLoad){
+        if(isOverLoad && !Global.isSlowDown){
             countTime += Time.deltaTime;
         }
         if(countTime>=overTime && isOverLoad){

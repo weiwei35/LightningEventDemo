@@ -29,7 +29,7 @@ public class BugFollowController : BugController
         if(trueStart){
             SetBugsFollow();
         }
-        if(startFollow){
+        if(startFollow && !Global.isSlowDown){
             countTime += Time.deltaTime;
         }
         if(countTime >= followTime){

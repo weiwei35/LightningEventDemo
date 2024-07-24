@@ -25,7 +25,8 @@ public class BugWallCollider : MonoBehaviour
     float countTime = 0;
     public float wallTime = 5;
     private void Update() {
-        countTime += Time.deltaTime;
+        if(!Global.isSlowDown)
+            countTime += Time.deltaTime;
         if(countTime > wallTime)
             Destroy(gameObject);
     }
