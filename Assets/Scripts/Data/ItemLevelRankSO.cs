@@ -4,37 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ItemLevelRankSO", menuName = "LightningEvent/ItemLevelRankSO", order = 0)]
 public class ItemLevelRankSO : ScriptableObject {
     public List<ItemLevelRank> itemLevelRanks = new List<ItemLevelRank>();
-    public float GetItem1RankByLevel(int id){
+    public int GetItemSpecType(int id, int type){
         foreach (var item in itemLevelRanks)
         {
-            if(item.levelId == id){
-                return item.item1Rank / (item.item1Rank+item.item2Rank+item.item3Rank);
-            }
-        }
-        return -1;
-    }
-    public float GetItem2RankByLevel(int id){
-        foreach (var item in itemLevelRanks)
-        {
-            if(item.levelId == id){
-                return item.item2Rank / (item.item1Rank+item.item2Rank+item.item3Rank);
-            }
-        }
-        return -1;
-    }
-    public float GetItem3RankByLevel(int id){
-        foreach (var item in itemLevelRanks)
-        {
-            if(item.levelId == id){
-                return item.item3Rank / (item.item1Rank+item.item2Rank+item.item3Rank);
-            }
-        }
-        return -1;
-    }
-    public int GetItemSpecType(int id){
-        foreach (var item in itemLevelRanks)
-        {
-            if(item.levelId == id){
+            if(item.levelId == id && item.levelType == type){
                 int random;
                 do
                 {
@@ -51,10 +24,10 @@ public class ItemLevelRankSO : ScriptableObject {
         }
         return 0;
     }
-    public int GetPieceType(int id){
+    public int GetPieceType(int id, int type){
         foreach (var item in itemLevelRanks)
         {
-            if(item.levelId == id){
+            if(item.levelId == id && item.levelType == type){
                 int random;
                 do
                 {
@@ -71,10 +44,10 @@ public class ItemLevelRankSO : ScriptableObject {
         }
         return 0;
     }
-    public int GetTreasureType(int id){
+    public int GetTreasureType(int id, int type){
         foreach (var item in itemLevelRanks)
         {
-            if(item.levelId == id){
+            if(item.levelId == id && item.levelType == type){
                 int random;
                 do
                 {
@@ -94,6 +67,7 @@ public class ItemLevelRankSO : ScriptableObject {
 [System.Serializable]
 public class ItemLevelRank{
     public int levelId;
+    public int levelType;
     public float item1Rank;
     public float item2Rank;
     public float item3Rank;

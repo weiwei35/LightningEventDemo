@@ -4352,7 +4352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInitTime: 5
   enemyGroup: {fileID: 11400000, guid: 342b58862cf5e2445be998117478092a, type: 2}
-  levelData: {fileID: 11400000, guid: 7fa45c4da36254745815f67e0d6982e1, type: 2}
+  levelData: {fileID: 11400000, guid: afa8f323d9aa29542b4b363b92c8a7cc, type: 2}
   center: {fileID: 2121480821}
 --- !u!1 &410087039
 GameObject:
@@ -6370,7 +6370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expLevelData: {fileID: 11400000, guid: daf9beaf2b4cbaa4fa3bd4e548038f68, type: 2}
   enemyPool: {fileID: 388531766}
-  levelData: {fileID: 11400000, guid: 7fa45c4da36254745815f67e0d6982e1, type: 2}
+  levelData: {fileID: 11400000, guid: afa8f323d9aa29542b4b363b92c8a7cc, type: 2}
   level:
     levelId: 0
     levelTime: 0
@@ -13790,6 +13790,8 @@ MonoBehaviour:
   effect: {fileID: 1509297892}
   coldSlider: {fileID: 1243478010}
   rushing: 0
+  heroId: 0
+  skill_rush: 0
   finalPanel: {fileID: 1664561317}
   speedToLSpeed: 0
   speedToLCount: 0

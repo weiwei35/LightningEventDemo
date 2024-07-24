@@ -192,6 +192,13 @@ public class GameController : MonoBehaviour
                 paper.DestroyChild();
             }
         }
+        GameObject[] playerOnceCopy = GameObject.FindGameObjectsWithTag("PlayerOnceCopy");
+        if(playerOnceCopy.Length > 0){
+            foreach (var item in playerOnceCopy)
+            {
+                Destroy(item);
+            }
+        }
         startCheckingEnemy = true;
     }
     IEnumerator SetNextLevel(){

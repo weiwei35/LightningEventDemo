@@ -33,16 +33,22 @@ public class SelectItemUI : MonoBehaviour
             }else{
                 List<int> specType = new List<int>();
                 List<int> detailType = new List<int>();
+                int type = 0;
+                if(Global.isChangeLevel){
+                    type = 2;
+                }else{
+                    type = 1;
+                }
 
                 for (int i = 0; i < 3; i++)
                 {
-                    int spec = itemLevelRank.GetItemSpecType(gameController.levelId);
+                    int spec = itemLevelRank.GetItemSpecType(gameController.levelId,type);
                     specType.Add(spec);
                     if(spec == 3){
-                        int detail = itemLevelRank.GetTreasureType(gameController.levelId);
+                        int detail = itemLevelRank.GetTreasureType(gameController.levelId,type);
                         detailType.Add(detail);
                     }else if(spec == 1){
-                        int detail = itemLevelRank.GetPieceType(gameController.levelId);
+                        int detail = itemLevelRank.GetPieceType(gameController.levelId,type);
                         detailType.Add(detail);
                     }
                 }

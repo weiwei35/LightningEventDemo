@@ -173,6 +173,8 @@ public class EnemyController : MonoBehaviour
                 tweener.Kill();
             }
             isHitting = true;
+            if(type == HurtType.Lightning && player.isLightningBoom)
+                SetBoom();
             if(hurt >= HP){
                 text.text = hurt.ToString();
                 hurtUI.SetTrigger("hurt");
@@ -185,8 +187,7 @@ public class EnemyController : MonoBehaviour
                 hurtUI.SetTrigger("hurt");
                 HP -= hurt;
                 // text.text = HP.ToString();
-                if(type == HurtType.Lightning && player.isLightningBoom)
-                    SetBoom();
+                
                 if(player.isDebuffDizzy){
                     int random = Random.Range(1,11);
                     if(random > 5){
