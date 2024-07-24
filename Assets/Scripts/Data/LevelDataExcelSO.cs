@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LevelDataExcelSO", menuName = "LightningDemo/LevelDataExcel", order = 0)]
+[CreateAssetMenu(fileName = "LevelDataExcelSO", menuName = "LightningEvent/LevelDataExcel", order = 0)]
 public class LevelDataExcelSO : ScriptableObject {
     public List<Level> levels = new List<Level>();
     public Level GetLevelDataById(int id) {

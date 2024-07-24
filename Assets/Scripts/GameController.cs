@@ -261,6 +261,7 @@ public class GameController : MonoBehaviour
         gameSave.data.levelId = levelId;
         gameSave.data.isEndLevel = false;
 
+        gameSave.data.heroId = player.heroId;
         gameSave.data.speed = player.moveSpeed;
         gameSave.data.HP = player.HP;
         gameSave.data.protect = player.protect;
@@ -287,6 +288,7 @@ public class GameController : MonoBehaviour
             levelId = gameSave.data.levelId;
             Global.isEndLevel = gameSave.data.isEndLevel;
 
+            player.heroId = gameSave.data.heroId;
             player.moveSpeed = gameSave.data.speed;
             player.HP = gameSave.data.HP;
             player.protect = gameSave.data.protect;

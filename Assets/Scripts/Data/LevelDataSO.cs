@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LevelDataSO", menuName = "LightningDemo/LevelData", order = 0)]
+[CreateAssetMenu(fileName = "LevelDataSO", menuName = "LightningEvent/LevelData", order = 0)]
 public class LevelDataSO : ScriptableObject {
     public List<LevelItem> levels = new List<LevelItem>();
     public LevelItem GetLevelDataById(int id) {

@@ -51,7 +51,7 @@ public class LineController : MonoBehaviour
     private void Update() {
         timeCount += Time.deltaTime;
         if(timeCount > lightning.lightningPreTime - 0.5f){
-            if(Input.GetKeyDown(KeyCode.Space) && !Global.isSlowDown && player.rushing){
+            if(Input.GetKeyDown(KeyCode.Space) && !Global.isSlowDown && player.rushing && player.skill_rush){
                 endPos1 = player.transform.position;
                 isRush = true;
             }

@@ -14,6 +14,7 @@ public class SceneController : MonoBehaviour
     public GameObject hideUI;
     public GameObject lightEvent;
     public AudioSource audioBgm;
+    public GameObject heroPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +27,21 @@ public class SceneController : MonoBehaviour
     {
         
     }
+    
 
     public void StartGame () {
+        StartCoroutine(ShowHeroPanel());
+        // StartCoroutine(SetScene());
+    }
+    IEnumerator ShowHeroPanel(){
+        fadeAnim.SetTrigger("fade");
+        lightEvent.SetActive(false);
+        yield return new WaitForSeconds(1);
+        hideUI.SetActive(false);
+        heroPanel.SetActive(true);
+        fadeAnim.SetTrigger("fade");
+    }
+    public void StartMainGame () {
         StartCoroutine(SetScene());
     }
     IEnumerator SetScene(){
@@ -59,7 +73,7 @@ public class SceneController : MonoBehaviour
 
     public void CountinueGame() {
         Global.continueGame = true;
-        StartGame();
+        StartMainGame();
     }
 
     public void ExitGame() {

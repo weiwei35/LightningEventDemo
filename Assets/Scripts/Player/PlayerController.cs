@@ -169,6 +169,8 @@ public class PlayerController : MonoBehaviour
     float rushTime = 0;
     bool canRush = true;
     public bool rushing = false;
+    public int heroId = 0;
+    public bool skill_rush = false;
     private void Start() {
         HPCurrent = HP;
         protectCurrent = protect;
@@ -188,6 +190,11 @@ public class PlayerController : MonoBehaviour
         startHP = HPCurrent;
         startProtect = protectCurrent;
         startSpeed = speed;
+
+        heroId = Global.heroId;
+        if(heroId == 1){
+            skill_rush = true;
+        }
     }
  
     // Update is called once per frame
@@ -452,7 +459,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Hurt (float hurt) {
-        if(!ishitting && !gameController.isReward && !isSuper){
+        if(!ishitting && !gameController.isReward && !isSuper && !Global.isChangeLevel){
             ishitting = true;
             float offsetHurt = 0;
             //优先伤害护甲

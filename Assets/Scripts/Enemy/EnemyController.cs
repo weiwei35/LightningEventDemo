@@ -332,7 +332,7 @@ public class EnemyController : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" && !isDead)
+        if(other.tag == "Player" && !isDead && !Global.isChangeLevel &&canHurt)
         {
             PlayerController player = other.GetComponent<PlayerController>();
             if(!player.isDead)

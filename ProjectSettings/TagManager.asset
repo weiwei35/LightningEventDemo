@@ -15,6 +15,7 @@ TagManager:
   - Center
   - TAZOFX
   - Lightning
+  - HeroPanel
   layers:
   - Default
   - TransparentFX

@@ -13,6 +13,7 @@ public static class Global{
     public static float exp = 0;
     public static int exp_level = 0;
     public static float exp_max = 0;
+    public static int heroId = 0;
     public static bool isSlowDown = false;
     public static bool isEndBoss = false;
     public static bool isReward = false;
@@ -30,6 +31,7 @@ public class SaveData
     public bool isEndLevel = false;
     public List<int> selectItemId = new List<int>();
     //角色
+    public int heroId = 0;
     public float speed = 5f;
     public float HP = 100f;
     public float protect = 100f;

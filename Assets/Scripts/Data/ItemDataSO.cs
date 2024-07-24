@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ItemDataSO", menuName = "LightningDemo/ItemData", order = 0)]
+[CreateAssetMenu(fileName = "ItemDataSO", menuName = "LightningEvent/ItemData", order = 0)]
 public class ItemDataSO : ScriptableObject {
     public List<SelectItem> items = new List<SelectItem>();
     public List<SelectItem> GetSelectItems(){
