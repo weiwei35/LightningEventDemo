@@ -16,6 +16,7 @@ TagManager:
   - TAZOFX
   - Lightning
   - HeroPanel
+  - CollectionPanel
   layers:
   - Default
   - TransparentFX

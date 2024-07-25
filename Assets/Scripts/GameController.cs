@@ -47,6 +47,9 @@ public class GameController : MonoBehaviour
         if(Global.continueGame){
             if(LoadData())
                 selectPanel.LoadItem();
+            if(levelId == 0){
+                levelId = 1;
+            }
         }
         bgChangeLevel.SetActive(false);
         level = levelData.GetLevelDataById(levelId);

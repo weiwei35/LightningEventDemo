@@ -57,6 +57,7 @@ public class SelectItemUI : MonoBehaviour
                 foreach (var item in items)
                 {
                     gameSave.data.selectItemId.Add(item.id);
+                    PlayerPrefs.SetInt(item.id.ToString(),1);
                 }
                 gameSave.Save();
             }
@@ -89,6 +90,7 @@ public class SelectItemUI : MonoBehaviour
             SwitchUI();
             SwitchLogic();
             gameSave.data.currentItemId.Add(saveItem.id);
+            PlayerPrefs.SetInt(saveItem.id.ToString(),2);
             return true;
         }else{
             return false;
