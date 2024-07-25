@@ -196,12 +196,16 @@ public class PlayerController : MonoBehaviour
             skill_rush = true;
         }
     }
- 
+    public DynamicJoystick dynamicJoystick;
     // Update is called once per frame
     private void FixedUpdate() {
         // Get input from the horizontal and vertical axes
         moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
+        
+        //判断如果没有输入再获取摇杆的值
+        moveX = moveX == 0 ? dynamicJoystick.Horizontal : moveX;
+        moveY = moveY == 0 ? dynamicJoystick.Vertical : moveY;
 
         // 根据玩家的输入设置角色的初速度
         Vector2 velocity = new Vector2(moveX, moveY);
@@ -216,6 +220,8 @@ public class PlayerController : MonoBehaviour
             sprite.flipX = false;
             follow.transform.position = follow_right.transform.position;
         }
+
+        
     }
     void RushMove(){
         canRush = false;
@@ -890,6 +896,5 @@ public class PlayerController : MonoBehaviour
     public void SetMoveRandom() {
         isMoveRandom = !isMoveRandom;
     }
-
 
 }

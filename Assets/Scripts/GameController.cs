@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour
     public GameObject centerPos;
     // Start is called before the first frame update
     private void Awake() {
+        Application.targetFrameRate = 60;
         DOTween.SetTweensCapacity(800,200);
         selectPanel = endLevelPanel.GetComponent<SelectItemUI>();
         Global.exp = 0;
