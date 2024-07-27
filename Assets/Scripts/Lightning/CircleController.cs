@@ -116,6 +116,17 @@ public class CircleController : MonoBehaviour
         if(isSideBack){
             ResetWidth(saveAngle+270);
         }
+
+        if(lightning.isEndLight){
+            canFind = false;
+            foreach (var item in lightPrefab)
+            {
+                Destroy(item);
+            }
+        }
+        if(canFind){
+            GetScreenSlid(lightPrefab);
+        }
     }
 
     //画结界
@@ -143,6 +154,7 @@ public class CircleController : MonoBehaviour
 
     }
 
+    //设置结界边缘穿越效果
     public void SetWidth(float angle) {
         AnimationCurve curve = new AnimationCurve();
         
@@ -152,6 +164,7 @@ public class CircleController : MonoBehaviour
         l.widthCurve = curve;
         l.widthMultiplier = 0.1f;
     }
+    //设置结界边缘穿越效果
     public void ResetWidth(float angle) {
         AnimationCurve curve = new AnimationCurve();
         curve.AddKey((angle-10)/360f, 1f);
@@ -240,8 +253,15 @@ public class CircleController : MonoBehaviour
             SetConnectLines(lightning.startTime,lightning.keepTime,pointsConnect);
         }
         SetLines(lightning.startTime,lightning.keepTime,points);
-        // GetCamLight();
+        lightPrefab.Clear();
+        foreach (var item in points)
+        {
+            lightPrefab.Add(Instantiate(startPoint));
+            canFind = true;
+        }
+        GetScreenSlid(lightPrefab);
     }
+    //关底自动雷电生成雷点
     public void CirclePoints () {
         points.Clear();
         pointsConnect.Clear();
@@ -257,7 +277,7 @@ public class CircleController : MonoBehaviour
         SetCircleLines(lightning.startTime,lightning.keepTime,points);
         // GetCamLight();
     }
-        //在圆上取count个数的随机点
+    //在圆上取count个数的随机点
     public void RandomPointsMirror (float count) {
         List<Vector3> pointsMirror = new List<Vector3>();
         pointsMirror.Clear();
@@ -497,5 +517,88 @@ public class CircleController : MonoBehaviour
         lineControllerEnd.follow = player.transform.position;
         lineControllerEnd.isLastLine = true;
         lineConnects.Add(lineCurEnd.gameObject);
+    }
+
+    //获取屏幕边缘
+    bool canFind = false;
+    List<GameObject> lightPrefab = new List<GameObject>();
+    void GetScreenSlid(List<GameObject> light){
+        // 获取屏幕中心点
+        Camera mainCamera = Camera.main;
+        float screenWidth = Screen.width;
+        float screenHeight = Screen.height;
+        Vector3 screenCenter = new Vector3(screenWidth * 0.5f, screenHeight * 0.5f,0);
+        Vector3 worldCenter = mainCamera.ScreenToWorldPoint(screenCenter);
+
+        //获取屏幕 4个顶点
+        float cameraHeight = mainCamera.orthographicSize; // 如果是正交摄像机，获取宽度
+        float cameraWidth = cameraHeight * mainCamera.aspect; // 获取高度，考虑屏幕比率
+        float maxX = worldCenter.x + cameraWidth - 0.5f;
+        float minX = worldCenter.x - cameraWidth + 0.5f;
+        float maxY = worldCenter.y + cameraHeight;
+        float minY = worldCenter.y - cameraHeight + 1;
+
+        Vector2 rectTopLeft = new Vector2(minX,maxY);
+        Vector2 rectBottomRight = new Vector2(maxX,minY);
+        Vector2 rectBottonLeft = new Vector2(minX,minY);
+        Vector2 rectTopRight = new Vector2(maxX,maxY);
+        //对角线夹角
+        float angle = Vector2.Angle(rectTopLeft - rectBottomRight,rectBottonLeft - rectBottomRight);
+        int i = 0;
+        foreach (var lightPos in points)
+        {
+            //角色与雷点夹角
+            float anglePlayer = Vector2.Angle(lightPos - player.transform.position,Vector2.right);
+
+            // GameObject light = Instantiate(startPoint);
+            if(lightPos.x>maxX || lightPos.x<minX || lightPos.y>maxY || lightPos.y<minY)
+            {
+                {
+                    if(0<anglePlayer && anglePlayer<angle){
+                        //与右边相交
+                        Vector2 point = SegmentsInterPoint(lightPos,player.transform.position,rectBottomRight,rectTopRight);
+                        light[i].SetActive(true);
+                        light[i].transform.position = point;
+                    }
+                    if(180-angle<anglePlayer && anglePlayer<180){
+                        //与左边相交
+                        Vector2 point = SegmentsInterPoint(lightPos,player.transform.position,rectBottonLeft,rectTopLeft);
+                        light[i].SetActive(true);
+                        light[i].transform.position = point;
+                    }
+                    if(angle<anglePlayer && anglePlayer<180-angle){
+                        if(player.transform.position.y > lightPos.y){
+                            //与下边相交
+                            Vector2 point = SegmentsInterPoint(lightPos,player.transform.position,rectBottomRight,rectBottonLeft);
+                            light[i].SetActive(true);
+                            light[i].transform.position = point;
+                        }
+                        if(player.transform.position.y < lightPos.y){
+                            //与上边相交
+                            Vector2 point = SegmentsInterPoint(lightPos,player.transform.position,rectTopLeft,rectTopRight);
+                            light[i].SetActive(true);
+                            light[i].transform.position = point;
+                        }
+                    }
+                }
+            }else{
+                light[i].SetActive(false);
+            }
+            i++;
+        }
+        
+    }
+    public static Vector2 SegmentsInterPoint(Vector2 a, Vector2 b, Vector2 c, Vector2 d)
+    {
+        //计算交点坐标  
+        float t = Cross(a -c, d -c) / Cross (d-c,b-a);
+        float dx = t * (b.x - a.x);
+        float dy = t * (b.y - a.y);
+
+        return new Vector2() { x = a.x + dx, y = a.y + dy };
+    }
+    public static float Cross(Vector2 a, Vector2 b)
+    {
+        return a.x * b.y - b.x * a.y;
     }
 }

@@ -239,10 +239,7 @@ public class EnemyPoolController : MonoBehaviour
     }
     public GameObject center;
     List<GameObject> enemyArray = new List<GameObject>();
-    int i = 0;
     public void DestroyAllEnemy() {
-        i=0;
-        
         foreach (Transform item in transform)
         {
             // Destroy(item.gameObject);
