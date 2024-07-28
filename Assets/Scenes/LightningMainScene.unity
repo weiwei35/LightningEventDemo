@@ -2783,7 +2783,7 @@ Light:
     serializedVersion: 2
     m_Bits: 16311
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -4832,7 +4832,7 @@ Light:
     serializedVersion: 2
     m_Bits: 16311
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -8203,7 +8203,7 @@ Light:
     serializedVersion: 2
     m_Bits: 16311
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -9658,7 +9658,7 @@ Light:
     serializedVersion: 2
     m_Bits: 16311
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -10282,6 +10282,7 @@ RectTransform:
   m_LocalScale: {x: 1.03, y: 1.03, z: 1.03}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 1585149295}
   - {fileID: 1014095053}
   - {fileID: 96173481}
   - {fileID: 206706757}
@@ -13436,7 +13437,7 @@ Light:
     serializedVersion: 2
     m_Bits: 16311
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -16464,7 +16465,7 @@ Light:
     serializedVersion: 2
     m_Bits: 16311
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -17167,7 +17168,7 @@ Light:
     serializedVersion: 2
     m_Bits: 64
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -17300,7 +17301,7 @@ Light:
     serializedVersion: 2
     m_Bits: 16311
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -18594,7 +18595,7 @@ Light:
     serializedVersion: 2
     m_Bits: 16311
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -18957,7 +18958,7 @@ Light:
     serializedVersion: 2
     m_Bits: 16375
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -19240,7 +19241,7 @@ Light:
     serializedVersion: 2
     m_Bits: 16311
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -19266,7 +19267,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1585149295
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19274,20 +19275,20 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1585149294}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9708739, y: 0.9708739, z: 0.9708739}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 276700241}
   - {fileID: 708702946}
   - {fileID: 1306234243}
-  m_Father: {fileID: 1940039262}
+  m_Father: {fileID: 919293761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 30}
-  m_SizeDelta: {x: 100, y: -59.9999}
+  m_AnchoredPosition: {x: -456.25, y: 29.126236}
+  m_SizeDelta: {x: 100, y: 140.00012}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &1596531090
 GameObject:
@@ -22524,13 +22525,12 @@ RectTransform:
   - {fileID: 218735005}
   - {fileID: 1243478008}
   - {fileID: 1233614454}
-  - {fileID: 1585149295}
   - {fileID: 1656540412}
   - {fileID: 1005995716}
   - {fileID: 456494472}
-  - {fileID: 257278662}
   - {fileID: 1570695656}
   - {fileID: 148601856}
+  - {fileID: 257278662}
   - {fileID: 1228421448}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

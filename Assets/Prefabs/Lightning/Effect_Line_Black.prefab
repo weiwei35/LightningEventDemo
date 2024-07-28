@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 2054700712137755922}
   - component: {fileID: 1184230327770745514}
   m_Layer: 0
-  m_Name: Effect_Line
+  m_Name: Effect_Line_Black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -137,8 +137,8 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 34f04c52c089b3d48b360d64ce5c2dab, type: 2}
-  - {fileID: 2100000, guid: 149d7ef48b427384f8a7eca55538de3b, type: 2}
+  - {fileID: 2100000, guid: 305d2483c827c01408e39cdecf281c5b, type: 2}
+  - {fileID: 2100000, guid: 5de730196d2c65843ac955074c34e7a6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -211,7 +211,7 @@ MonoBehaviour:
   timeCount: 0
   lineCollider: {fileID: 1882638087667443515, guid: 30a19c8f99dc59a4aae12be74c7fd4d1,
     type: 3}
-  lightningAsset: {fileID: 2054700712137755922, guid: a1d3a3913e0d99c48a2672aecea7283c,
+  lightningAsset: {fileID: 2054700712137755922, guid: 4e3325366082c6f498d65f541dc4e528,
     type: 3}
   isRush: 0
   lineRush: {fileID: 4832612257934242252, guid: 18a309795884ba1479a1948d91fb3b7b,

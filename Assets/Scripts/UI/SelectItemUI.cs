@@ -77,7 +77,11 @@ public class SelectItemUI : MonoBehaviour
             selectItem.transform.localPosition = Vector3.zero;
             ItemController item = selectItem.GetComponent<ItemController>();
             item.SetItemInfo(items[i]);
-            saveItem = items[i];
+            if(items.Count == 1){
+                saveItem = items[0];
+            }else{
+                saveItem = null;
+            }
         }
     }
     public void SaveChooseItem(SelectItem item){

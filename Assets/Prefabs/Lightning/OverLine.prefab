@@ -201,7 +201,7 @@ MonoBehaviour:
   showTime: 0
   startTime: 0.1
   keepTime: 0.1
-  lightningAsset: {fileID: 2054700712137755922, guid: fa5f36cecb2e4104e8aa1dffc0ac911c,
+  lightningAsset: {fileID: 2054700712137755922, guid: 4e3325366082c6f498d65f541dc4e528,
     type: 3}
 --- !u!1 &6243194527875724978
 GameObject:
