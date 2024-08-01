@@ -17,6 +17,7 @@ TagManager:
   - Lightning
   - HeroPanel
   - CollectionPanel
+  - ScreenWave
   layers:
   - Default
   - TransparentFX
@@ -56,4 +57,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: ScreenWave
+    uniqueID: 4019998049
     locked: 0

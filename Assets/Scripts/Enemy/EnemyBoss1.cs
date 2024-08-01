@@ -23,9 +23,9 @@ public class EnemyBoss1 : EnemyController
     Tweener tweenWhite;
     Tweener tweenBlack;
     EnemyPoolController enemyPool;
-    bool secondSection;
+    bool secondSection = true;
 
-
+    ScreenWaveController screenWave;
 
     // Start is called before the first frame update
     public override void Start()
@@ -35,6 +35,7 @@ public class EnemyBoss1 : EnemyController
         whiteRotate = white.transform.rotation;
         blackRotate = black.transform.rotation;
         enemyPool = transform.parent.GetComponent<EnemyPoolController>();
+        screenWave = GameObject.FindWithTag("ScreenWave").GetComponent<ScreenWaveController>();
     }
 
     // Update is called once per frame
@@ -65,6 +66,8 @@ public class EnemyBoss1 : EnemyController
         if(rushTimeCount >= rushTime && !isRush && !isBig && !isFreeze && !Global.isSlowDown){
             isRush = true;
             RushToPlayer();
+            
+            screenWave.SetWave();
         }
         if(isBig){
             if(Vector3.Distance(transform.position,target.transform.position)<=12){
@@ -273,6 +276,7 @@ public class EnemyBoss1 : EnemyController
         bigCollider.SetActive(false);
         if(ballCount == 3){
             bigBoom.SetActive(true);
+            screenWave.SetWave();
             bigBoom.transform.DOScale(24,0.5f).OnComplete( ()=>
             {
                 bigBoom.SetActive(false);

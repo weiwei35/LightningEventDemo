@@ -180,6 +180,13 @@ public class GameController : MonoBehaviour
                 StartCoroutine(SetNextLevel());
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            Time.timeScale = 1;
+            bgChangeLevel.SetActive(true);
+            levelImg.gameObject.SetActive(false);
+            SceneManager.LoadSceneAsync("UIScene");
+        }
     }
 
     public void NextLevel() {

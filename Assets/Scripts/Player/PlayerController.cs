@@ -115,6 +115,7 @@ public class PlayerController : MonoBehaviour
     [Header("Debuff·减速")]
     public bool isDebuffSlow = false;
     public GameObject moveSlow;
+    public GameObject moveSlowEffect;
     [Header("Debuff·冰冻")]
     public bool isDebuffFreeze = false;
     public GameObject freezeBoom;
@@ -221,8 +222,31 @@ public class PlayerController : MonoBehaviour
             follow.transform.position = follow_right.transform.position;
         }
 
-        
+        if(moveX != 0 || moveY != 0){
+            particle1.Play();
+        }else{
+            particle1.Stop();
+        }
+        if(isDebuffSlow && Global.isSlowDown){
+            ParticleSystem.MainModule mainModule1 = particle1.main;
+            mainModule1.simulationSpeed = 1/20;
+            ParticleSystem.MainModule mainModule2 = particle2.main;
+            mainModule2.simulationSpeed = 1/20;
+            ParticleSystem.MainModule mainModule3 = particle3.main;
+            mainModule3.simulationSpeed = 1/20;
+        }else{
+            ParticleSystem.MainModule mainModule1 = particle1.main;
+            mainModule1.simulationSpeed = 1;
+            ParticleSystem.MainModule mainModule2 = particle2.main;
+            mainModule2.simulationSpeed = 1;
+            ParticleSystem.MainModule mainModule3 = particle3.main;
+            mainModule3.simulationSpeed = 1;
+        }
     }
+    public ParticleSystem particle1;
+    public ParticleSystem particle2;
+    public ParticleSystem particle3;
+
     void RushMove(){
         canRush = false;
         rushTime = 0;
