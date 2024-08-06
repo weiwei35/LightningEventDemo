@@ -220,6 +220,8 @@ public class GameController : MonoBehaviour
         SetLevelItem();
         levelId ++;
         bgChangeLevel.SetActive(true);
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
         levelImg.gameObject.SetActive(true);
         levelImg.sprite = levelSprite[levelId-1];
         player.transform.position = centerPos.transform.position;

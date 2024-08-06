@@ -54,6 +54,8 @@ public class MirrorLineController : MonoBehaviour
     }
     public void DrawLinePoints() {
         // canMove = false;
+        
+        lightning.PlayAudio(6);
         lightningEffect = Instantiate(lightningAsset);
         lightningEffect.transform.parent = transform;
         lightningEffect.pos1.transform.position = start.transform.position;

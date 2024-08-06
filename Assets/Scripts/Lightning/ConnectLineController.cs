@@ -43,6 +43,7 @@ public class ConnectLineController : MonoBehaviour
     private void Update() {
         timeCount += Time.deltaTime;
         if(timeCount > lightning.lightningPreTime){
+            lightning.PlayAudio(1);
             Global.isSlowDown = true;
 
             timeCount = 0;

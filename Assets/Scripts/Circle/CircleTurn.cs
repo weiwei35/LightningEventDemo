@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CircleTurn : MonoBehaviour
 {
+    public CirclePanelController circlePanel;
     public float speed = 20;
     public bool isClockwise = false;
     // Start is called before the first frame update
@@ -22,5 +23,6 @@ public class CircleTurn : MonoBehaviour
         {
             transform.Rotate(0, 0, rotationThisFrame);
         }
+        
     }
 }

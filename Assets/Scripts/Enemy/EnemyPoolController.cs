@@ -66,6 +66,7 @@ public class EnemyPoolController : MonoBehaviour
     //     }
     // }
     private void Start() {
+        audioSource = GetComponent<AudioSource>();
     }
     private void Update() {
         if(canCount && !Global.isSlowDown)
@@ -130,10 +131,18 @@ public class EnemyPoolController : MonoBehaviour
             enemyNew.transform.position = transform.position;
         }
     }
+    public CirclePanelController circlePanel;
     void SetLevel1Once(){
         level1Count ++;
         triggered = false;
-        for (int i = 0; i < level.enemyLevel1Group.count; i++)
+        int enemyCount = level.enemyLevel1Group.count;
+        if(circlePanel.inDoor_XIU){
+            enemyCount = enemyCount - 1;
+        }
+        if(circlePanel.inDoor_JING_Bad){
+            enemyCount = enemyCount + 1;
+        }
+        for (int i = 0; i < enemyCount; i++)
         {
             var enemyNew = Instantiate(level.enemyLevel1Group.type);
             enemyNew.transform.parent = transform;
@@ -145,7 +154,14 @@ public class EnemyPoolController : MonoBehaviour
     }
     void SetLevel2Once(){
         triggered = true;
-        for (int i = 0; i < level.enemyLevel2Group.count; i++)
+        int enemyCount = level.enemyLevel2Group.count;
+        if(circlePanel.inDoor_XIU){
+            enemyCount = enemyCount - 1;
+        }
+        if(circlePanel.inDoor_JING_Bad){
+            enemyCount = enemyCount + 1;
+        }
+        for (int i = 0; i < enemyCount; i++)
         {
             var enemyNew = Instantiate(level.enemyLevel2Group.type);
             enemyNew.transform.parent = transform;
@@ -157,7 +173,14 @@ public class EnemyPoolController : MonoBehaviour
     }
     void SetLevel3Once(){
         triggered = true;
-        for (int i = 0; i < level.enemyLevel3Group.count; i++)
+        int enemyCount = level.enemyLevel3Group.count;
+        if(circlePanel.inDoor_XIU){
+            enemyCount = enemyCount - 1;
+        }
+        if(circlePanel.inDoor_JING_Bad){
+            enemyCount = enemyCount + 1;
+        }
+        for (int i = 0; i < enemyCount; i++)
         {
             var enemyNew = Instantiate(level.enemyLevel3Group.type);
             enemyNew.transform.parent = transform;
@@ -169,7 +192,14 @@ public class EnemyPoolController : MonoBehaviour
     }
     void SetLevel4Once(){
         triggered = true;
-        for (int i = 0; i < level.enemyLevel4Group.count; i++)
+        int enemyCount = level.enemyLevel4Group.count;
+        if(circlePanel.inDoor_XIU){
+            enemyCount = enemyCount - 1;
+        }
+        if(circlePanel.inDoor_JING_Bad){
+            enemyCount = enemyCount + 1;
+        }
+        for (int i = 0; i < enemyCount; i++)
         {
             var enemyNew = Instantiate(level.enemyLevel4Group.type);
             enemyNew.transform.parent = transform;
@@ -181,7 +211,14 @@ public class EnemyPoolController : MonoBehaviour
     }
     void SetLevel5Once(){
         triggered = true;
-        for (int i = 0; i < level.enemyLevel5Group.count; i++)
+        int enemyCount = level.enemyLevel5Group.count;
+        if(circlePanel.inDoor_XIU){
+            enemyCount = enemyCount - 1;
+        }
+        if(circlePanel.inDoor_JING_Bad){
+            enemyCount = enemyCount + 1;
+        }
+        for (int i = 0; i < enemyCount; i++)
         {
             var enemyNew = Instantiate(level.enemyLevel5Group.type);
             enemyNew.transform.parent = transform;
@@ -193,7 +230,14 @@ public class EnemyPoolController : MonoBehaviour
     }
     void SetLevel6Once(){
         triggered = true;
-        for (int i = 0; i < level.enemyLevel6Group.count; i++)
+        int enemyCount = level.enemyLevel6Group.count;
+        if(circlePanel.inDoor_XIU){
+            enemyCount = enemyCount - 1;
+        }
+        if(circlePanel.inDoor_JING_Bad){
+            enemyCount = enemyCount + 1;
+        }
+        for (int i = 0; i < enemyCount; i++)
         {
             var enemyNew = Instantiate(level.enemyLevel6Group.type);
             enemyNew.transform.parent = transform;
@@ -205,7 +249,14 @@ public class EnemyPoolController : MonoBehaviour
     }
     void SetLevel7Once(){
         triggered = true;
-        for (int i = 0; i < level.enemyLevel7Group.count; i++)
+        int enemyCount = level.enemyLevel7Group.count;
+        if(circlePanel.inDoor_XIU){
+            enemyCount = enemyCount - 1;
+        }
+        if(circlePanel.inDoor_JING_Bad){
+            enemyCount = enemyCount + 1;
+        }
+        for (int i = 0; i < enemyCount; i++)
         {
             var enemyNew = Instantiate(level.enemyLevel7Group.type);
             enemyNew.transform.parent = transform;
@@ -217,7 +268,14 @@ public class EnemyPoolController : MonoBehaviour
     }
     void SetLevel8Once(){
         triggered = true;
-        for (int i = 0; i < level.enemyLevel8Group.count; i++)
+        int enemyCount = level.enemyLevel8Group.count;
+        if(circlePanel.inDoor_XIU){
+            enemyCount = enemyCount - 1;
+        }
+        if(circlePanel.inDoor_JING_Bad){
+            enemyCount = enemyCount + 1;
+        }
+        for (int i = 0; i < enemyCount; i++)
         {
             var enemyNew = Instantiate(level.enemyLevel8Group.type);
             enemyNew.transform.parent = transform;
@@ -266,5 +324,11 @@ public class EnemyPoolController : MonoBehaviour
             i++;
         }
         return i;
+    }
+    
+    AudioSource audioSource;
+    public AudioClip[] audios;
+    public void PlayAudio(int index) {
+        audioSource.PlayOneShot(audios[index]);
     }
 }

@@ -21,6 +21,7 @@ public class SelectItemUI : MonoBehaviour
     void OnEnable() {
         Animation animation = GetComponent<Animation>();
         animation.Play("Pick3Show");
+        PlayAudio(2);
         // itemData = AssetDatabase.LoadAssetAtPath<ItemDataSO>("Assets/Resources/ItemData.asset");
         if(Global.exp_level > 0 || Global.exp > 0){
             if(Global.continueGame && gameSave.data.isEndLevel){
@@ -403,5 +404,11 @@ public class SelectItemUI : MonoBehaviour
             Transform child = select.GetChild(i); // 获取子物体的Transform
             Destroy(child.gameObject); // 打印子物体的名字
         }
+    }
+
+    public AudioSource audioSource;
+    public AudioClip[] audios;
+    public void PlayAudio(int index) {
+        audioSource.PlayOneShot(audios[index]);
     }
 }

@@ -73,6 +73,7 @@ public class OverLineController : MonoBehaviour
     }
 
     public void DrawLinePoints() {
+        lightning.PlayAudio(0);
         lightningEffect = Instantiate(lightningAsset);
         lightningEffect.transform.parent = transform;
         lightningEffect.pos1.transform.position = start.transform.position;

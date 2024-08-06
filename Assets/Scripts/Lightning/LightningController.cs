@@ -26,6 +26,8 @@ public class LightningController : MonoBehaviour
     public float lightningExp = 5f;
     [Header("UI")]
     public InfoUIController uiController;
+    [Header("奇门")]
+    public CirclePanelController circlePanel;
     float curTime = 0;
     //雷电结束
     public bool isEndLight = false;
@@ -86,6 +88,9 @@ public class LightningController : MonoBehaviour
             }else{
                 lightningCountCurrent = Mathf.Floor(lightningCount);
             }
+            if(circlePanel.inDoor_KAI){
+                lightningCountCurrent = lightningCountCurrent+1;
+            }
 
             if(player.isPaperConnect){
                 lightningCountCurrent = 1;
@@ -104,6 +109,7 @@ public class LightningController : MonoBehaviour
                 StartCoroutine(SetEndLight());
             }
         }
+        
     }
 
     public void HurtEnemy (EnemyController enemy,HurtType type) {
@@ -112,6 +118,9 @@ public class LightningController : MonoBehaviour
 
     IEnumerator EndLight(){
         isEndLight = false;
+        if(circlePanel.inDoor_SHENG){
+            player.OutsideRecoveryHP(1);
+        }
         if(!Global.isChangeLevel)
             Global.exp += lightningExp;
         if(player.isOnceLightningCopy)
@@ -142,6 +151,7 @@ public class LightningController : MonoBehaviour
         if(player.isMegaCopy){
             circle.RandomPointsCopy(lightningCountCurrent);
         }
+        
         yield return new WaitForSeconds(0.5f);
         endsetLight = false;
     }
@@ -162,5 +172,10 @@ public class LightningController : MonoBehaviour
 
     public void ConnectPaper() {
         lightningCount = 1;
+    }
+    public AudioSource audioSource;
+    public AudioClip[] audios;
+    public void PlayAudio(int index) {
+        audioSource.PlayOneShot(audios[index]);
     }
 }

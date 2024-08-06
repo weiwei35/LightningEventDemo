@@ -51,6 +51,7 @@ public class SceneController : MonoBehaviour
         DOTween.To(()=>audioBgm.volume, x =>audioBgm.volume = x,0,1);
         yield return new WaitForSeconds(1);
         hideUI.SetActive(false);
+        PlayAudio(2);
         AsyncOperation async = SceneManager.LoadSceneAsync("LightningMainScene");
         async.completed += UnloadScene;
     }
@@ -104,5 +105,10 @@ public class SceneController : MonoBehaviour
     public void ExitGame() {
         Time.timeScale = 0;
         Application.Quit();
+    }
+    public AudioSource audioSource;
+    public AudioClip[] audios;
+    public void PlayAudio(int index) {
+        audioSource.PlayOneShot(audios[index]);
     }
 }

@@ -38,16 +38,19 @@ public class LineController : MonoBehaviour
         lineB = GetComponent<LineRenderer>();
         lightning = FindObjectOfType<LightningController>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        playsound = false;
         StartCoroutine(SetStartPoint());
     }
     //依次出现雷点
     IEnumerator SetStartPoint(){
         yield return new WaitForSeconds(showTime);
+        lightning.PlayAudio(5);
         startPoint.gameObject.SetActive(true);
         var start = Instantiate(startPointEP);
         start.transform.position = transform.position;
         start.transform.parent = transform;
     }
+    bool playsound = false;
     private void Update() {
         timeCount += Time.deltaTime;
         if(timeCount > lightning.lightningPreTime - 0.5f){
@@ -59,9 +62,13 @@ public class LineController : MonoBehaviour
         if(timeCount > lightning.lightningPreTime - 0.1f){
             Global.isSlowDown = true;
         }
+        if(timeCount > lightning.lightningPreTime - 0.1f && !playsound){
+            playsound = true;
+            lightning.PlayAudio(7);
+        }
         if(timeCount > lightning.lightningPreTime){
             // Global.isSlowDown = true;
-
+            // lightning.PlayAudio(7);
             timeCount = 0;
             if(follow == null)
                 end.transform.position = start.transform.position;

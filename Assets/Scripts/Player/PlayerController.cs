@@ -11,6 +11,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("奇门")]
+    public CirclePanelController circlePanel;
     [Header("移动速度")]
     public float moveSpeed = 5f;
     float speed = 5f;
@@ -172,6 +174,10 @@ public class PlayerController : MonoBehaviour
     public bool rushing = false;
     public int heroId = 0;
     public bool skill_rush = false;
+
+    [Header("音效")]
+    public AudioClip[] audios;
+    AudioSource audioSource;
     private void Start() {
         HPCurrent = HP;
         protectCurrent = protect;
@@ -196,6 +202,8 @@ public class PlayerController : MonoBehaviour
         if(heroId == 1){
             skill_rush = true;
         }
+
+        audioSource = GetComponent<AudioSource>();
     }
     public DynamicJoystick dynamicJoystick;
     // Update is called once per frame
@@ -248,6 +256,8 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem particle3;
 
     void RushMove(){
+        audioSource.clip = audios[4];
+        audioSource.Play();
         canRush = false;
         rushTime = 0;
         coldSlider.gameObject.SetActive(true);
@@ -261,7 +271,11 @@ public class PlayerController : MonoBehaviour
             transform.DOScale(new Vector3(0.8f,0.8f,0.8f),0.1f);
         });
     }
-
+    bool circlePanel_addProtect = false;
+    bool circlePanel_LessHP = false;
+    bool circlePanel_addSpeed = false;
+    float HPSave = 0;
+    float speedSave = 0;
     private void Update() {
         if(Input.GetKeyDown(KeyCode.Space) && !Global.isSlowDown && canRush && new Vector2(moveX, moveY) != Vector2.zero){
             rushing = true;
@@ -350,6 +364,38 @@ public class PlayerController : MonoBehaviour
             startRecovery = false;
             CancelInvoke("RecoveryHP");
         }
+        //奇门提升速度
+        if(circlePanel.inDoor_DU && !circlePanel_addSpeed){
+            speedSave = speed;
+            speed = speed + speed*0.1f;
+            circlePanel_addSpeed = true;
+        }else if(!circlePanel.inDoor_DU && circlePanel_addSpeed){
+            speed = speedSave;
+            circlePanel_addSpeed = false;
+        }
+
+        //奇门降低血量
+        if(circlePanel.inDoor_SHANG && !circlePanel_LessHP){
+            HPSave = HP;
+            HP = HP - HP*0.1f;
+            HPCurrent = HP;
+            circlePanel_LessHP = true;
+        }else if(!circlePanel.inDoor_SHANG && circlePanel_LessHP){
+            HP = HPSave;
+            circlePanel_LessHP = false;
+        }
+
+        //奇门额外护甲
+        if(circlePanel.inDoor_JING && !circlePanel_addProtect){
+            protect = protect + 5;
+            protectCurrent = protect;
+            circlePanel_addProtect = true;
+        }
+        else if(!circlePanel.inDoor_JING && circlePanel_addProtect){
+            protect = protect - 5;
+            protectCurrent = protect;
+            circlePanel_addProtect = false;
+        }
 
         //恢复护甲数值
         if(protectCurrent < protect){
@@ -376,6 +422,8 @@ public class PlayerController : MonoBehaviour
         if(isBuffSuper && !Global.isSlowDown){
             superTimeCount += Time.deltaTime;
             if(superTimeCount > superTime){
+                audioSource.clip = audios[5];
+                audioSource.Play();
                 superEffect.SetActive(true);
                 isSuper = true;
                 Invoke("RestoreSuper",superTime);
@@ -402,6 +450,7 @@ public class PlayerController : MonoBehaviour
         // Invoke("RestoreMove",0.2f);
     }
     void RestoreSuper(){
+        audioSource.Stop();
         superEffect.SetActive(false);
         superTimeCount = 0;
         isSuper = false;
@@ -457,6 +506,8 @@ public class PlayerController : MonoBehaviour
     //角色死亡处理：聚焦--场景遮黑--死亡动画--游戏结束
     private void Death()
     {
+        audioSource.clip = audios[1];
+        audioSource.Play();
         Global.isGameOver = true;
         moveSpeed = 0f;
         transform.position = new Vector3(transform.position.x,transform.position.y,-20);
@@ -477,19 +528,15 @@ public class PlayerController : MonoBehaviour
         petBugs.SetActive(false);
         Camera camera = Camera.main;
         camera.transform.position = new Vector3(camera.transform.position.x,camera.transform.position.y,-25);
-        // camera.transform.DOMoveX(transform.position.x,1f);
-        // camera.transform.DOMoveY(transform.position.y+1f,1f).OnComplete(() =>
-        // {
-        //     DOTween.To(()=>camera.orthographicSize, x =>camera.orthographicSize = x,3,1).OnComplete(()=>
-        //         {
-                    
-        //         }
-        //     );
-        // });
     }
 
     public void Hurt (float hurt) {
+        if(circlePanel.inDoor_SI){
+            hurt = hurt * 1.1f;
+        }
         if(!ishitting && !gameController.isReward && !isSuper && !Global.isChangeLevel){
+            audioSource.clip = audios[2];
+            audioSource.Play();
             ishitting = true;
             float offsetHurt = 0;
             //优先伤害护甲
@@ -883,6 +930,7 @@ public class PlayerController : MonoBehaviour
     public void SetDebuffSlow() {
         isDebuffSlow = !isDebuffSlow;
         moveSlow.SetActive(isDebuffSlow);
+        moveSlowEffect.SetActive(isDebuffSlow);
     }
     //Debuff·冻结：受伤后有几率，将周围的怪物冻结
     public void SetDebuffFreeze() {
@@ -909,6 +957,8 @@ public class PlayerController : MonoBehaviour
         }
 
         var boomCur = Instantiate(boom);
+        audioSource.clip = audios[0];
+        audioSource.Play();
         boomCur.transform.position = transform.position + new Vector3(0,1,0);
         boomCur.transform.localScale = new Vector3(2,2,2);
     }

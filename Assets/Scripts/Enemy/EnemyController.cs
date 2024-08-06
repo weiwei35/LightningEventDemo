@@ -9,6 +9,8 @@ public class EnemyController : MonoBehaviour
     [Header("生命值")]
     public float HP = 20f;
     public float maxHP = 0;
+    [Header("经验值")]
+    public float exp = 10;
     [Header("攻击力")]
     public float attack = 5f;
     float attackSave = 5f;
@@ -60,6 +62,12 @@ public class EnemyController : MonoBehaviour
     Vector3 randomAngle;
     bool preStart = true;
     public bool canHurt = false;
+    EnemyPoolController enemyPoolController;
+    CirclePanelController circlePanel;
+    bool circlePanel_LessHP;
+    bool circlePanel_addSpeed;
+    float HPSave;
+    float speedMaxSave;
     public virtual void Start()
     {
         maxHP = HP;
@@ -70,6 +78,8 @@ public class EnemyController : MonoBehaviour
         attackSave = attack;
         center = GameObject.FindGameObjectWithTag("Center").transform;
         randomAngle = RandomUnitVector();
+        enemyPoolController = transform.parent.GetComponent<EnemyPoolController>();
+        circlePanel = GameObject.FindGameObjectWithTag("CirclePanel").GetComponent<CirclePanelController>();
     }
     public virtual void Update() {
         // if(HP <= 0 && !isDead){
@@ -119,6 +129,26 @@ public class EnemyController : MonoBehaviour
             debuffSlowing = false;
             debuffCount = 0;
         }
+
+        //奇门降低血量
+        if(circlePanel.inDoor_SHANG && !circlePanel_LessHP){
+            HPSave = HP;
+            HP = HP - HP*0.1f;
+            circlePanel_LessHP = true;
+        }else if(!circlePanel.inDoor_SHANG && circlePanel_LessHP){
+            HP = HPSave;
+            circlePanel_LessHP = false;
+        }
+
+        //奇门提升速度
+        if(circlePanel.inDoor_DU && !circlePanel_addSpeed){
+            speedMaxSave = speedSave;
+            speedSave = speedSave + speedSave*0.1f;
+            circlePanel_addSpeed = true;
+        }else if(!circlePanel.inDoor_DU && circlePanel_addSpeed){
+            speedSave = speedMaxSave;
+            circlePanel_addSpeed = false;
+        }
     }
     void TrueStart(){
         preStart = false;
@@ -167,7 +197,11 @@ public class EnemyController : MonoBehaviour
         rb.AddForce(direction*30,ForceMode.Impulse);
     }
     public virtual void Hurt (float hurt,HurtType type) {
+        if(circlePanel.inDoor_SI){
+            hurt = hurt * 1.1f;
+        }
         if(!isHitting && !isDead && canHurt){
+            enemyPoolController.PlayAudio(2);
             if (tweener != null)
             {
                 tweener.Kill();
@@ -176,7 +210,7 @@ public class EnemyController : MonoBehaviour
             if(type == HurtType.Lightning && player.isLightningBoom)
                 SetBoom();
             if(hurt >= HP){
-                text.text = hurt.ToString();
+                text.text = HP.ToString();
                 hurtUI.SetTrigger("hurt");
                 if(type == HurtType.Lightning||type == HurtType.Overflow)
                     moreHurt = hurt - HP;
@@ -199,7 +233,11 @@ public class EnemyController : MonoBehaviour
         }
     }
     public virtual void HurtByCircle(float hurt,HurtType type){
+        if(circlePanel.inDoor_SI){
+            hurt = hurt * 1.1f;
+        }
         if(type == HurtType.BugCircle && canHurt){
+            enemyPoolController.PlayAudio(2);
             circleCountTime += Time.deltaTime;
             if(circleCountTime >= 0.1f){
                 circleCountTime = 0;
@@ -215,7 +253,11 @@ public class EnemyController : MonoBehaviour
         }
     }
     public virtual void HurtByFollow(float hurt,HurtType type){
+        if(circlePanel.inDoor_SI){
+            hurt = hurt * 1.1f;
+        }
         if(type == HurtType.BugFollow && canHurt){
+            enemyPoolController.PlayAudio(2);
             isFollowHitting = true;
             followCountTime += Time.deltaTime;
             if(followCountTime >= 0.5f){
@@ -231,7 +273,11 @@ public class EnemyController : MonoBehaviour
         }
     }
     public virtual void HurtByPaperIce(float hurt,HurtType type){
+        if(circlePanel.inDoor_SI){
+            hurt = hurt * 1.1f;
+        }
         if(type == HurtType.PaperIce && canHurt){
+            enemyPoolController.PlayAudio(2);
             text.text = hurt.ToString();
             hurtUI.SetTrigger("hurt");
             HP -= hurt;
@@ -245,6 +291,10 @@ public class EnemyController : MonoBehaviour
         
     }
     public virtual void HurtByBugAttack(float hurt,HurtType type){
+        if(circlePanel.inDoor_SI){
+            hurt = hurt * 1.1f;
+        }
+        enemyPoolController.PlayAudio(2);
         text.text = hurt.ToString();
         hurtUI.SetTrigger("hurt");
         HP -= hurt;
@@ -314,6 +364,7 @@ public class EnemyController : MonoBehaviour
     }
 
     public virtual void Death () {
+        enemyPoolController.PlayAudio(1);
         anim.SetTrigger("dead");
         speed = 0;
         isDead = true;
@@ -323,7 +374,7 @@ public class EnemyController : MonoBehaviour
             SetMoreHurt(moreHurt);
             Debug.Log("溢出伤害:" + moreHurt);
         }
-        Global.exp += maxHP;
+        Global.exp += exp;
         StartCoroutine(SetDestroy());
     }
     IEnumerator SetDestroy(){
@@ -360,6 +411,7 @@ public class EnemyController : MonoBehaviour
 
     //受伤后产生爆炸
     void SetBoom(){
+        enemyPoolController.PlayAudio(0);
         var boomCur = Instantiate(boom);
         boomCur.transform.position = transform.position;
     }

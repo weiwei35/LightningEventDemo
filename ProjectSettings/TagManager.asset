@@ -18,6 +18,7 @@ TagManager:
   - HeroPanel
   - CollectionPanel
   - ScreenWave
+  - CirclePanel
   layers:
   - Default
   - TransparentFX
