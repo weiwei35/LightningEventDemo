@@ -199,7 +199,7 @@ public class CirclePanelController : MonoBehaviour
         if(checkingDoor){
             GetPartByPlayer();
         }
-        if(isTurn){
+        if(isTurn && Global.GameBegain){
             DeletDoorUI();
             saveDoor = false;
             countTime += Time.deltaTime;
@@ -218,7 +218,7 @@ public class CirclePanelController : MonoBehaviour
                     });
                 }
             }
-        }else{
+        }else if(Global.GameBegain){
             saveDoor = false;
             countTime += Time.deltaTime;
             if(countTime >= sleepTime){

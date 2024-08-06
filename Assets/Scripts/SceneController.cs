@@ -35,12 +35,12 @@ public class SceneController : MonoBehaviour
         // StartCoroutine(SetScene());
     }
     IEnumerator ShowHeroPanel(){
-        fadeAnim.SetTrigger("fade");
+        // fadeAnim.SetTrigger("fade");
         lightEvent.SetActive(false);
         yield return new WaitForSeconds(1);
         hideUI.SetActive(false);
         heroPanel.SetActive(true);
-        fadeAnim.SetTrigger("fade");
+        // fadeAnim.SetTrigger("fade");
     }
     public void StartMainGame () {
         StartCoroutine(SetScene());
@@ -51,7 +51,6 @@ public class SceneController : MonoBehaviour
         DOTween.To(()=>audioBgm.volume, x =>audioBgm.volume = x,0,1);
         yield return new WaitForSeconds(1);
         hideUI.SetActive(false);
-        PlayAudio(2);
         AsyncOperation async = SceneManager.LoadSceneAsync("LightningMainScene");
         async.completed += UnloadScene;
     }
@@ -60,12 +59,12 @@ public class SceneController : MonoBehaviour
         StartCoroutine(ShowCollectionPanel());
     }
     IEnumerator ShowCollectionPanel(){
-        fadeAnim.SetTrigger("fade");
+        // fadeAnim.SetTrigger("fade");
         lightEvent.SetActive(false);
-        yield return new WaitForSeconds(1);
-        // hideUI.SetActive(false);
+        yield return new WaitForSeconds(0);
+        hideUI.SetActive(false);
         collectionPanel.SetActive(true);
-        fadeAnim.SetTrigger("fade");
+        // fadeAnim.SetTrigger("fade");
     }
     public void BackToStart(){
         StartCoroutine(BackToStartScene());
@@ -74,6 +73,7 @@ public class SceneController : MonoBehaviour
     IEnumerator BackToStartScene()
     {
         fadeAnim.SetTrigger("fade");
+        hideUI.SetActive(true);
         yield return new WaitForSeconds(1);
         lightEvent.SetActive(true);
         collectionPanel.SetActive(false);

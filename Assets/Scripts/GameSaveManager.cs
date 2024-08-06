@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 public static class Global{
+    public static bool GameBegain = false;
     public static bool continueGame = false;
     public static bool isEndLevel = false;
     public static bool isChangeLevel = false;

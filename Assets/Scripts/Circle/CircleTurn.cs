@@ -16,13 +16,14 @@ public class CircleTurn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float rotationThisFrame = speed * Time.deltaTime;
-        if(isClockwise)
-            transform.Rotate(0, 0,-rotationThisFrame);
-        else
-        {
-            transform.Rotate(0, 0, rotationThisFrame);
+        if(Global.GameBegain){
+            float rotationThisFrame = speed * Time.deltaTime;
+            if(isClockwise)
+                transform.Rotate(0, 0,-rotationThisFrame);
+            else
+            {
+                transform.Rotate(0, 0, rotationThisFrame);
+            }
         }
-        
     }
 }

@@ -33,6 +33,8 @@ public class GameController : MonoBehaviour
 
     public GameObject bgChangeLevel;
     public Image levelImg;
+    public GameObject level1Level;
+    public Image level1Img;
     public List<Sprite> levelSprite = new List<Sprite>();
 
     bool startCheckingEnemy = false;
@@ -52,7 +54,14 @@ public class GameController : MonoBehaviour
                 levelId = 1;
             }
         }
-        bgChangeLevel.SetActive(false);
+        // bgChangeLevel.SetActive(false);
+        level1Level.SetActive(true);
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
+        level1Img.gameObject.SetActive(true);
+        level1Img.sprite = levelSprite[levelId-1];
+        player.transform.position = centerPos.transform.position;
+
         level = levelData.GetLevelDataById(levelId);
         levelTime = level.levelTime;
         rewardTime = level.rewardTime;
@@ -103,7 +112,7 @@ public class GameController : MonoBehaviour
 
         if(levelId == 1){
             endLevelPanel.SetActive(true);
-            Invoke("SetTimeStop",0.5f);
+            // Invoke("SetTimeStop",0.5f);
         }
         if(Global.isEndLevel){
             NextLevel();
@@ -262,6 +271,8 @@ public class GameController : MonoBehaviour
     public void SetItem(){
         if(selectPanel.SetPlayerStatus()){
             Time.timeScale = 1;
+            if(!Global.GameBegain)
+                Global.GameBegain = true;
             Animation animation = selectPanel.GetComponent<Animation>();
             animation.Play("Pick3Close");
             levelUI.SetLevelPlayer();

@@ -75,7 +75,7 @@ public class LightningController : MonoBehaviour
                 showEndLight = false;
             }
         }
-        if(!Global.isSlowDown && !Global.isChangeLevel){
+        if(!Global.isSlowDown && !Global.isChangeLevel && Global.GameBegain){
             curTime += Time.deltaTime;
         }
         

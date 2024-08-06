@@ -69,7 +69,7 @@ public class EnemyPoolController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
     private void Update() {
-        if(canCount && !Global.isSlowDown)
+        if(canCount && !Global.isSlowDown && Global.GameBegain)
             enemyTimeCount += Time.deltaTime;
         if(enemyTimeCount >= enemyInitTime && !Global.isChangeLevel){
             CheckLevel();
