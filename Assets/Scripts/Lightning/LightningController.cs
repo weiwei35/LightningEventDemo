@@ -68,6 +68,7 @@ public class LightningController : MonoBehaviour
             }
             if(!showEndLight){
                 circle.CirclePoints();
+                PlayAudio(7);
                 showEndLight = true;
             }
         }else{
@@ -96,6 +97,8 @@ public class LightningController : MonoBehaviour
                 lightningCountCurrent = 1;
             }
             circle.RandomPoints(lightningCountCurrent);
+            PlayAudio(5);
+            isLight = false;
         }
         
         if(isEndLight && !endLight){
@@ -177,5 +180,12 @@ public class LightningController : MonoBehaviour
     public AudioClip[] audios;
     public void PlayAudio(int index) {
         audioSource.PlayOneShot(audios[index]);
+    }
+    bool isLight = false;
+    public void PlayLightningAudio() {
+        if(!isLight){
+            isLight = true;
+            audioSource.PlayOneShot(audios[7]);
+        }
     }
 }

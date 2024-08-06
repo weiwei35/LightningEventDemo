@@ -229,8 +229,6 @@ public class GameController : MonoBehaviour
         SetLevelItem();
         levelId ++;
         bgChangeLevel.SetActive(true);
-        AudioSource audioSource = GetComponent<AudioSource>();
-        audioSource.Play();
         levelImg.gameObject.SetActive(true);
         levelImg.sprite = levelSprite[levelId-1];
         player.transform.position = centerPos.transform.position;
@@ -240,6 +238,10 @@ public class GameController : MonoBehaviour
         endLevelPanel.SetActive(true);
         Invoke("SetTimeStop",0.5f);
         SaveEndtData();
+    }
+    void PlayLevelSound(){
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
     }
 
     public void SetLevel(){
@@ -285,6 +287,7 @@ public class GameController : MonoBehaviour
         if(endLevelPanel.activeSelf){
             endLevelPanel.SetActive(false);
         }
+        PlayLevelSound();
     }
 
     public GameSaveManager gameSave;

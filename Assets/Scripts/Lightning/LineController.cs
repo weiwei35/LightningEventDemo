@@ -44,7 +44,7 @@ public class LineController : MonoBehaviour
     //依次出现雷点
     IEnumerator SetStartPoint(){
         yield return new WaitForSeconds(showTime);
-        lightning.PlayAudio(5);
+        // lightning.PlayAudio(5);
         startPoint.gameObject.SetActive(true);
         var start = Instantiate(startPointEP);
         start.transform.position = transform.position;
@@ -63,12 +63,11 @@ public class LineController : MonoBehaviour
             Global.isSlowDown = true;
         }
         if(timeCount > lightning.lightningPreTime - 0.1f && !playsound){
+            lightning.PlayLightningAudio();
             playsound = true;
-            lightning.PlayAudio(7);
         }
         if(timeCount > lightning.lightningPreTime){
             // Global.isSlowDown = true;
-            // lightning.PlayAudio(7);
             timeCount = 0;
             if(follow == null)
                 end.transform.position = start.transform.position;

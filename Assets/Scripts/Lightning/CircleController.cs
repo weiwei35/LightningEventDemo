@@ -275,7 +275,13 @@ public class CircleController : MonoBehaviour
             i++;
         }
         SetCircleLines(lightning.startTime,lightning.keepTime,points);
-        // GetCamLight();
+        lightPrefab.Clear();
+        foreach (var item in points)
+        {
+            lightPrefab.Add(Instantiate(startPoint));
+            canFind = true;
+        }
+        GetScreenSlid(lightPrefab);
     }
     //在圆上取count个数的随机点
     public void RandomPointsMirror (float count) {
@@ -428,6 +434,11 @@ public class CircleController : MonoBehaviour
             i++;
             lines.Add(lineCur.gameObject);
         }
+        foreach (var item in lightPrefab)
+        {
+            Destroy(item);
+        }
+        lightPrefab.Clear();
     }
     public void SetCircleLines (float startTime,float keepTime,List<Vector3> points) {
         foreach(var point in points){
@@ -442,6 +453,11 @@ public class CircleController : MonoBehaviour
             lineController.timeCount = lightning.lightningPreTime +1;
             lines.Add(lineCur.gameObject);
         }
+        foreach (var item in lightPrefab)
+        {
+            Destroy(item);
+        }
+        lightPrefab.Clear();
     }
     public void SetLinesMirror (float startTime,float keepTime,List<Vector3> points) {
         foreach(var point in points){
