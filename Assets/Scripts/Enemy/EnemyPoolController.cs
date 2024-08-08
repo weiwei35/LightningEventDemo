@@ -125,11 +125,11 @@ public class EnemyPoolController : MonoBehaviour
         canCount = true;
         level1Count = 0;
 
-        if(level.levelType == LevelType.Boss){
-            var enemyNew = Instantiate(level.boss);
-            enemyNew.transform.parent = transform;
-            enemyNew.transform.position = transform.position;
-        }
+        // if(level.levelType == LevelType.Boss){
+        //     var enemyNew = Instantiate(level.boss);
+        //     enemyNew.transform.parent = transform;
+        //     enemyNew.transform.position = transform.position;
+        // }
     }
     public CirclePanelController circlePanel;
     void SetLevel1Once(){

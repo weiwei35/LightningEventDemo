@@ -19,6 +19,7 @@ TagManager:
   - CollectionPanel
   - ScreenWave
   - CirclePanel
+  - BulletFather
   layers:
   - Default
   - TransparentFX

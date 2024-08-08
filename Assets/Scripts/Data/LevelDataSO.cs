@@ -1,47 +1,32 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LevelDataSO", menuName = "LightningEvent/LevelData", order = 0)]
+[CreateAssetMenu(fileName = "LevelDataSO", menuName = "LightningEvent/LevelDataSO", order = 0)]
 public class LevelDataSO : ScriptableObject {
-    public List<LevelItem> levels = new List<LevelItem>();
-    public LevelItem GetLevelDataById(int id) {
-        foreach (var item in levels)
-        {
-            if(item.levelId == id){
-                return item;
-            }
-        }
-        return null;
+    public List<LevelData> levels = new List<LevelData>();
+
+    public float GetLevelTimeById(int id) {
+        return levels.Find(item => item.id == id && item.type == 0).time;
     }
-    public int GetLevelCount(){
+
+    public float GetRewardTimeById(int id) {
+        return levels.Find(item => item.id == id && item.type == 1).time;
+    }
+
+    public LevelData GetLevelById(int id) {
+        return levels.Find(item => item.id == id);
+    }
+
+    public int GetLevelCount()
+    {
         return levels.Count;
     }
-    
 }
 
 [System.Serializable]
-public class LevelItem{
-    public int levelId;
-    public LevelType levelType;
-    public float levelTime;
-    public EnemyArray[] levelEnemy;
-    public float rewardTime;
-    public EnemyArray[] rewardEnemy;
-}
-
-[System.Serializable]
-public struct EnemyCount
-{
-    public GameObject type;
-    public int count;
-}
-[System.Serializable]
-public struct EnemyArray
-{
-    public EnemyCount[] enemies;
-    public float startTime;
-}
-public enum LevelType{
-    Normal,
-    Boss
+public class LevelData {
+    public int id;
+    public int type;
+    public float time;
 }

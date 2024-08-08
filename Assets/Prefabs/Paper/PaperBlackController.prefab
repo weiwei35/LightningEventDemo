@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7afee75fc2eacd241a84f7bf9fd4f7cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: {x: 0, y: 0, z: 0}
-  radius: 8
+  center: {fileID: 0}
+  radius: 24
   count: 12
   paperPre: {fileID: 8464264096559549611, guid: c09bf9e3b10e267408ab8af49a5d84d3,
     type: 3}
   countCurrent: 0
+  isAddLight: 0

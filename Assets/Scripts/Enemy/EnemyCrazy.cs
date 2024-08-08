@@ -16,7 +16,7 @@ public class EnemyCrazy : EnemyController
     public override void Start()
     {
         base.Start();
-        SpawnAtRandomCircle();
+        // SpawnAtRandomCircle();
     }
 
     // Update is called once per frame

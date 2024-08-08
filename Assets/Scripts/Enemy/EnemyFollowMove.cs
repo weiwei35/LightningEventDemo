@@ -12,7 +12,7 @@ public class EnemyFollowMove : EnemyController
     {
         base.Start();
         // SpawnAtRandomEdge();
-        SpawnAtRandomCircle();
+        // SpawnAtRandomCircle();
         // sprite = GetComponent<SpriteRenderer>();
     }
 

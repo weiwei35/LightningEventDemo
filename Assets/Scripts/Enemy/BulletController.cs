@@ -13,6 +13,8 @@ public class BulletController : MonoBehaviour
 
     private void Start() {
         rb = GetComponent<Rigidbody>();
+        GameObject bulletFather = GameObject.FindWithTag("BulletFather");
+        transform.SetParent(bulletFather.transform);
     }
     private void Update() {
         float distance = Vector3.Distance(transform.position,center);

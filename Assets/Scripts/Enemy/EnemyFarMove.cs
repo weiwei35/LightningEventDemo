@@ -36,7 +36,7 @@ public class EnemyFarMove : EnemyController
     {
         base.Start();
         // SpawnAtRandomEdge();
-        SpawnAtRandomCircle();
+        // SpawnAtRandomCircle();
         // animator = GetComponent<Animator>();
         // sprite = GetComponent<SpriteRenderer>();
     }

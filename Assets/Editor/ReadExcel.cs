@@ -242,4 +242,111 @@ public class Startup
             AssetDatabase.Refresh();
         }
     }
+
+[MenuItem("工具/编译怪物配置")]
+    public static void 编译怪物配置()
+    {
+        string path = Application.dataPath + "/Editor/ItemData.xlsx";
+        string assetName2 = "LevelEnemyData";
+        FileInfo fileInfo = new FileInfo(path);
+        //创建so类
+        LevelEnemyDataSO levelEnemyData = (LevelEnemyDataSO)ScriptableObject.CreateInstance(typeof(LevelEnemyDataSO));
+        //打开Excel文件，using会在使用完毕后关闭文件
+        using(ExcelPackage excelPackage = new ExcelPackage(fileInfo))
+        {
+            //选取表单
+            ExcelWorksheet worksheet2 = excelPackage.Workbook.Worksheets["怪物"];
+            //遍历每一行
+            for (int i = worksheet2.Dimension.Start.Row+3; i <= worksheet2.Dimension.End.Row; i++)
+            {
+                LevelEnemy item = new LevelEnemy();
+                //获取每列数据的数据类型
+                Type itemType1 = typeof(LevelEnemy);
+                //遍历每一列
+                for (int j = worksheet2.Dimension.Start.Column; j <= worksheet2.Dimension.End.Column; j++)
+                {
+                    //用反射对item赋值，将数据类型附加到赋值内容中
+                    FieldInfo typeInfo = itemType1.GetField(worksheet2.GetValue(1, j).ToString());
+                    string itemValue = worksheet2.GetValue(i, j).ToString();
+                    if(typeInfo.FieldType.IsArray){
+                        string[] numbersSplit = itemValue.Split(','); // 使用逗号分割字符串
+                        int[] numbersArray = new int[numbersSplit.Length]; // 创建整型数组
+                        for (int numberId = 0; numberId < numbersSplit.Length; numberId++)
+                        {
+                            if (int.TryParse(numbersSplit[numberId], out int number)) // 尝试转换字符串到整数
+                            {
+                                numbersArray[numberId] = number; // 成功转换，将整数放入数组
+                            }
+                        }
+                        typeInfo.SetValue(item,Convert.ChangeType(numbersArray,typeInfo.FieldType));
+                    }else{
+                        typeInfo.SetValue(item,Convert.ChangeType(itemValue,typeInfo.FieldType));
+                    }
+                }
+                //当前行赋值结束，添加到列表中
+                levelEnemyData.enemys.Add(item);
+            }
+        }
+        //保存SO文件
+        if(File.Exists("Assets/Resources/" + assetName2 +".asset"))
+        {
+            File.Delete("Assets/Resources/" + assetName2 +".asset");
+            if(File.Exists("Assets/Resources/" + assetName2 +".meta"))
+                File.Delete("Assets/Resources/" + assetName2 +".meta");
+            AssetDatabase.CreateAsset(levelEnemyData,"Assets/Resources/" + assetName2 +".asset");
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }else{
+            AssetDatabase.CreateAsset(levelEnemyData,"Assets/Resources/" + assetName2 +".asset");
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+    }
+
+[MenuItem("工具/编译关卡配置")]
+    public static void 编译关卡配置()
+    {
+        string path = Application.dataPath + "/Editor/ItemData.xlsx";
+        string assetName2 = "LevelData";
+        FileInfo fileInfo = new FileInfo(path);
+        //创建so类
+        LevelDataSO levelData = (LevelDataSO)ScriptableObject.CreateInstance(typeof(LevelDataSO));
+        //打开Excel文件，using会在使用完毕后关闭文件
+        using(ExcelPackage excelPackage = new ExcelPackage(fileInfo))
+        {
+            //选取表单
+            ExcelWorksheet worksheet2 = excelPackage.Workbook.Worksheets["关卡"];
+            //遍历每一行
+            for (int i = worksheet2.Dimension.Start.Row+3; i <= worksheet2.Dimension.End.Row; i++)
+            {
+                LevelData item = new LevelData();
+                //获取每列数据的数据类型
+                Type itemType1 = typeof(LevelData);
+                //遍历每一列
+                for (int j = worksheet2.Dimension.Start.Column; j <= worksheet2.Dimension.End.Column; j++)
+                {
+                    //用反射对item赋值，将数据类型附加到赋值内容中
+                    FieldInfo typeInfo = itemType1.GetField(worksheet2.GetValue(1, j).ToString());
+                    string itemValue = worksheet2.GetValue(i, j).ToString();
+                    typeInfo.SetValue(item,Convert.ChangeType(itemValue,typeInfo.FieldType));
+                }
+                //当前行赋值结束，添加到列表中
+                levelData.levels.Add(item);
+            }
+        }
+        //保存SO文件
+        if(File.Exists("Assets/Resources/" + assetName2 +".asset"))
+        {
+            File.Delete("Assets/Resources/" + assetName2 +".asset");
+            if(File.Exists("Assets/Resources/" + assetName2 +".meta"))
+                File.Delete("Assets/Resources/" + assetName2 +".meta");
+            AssetDatabase.CreateAsset(levelData,"Assets/Resources/" + assetName2 +".asset");
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }else{
+            AssetDatabase.CreateAsset(levelData,"Assets/Resources/" + assetName2 +".asset");
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+    }
 }

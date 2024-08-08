@@ -44,12 +44,15 @@ public class PaperFire : PaperModel
         if(enemyInArea.Count > 0){
             int id = Random.Range(0,enemyInArea.Count);
             Debug.Log("火球攻击"+enemyInArea[id].name);
-            var ball = Instantiate(fireBall);
-            ball.transform.position = transform.position;
-            ball.transform.DOMove(enemyInArea[id].transform.position,0.2f).OnComplete(()=>{
-                Destroy(ball.gameObject);
-                enemyInArea[id].HurtByBugAttack(0.2f,HurtType.PaperFireBall);
-            });
+            if(enemyInArea[id] != null){
+                var ball = Instantiate(fireBall);
+                ball.transform.position = transform.position;
+                ball.transform.DOMove(enemyInArea[id].transform.position,0.2f).OnComplete(()=>{
+                    enemyInArea[id].HurtByBugAttack(0.2f,HurtType.PaperFireBall);
+                    Destroy(ball.gameObject);
+                });
+            }
+            
         }
     }
     public override void OverLoadFun(){

@@ -18,7 +18,7 @@ public class EnemyRush : EnemyController
     public override void Start()
     {
         base.Start();
-        SpawnAtRandomCircle();
+        // SpawnAtRandomCircle();
         // sprite = GetComponent<SpriteRenderer>();
         // animator = GetComponent<Animator>();
     }

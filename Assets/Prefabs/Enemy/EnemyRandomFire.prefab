@@ -5472,12 +5472,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 20
   maxHP: 0
+  exp: 10
   attack: 5
   speed: 1
   text: {fileID: 236810980476374642}
   hurtUI: {fileID: 9192653113655809354}
   center: {fileID: 0}
-  radius: 15
+  radius: 24
   duzzyEffect: {fileID: 6895709938817808827}
   crazyEffect: {fileID: 575541643384397178}
   recoverEffect: {fileID: 1192975994200337507}

@@ -211,15 +211,12 @@ MonoBehaviour:
   timeCount: 0
   lineCollider: {fileID: 1882638087667443515, guid: 5efaab14189b0e14bb942a8d6d503653,
     type: 3}
-  lightningAsset: {fileID: 2054700712137755922, guid: 4e3325366082c6f498d65f541dc4e528,
+  lightningAsset: {fileID: 2054700712137755922, guid: a1d3a3913e0d99c48a2672aecea7283c,
     type: 3}
   isRush: 0
   lineRush: {fileID: 4832612257934242252, guid: 18a309795884ba1479a1948d91fb3b7b,
     type: 3}
   canCopy: 1
-  audios:
-  - {fileID: 8300000, guid: 56a2d0b5e9417ae4e90532ccd63567ba, type: 3}
-  - {fileID: 8300000, guid: 07b3ab50ea801f44da90120a97428d8e, type: 3}
 --- !u!1 &6243194527875724978
 GameObject:
   m_ObjectHideFlags: 0
