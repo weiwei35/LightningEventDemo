@@ -20,7 +20,7 @@ public class LevelDataSO : ScriptableObject {
 
     public int GetLevelCount()
     {
-        return levels.Count;
+        return levels[levels.Count - 1].id;
     }
 }
 

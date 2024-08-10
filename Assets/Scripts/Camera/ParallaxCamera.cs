@@ -5,36 +5,49 @@ public class ParallaxCamera : MonoBehaviour
 {
     public delegate void ParallaxCameraDelegate(float deltaMovement);
     public ParallaxCameraDelegate onCameraTranslate;
+    public ParallaxCameraDelegate onCameraTranslateY;
     public GameObject center;
 
-    private float oldPosition;
-    bool isOut = false;
+    private float oldPositionX;
+    private float oldPositionY;
+    // bool isOut = false;
 
     void Start()
     {
-        oldPosition = transform.position.x;
+        oldPositionX = transform.position.x;
+        oldPositionY = transform.position.y;
     }
 
     void Update()
     {
-        if(Vector3.Distance(transform.position,center.transform.position) >= 6){
-            if(!isOut){
-                oldPosition = transform.position.x;
-                isOut = true;
-            }
-            if (transform.position.x != oldPosition)
+        // if(Vector3.Distance(transform.position,center.transform.position) >= 6){
+            // if(!isOut){
+                // oldPosition = transform.position.x;
+            //     isOut = true;
+            // }
+            if (transform.position.x != oldPositionX)
             {
                 if (onCameraTranslate != null)
                 {
-                    float delta = oldPosition - transform.position.x;
+                    float delta = oldPositionX - transform.position.x;
                     onCameraTranslate(delta);
                 }
 
-                oldPosition = transform.position.x;
+                oldPositionX = transform.position.x;
             }
-        }
-        if(Vector3.Distance(transform.position,center.transform.position) < 8){
-            isOut = false;
-        }
+            if (transform.position.y != oldPositionY)
+            {
+                if (onCameraTranslate != null)
+                {
+                    float delta = oldPositionY - transform.position.y;
+                    onCameraTranslateY(delta);
+                }
+
+                oldPositionY = transform.position.y;
+            }
+        // }
+        // if(Vector3.Distance(transform.position,center.transform.position) < 8){
+        //     isOut = false;
+        // }
     }
 }

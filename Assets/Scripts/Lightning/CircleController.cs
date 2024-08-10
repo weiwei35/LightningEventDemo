@@ -552,7 +552,7 @@ public class CircleController : MonoBehaviour
         float maxX = worldCenter.x + cameraWidth - 0.5f;
         float minX = worldCenter.x - cameraWidth + 0.5f;
         float maxY = worldCenter.y + cameraHeight;
-        float minY = worldCenter.y - cameraHeight + 1;
+        float minY = worldCenter.y - cameraHeight + 2;
 
         Vector2 rectTopLeft = new Vector2(minX,maxY);
         Vector2 rectBottomRight = new Vector2(maxX,minY);

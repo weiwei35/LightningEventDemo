@@ -12,5 +12,12 @@ public class ParallaxLayer : MonoBehaviour
 
         transform.localPosition = newPos;
     }
+    public void MoveY(float delta)
+    {
+        Vector3 newPos = transform.localPosition;
+        newPos.y -= delta * parallaxFactor;
+
+        transform.localPosition = newPos;
+    }
 
 }
