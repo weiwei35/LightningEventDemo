@@ -6,6 +6,9 @@ public class BoomController : MonoBehaviour
 {
     public float boomHurt = 2f;
     public GameObject father;
+    private void OnEnable() {
+        Invoke("SetDestroy",0.5f);
+    }
     public void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Enemy")

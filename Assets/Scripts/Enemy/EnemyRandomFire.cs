@@ -132,7 +132,7 @@ public class EnemyRandomFire : EnemyController
         bulletController.bulletSpeed = bulletSpeed;
         bulletController.direction = direction;
         bulletController.center = center.transform.position;
-        bulletController.length = 15;
-        bulletList.Add(curBullet);
+        bulletController.length = 30;
+        // bulletList.Add(curBullet);
     }
 }

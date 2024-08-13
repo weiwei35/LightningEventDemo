@@ -85,10 +85,10 @@ public class EnemyFarMove : EnemyController
         mainEnemy.rotation = Quaternion.Euler(currentRotation);
 
         //控制子弹数量
-        if(bulletList.Count >2){
-            Destroy(bulletList[0].gameObject);
-            bulletList.RemoveAt(0);
-        }
+        // if(bulletList.Count >2){
+        //     Destroy(bulletList[0].gameObject);
+        //     bulletList.RemoveAt(0);
+        // }
     }
     public override void Hurt(float hurt,HurtType type)
     {
@@ -245,7 +245,7 @@ public class EnemyFarMove : EnemyController
         bulletController.bulletSpeed = bulletSpeed;
         bulletController.direction = direction;
         bulletController.center = center.transform.position;
-        bulletController.length = 15;
-        bulletList.Add(curBullet);
+        bulletController.length = 30;
+        // bulletList.Add(curBullet);
     }
 }

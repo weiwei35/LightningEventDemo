@@ -20,7 +20,7 @@ public class EnemyFarFire : MonoBehaviour
         bulletController.bulletSpeed = enemyFarMove.bulletSpeed;
         bulletController.direction = direction;
         bulletController.center = enemyFarMove.center.transform.position;
-        bulletController.length = 15;
+        bulletController.length = 30;
         enemyFarMove.bulletList.Add(curBullet);
     }
 
@@ -37,7 +37,7 @@ public class EnemyFarFire : MonoBehaviour
         bulletController.bulletSpeed = enemyRandomFire.bulletSpeed;
         bulletController.direction = direction;
         bulletController.center = enemyRandomFire.center.transform.position;
-        bulletController.length = 15;
+        bulletController.length = 30;
         enemyRandomFire.bulletList.Add(curBullet);
     }
 }

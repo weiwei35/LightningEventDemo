@@ -44,6 +44,10 @@ public class GameController : MonoBehaviour
     public GameObject centerPos;
 
     public GameObject bulletFather;
+    public AudioSource levelBGM;
+    public AudioClip[] levelBGMClips;
+    public AudioSource levelStart;
+    public AudioSource levelBack;
     // Start is called before the first frame update
     private void Awake() {
         Application.targetFrameRate = 60;
@@ -62,8 +66,12 @@ public class GameController : MonoBehaviour
         }
         // bgChangeLevel.SetActive(false);
         level1Level.SetActive(true);
-        AudioSource audioSource = GetComponent<AudioSource>();
-        audioSource.Play();
+        levelStart.Play();
+        if(levelId < 6){
+            levelBGM.clip = levelBGMClips[0];
+            levelBGM.Play();
+        }
+        levelBack.Play();
         level1Img.gameObject.SetActive(true);
         level1Img.sprite = levelSprite[levelId-1];
         player.transform.position = centerPos.transform.position;
@@ -231,6 +239,7 @@ public class GameController : MonoBehaviour
         }
         foreach (Transform item in bulletFather.transform)
         {
+            Debug.Log(item.name);
             Destroy(item.gameObject);
         }
         startCheckingEnemy = true;
@@ -252,11 +261,14 @@ public class GameController : MonoBehaviour
         SaveEndtData();
     }
     void PlayLevelSound(){
-        AudioSource audioSource = GetComponent<AudioSource>();
-        audioSource.Play();
+        levelStart.Play();
     }
 
     public void SetLevel(){
+        foreach (Transform item in bulletFather.transform)
+        {
+            Destroy(item.gameObject);
+        }
         bgChangeLevel.SetActive(false);
 
         if(levelId > levelData.GetLevelCount()){
@@ -282,6 +294,18 @@ public class GameController : MonoBehaviour
                     paper.countCurrent = paper.count;
                 }
             }
+            if(levelId < 6){
+                levelBGM.clip = levelBGMClips[0];
+                levelBGM.Play();
+            }else if(levelId > 5 && levelId < 11){
+                levelBGM.clip = levelBGMClips[1];
+                levelBGM.Play();
+            }else if(levelId > 10 && levelId < 16){
+                levelBGM.clip = levelBGMClips[2];
+                levelBGM.Play();
+            }
+            
+            levelBack.Play();
         }
     }
     public void SetItem(){

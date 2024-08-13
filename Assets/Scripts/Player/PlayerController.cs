@@ -168,7 +168,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("闪现冲刺相关")]
     public Slider coldSlider;
-    float rushColdTime = 3;
+    float rushColdTime = 4;
     float rushTime = 0;
     bool canRush = true;
     public bool rushing = false;
@@ -178,6 +178,9 @@ public class PlayerController : MonoBehaviour
     [Header("音效")]
     public AudioClip[] audios;
     AudioSource audioSource;
+
+    [Header("屏幕特效")]
+    public GameObject screenWave;
     private void Start() {
         HPCurrent = HP;
         protectCurrent = protect;
@@ -270,6 +273,24 @@ public class PlayerController : MonoBehaviour
             rushing = false;
             transform.DOScale(new Vector3(0.8f,0.8f,0.8f),0.1f);
         });
+        MoveEnemy();
+
+        screenWave.SetActive(true);
+        Invoke("SetScreenWave",4);
+    }
+    void SetScreenWave(){
+        screenWave.SetActive(false);
+    }
+    void MoveEnemy(){
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 10);
+        foreach (var hitCollider in hitColliders)
+        {
+            if(hitCollider.tag == "Enemy"){
+                EnemyController enemy = hitCollider.GetComponent<EnemyController>();
+                if(enemy != null)
+                    enemy.MoveToLine(transform.position);
+            }
+        }
     }
     bool circlePanel_addProtect = false;
     bool circlePanel_LessHP = false;

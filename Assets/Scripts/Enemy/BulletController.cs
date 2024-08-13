@@ -15,6 +15,8 @@ public class BulletController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         GameObject bulletFather = GameObject.FindWithTag("BulletFather");
         transform.SetParent(bulletFather.transform);
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Euler(lookRotation.eulerAngles.x - 90,lookRotation.eulerAngles.y,lookRotation.eulerAngles.z);
     }
     private void Update() {
         float distance = Vector3.Distance(transform.position,center);

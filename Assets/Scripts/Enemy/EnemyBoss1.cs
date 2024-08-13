@@ -180,7 +180,7 @@ public class EnemyBoss1 : EnemyController
         bulletController.bulletSpeed = bulletSpeed;
         bulletController.direction = direction;
         bulletController.center = center.transform.position;
-        bulletController.length = 15;
+        bulletController.length = 30;
     }
     void ResetFire(){
         bulletTimeCount = 0;
