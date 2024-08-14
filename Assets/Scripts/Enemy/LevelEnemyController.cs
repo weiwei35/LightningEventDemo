@@ -82,6 +82,9 @@ public class LevelEnemyController : MonoBehaviour
             if(enemy.isGroup){
                 enemyController.SpawnAtRandomGroup(areaCenter,areaRadius);
             }
+            if(!enemy.isCircleSide && !enemy.isGroup){
+                enemyController.SpawnAtRandom();
+            }
         }
         if(enemy.repeatTime > 0)
             StartCoroutine(SetRepeatEnemy(enemy));
@@ -133,6 +136,9 @@ public class LevelEnemyController : MonoBehaviour
             if(enemy.isGroup){
                 enemyController.SpawnAtRandomGroup(areaCenter,areaRadius);
             }
+            if(!enemy.isCircleSide && !enemy.isGroup){
+                enemyController.SpawnAtRandom();
+            }
         }
     }
     public GameObject center;
@@ -173,9 +179,10 @@ public class LevelEnemyController : MonoBehaviour
     public void PlayAudio(int index) {
         if(canAudio){
             audioCount ++;
-            audioSource.PlayOneShot(audios[index]);
             if(audioCount > 3){
                 canAudio = false;
+            }else{
+                audioSource.PlayOneShot(audios[index]);
             }
         }else{
             StartCoroutine(SetAudio());

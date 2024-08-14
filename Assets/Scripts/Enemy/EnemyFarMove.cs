@@ -233,19 +233,22 @@ public class EnemyFarMove : EnemyController
     }
 
     public void Fire() {
-        var curBullet = GameObjectPoolTool.GetFromPoolForce(true,"Assets/Resources/Bullet.prefab");
-        // var curBullet = Instantiate(bullet);
-        curBullet.transform.position = bulletPos;
-        Rigidbody bulletRb = curBullet.GetComponent<Rigidbody>();
-        BulletController bulletController = curBullet.GetComponent<BulletController>();
-        bulletController.hurt = bulletHurt;
-        Vector3 direction = target.position - transform.position;
-        direction.Normalize();
-        bulletRb.velocity = direction * bulletSpeed;
-        bulletController.bulletSpeed = bulletSpeed;
-        bulletController.direction = direction;
-        bulletController.center = center.transform.position;
-        bulletController.length = 30;
-        // bulletList.Add(curBullet);
+        if(!Global.isChangeLevel){
+            var curBullet = GameObjectPoolTool.GetFromPoolForce(true,"Assets/Resources/Bullet.prefab");
+            // var curBullet = Instantiate(bullet);
+            curBullet.transform.position = bulletPos;
+            Rigidbody bulletRb = curBullet.GetComponent<Rigidbody>();
+            BulletController bulletController = curBullet.GetComponent<BulletController>();
+            bulletController.hurt = bulletHurt;
+            Vector3 direction = target.position - transform.position;
+            direction.Normalize();
+            bulletRb.velocity = direction * bulletSpeed;
+            bulletController.bulletSpeed = bulletSpeed;
+            bulletController.direction = direction;
+            bulletController.center = center.transform.position;
+            bulletController.length = 30;
+            // bulletList.Add(curBullet);
+        }
+        
     }
 }

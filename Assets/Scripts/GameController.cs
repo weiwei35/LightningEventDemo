@@ -220,11 +220,8 @@ public class GameController : MonoBehaviour
         Global.isEndBoss = false;
         rewardTitle.SetActive(false);
         // enemyPool.DestroyAllEnemy();
-        foreach (Transform item in bulletFather.transform)
-        {
-            Debug.Log(item.name);
-            Destroy(item.gameObject);
-        }
+        BulletController1 bulletController = bulletFather.GetComponent<BulletController1>();
+        bulletController.DestroyAllBullets();
         levelEnemyController.DestroyAllEnemy();
         isReward = false;
         Global.papersPosList.Clear();
@@ -243,7 +240,7 @@ public class GameController : MonoBehaviour
                 Destroy(item);
             }
         }
-        
+        DOTween.To(()=>levelBGM.volume, x =>levelBGM.volume = x,0,1);
         startCheckingEnemy = true;
     }
     IEnumerator SetNextLevel(){
@@ -302,12 +299,15 @@ public class GameController : MonoBehaviour
             }
             if(levelId < 6){
                 levelBGM.clip = levelBGMClips[0];
+                levelBGM.volume = 0.5f;
                 levelBGM.Play();
             }else if(levelId > 5 && levelId < 11){
                 levelBGM.clip = levelBGMClips[1];
+                levelBGM.volume = 0.5f;
                 levelBGM.Play();
             }else if(levelId > 10 && levelId < 16){
                 levelBGM.clip = levelBGMClips[2];
+                levelBGM.volume = 0.5f;
                 levelBGM.Play();
             }
             

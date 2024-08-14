@@ -178,8 +178,19 @@ public class LightningController : MonoBehaviour
     }
     public AudioSource audioSource;
     public AudioClip[] audios;
+    bool canAudio = true;
+    int audioCount = 0;
     public void PlayAudio(int index) {
-        audioSource.PlayOneShot(audios[index]);
+        if(canAudio){
+            audioCount ++;
+            if(audioCount > 3){
+                canAudio = false;
+            }else{
+                audioSource.PlayOneShot(audios[index]);
+            }
+        }else{
+            StartCoroutine(SetAudio());
+        }
     }
     bool isLight = false;
     public void PlayLightningAudio() {
@@ -187,5 +198,11 @@ public class LightningController : MonoBehaviour
             isLight = true;
             audioSource.PlayOneShot(audios[7]);
         }
+    }
+    IEnumerator SetAudio()
+    {
+        yield return new WaitForSeconds(1f);
+        canAudio = true;
+        audioCount = 0;
     }
 }

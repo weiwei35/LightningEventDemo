@@ -404,6 +404,14 @@ public class EnemyController : MonoBehaviour
         Vector3 point = areaCenter + new Vector3(Mathf.Cos(angle) * radiusRandom,Mathf.Sin(angle) * radiusRandom,0);
         transform.position = new Vector3(point.x,point.y,-5);
     }
+    //随机生成
+    public void SpawnAtRandom()
+    {
+        float angle = Random.Range(0,Mathf.PI * 2);
+        float radiusRandom = Random.Range(0,24);
+        Vector3 point = new Vector3(6.5f,0,0) + new Vector3(Mathf.Cos(angle) * radiusRandom,Mathf.Sin(angle) * radiusRandom,0);
+        transform.position = new Vector3(point.x,point.y,-5);
+    }
 
     //受伤后产生爆炸
     void SetBoom(){
@@ -471,6 +479,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    
 }
 
 public enum HurtType{
