@@ -18,6 +18,22 @@ public class CirclePanelController : MonoBehaviour
     public void GetPartByPlayer(){
         float distance = Vector3.Distance(player.transform.position,center.transform.position);
         if(distance < radius1 && distance > 8){
+            sprites1[8].material = dark_m; 
+            sprites1[9].material = dark_m;
+            sprites1[10].material = dark_m;
+            sprites1[11].material = dark_m;
+            sprites1[12].material = dark_m; 
+            sprites1[13].material = dark_m;
+            sprites1[14].material = dark_m;
+            sprites1[15].material = dark_m;
+            sprites1[16].material = dark_m; 
+            sprites1[17].material = dark_m;
+            sprites1[18].material = dark_m;
+            sprites1[19].material = dark_m;
+            sprites1[20].material = dark_m; 
+            sprites1[21].material = dark_m;
+            sprites1[22].material = dark_m;
+            sprites1[23].material = dark_m;
             Vector3 PtoC = player.transform.position - center.transform.position;
             PtoC.Normalize();
             Vector3 StoC = start1.transform.position - center.transform.position;
@@ -81,11 +97,11 @@ public class CirclePanelController : MonoBehaviour
                     inDoor_XIU = false;
                 }
             }else{
-                sprites1[4].material = dark_m; 
                 sprites1[0].material = dark_m; 
                 sprites1[1].material = dark_m;
                 sprites1[2].material = dark_m;
                 sprites1[3].material = dark_m;
+                sprites1[4].material = dark_m; 
                 if(angle < 45 && angle > 0){
                     sprites1[7].material = light_m;
                     if(saveDoor)
@@ -119,7 +135,251 @@ public class CirclePanelController : MonoBehaviour
                     inDoor_KAI = false;
                 }
             }
-        }else{
+        }
+        else if(distance > radius1 && distance < radius2){
+            //8-9-10-11-12-13-14-15
+            //0-1- 2- 3- 4- 5- 6- 7
+            sprites1[0].material = dark_m; 
+            sprites1[1].material = dark_m;
+            sprites1[2].material = dark_m;
+            sprites1[3].material = dark_m;
+            sprites1[4].material = dark_m; 
+            sprites1[5].material = dark_m;
+            sprites1[6].material = dark_m;
+            sprites1[7].material = dark_m;
+            
+            sprites1[16].material = dark_m; 
+            sprites1[17].material = dark_m;
+            sprites1[18].material = dark_m;
+            sprites1[19].material = dark_m;
+            sprites1[20].material = dark_m; 
+            sprites1[21].material = dark_m;
+            sprites1[22].material = dark_m;
+            sprites1[23].material = dark_m;
+            Vector3 PtoC = player.transform.position - center.transform.position;
+            PtoC.Normalize();
+            Vector3 StoC = start2.transform.position - center.transform.position;
+            StoC.Normalize();
+            
+            float atan2 = Mathf.Atan2(PtoC.y, PtoC.x) - Mathf.Atan2(StoC.y, StoC.x);
+
+            float anglePS = (atan2 * (180 / Mathf.PI));
+            float angle = Mathf.Abs(anglePS);
+
+            if(anglePS < 0){
+                sprites1[13].material = dark_m;
+                sprites1[14].material = dark_m;
+                sprites1[15].material = dark_m;
+                if(angle < 45 && angle > 0){
+                    sprites1[8].material = light_m;
+                    if(saveDoor)
+                        inDoor_DU = true;
+                }else{
+                    inDoor_DU = false;
+                    sprites1[8].material = dark_m;
+                }
+                if(angle < 90 && angle > 45){
+                    sprites1[9].material = light_m;
+                    if(saveDoor)
+                        inDoor_JING = true;
+                }else{
+                    sprites1[9].material = dark_m;
+                    inDoor_JING = false;
+                }
+                if(angle < 135 && angle > 90){
+                    sprites1[10].material = light_m;
+                    if(saveDoor)
+                        inDoor_SI = true;
+                }else{
+                    sprites1[10].material = dark_m;
+                    inDoor_SI = false;
+                }
+                if(angle < 180 && angle > 135){
+                    sprites1[11].material = light_m;
+                    if(saveDoor)
+                        inDoor_JING_Bad = true;
+                } else{
+                    sprites1[11].material = dark_m;
+                    inDoor_JING_Bad = false;
+                }
+                if(angle < 225 && angle > 180){
+                    sprites1[12].material = light_m;
+                    if(saveDoor)
+                        inDoor_KAI = true;
+                } else{
+                    sprites1[12].material = dark_m;
+                    inDoor_KAI = false;
+                }
+                if(angle > 225){
+                    sprites1[13].material = light_m;
+                    if(saveDoor)
+                        inDoor_XIU = true;
+                } else{
+                    sprites1[13].material = dark_m;
+                    inDoor_XIU = false;
+                }
+            }else{
+                sprites1[8].material = dark_m; 
+                sprites1[9].material = dark_m;
+                sprites1[10].material = dark_m;
+                sprites1[11].material = dark_m;
+                sprites1[12].material = dark_m; 
+                if(angle < 45 && angle > 0){
+                    sprites1[15].material = light_m;
+                    if(saveDoor)
+                        inDoor_SHANG = true;
+                }else{
+                    sprites1[15].material = dark_m;
+                    inDoor_SHANG = false;
+                }
+                if(angle < 90 && angle > 45){
+                    sprites1[14].material = light_m;
+                    if(saveDoor)
+                        inDoor_SHENG = true;
+                }else{
+                    sprites1[14].material = dark_m;
+                    inDoor_SHENG = false;
+                }
+                if(angle < 135 && angle > 90){
+                    sprites1[13].material = light_m;
+                    if(saveDoor)
+                        inDoor_XIU = true;
+                }else{
+                    sprites1[13].material = dark_m;
+                    inDoor_XIU = false;
+                }
+                if(angle > 135){
+                    sprites1[12].material = light_m;
+                    if(saveDoor)
+                        inDoor_KAI = true;
+                } else{
+                    sprites1[12].material = dark_m;
+                    inDoor_KAI = false;
+                }
+            }
+        }
+        else if(distance > radius2 && distance < radius3){
+            // 8- 9-10-11-12-13-14-15
+            //16-17-18-19-20-21-22-23
+            sprites1[0].material = dark_m; 
+            sprites1[1].material = dark_m;
+            sprites1[2].material = dark_m;
+            sprites1[3].material = dark_m;
+            sprites1[4].material = dark_m; 
+            sprites1[5].material = dark_m;
+            sprites1[6].material = dark_m;
+            sprites1[7].material = dark_m;
+            sprites1[8].material = dark_m; 
+            sprites1[9].material = dark_m;
+            sprites1[10].material = dark_m;
+            sprites1[11].material = dark_m;
+            sprites1[12].material = dark_m; 
+            sprites1[13].material = dark_m;
+            sprites1[14].material = dark_m;
+            sprites1[15].material = dark_m;
+            Vector3 PtoC = player.transform.position - center.transform.position;
+            PtoC.Normalize();
+            Vector3 StoC = start1.transform.position - center.transform.position;
+            StoC.Normalize();
+            
+            float atan2 = Mathf.Atan2(PtoC.y, PtoC.x) - Mathf.Atan2(StoC.y, StoC.x);
+
+            float anglePS = (atan2 * (180 / Mathf.PI));
+            float angle = Mathf.Abs(anglePS);
+
+            if(anglePS < 0){
+                sprites1[21].material = dark_m;
+                sprites1[22].material = dark_m;
+                sprites1[23].material = dark_m;
+                if(angle < 45 && angle > 0){
+                    sprites1[16].material = light_m;
+                    if(saveDoor)
+                        inDoor_DU = true;
+                }else{
+                    inDoor_DU = false;
+                    sprites1[16].material = dark_m;
+                }
+                if(angle < 90 && angle > 45){
+                    sprites1[17].material = light_m;
+                    if(saveDoor)
+                        inDoor_JING = true;
+                }else{
+                    sprites1[17].material = dark_m;
+                    inDoor_JING = false;
+                }
+                if(angle < 135 && angle > 90){
+                    sprites1[18].material = light_m;
+                    if(saveDoor)
+                        inDoor_SI = true;
+                }else{
+                    sprites1[18].material = dark_m;
+                    inDoor_SI = false;
+                }
+                if(angle < 180 && angle > 135){
+                    sprites1[19].material = light_m;
+                    if(saveDoor)
+                        inDoor_JING_Bad = true;
+                } else{
+                    sprites1[19].material = dark_m;
+                    inDoor_JING_Bad = false;
+                }
+                if(angle < 225 && angle > 180){
+                    sprites1[20].material = light_m;
+                    if(saveDoor)
+                        inDoor_KAI = true;
+                } else{
+                    sprites1[20].material = dark_m;
+                    inDoor_KAI = false;
+                }
+                if(angle > 225){
+                    sprites1[21].material = light_m;
+                    if(saveDoor)
+                        inDoor_XIU = true;
+                } else{
+                    sprites1[21].material = dark_m;
+                    inDoor_XIU = false;
+                }
+            }else{
+                sprites1[16].material = dark_m; 
+                sprites1[17].material = dark_m;
+                sprites1[18].material = dark_m;
+                sprites1[19].material = dark_m;
+                sprites1[20].material = dark_m; 
+                if(angle < 45 && angle > 0){
+                    sprites1[23].material = light_m;
+                    if(saveDoor)
+                        inDoor_SHANG = true;
+                }else{
+                    sprites1[23].material = dark_m;
+                    inDoor_SHANG = false;
+                }
+                if(angle < 90 && angle > 45){
+                    sprites1[22].material = light_m;
+                    if(saveDoor)
+                        inDoor_SHENG = true;
+                }else{
+                    sprites1[22].material = dark_m;
+                    inDoor_SHENG = false;
+                }
+                if(angle < 135 && angle > 90){
+                    sprites1[21].material = light_m;
+                    if(saveDoor)
+                        inDoor_XIU = true;
+                }else{
+                    sprites1[21].material = dark_m;
+                    inDoor_XIU = false;
+                }
+                if(angle > 135){
+                    sprites1[20].material = light_m;
+                    if(saveDoor)
+                        inDoor_KAI = true;
+                } else{
+                    sprites1[20].material = dark_m;
+                    inDoor_KAI = false;
+                }
+            }
+        }
+        else{
             foreach(var sprite in sprites1){
                 sprite.material = dark_m;
             }
@@ -235,5 +495,10 @@ public class CirclePanelController : MonoBehaviour
             }
         }
         
+    }
+
+    public void ResetCircle(){
+        isTurn = true;
+        countTime = 0;
     }
 }

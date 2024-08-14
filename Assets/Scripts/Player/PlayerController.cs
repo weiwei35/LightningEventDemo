@@ -282,13 +282,13 @@ public class PlayerController : MonoBehaviour
         screenWave.SetActive(false);
     }
     void MoveEnemy(){
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 10);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5);
         foreach (var hitCollider in hitColliders)
         {
             if(hitCollider.tag == "Enemy"){
                 EnemyController enemy = hitCollider.GetComponent<EnemyController>();
                 if(enemy != null)
-                    enemy.MoveToLine(transform.position);
+                    enemy.MoveToLine(follow.position);
             }
         }
     }
@@ -537,6 +537,7 @@ public class PlayerController : MonoBehaviour
         sprite.sortingOrder = 21;
         
         blackBG.SetActive(true);
+        gameController.StopLevelSound();
         anim.PlayDeadAnim();
         Invoke("SetCam",0.6f);
         

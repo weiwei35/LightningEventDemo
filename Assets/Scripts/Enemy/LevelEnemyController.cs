@@ -167,8 +167,25 @@ public class LevelEnemyController : MonoBehaviour
     }
 
     AudioSource audioSource;
+    bool canAudio = true;
+    int audioCount = 0;
     public AudioClip[] audios;
     public void PlayAudio(int index) {
-        audioSource.PlayOneShot(audios[index]);
+        if(canAudio){
+            audioCount ++;
+            audioSource.PlayOneShot(audios[index]);
+            if(audioCount > 3){
+                canAudio = false;
+            }
+        }else{
+            StartCoroutine(SetAudio());
+        }
+    }
+
+    IEnumerator SetAudio()
+    {
+        yield return new WaitForSeconds(1f);
+        canAudio = true;
+        audioCount = 0;
     }
 }

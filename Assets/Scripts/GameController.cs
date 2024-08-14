@@ -48,6 +48,7 @@ public class GameController : MonoBehaviour
     public AudioClip[] levelBGMClips;
     public AudioSource levelStart;
     public AudioSource levelBack;
+    public CirclePanelController circlePanel;
     // Start is called before the first frame update
     private void Awake() {
         Application.targetFrameRate = 60;
@@ -154,7 +155,7 @@ public class GameController : MonoBehaviour
             }
             isLevelUp = true;
         }
-        if(isLevelUp && !Global.isSlowDown){
+        if(isLevelUp && !Global.isSlowDown && !Global.isGameOver){
             isLevelUp = false;
             Invoke("SetTimeStop",0.5f);
             endLevelPanel.SetActive(true);
@@ -219,6 +220,11 @@ public class GameController : MonoBehaviour
         Global.isEndBoss = false;
         rewardTitle.SetActive(false);
         // enemyPool.DestroyAllEnemy();
+        foreach (Transform item in bulletFather.transform)
+        {
+            Debug.Log(item.name);
+            Destroy(item.gameObject);
+        }
         levelEnemyController.DestroyAllEnemy();
         isReward = false;
         Global.papersPosList.Clear();
@@ -237,11 +243,7 @@ public class GameController : MonoBehaviour
                 Destroy(item);
             }
         }
-        foreach (Transform item in bulletFather.transform)
-        {
-            Debug.Log(item.name);
-            Destroy(item.gameObject);
-        }
+        
         startCheckingEnemy = true;
     }
     IEnumerator SetNextLevel(){
@@ -262,6 +264,10 @@ public class GameController : MonoBehaviour
     }
     void PlayLevelSound(){
         levelStart.Play();
+    }
+    public void StopLevelSound(){
+        levelBGM.Stop();
+        levelBack.Stop();
     }
 
     public void SetLevel(){
@@ -306,6 +312,8 @@ public class GameController : MonoBehaviour
             }
             
             levelBack.Play();
+
+            circlePanel.ResetCircle();
         }
     }
     public void SetItem(){

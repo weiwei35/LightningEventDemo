@@ -193,7 +193,7 @@ MonoBehaviour:
   followDistance: 15
   bullet: {fileID: 3500004177450050912, guid: 42cb3612ebf50714487458cd64e60498, type: 3}
   bulletHurt: 10
-  bulletSpeed: 3
+  bulletSpeed: 6
   bulletTime: 5
   sprite: {fileID: 3482414105341618345}
   mainEnemy: {fileID: 4930490672021026939}
