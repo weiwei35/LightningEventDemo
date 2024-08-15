@@ -17654,8 +17654,8 @@ MonoBehaviour:
   inDoor_XIU: 0
   inDoor_SHENG: 0
   inDoor_SHANG: 0
-  turnTime: 5
-  sleepTime: 10
+  turnTime: 6
+  sleepTime: 30
   circles:
   - {fileID: 148362925}
   - {fileID: 1324428629}
