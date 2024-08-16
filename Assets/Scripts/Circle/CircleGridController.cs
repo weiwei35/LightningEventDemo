@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class CircleGridController : MonoBehaviour
@@ -9,7 +10,6 @@ public class CircleGridController : MonoBehaviour
     public GameObject lightBG;
     public Material light_m;
     public Material dark_m;
-    bool checkDoor = true;
     bool inDoor = false;
     CirclePanelController circlePanel;
 
@@ -72,7 +72,33 @@ public class CircleGridController : MonoBehaviour
             inDoor = true;
         }
     }
+    bool startFade = false;
+
+    public void SetFadeIn(){
+        startFade = true;
+        circlePanel.checkFade = true;
+        grid = transform.parent.GetComponent<SpriteRenderer>();
+        grid.DOFade(1,1f).OnComplete(()=>{
+            circlePanel.isFadeIn = false;
+            startFade = false;
+        });
+    }
+    public void SetFadeOut(){
+        startFade = true;
+        circlePanel.checkFade = true;
+        grid = transform.parent.GetComponent<SpriteRenderer>();
+        grid.DOFade(0,1f).OnComplete(()=>{
+            circlePanel.isFadeOut = false;
+            startFade = false;
+        });
+    }
     private void Update() {
+        if(circlePanel.isFadeIn && !startFade){
+            SetFadeIn();
+        }
+        if(circlePanel.isFadeOut && !startFade){
+            SetFadeOut();
+        }
         if(inDoor){
             switch (id)
             {

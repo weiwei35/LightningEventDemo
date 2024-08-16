@@ -17,6 +17,9 @@ public class PaperBlack : PaperModel
     private void Start() {
         paperController = transform.parent.GetComponent<PaperController>();
     }
+    private void OnEnable() {
+        Invoke("SetOver",2f);
+    }
     private void Update() {
         BlackHall();
         // if(isOverLoad){
@@ -60,7 +63,7 @@ public class PaperBlack : PaperModel
     //     transform.DOScale(2,0.2f);
     //     maxEnemy = 1;
     // }
-    public void SetOverLoad() {
+    public void SetOver() {
         canOverLoad = true;
         isOverLoad = false;
     }

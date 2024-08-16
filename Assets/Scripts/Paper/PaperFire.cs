@@ -30,8 +30,12 @@ public class PaperFire : PaperModel
             InvokeRepeating("FireBall",0,1);
         }
     }
+    GameObject ball;
 
     void FireBall(){
+        if(ball != null){
+            Destroy(ball.gameObject);
+        }
         var enemys = Transform.FindObjectsOfType<EnemyController>();
         List<EnemyController> enemyInArea = new List<EnemyController>();
         foreach (var item in enemys)
@@ -45,14 +49,16 @@ public class PaperFire : PaperModel
             int id = Random.Range(0,enemyInArea.Count);
             Debug.Log("火球攻击"+enemyInArea[id].name);
             if(enemyInArea[id] != null){
-                var ball = Instantiate(fireBall);
+                ball = Instantiate(fireBall);
                 ball.transform.position = transform.position;
-                ball.transform.DOMove(enemyInArea[id].transform.position,0.2f).OnComplete(()=>{
-                    enemyInArea[id].HurtByBugAttack(0.2f,HurtType.PaperFireBall);
+                Vector3 pos = enemyInArea[id].transform.position;
+                ball.transform.DOMove(pos,0.2f).OnComplete(()=>{
+                    if(enemyInArea != null){
+                        enemyInArea[id].HurtByBugAttack(0.2f,HurtType.PaperFireBall);
+                    }
                     Destroy(ball.gameObject);
                 });
             }
-            
         }
     }
     public override void OverLoadFun(){

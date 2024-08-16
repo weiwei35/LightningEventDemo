@@ -14,197 +14,362 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemys:
   - enemyId: EnemyFollowMove
-    levelGroup: 0100000002000000030000000400000005000000
+    levelGroup: 01000000020000000300000004000000
     rewardLevelGroup: ffffffff
     firstTime: 1
     repeatTime: 3
     count: 0400000006000000
     hp: 10
-    hpGrow: 0.6
+    hpGrow: 1
     hurt: 3
-    hurtGrow: 0.2
+    hurtGrow: 0.8
     speed: 1200000016000000
     speedGrow: 0
     isGroup: 1
     groupArea: 0400000005000000
     isCircleSide: 1
   - enemyId: EnemyFollowMove
-    levelGroup: 0100000002000000030000000400000005000000
+    levelGroup: 01000000020000000300000004000000
     rewardLevelGroup: ffffffff
     firstTime: 10
     repeatTime: 5
     count: 0200000002000000
     hp: 10
-    hpGrow: 0.6
+    hpGrow: 1
     hurt: 3
-    hurtGrow: 0.2
+    hurtGrow: 0.8
     speed: 1200000016000000
     speedGrow: 0
     isGroup: 0
     groupArea: ffffffff
     isCircleSide: 0
   - enemyId: EnemyFollowMove
-    levelGroup: 06000000070000000800000009000000
+    levelGroup: 050000000600000007000000
     rewardLevelGroup: ffffffff
     firstTime: 1
     repeatTime: 2
     count: 0500000007000000
     hp: 10
-    hpGrow: 0.6
+    hpGrow: 1
     hurt: 3
-    hurtGrow: 0.2
+    hurtGrow: 0.8
     speed: 1200000016000000
     speedGrow: 0
     isGroup: 1
     groupArea: 0400000005000000
     isCircleSide: 1
   - enemyId: EnemyFollowMove
-    levelGroup: 06000000070000000800000009000000
+    levelGroup: 050000000600000007000000
     rewardLevelGroup: ffffffff
     firstTime: 10
     repeatTime: 5
     count: 0300000003000000
     hp: 10
-    hpGrow: 0.6
+    hpGrow: 1
     hurt: 3
-    hurtGrow: 0.2
+    hurtGrow: 0.8
     speed: 1200000016000000
     speedGrow: 0
     isGroup: 0
     groupArea: ffffffff
     isCircleSide: 0
   - enemyId: EnemyFollowMove
-    levelGroup: 0a0000000b0000000c0000000d0000000e000000
+    levelGroup: 08000000090000000a000000
     rewardLevelGroup: ffffffff
     firstTime: 1
     repeatTime: 1
     count: 0700000008000000
     hp: 10
-    hpGrow: 0.6
+    hpGrow: 1
     hurt: 3
-    hurtGrow: 0.2
+    hurtGrow: 0.8
     speed: 1200000016000000
     speedGrow: 0
     isGroup: 1
     groupArea: 0400000005000000
     isCircleSide: 1
   - enemyId: EnemyFollowMove
-    levelGroup: 0a0000000b0000000c0000000d0000000e000000
+    levelGroup: 08000000090000000a000000
     rewardLevelGroup: ffffffff
     firstTime: 10
     repeatTime: 5
     count: 0400000004000000
     hp: 10
-    hpGrow: 0.6
+    hpGrow: 1
     hurt: 3
-    hurtGrow: 0.2
+    hurtGrow: 0.8
     speed: 1200000016000000
     speedGrow: 0
     isGroup: 0
     groupArea: ffffffff
     isCircleSide: 0
   - enemyId: EnemyFollowMove_1
-    levelGroup: 030000000400000005000000
+    levelGroup: 020000000300000004000000
     rewardLevelGroup: ffffffff
     firstTime: 5
     repeatTime: 5
     count: 0300000004000000
     hp: 5
-    hpGrow: 0.6
+    hpGrow: 1
     hurt: 5
-    hurtGrow: 0.2
+    hurtGrow: 0.8
     speed: 1900000019000000
     speedGrow: 0
     isGroup: 1
     groupArea: 0300000004000000
     isCircleSide: 1
   - enemyId: EnemyFollowMove_1
-    levelGroup: 030000000400000005000000
+    levelGroup: 020000000300000004000000
     rewardLevelGroup: ffffffff
     firstTime: 20
     repeatTime: 10
     count: 0200000002000000
     hp: 5
-    hpGrow: 0.6
+    hpGrow: 1
     hurt: 5
-    hurtGrow: 0.2
+    hurtGrow: 0.8
     speed: 1900000019000000
     speedGrow: 0
     isGroup: 0
     groupArea: ffffffff
     isCircleSide: 0
   - enemyId: EnemyFollowMove_1
-    levelGroup: 060000000700000008000000090000000a000000
+    levelGroup: 05000000060000000700000008000000
     rewardLevelGroup: ffffffff
     firstTime: 3
     repeatTime: 4
     count: 0400000005000000
     hp: 5
-    hpGrow: 0.6
+    hpGrow: 1
     hurt: 5
-    hurtGrow: 0.2
+    hurtGrow: 0.8
     speed: 1900000019000000
     speedGrow: 0
     isGroup: 1
     groupArea: 0300000004000000
     isCircleSide: 1
   - enemyId: EnemyFollowMove_1
-    levelGroup: 060000000700000008000000090000000a000000
+    levelGroup: 05000000060000000700000008000000
     rewardLevelGroup: ffffffff
     firstTime: 15
     repeatTime: 10
     count: 0200000002000000
     hp: 5
-    hpGrow: 0.6
+    hpGrow: 1
     hurt: 5
-    hurtGrow: 0.2
+    hurtGrow: 0.8
     speed: 1900000019000000
     speedGrow: 0
     isGroup: 0
     groupArea: ffffffff
     isCircleSide: 0
   - enemyId: EnemyFollowMove_1
-    levelGroup: 0b0000000c0000000d0000000e000000
+    levelGroup: 090000000a000000
     rewardLevelGroup: ffffffff
     firstTime: 3
     repeatTime: 4
     count: 0400000005000000
     hp: 5
-    hpGrow: 0.6
+    hpGrow: 1
     hurt: 5
-    hurtGrow: 0.2
+    hurtGrow: 0.8
     speed: 1900000019000000
     speedGrow: 0
     isGroup: 1
     groupArea: 0300000004000000
     isCircleSide: 1
   - enemyId: EnemyFollowMove_1
-    levelGroup: 0b0000000c0000000d0000000e000000
+    levelGroup: 090000000a000000
     rewardLevelGroup: ffffffff
     firstTime: 15
     repeatTime: 10
     count: 0200000002000000
     hp: 5
-    hpGrow: 0.6
+    hpGrow: 1
     hurt: 5
-    hurtGrow: 0.2
+    hurtGrow: 0.8
     speed: 1900000019000000
     speedGrow: 0
     isGroup: 0
     groupArea: ffffffff
     isCircleSide: 0
   - enemyId: EnemyFarMove
-    levelGroup: ffffffff
-    rewardLevelGroup: 01000000
-    firstTime: 0
-    repeatTime: 0
-    count: 1400000014000000
+    levelGroup: 030000000400000005000000
+    rewardLevelGroup: ffffffff
+    firstTime: 5
+    repeatTime: 6
+    count: 0300000004000000
     hp: 10
-    hpGrow: 0.6
-    hurt: 3
-    hurtGrow: 0.2
-    speed: 1200000016000000
-    speedGrow: 0.1
+    hpGrow: 1
+    hurt: 6
+    hurtGrow: 0.8
+    speed: 1400000014000000
+    speedGrow: 0
+    isGroup: 1
+    groupArea: 0200000003000000
+    isCircleSide: 1
+  - enemyId: EnemyFarMove
+    levelGroup: 030000000400000005000000
+    rewardLevelGroup: ffffffff
+    firstTime: 5
+    repeatTime: 4
+    count: 0100000001000000
+    hp: 10
+    hpGrow: 1
+    hurt: 6
+    hurtGrow: 0.8
+    speed: 1400000014000000
+    speedGrow: 0
     isGroup: 0
     groupArea: ffffffff
     isCircleSide: 1
+  - enemyId: EnemyFarMove
+    levelGroup: 060000000700000008000000
+    rewardLevelGroup: ffffffff
+    firstTime: 5
+    repeatTime: 5
+    count: 0400000005000000
+    hp: 10
+    hpGrow: 1
+    hurt: 6
+    hurtGrow: 0.8
+    speed: 1400000014000000
+    speedGrow: 0
+    isGroup: 1
+    groupArea: 0200000003000000
+    isCircleSide: 1
+  - enemyId: EnemyFarMove
+    levelGroup: 060000000700000008000000
+    rewardLevelGroup: ffffffff
+    firstTime: 5
+    repeatTime: 4
+    count: 0200000002000000
+    hp: 10
+    hpGrow: 1
+    hurt: 6
+    hurtGrow: 0.8
+    speed: 1400000014000000
+    speedGrow: 0
+    isGroup: 0
+    groupArea: ffffffff
+    isCircleSide: 1
+  - enemyId: EnemyFarMove
+    levelGroup: 090000000a000000
+    rewardLevelGroup: ffffffff
+    firstTime: 5
+    repeatTime: 4
+    count: 0500000006000000
+    hp: 10
+    hpGrow: 1
+    hurt: 6
+    hurtGrow: 0.8
+    speed: 1400000014000000
+    speedGrow: 0
+    isGroup: 1
+    groupArea: 0200000003000000
+    isCircleSide: 1
+  - enemyId: EnemyFarMove
+    levelGroup: 090000000a000000
+    rewardLevelGroup: ffffffff
+    firstTime: 5
+    repeatTime: 3
+    count: 0200000002000000
+    hp: 10
+    hpGrow: 1
+    hurt: 6
+    hurtGrow: 0.8
+    speed: 1400000014000000
+    speedGrow: 0
+    isGroup: 0
+    groupArea: ffffffff
+    isCircleSide: 1
+  - enemyId: RandomMoveEnemy
+    levelGroup: 0400000005000000
+    rewardLevelGroup: ffffffff
+    firstTime: 10
+    repeatTime: 7
+    count: 0200000002000000
+    hp: 20
+    hpGrow: 1
+    hurt: 10
+    hurtGrow: 0.8
+    speed: 0f0000000f000000
+    speedGrow: 0
+    isGroup: 0
+    groupArea: ffffffff
+    isCircleSide: 0
+  - enemyId: RandomMoveEnemy
+    levelGroup: 0400000005000000
+    rewardLevelGroup: ffffffff
+    firstTime: 10
+    repeatTime: 10
+    count: 0100000002000000
+    hp: 20
+    hpGrow: 1
+    hurt: 10
+    hurtGrow: 0.8
+    speed: 0f0000000f000000
+    speedGrow: 0
+    isGroup: 0
+    groupArea: ffffffff
+    isCircleSide: 0
+  - enemyId: RandomMoveEnemy
+    levelGroup: 060000000700000008000000
+    rewardLevelGroup: ffffffff
+    firstTime: 10
+    repeatTime: 10
+    count: 0100000002000000
+    hp: 20
+    hpGrow: 1
+    hurt: 10
+    hurtGrow: 0.8
+    speed: 0f0000000f000000
+    speedGrow: 0
+    isGroup: 0
+    groupArea: ffffffff
+    isCircleSide: 0
+  - enemyId: RandomMoveEnemy
+    levelGroup: 060000000700000008000000
+    rewardLevelGroup: ffffffff
+    firstTime: 10
+    repeatTime: 10
+    count: 0100000002000000
+    hp: 20
+    hpGrow: 1
+    hurt: 10
+    hurtGrow: 0.8
+    speed: 0f0000000f000000
+    speedGrow: 0
+    isGroup: 0
+    groupArea: ffffffff
+    isCircleSide: 0
+  - enemyId: RandomMoveEnemy
+    levelGroup: 090000000a000000
+    rewardLevelGroup: ffffffff
+    firstTime: 10
+    repeatTime: 10
+    count: 0100000002000000
+    hp: 20
+    hpGrow: 1
+    hurt: 10
+    hurtGrow: 0.8
+    speed: 0f0000000f000000
+    speedGrow: 0
+    isGroup: 0
+    groupArea: ffffffff
+    isCircleSide: 0
+  - enemyId: RandomMoveEnemy
+    levelGroup: 090000000a000000
+    rewardLevelGroup: ffffffff
+    firstTime: 10
+    repeatTime: 10
+    count: 0100000002000000
+    hp: 20
+    hpGrow: 1
+    hurt: 10
+    hurtGrow: 0.8
+    speed: 0f0000000f000000
+    speedGrow: 0
+    isGroup: 0
+    groupArea: ffffffff
+    isCircleSide: 0

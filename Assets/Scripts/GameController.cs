@@ -46,6 +46,7 @@ public class GameController : MonoBehaviour
     public GameObject bulletFather;
     public AudioSource levelBGM;
     public AudioClip[] levelBGMClips;
+    public AudioClip[] levelBGMLoopClips;
     public AudioSource levelStart;
     public AudioSource levelBack;
     public CirclePanelController circlePanel;
@@ -212,6 +213,25 @@ public class GameController : MonoBehaviour
             levelImg.gameObject.SetActive(false);
             SceneManager.LoadSceneAsync("UIScene");
         }
+
+        if(levelBGM.isPlaying == false){
+            if(levelId < 6){
+                levelBGM.clip = levelBGMLoopClips[0];
+                levelBGM.volume = 0.5f;
+                levelBGM.loop = true;
+                levelBGM.Play();
+            }else if(levelId > 5 && levelId < 11){
+                levelBGM.clip = levelBGMLoopClips[1];
+                levelBGM.volume = 0.5f;
+                levelBGM.loop = true;
+                levelBGM.Play();
+            }else if(levelId > 10 && levelId < 16){
+                levelBGM.clip = levelBGMLoopClips[2];
+                levelBGM.volume = 0.5f;
+                levelBGM.loop = true;
+                levelBGM.Play();
+            }
+        }
     }
 
     public void NextLevel() {
@@ -310,6 +330,7 @@ public class GameController : MonoBehaviour
                 levelBGM.volume = 0.5f;
                 levelBGM.Play();
             }
+            levelBGM.loop = false;
             
             levelBack.Play();
 

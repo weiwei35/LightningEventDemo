@@ -15,9 +15,9 @@ MonoBehaviour:
   itemLevelRanks:
   - levelId: 1
     levelType: 1
-    item1Rank: 999
+    item1Rank: 995
     item2Rank: 0
-    item3Rank: 1
+    item3Rank: 5
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -25,9 +25,9 @@ MonoBehaviour:
     bigRank: 10
   - levelId: 1
     levelType: 2
-    item1Rank: 1
+    item1Rank: 300
     item2Rank: 0
-    item3Rank: 999
+    item3Rank: 699
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -38,38 +38,178 @@ MonoBehaviour:
     item1Rank: 995
     item2Rank: 0
     item3Rank: 5
-    smallRank: 40
-    midRank: 40
+    smallRank: 50
+    midRank: 30
     largeRank: 20
-    littleRank: 80
-    bigRank: 20
+    littleRank: 90
+    bigRank: 10
   - levelId: 2
     levelType: 2
+    item1Rank: 300
+    item2Rank: 0
+    item3Rank: 699
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 3
+    levelType: 1
     item1Rank: 995
     item2Rank: 0
     item3Rank: 5
-    smallRank: 40
-    midRank: 40
-    largeRank: 20
-    littleRank: 80
-    bigRank: 20
-  - levelId: 3
-    levelType: 1
-    item1Rank: 990
-    item2Rank: 0
-    item3Rank: 10
-    smallRank: 20
+    smallRank: 50
     midRank: 30
-    largeRank: 50
-    littleRank: 70
-    bigRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
   - levelId: 3
     levelType: 2
-    item1Rank: 990
+    item1Rank: 300
     item2Rank: 0
-    item3Rank: 10
-    smallRank: 20
+    item3Rank: 699
+    smallRank: 50
     midRank: 30
-    largeRank: 50
-    littleRank: 70
-    bigRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 4
+    levelType: 1
+    item1Rank: 995
+    item2Rank: 0
+    item3Rank: 5
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 4
+    levelType: 2
+    item1Rank: 300
+    item2Rank: 0
+    item3Rank: 699
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 5
+    levelType: 1
+    item1Rank: 995
+    item2Rank: 0
+    item3Rank: 5
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 5
+    levelType: 2
+    item1Rank: 300
+    item2Rank: 0
+    item3Rank: 699
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 6
+    levelType: 1
+    item1Rank: 995
+    item2Rank: 0
+    item3Rank: 5
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 6
+    levelType: 2
+    item1Rank: 300
+    item2Rank: 0
+    item3Rank: 699
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 7
+    levelType: 1
+    item1Rank: 995
+    item2Rank: 0
+    item3Rank: 5
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 7
+    levelType: 2
+    item1Rank: 300
+    item2Rank: 0
+    item3Rank: 699
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 8
+    levelType: 1
+    item1Rank: 995
+    item2Rank: 0
+    item3Rank: 5
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 8
+    levelType: 2
+    item1Rank: 300
+    item2Rank: 0
+    item3Rank: 699
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 9
+    levelType: 1
+    item1Rank: 995
+    item2Rank: 0
+    item3Rank: 5
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 9
+    levelType: 2
+    item1Rank: 300
+    item2Rank: 0
+    item3Rank: 699
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 10
+    levelType: 1
+    item1Rank: 995
+    item2Rank: 0
+    item3Rank: 5
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10
+  - levelId: 10
+    levelType: 2
+    item1Rank: 300
+    item2Rank: 0
+    item3Rank: 699
+    smallRank: 50
+    midRank: 30
+    largeRank: 20
+    littleRank: 90
+    bigRank: 10

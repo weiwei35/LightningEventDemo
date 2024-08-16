@@ -11,11 +11,11 @@ public class CirclePanelController : MonoBehaviour
     public GameObject doorItemUI;
     public GameObject doorItemPrefab;
     public void SetDoorUI(int id){
-        var door = Instantiate(doorItemPrefab);
-        door.transform.SetParent(doorItemUI.transform);
-        door.transform.localScale = new Vector3(1,1,1);
-        door.transform.localPosition = Vector3.zero;
-        ItemIconDoor itemIconDoor = door.GetComponent<ItemIconDoor>();
+        // var door = Instantiate(doorItemPrefab);
+        if(!doorItemPrefab.activeInHierarchy){
+            doorItemPrefab.SetActive(true);
+        }
+        ItemIconDoor itemIconDoor = doorItemPrefab.GetComponent<ItemIconDoor>();
         //设置奇门icon内容
         itemIconDoor.icon.text = doorData.GetDoorItem(id).name[0].ToString();
         itemIconDoor.itemName.text = doorData.GetDoorItem(id).name;
@@ -28,7 +28,7 @@ public class CirclePanelController : MonoBehaviour
         }
     }
     void CheckDoorId(){
-        DeletDoorUI();
+        // DeletDoorUI();
         int id = -1;
         if(inDoor_KAI){
             id = 0;
@@ -50,6 +50,8 @@ public class CirclePanelController : MonoBehaviour
 
         if(id!= -1){
             SetDoorUI(id);
+        }else{
+            doorItemPrefab.SetActive(false);
         }
     }
 
@@ -67,43 +69,65 @@ public class CirclePanelController : MonoBehaviour
     float countTime = 0;
     bool isTurn = true;
     public GameObject[] circles;
-    bool saveDoor = false;
+    public bool isFadeIn = false;
+    public bool isFadeOut = false;
+    public bool checkFade = false;
+    // bool saveDoor = false;
+    public SpriteRenderer[] circle;
 
     private void Update() {
         if(isTurn && Global.GameBegain){
-            DeletDoorUI();
-            saveDoor = false;
+            // DeletDoorUI();
+            CheckDoorId();
+            // saveDoor = false;
             countTime += Time.deltaTime;
             if(countTime >= turnTime){
+                isFadeOut = true;
                 checkingDoor = true;
-                saveDoor = true;
-                CheckDoorId();
+                // saveDoor = true;
                 isTurn = false;
                 countTime = 0;
-                foreach (var item in circles)
-                {
-                    // SpriteRenderer sprite = item.GetComponent<SpriteRenderer>();
-                    // sprite.material.DOFade(0,0.3f).OnComplete(()=>{
-                        item.SetActive(false);
-                    // });
-                }
+                SetCircleFadeOut();
             }
         }else if(Global.GameBegain){
-            saveDoor = false;
+            // saveDoor = false;
             countTime += Time.deltaTime;
             if(countTime >= sleepTime){
                 isTurn = true;
                 countTime = 0;
+                isFadeIn = true;
+                SetCircleFadeIn();
                 foreach (var item in circles)
-                {
-                    // SpriteRenderer sprite = item.GetComponent<SpriteRenderer>();
-                    // sprite.material.color = new Color(sprite.material.color.r,sprite.material.color.g,sprite.material.color.b,0);
-                    item.SetActive(true);
-                    // sprite.material.DOFade(1,0.3f);
-                }
+                    {
+                        // SpriteRenderer sprite = item.GetComponent<SpriteRenderer>();
+                        // sprite.material.color = new Color(sprite.material.color.r,sprite.material.color.g,sprite.material.color.b,0);
+                        item.SetActive(true);
+                        // sprite.material.DOFade(1,0.3f);
+                    }
             }
         }
+            if(!isFadeOut && !isTurn){
+                foreach (var item in circles)
+                    {
+                        // SpriteRenderer sprite = item.GetComponent<SpriteRenderer>();
+                        // sprite.material.DOFade(0,0.3f).OnComplete(()=>{
+                            item.SetActive(false);
+                        // });
+                    }
+        }
         
+    }
+    void SetCircleFadeOut(){
+        foreach (var item in circle)
+        {
+            item.DOFade(0,1);
+        }
+    }
+    void SetCircleFadeIn(){
+        foreach (var item in circle)
+        {
+            item.DOFade(1,1);
+        }
     }
 
     public void ResetCircle(){
