@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -50,6 +51,9 @@ public class SelectItemUI : MonoBehaviour
                         detailType.Add(detail);
                     }else if(spec == 1){
                         int detail = itemLevelRank.GetPieceType(gameController.levelId,type);
+                        detailType.Add(detail);
+                    }else if(spec == 2){
+                        int detail = itemLevelRank.GetBabyType(gameController.levelId,type);
                         detailType.Add(detail);
                     }
                 }
@@ -119,20 +123,33 @@ public class SelectItemUI : MonoBehaviour
                     foreach (var item in Global.item1Current)
                     {
                         Debug.Log(item.name);
-                        if(item.type == currentItem.type){
+                        if(item.type[0] == currentItem.type[0]){
                             count++;
                         }
                     }
                     if(count > 1)
                     {
-                        uIController.AddItem1(currentItem.name[0].ToString(),count,currentItem.type);
+                        uIController.AddItem1(currentItem.name[0].ToString(),count,currentItem.type[0]);
                     }else{
-                        uIController.SetItem1(currentItem.name[0].ToString(),currentItem.name.ToString(),currentItem.desc.ToString(),currentItem.type);
+                        uIController.SetItem1(currentItem.name[0].ToString(),currentItem.name.ToString(),currentItem.desc.ToString(),currentItem.type[0]);
                     }
                     return;
                 case 2:
                     Global.item2Current.Add(currentItem);
-                    uIController.SetItem2(currentItem.name[0].ToString(),currentItem.name.ToString(),currentItem.desc.ToString());
+                    int count2 = 0;
+                    foreach (var item in Global.item1Current)
+                    {
+                        Debug.Log(item.name);
+                        if(item.type[0] == currentItem.type[0]){
+                            count2++;
+                        }
+                    }
+                    if(count2 > 1)
+                    {
+                        uIController.AddItem2(currentItem.name[0].ToString(),count2,currentItem.type[0]);
+                    }else{
+                        uIController.SetItem2(currentItem.name[0].ToString(),currentItem.name.ToString(),currentItem.desc.ToString(),currentItem.type[0]);
+                    }
                     return;
                 case 3:
                     Global.item3Current.Add(currentItem);
@@ -153,20 +170,33 @@ public class SelectItemUI : MonoBehaviour
                     int count = 0;
                     foreach (var item in Global.item1Current)
                     {
-                        if(item.type == saveItem.type){
+                        if(item.type[0] == saveItem.type[0]){
                             count++;
                         }
                     }
                     if(count > 1)
                     {
-                        uIController.AddItem1(saveItem.name[0].ToString(),count,saveItem.type);
+                        uIController.AddItem1(saveItem.name[0].ToString(),count,saveItem.type[0]);
                     }else{
-                        uIController.SetItem1(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString(),saveItem.type);
+                        uIController.SetItem1(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString(),saveItem.type[0]);
                     }
                     return;
                 case 2:
                     Global.item2Current.Add(saveItem);
-                    uIController.SetItem2(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString());
+                    int count2 = 0;
+                    foreach (var item in Global.item2Current)
+                    {
+                        if(item.type == saveItem.type){
+                            count2++;
+                        }
+                    }
+                    if(count2 > 1)
+                    {
+                        uIController.AddItem2(saveItem.name[0].ToString(),count2,saveItem.type[0]);
+                    }else{
+                        uIController.SetItem2(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString(),saveItem.type[0]);
+                    }
+                    // uIController.SetItem2(saveItem.name[0].ToString(),saveItem.name.ToString(),saveItem.desc.ToString());
                     return;
                 case 3:
                     Global.item3Current.Add(saveItem);
@@ -182,7 +212,7 @@ public class SelectItemUI : MonoBehaviour
     void LoadItemLogic(SelectItem currentItem){
         //处理数值逻辑
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-            switch (currentItem.type) {
+            switch (currentItem.type[0]) {
                 case 201:
                     player.SetCircleCopy();
                     return;
@@ -282,22 +312,32 @@ public class SelectItemUI : MonoBehaviour
     }
     void SwitchLogic(){
         //处理数值逻辑
-            switch (saveItem.type) {
+        for(int i = 0; i < saveItem.type.Length;i++){
+            switch (saveItem.type[i]) {
                 case 1:
-                    player.SetHP(saveItem.buff);
-                    return;
+                    player.SetHP(saveItem.buff[i]);
+                    continue;
                 case 2:
-                    player.SetSpeed(saveItem.buff);
-                    return;
+                    player.SetSpeed(saveItem.buff[i]);
+                    continue;
                 case 3:
-                    player.SetProtect(saveItem.buff);
-                    return;
+                    player.SetProtect(saveItem.buff[i]);
+                    continue;
                 case 5:
-                    player.SetHPSpeed(saveItem.buff);
-                    return;
+                    player.SetHPSpeed(saveItem.buff[i]);
+                    continue;
                 case 6:
-                    player.SetProtectSpeed(saveItem.buff);
-                    return;
+                    player.SetProtectSpeed(saveItem.buff[i]);
+                    continue;
+                case 7:
+                    player.SetLightningCount(saveItem.buff[i]);
+                    continue;
+                case 8:
+                    player.SetLightningTime(saveItem.buff[i]);
+                    continue;
+                case 9:
+                    player.SetLightningHurt(saveItem.buff[i]);
+                    continue;
                 case 201:
                     player.SetCircleCopy();
                     return;
@@ -394,6 +434,8 @@ public class SelectItemUI : MonoBehaviour
                 default:
                     return;
             }
+        }
+            
     }
     private void OnDisable() {
         items.Clear();

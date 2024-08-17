@@ -36,8 +36,21 @@ public class Startup
                     string itemValue = "";
                     if (worksheet.GetValue(i, j) != null){
                         itemValue = worksheet.GetValue(i, j).ToString();
+                        if(typeInfo.FieldType.IsArray){
+                            string[] numbersSplit = itemValue.Split(','); // 使用逗号分割字符串
+                            int[] numbersArray = new int[numbersSplit.Length]; // 创建整型数组
+                            for (int numberId = 0; numberId < numbersSplit.Length; numberId++)
+                            {
+                                if (int.TryParse(numbersSplit[numberId], out int number)) // 尝试转换字符串到整数
+                                {
+                                    numbersArray[numberId] = number; // 成功转换，将整数放入数组
+                                }
+                            }
+                            typeInfo.SetValue(item,Convert.ChangeType(numbersArray,typeInfo.FieldType));
+                        }else{
+                            typeInfo.SetValue(item,Convert.ChangeType(itemValue,typeInfo.FieldType));
+                        }
                     }
-                    typeInfo.SetValue(item,Convert.ChangeType(itemValue,typeInfo.FieldType));
                 }
                 //当前行赋值结束，添加到列表中
                 itemData.items.Add(item);

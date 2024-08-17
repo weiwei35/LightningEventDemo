@@ -721,7 +721,21 @@ public class PlayerController : MonoBehaviour
         startProtect = protect;
         uiController.SetLightningSpeedText(lightningController.lightningTime);
     }
-
+    public void SetLightningTime(float time){
+        LightningController lightningController = lightning.GetComponent<LightningController>();
+        lightningController.lightningTime += time;
+        uiController.SetLightningSpeedText(lightningController.lightningTime);
+    }
+    public void SetLightningHurt(float hurt){
+        LightningController lightningController = lightning.GetComponent<LightningController>();
+        lightningController.lightningHurt += hurt;
+        uiController.SetLightningHurtText(lightningController.lightningHurt);
+    }
+    public void SetLightningCount(float count){
+        LightningController lightningController = lightning.GetComponent<LightningController>();
+        lightningController.lightningCount += count;
+        uiController.SetLightningCountText(lightningController.lightningCount);
+    }
 
     //分身法宝01：围绕圆心生成角色分身，角色以及分身同时吸引雷劫
     public void SetCircleCopy() {

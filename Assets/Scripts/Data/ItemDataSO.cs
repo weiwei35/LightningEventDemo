@@ -20,7 +20,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isCircleCopy){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 201)
+                if(saveItem[i].type[0] == 201)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -28,7 +28,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isOnceLightningCopy){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 202)
+                if(saveItem[i].type[0] == 202)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -36,7 +36,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isOnceTimeCopy){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 203)
+                if(saveItem[i].type[0] == 203)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -44,7 +44,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isMegaCopy){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 204)
+                if(saveItem[i].type[0] == 204)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -52,7 +52,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isLightningMirror){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 301)
+                if(saveItem[i].type[0] == 301)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -60,7 +60,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isLightningBoom){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 302)
+                if(saveItem[i].type[0] == 302)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -68,7 +68,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isLightningAttract){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 303)
+                if(saveItem[i].type[0] == 303)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -76,7 +76,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isLightningOverflow){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 304)
+                if(saveItem[i].type[0] == 304)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -84,7 +84,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isLightningBoomPlayer){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 305)
+                if(saveItem[i].type[0] == 305)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -92,7 +92,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isPaperFireBall){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 401)
+                if(saveItem[i].type[0] == 401)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -100,7 +100,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isPaperIce){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 402)
+                if(saveItem[i].type[0] == 402)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -108,7 +108,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isPaperHP){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 403)
+                if(saveItem[i].type[0] == 403)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -116,7 +116,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isPaperProtect){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 404)
+                if(saveItem[i].type[0] == 404)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -124,7 +124,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isPaperBlack){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 405)
+                if(saveItem[i].type[0] == 405)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -132,7 +132,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isPaperConnect){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 406)
+                if(saveItem[i].type[0] == 406)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -140,7 +140,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isBugHP){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 501)
+                if(saveItem[i].type[0] == 501)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -148,7 +148,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isBugCircle){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 502)
+                if(saveItem[i].type[0] == 502)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -156,7 +156,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isBugWall){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 503)
+                if(saveItem[i].type[0] == 503)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -164,7 +164,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isBugFollow){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 504)
+                if(saveItem[i].type[0] == 504)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -172,7 +172,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isBugMerge){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 505)
+                if(saveItem[i].type[0] == 505)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -180,7 +180,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isBugAttack){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 506)
+                if(saveItem[i].type[0] == 506)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -188,7 +188,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isDebuffSlow){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 601)
+                if(saveItem[i].type[0] == 601)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -196,7 +196,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isDebuffDizzy){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 602)
+                if(saveItem[i].type[0] == 602)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -204,7 +204,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isBuffSuper){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 603)
+                if(saveItem[i].type[0] == 603)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -212,7 +212,7 @@ public class ItemDataSO : ScriptableObject {
         if(player.isMoveRandom){
             for (int i = 0; i < saveItem.Count; i++)
             {
-                if(saveItem[i].type == 604)
+                if(saveItem[i].type[0] == 604)
                     saveItem.Remove(saveItem[i]);
             }
         }
@@ -278,32 +278,16 @@ public class ItemDataSO : ScriptableObject {
                 }
                 int randomId = Random.Range(0,type1Item.Count);
                 item.Add(type1Item[randomId]);
-                int typeCur = type1Item[randomId].type;
+                int typeCur = type1Item[randomId].type[0];
                 for (int j = 0; j < saveItem.Count; j++)
                 {
-                    if(saveItem[j].type == typeCur){
+                    if(saveItem[j].type[0] == typeCur){
                         saveItem.Remove(saveItem[j]);
                         j--;
                     }
                 }
             }
         }
-        
-        // for (int i = 0; i < count; i++)
-        // {
-        //     int randomId;
-        //     int typeId;
-        //     do
-        //     {
-        //         int currentSpecType = Random.Range(0,11);
-        //         if(currentSpecType <= item1Rank*10)
-        //         randomId = Random.Range(0,items.Count);
-        //         typeId = items[randomId].type;
-        //     } while (random.Contains(randomId) || type.Contains(typeId));
-        //     random.Add(randomId);
-        //     type.Add(typeId);
-        //     item.Add(items[randomId]);
-        // }
         return item;
     }
 
@@ -339,8 +323,8 @@ public class SelectItem{
     public int id;
     public string name;
     public string desc;
-    public int type;
-    public int buff;
+    public int[] type;
+    public int[] buff;
     public int specialType;
     public string story;
     public int detailType;

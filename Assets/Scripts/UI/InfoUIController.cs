@@ -61,15 +61,35 @@ public class InfoUIController : MonoBehaviour
             }
         }
     }
-    public void SetItem2(string name,string nameT,string desc) {
+    public void SetItem2(string name,string nameT,string desc,int type) {
         var icon = Instantiate(item.gameObject);
         icon.transform.SetParent(item2Parent.transform);
         icon.transform.localScale = new Vector3(1,1,1);
-        icon.GetComponent<ItemIcon>().count.gameObject.SetActive(false);
         icon.GetComponent<ItemIcon>().icon.text = name;
+        icon.GetComponent<ItemIcon>().count.gameObject.SetActive(false);
         icon.GetComponent<ItemIcon>().itemName.text = nameT;
         icon.GetComponent<ItemIcon>().desc.text = desc;
+        icon.GetComponent<ItemIcon>().itemType = type;
+        item1List.Add(icon.GetComponent<ItemIcon>());
     }
+    public void AddItem2(string name,int count,int type){
+        foreach (var item in item1List)
+        {
+            if(item.itemType == type){
+                item.count.gameObject.SetActive(true);
+                item.count.text = count.ToString();
+            }
+        }
+    }
+    // public void SetItem2(string name,string nameT,string desc) {
+    //     var icon = Instantiate(item.gameObject);
+    //     icon.transform.SetParent(item2Parent.transform);
+    //     icon.transform.localScale = new Vector3(1,1,1);
+    //     icon.GetComponent<ItemIcon>().count.gameObject.SetActive(false);
+    //     icon.GetComponent<ItemIcon>().icon.text = name;
+    //     icon.GetComponent<ItemIcon>().itemName.text = nameT;
+    //     icon.GetComponent<ItemIcon>().desc.text = desc;
+    // }
     public void SetItem3(string name,string nameT,string desc) {
         var icon = Instantiate(item.gameObject);
         icon.transform.SetParent(item3Parent.transform);

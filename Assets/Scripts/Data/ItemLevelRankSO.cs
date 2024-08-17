@@ -62,6 +62,24 @@ public class ItemLevelRankSO : ScriptableObject {
         }
         return 0;
     }
+    public int GetBabyType(int id, int type){
+        foreach (var item in itemLevelRanks)
+        {
+            if(item.levelId == id && item.levelType == type){
+                int random;
+                do
+                {
+                    random = (int)Random.Range(1,item.littleBabyRank+item.bigBabyRank+1);
+                    if(random<=item.littleBabyRank){
+                        return 1;
+                    }else if(random>item.littleBabyRank && random<=item.littleBabyRank+item.bigBabyRank){
+                        return 2;
+                    }
+                }while(random>item.littleBabyRank+item.bigBabyRank);
+            }
+        }
+        return 0;
+    }
 }
 
 [System.Serializable]
@@ -76,4 +94,6 @@ public class ItemLevelRank{
     public float largeRank;
     public float littleRank;
     public float bigRank;
+    public float littleBabyRank;
+    public float bigBabyRank;
 }
