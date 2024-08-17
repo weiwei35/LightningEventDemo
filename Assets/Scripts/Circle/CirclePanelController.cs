@@ -140,5 +140,7 @@ public class CirclePanelController : MonoBehaviour
             item.SetActive(true);
             // sprite.material.DOFade(1,0.3f);
         }
+        isFadeIn = true;
+        SetCircleFadeIn();
     }
 }

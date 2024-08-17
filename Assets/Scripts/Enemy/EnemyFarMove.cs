@@ -82,7 +82,8 @@ public class EnemyFarMove : EnemyController
             }
 
         // 应用限制后的欧拉角
-        mainEnemy.rotation = Quaternion.Euler(currentRotation);
+        if(!isInBlackHall)
+            mainEnemy.rotation = Quaternion.Euler(currentRotation);
 
         //控制子弹数量
         // if(bulletList.Count >2){

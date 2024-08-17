@@ -8,11 +8,8 @@ public class PaperFire : PaperModel
     public float overTime;
     public float countTime = 0;
     public GameObject fireBall;
-    SpriteRenderer sprite;
-    Animator anim;
+    // Animator anim;
     private void Start() {
-        sprite = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
         InvokeRepeating("FireBall",1,1);
     }
     private void Update() {
@@ -23,7 +20,8 @@ public class PaperFire : PaperModel
             countTime = 0;
             isOverLoad = false;
             anim.speed = 1;
-            sprite.color = Color.white;
+            EndOverLoadFun();
+            // sprite.color = Color.white;
 
             CancelInvoke("FireBall");
         
@@ -57,12 +55,13 @@ public class PaperFire : PaperModel
                         enemyInArea[id].HurtByBugAttack(0.2f,HurtType.PaperFireBall);
                     }
                     Destroy(ball.gameObject);
+                    ball = null;
                 });
             }
         }
     }
     public override void OverLoadFun(){
-        sprite.color = Color.red;
+        base.OverLoadFun();
         anim.speed = 2;
         CancelInvoke("FireBall");
         

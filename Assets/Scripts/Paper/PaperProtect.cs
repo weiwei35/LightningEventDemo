@@ -7,12 +7,12 @@ public class PaperProtect : PaperModel
 {
     public float overTime;
     public float countTime = 0;
-    Animator anim;
+    // Animator anim;
     public GameObject protectEffect;
     public GameObject ProtectBall;
     public GameObject fireBall;
     private void Start() {
-        anim = GetComponent<Animator>();
+        // anim = GetComponent<Animator>();
         InvokeRepeating("ProtectRecover",5,5);
     }
     private void Update() {
@@ -23,6 +23,7 @@ public class PaperProtect : PaperModel
             countTime = 0;
             isOverLoad = false;
             anim.speed = 1;
+            EndOverLoadFun();
 
             CancelInvoke("FireBall");
         
@@ -44,6 +45,7 @@ public class PaperProtect : PaperModel
         protectEffect.SetActive(false);
     }
     public override void OverLoadFun(){
+        base.OverLoadFun();
         anim.speed = 2;
         CancelInvoke("ProtectRecover");
         

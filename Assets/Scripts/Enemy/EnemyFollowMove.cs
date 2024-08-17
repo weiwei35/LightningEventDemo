@@ -36,7 +36,8 @@ public class EnemyFollowMove : EnemyController
             }
 
         // 应用限制后的欧拉角
-        mainEnemy.rotation = Quaternion.Euler(currentRotation);
+        if(!isInBlackHall)
+            mainEnemy.rotation = Quaternion.Euler(currentRotation);
     }
     public override void Hurt(float hurt,HurtType type)
     {

@@ -7,11 +7,11 @@ public class PaperHP : PaperModel
 {
     public float overTime;
     public float countTime = 0;
-    Animator anim;
+    // Animator anim;
     public GameObject treeEffect;
     public GameObject HPBall;
     private void Start() {
-        anim = GetComponent<Animator>();
+        // anim = GetComponent<Animator>();
         InvokeRepeating("HPRecover",4,4);
     }
     private void Update() {
@@ -22,6 +22,7 @@ public class PaperHP : PaperModel
             countTime = 0;
             isOverLoad = false;
             anim.speed = 1;
+            EndOverLoadFun();
 
             CancelInvoke("HPRecover");
         
@@ -44,6 +45,7 @@ public class PaperHP : PaperModel
         treeEffect.SetActive(false);
     }
     public override void OverLoadFun(){
+        base.OverLoadFun();
         anim.speed = 2;
         CancelInvoke("HPRecover");
         

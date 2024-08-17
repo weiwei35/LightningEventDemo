@@ -17685,7 +17685,11 @@ MonoBehaviour:
   isFadeIn: 0
   isFadeOut: 0
   checkFade: 0
-  circle: []
+  circle:
+  - {fileID: 747034525}
+  - {fileID: 923388016}
+  - {fileID: 630661383}
+  - {fileID: 1512762027}
 --- !u!4 &1084894192
 Transform:
   m_ObjectHideFlags: 0
