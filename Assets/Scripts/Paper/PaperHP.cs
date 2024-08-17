@@ -12,7 +12,7 @@ public class PaperHP : PaperModel
     public GameObject HPBall;
     private void Start() {
         // anim = GetComponent<Animator>();
-        InvokeRepeating("HPRecover",4,4);
+        InvokeRepeating("HPRecover",4,8);
     }
     private void Update() {
         if(isOverLoad && !Global.isSlowDown){

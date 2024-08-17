@@ -52,7 +52,7 @@ public class PaperFire : PaperModel
                 Vector3 pos = enemyInArea[id].transform.position;
                 ball.transform.DOMove(pos,0.2f).OnComplete(()=>{
                     if(enemyInArea != null){
-                        enemyInArea[id].HurtByBugAttack(0.2f,HurtType.PaperFireBall);
+                        enemyInArea[id].HurtByBugAttack(5f,HurtType.PaperFireBall);
                     }
                     Destroy(ball.gameObject);
                     ball = null;

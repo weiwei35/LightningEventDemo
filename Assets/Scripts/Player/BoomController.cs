@@ -16,7 +16,8 @@ public class BoomController : MonoBehaviour
             EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
             PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             if(player.isLightningBoomPlayer){
-                boomHurt = boomHurt + boomHurt*((player.HP-player.GetHurtCount())/player.HP);
+                // boomHurt = boomHurt + boomHurt*((player.HP-player.GetHurtCount())/player.HP);
+                boomHurt = player.HP/2;
             }
             enemy.Hurt(boomHurt,HurtType.Boom);
             Debug.Log("爆炸伤害："+ other.name);

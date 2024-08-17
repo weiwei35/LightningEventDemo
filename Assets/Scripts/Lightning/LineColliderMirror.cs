@@ -17,7 +17,7 @@ public class LineColliderMirror : MonoBehaviour
         lightning = FindObjectOfType<LightningController>();
         if(other.gameObject.layer == 6){
             EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
-            if(enemy != null && !enemy.isHitting)
+            if(enemy != null /*&& !enemy.isHitting*/)
             {
                 lightning.HurtEnemy(enemy,HurtType.MirrorLine);
             }

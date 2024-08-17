@@ -5472,7 +5472,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 20
   maxHP: 0
-  exp: 10
+  exp: 2
   attack: 5
   speed: 1
   text: {fileID: 236810980476374642}

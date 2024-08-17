@@ -13,7 +13,7 @@ public class PaperProtect : PaperModel
     public GameObject fireBall;
     private void Start() {
         // anim = GetComponent<Animator>();
-        InvokeRepeating("ProtectRecover",5,5);
+        InvokeRepeating("ProtectRecover",5,10);
     }
     private void Update() {
         if(isOverLoad && !Global.isSlowDown){

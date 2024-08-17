@@ -94,7 +94,7 @@ public class LevelEnemyController : MonoBehaviour
     }
 
     IEnumerator SetRepeatEnemy(LevelEnemy enemy){
-        if(!Global.isReward){
+        if(!Global.isReward && enemy.repeatTime>0){
             yield return new WaitForSeconds(enemy.repeatTime);
             SetEnemyArray(enemy);
             StartCoroutine(SetRepeatEnemy(enemy));

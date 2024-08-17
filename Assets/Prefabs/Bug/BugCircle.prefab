@@ -158,10 +158,11 @@ MonoBehaviour:
   energy: 10
   energyCurrent: 0
   canRecoverEnergy: 1
+  isTriggered: 0
   circleTime: 10
   circleRadiusMin: 2
   circleRadiusMax: 5
-  hurtCount: 0.1
+  hurtCount: 2
 --- !u!111 &245349944781997235
 Animation:
   m_ObjectHideFlags: 0

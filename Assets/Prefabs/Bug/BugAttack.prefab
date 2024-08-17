@@ -154,10 +154,11 @@ MonoBehaviour:
   follow: {fileID: 2650414442097214393}
   player: {fileID: 0}
   bugId: 0
-  energy: 3
+  energy: 1
   energyCurrent: 0
   canRecoverEnergy: 1
-  attack: 0.5
+  isTriggered: 0
+  attack: 10
   mesh: {fileID: 6695492876334303694}
   bugAttackCopyPre: {fileID: 7102611127078463845, guid: 957a73ba6dc16044b8da992ed5888bb3,
     type: 3}

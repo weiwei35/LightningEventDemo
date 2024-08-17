@@ -22,7 +22,8 @@ public class EnemyBoss1 : EnemyController
     Quaternion blackRotate;
     Tweener tweenWhite;
     Tweener tweenBlack;
-    bool secondSection = false;
+    bool secondSection = true;
+    public SpriteRenderer sprite;
 
     // Start is called before the first frame update
     public override void Start()
@@ -37,6 +38,11 @@ public class EnemyBoss1 : EnemyController
     public override void Update()
     {
         base.Update();
+        if(transform.position.x > target.position.x){
+            sprite.transform.localScale = new Vector3(-3,3,3);
+        }else if(transform.position.x < target.position.x){
+            sprite.transform.localScale = new Vector3(3,3,3);
+        }
         if(!isInBlackHall && !isBoom && !isBig)
         {
             FollowMove ();
@@ -181,16 +187,20 @@ public class EnemyBoss1 : EnemyController
     }
 
     void RushToPlayer(){
+        anim.SetTrigger("walk");
         rushDis = target.position - transform.position;
         rushDis.Normalize();
-        transform.DOMove(transform.position,1).OnComplete( ()=>
+        transform.DOMove(transform.position,2).OnComplete( ()=>
             {
+        anim.SetTrigger("rush");
                 transform.DOMove(transform.position+rushDis*10,0.5f).OnComplete( ()=>
                     {
+        anim.SetTrigger("walk");
                         rushDis = target.position - transform.position;
                         rushDis.Normalize();
-                        transform.DOMove(transform.position,1).OnComplete( ()=>
+                        transform.DOMove(transform.position,2).OnComplete( ()=>
                             {
+        anim.SetTrigger("rush");
                                 transform.DOMove(transform.position+rushDis*10,0.5f).OnComplete( ()=>
                                     {
                                         isRush = false;
@@ -244,21 +254,22 @@ public class EnemyBoss1 : EnemyController
         }
     }
     void BigFire(){
+        anim.SetTrigger("idle");
         transform.position = center.transform.position;
         circleAnim.enabled = false;
         white.transform.rotation = whiteRotate;
-        white.transform.DOMove(transform.position + new Vector3(-6,-6,0),0.5f).OnComplete( ()=>
+        white.transform.DOMove(transform.position + new Vector3(-20,-20,0),0.5f).OnComplete( ()=>
             {
-                tweenWhite = white.transform.DOMove(center.transform.position + new Vector3(3,0,0),10f);
+                tweenWhite = white.transform.DOMove(center.transform.position + new Vector3(3,0,0),20f);
             });
         black.transform.rotation = blackRotate;
-        black.transform.DOMove(transform.position + new Vector3(6,6,0),0.5f).OnComplete( ()=>
+        black.transform.DOMove(transform.position + new Vector3(20,20,0),0.5f).OnComplete( ()=>
             {
-                tweenBlack = black.transform.DOMove(center.transform.position + new Vector3(-3,0,0),10f);
+                tweenBlack = black.transform.DOMove(center.transform.position + new Vector3(-3,0,0),20f);
             });
         bigCollider.SetActive(true);
         isAttacking = true;
-        Invoke("Attrack",10f);
+        Invoke("Attrack",20f);
     }
     void Attrack(){
         rushTimeCount = 0;
@@ -269,7 +280,7 @@ public class EnemyBoss1 : EnemyController
         bigCollider.SetActive(false);
         if(ballCount == 3){
             bigBoom.SetActive(true);
-            bigBoom.transform.DOScale(24,0.5f).OnComplete( ()=>
+            bigBoom.transform.DOScale(56,0.5f).OnComplete( ()=>
             {
                 bigBoom.SetActive(false);
                 PlayerController player = target.GetComponent<PlayerController>();

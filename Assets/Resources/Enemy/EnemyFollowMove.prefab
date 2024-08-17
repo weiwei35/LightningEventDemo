@@ -4994,7 +4994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 10
   maxHP: 0
-  exp: 10
+  exp: 2
   attack: 5
   speed: 3
   text: {fileID: 6015828965384039371}

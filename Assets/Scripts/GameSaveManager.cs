@@ -23,6 +23,8 @@ public static class Global{
     public static List<SelectItem> item1Current = new List<SelectItem>();
     public static List<SelectItem> item2Current = new List<SelectItem>();
     public static List<SelectItem> item3Current = new List<SelectItem>();
+    public static int enemyCount = 0;
+    public static int levelCount = 0;
 }
 
 public class SaveData
@@ -77,7 +79,7 @@ public class GameSaveManager : MonoBehaviour
     }
     //保存
     public void Save()
-    {        
+    {
         //如果该路径不存在就先将其创建出来
         if (!directoryInfo.Exists) 
         {

@@ -155,6 +155,8 @@ public class PlayerController : MonoBehaviour
     [Header("死亡动画处理")]
     public bool isDead = false;
     public GameObject blackBG;
+    public GameObject successPanel;
+    public GameObject failPanel;
     public Material blackM;
     public GameObject canvas;
     public GameObject enemyPool;
@@ -322,7 +324,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //受伤状态判定
-        if(!IsInCircle() && !gameController.isReward && !isSuper){
+        if(!IsInCircle() && /*!gameController.isReward*/ !isSuper){
             canHurt = true;
         }else{
             canHurt = false;
@@ -537,6 +539,8 @@ public class PlayerController : MonoBehaviour
         sprite.sortingOrder = 21;
         
         blackBG.SetActive(true);
+        failPanel.SetActive(true);
+        successPanel.SetActive(false);
         gameController.StopLevelSound();
         anim.PlayDeadAnim();
         Invoke("SetCam",0.6f);
@@ -556,7 +560,7 @@ public class PlayerController : MonoBehaviour
         if(circlePanel.inDoor_SI){
             hurt = hurt * 1.1f;
         }
-        if(!ishitting && !gameController.isReward && !isSuper && !Global.isChangeLevel){
+        if(!ishitting && /*!gameController.isReward &&*/ !isSuper && !Global.isChangeLevel){
             audioSource.clip = audios[2];
             audioSource.Play();
             ishitting = true;

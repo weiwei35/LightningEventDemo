@@ -473,6 +473,7 @@ public class EnemyController : MonoBehaviour
             tweener1 = transform.DOMove(pos,0.1f);
     }
     private void OnDestroy() {
+        Global.enemyCount ++;
         if (tweener1 != null)
         {
             tweener1.Kill();

@@ -58,7 +58,8 @@ public class GameController : MonoBehaviour
         Global.exp = 0;
         Global.exp_level = 0;
         Global.GameBegain = false;
-        levelId = 1;
+        Global.isGameOver = false;
+        levelId = 10;
         if(Global.continueGame){
             if(LoadData())
                 selectPanel.LoadItem();
@@ -78,9 +79,11 @@ public class GameController : MonoBehaviour
         level1Img.sprite = levelSprite[levelId-1];
         player.transform.position = centerPos.transform.position;
 
+        level = levelData.GetLevelById(levelId);
+        if(level.type != 2){
         levelTime = levelData.GetLevelTimeById(levelId);
         rewardTime = levelData.GetRewardTimeById(levelId);
-        level = levelData.GetLevelById(levelId);
+        }
         // enemyPool.SetLevel(levelId);
         // enemyPool.SetLevelEnemy();
         // enemyPool.SetEnemyArray();
@@ -127,7 +130,7 @@ public class GameController : MonoBehaviour
     {
         papers = GameObject.FindGameObjectWithTag("Papers");
 
-        if(levelId == 1){
+        if(levelId == 10){
             endLevelPanel.SetActive(true);
             // Invoke("SetTimeStop",0.5f);
         }
@@ -143,6 +146,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Global.levelCount = levelId - 1;
         expText.text = Global.exp.ToString();
         sliderExp.value = Global.exp/Global.exp_max;
         if(Global.exp >= Global.exp_max){
@@ -158,7 +162,7 @@ public class GameController : MonoBehaviour
         }
         if(isLevelUp && !Global.isSlowDown && !Global.isGameOver){
             isLevelUp = false;
-            Invoke("SetTimeStop",0.5f);
+            SetTimeStop();
             endLevelPanel.SetActive(true);
         }
         if(level.type == 0){
@@ -171,13 +175,13 @@ public class GameController : MonoBehaviour
                     NextLevel();
                 }
             }else{
-                if(!Global.isSlowDown)
+                if(!Global.isSlowDown && Global.GameBegain)
                     timeCur += Time.deltaTime;
                 if(timeCur >= levelTime){
                     if(rewardTime > 0){
                         Global.isReward = true;
                         //结束关卡，进入奖励关卡
-                        rewardTitle.SetActive(true);
+                        // rewardTitle.SetActive(true);
                         // enemyPool.SetRewardEnemyArray();
                         levelEnemyController.SetRewardLevel(levelId);
                         isReward = true;
@@ -287,7 +291,10 @@ public class GameController : MonoBehaviour
         levelBGM.Stop();
         levelBack.Stop();
     }
-
+    public GameObject blackBG;
+    public GameObject successPanel;
+    public GameObject failPanel;
+    public GameObject canvas;
     public void SetLevel(){
         foreach (Transform item in bulletFather.transform)
         {
@@ -299,14 +306,22 @@ public class GameController : MonoBehaviour
             // Time.timeScale = 0;
             // Application.Quit();
             Global.isGameOver = true;
-            bgChangeLevel.SetActive(true);
+            // bgChangeLevel.SetActive(true);
             levelImg.gameObject.SetActive(false);
-            SceneManager.LoadSceneAsync("UIScene");
+            // SceneManager.LoadSceneAsync("UIScene");
+            StopLevelSound(); 
+            blackBG.SetActive(true);
+            canvas.SetActive(true);
+            failPanel.SetActive(false);
+            successPanel.SetActive(true);
         }else{
             SaveStartData();
-            levelTime = levelData.GetLevelTimeById(levelId);
-            rewardTime = levelData.GetRewardTimeById(levelId);
             level = levelData.GetLevelById(levelId);
+            
+            if(level.type != 2){
+                levelTime = levelData.GetLevelTimeById(levelId);
+                rewardTime = levelData.GetRewardTimeById(levelId);
+            }
             // enemyPool.SetLevel(levelId);
             // enemyPool.SetEnemyArray();
             levelEnemyController.SetLevel(levelId);
@@ -336,13 +351,15 @@ public class GameController : MonoBehaviour
             levelBack.Play();
         }
     }
+    public Animator panelAnim;
     public void SetItem(){
         if(selectPanel.SetPlayerStatus()){
             Time.timeScale = 1;
             if(!Global.GameBegain)
                 Global.GameBegain = true;
-            Animation animation = selectPanel.GetComponent<Animation>();
-            animation.Play("Pick3Close");
+            Animator anim = selectPanel.GetComponent<Animator>();
+            anim.SetTrigger("close");
+            panelAnim.SetTrigger("close");
             levelUI.SetLevelPlayer();
             Invoke("CloseEndPanel",1f);
         }

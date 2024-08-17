@@ -14,50 +14,202 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - id: 101
-    name: "1\u96D5\u82B1\u9152\u846B\u82A6"
-    desc: "\u96F7\u52AB\u9053\u6570+1\uFF0C\u751F\u547D\u503C+5"
-    type: 0700000001000000
-    buff: 01000000fbffffff
+    name: "\u65E7\u9EC4\u7B26"
+    desc: "\u96F7\u52AB\u9053\u6570+1"
+    type: 07000000
+    buff: 01000000
     specialType: 2
     story: 
     detailType: 1
   - id: 102
-    name: "2\u96D5\u82B1\u9152\u846B\u82A6"
-    desc: "\u96F7\u52AB\u9891\u7387-0.05\uFF0C\u79FB\u52A8\u901F\u5EA6+3"
-    type: 0800000002000000
-    buff: 0000000003000000
+    name: "\u6843\u6728\u5251"
+    desc: "\u96F7\u52AB\u4F24\u5BB3+3"
+    type: 09000000
+    buff: 03000000
     specialType: 2
     story: 
     detailType: 1
   - id: 103
-    name: "3\u96D5\u82B1\u9152\u846B\u82A6"
-    desc: "\u96F7\u52AB\u4F24\u5BB3+1\uFF0C\u96F7\u52AB\u9891\u7387-0.1"
-    type: 0900000008000000
-    buff: 0100000000000000
-    specialType: 2
-    story: 
-    detailType: 1
-  - id: 104
-    name: "1\u96D5\u82B1\u9152\u846B\u82A6"
+    name: "\u96D5\u82B1\u9152\u846B\u82A6"
     desc: "\u96F7\u52AB\u9053\u6570+1\uFF0C\u751F\u547D\u503C+5"
     type: 0700000001000000
     buff: 0100000005000000
     specialType: 2
     story: 
-    detailType: 2
-  - id: 105
-    name: "2\u96D5\u82B1\u9152\u846B\u82A6"
+    detailType: 1
+  - id: 104
+    name: "\u6843\u82B1\u679D"
     desc: "\u96F7\u52AB\u9891\u7387-0.05\uFF0C\u79FB\u52A8\u901F\u5EA6+3"
     type: 0800000002000000
     buff: 0000000003000000
     specialType: 2
     story: 
     detailType: 2
-  - id: 106
-    name: "3\u96D5\u82B1\u9152\u846B\u82A6"
+  - id: 105
+    name: "\u9752\u7389\u5251"
     desc: "\u96F7\u52AB\u4F24\u5BB3+1\uFF0C\u96F7\u52AB\u9891\u7387-0.1"
     type: 0900000008000000
     buff: 0100000000000000
+    specialType: 2
+    story: 
+    detailType: 2
+  - id: 106
+    name: "\u9ED1\u62C2\u5C18"
+    desc: "\u96F7\u52AB\u4F24\u5BB3+10\uFF0C\u751F\u547D\u503C-10"
+    type: 0900000001000000
+    buff: 0a000000f6ffffff
+    specialType: 2
+    story: 
+    detailType: 2
+  - id: 107
+    name: "\u62C2\u5C18"
+    desc: "\u96F7\u52AB\u4F24\u5BB3+5"
+    type: 09000000
+    buff: 05000000
+    specialType: 2
+    story: 
+    detailType: 1
+  - id: 108
+    name: "\u7EA2\u888D"
+    desc: "\u751F\u547D\u503C+5\uFF0C\u62A4\u7532+5"
+    type: 0100000003000000
+    buff: 0500000005000000
+    specialType: 2
+    story: 
+    detailType: 2
+  - id: 109
+    name: "\u8888\u88DF"
+    desc: "\u96F7\u52AB\u9891\u7387-0.05\uFF0C\u96F7\u7535\u4F24\u5BB3+3"
+    type: 0800000009000000
+    buff: 0000000003000000
+    specialType: 2
+    story: 
+    detailType: 2
+  - id: 110
+    name: "\u7EB8\u9E22"
+    desc: "\u96F7\u7535\u9053\u6570+1"
+    type: 07000000
+    buff: 01000000
+    specialType: 2
+    story: 
+    detailType: 1
+  - id: 111
+    name: "\u540C\u5FC3\u7ED3"
+    desc: "\u751F\u547D\u503C+5\uFF0C\u62A4\u7532+3\uFF0C\u96F7\u52AB\u9891\u7387-0.05"
+    type: 010000000300000008000000
+    buff: 050000000300000000000000
+    specialType: 2
+    story: 
+    detailType: 2
+  - id: 112
+    name: "\u7AF9\u7B80"
+    desc: "\u96F7\u52AB\u4F24\u5BB3+4\uFF0C\u96F7\u52AB\u9053\u6570+1\uFF0C\u62A4\u7532-5"
+    type: 090000000700000003000000
+    buff: 0400000001000000fbffffff
+    specialType: 2
+    story: 
+    detailType: 2
+  - id: 113
+    name: "\u65E0\u5B57\u7891"
+    desc: "\u96F7\u52AB\u4F24\u5BB3+2"
+    type: 09000000
+    buff: 02000000
+    specialType: 2
+    story: 
+    detailType: 1
+  - id: 114
+    name: "\u7389\u724C"
+    desc: "\u96F7\u52AB\u4F24\u5BB3+3"
+    type: 09000000
+    buff: 02000000
+    specialType: 2
+    story: 
+    detailType: 1
+  - id: 115
+    name: "\u7389\u9F99"
+    desc: "\u96F7\u52AB\u9891\u7387-0.05"
+    type: 08000000
+    buff: 00000000
+    specialType: 2
+    story: 
+    detailType: 1
+  - id: 116
+    name: "\u7384\u51B0"
+    desc: "\u96F7\u52AB\u9891\u7387-0.05\uFF0C\u96F7\u52AB\u4F24\u5BB3+2\uFF0C\u62A4\u7532-3"
+    type: 080000000700000003000000
+    buff: 0000000002000000fdffffff
+    specialType: 2
+    story: 
+    detailType: 1
+  - id: 117
+    name: "\u771F\u706B"
+    desc: "\u96F7\u7535\u4F24\u5BB3+5\uFF0C\u96F7\u7535\u9053\u6570+1\uFF0C\u751F\u547D\u503C-5"
+    type: 090000000700000001000000
+    buff: 050000000100000005000000
+    specialType: 2
+    story: 
+    detailType: 2
+  - id: 118
+    name: "\u767D\u7389\u818F"
+    desc: "\u751F\u547D\u503C+5\uFF0C\u96F7\u7535\u4F24\u5BB3+3"
+    type: 0100000009000000
+    buff: 0500000003000000
+    specialType: 2
+    story: 
+    detailType: 1
+  - id: 119
+    name: "\u767D\u7EF8\u7F0E"
+    desc: "\u96F7\u52AB\u9053\u6570-2\uFF0C\u96F7\u52AB\u9891\u7387-0.3"
+    type: 0700000008000000
+    buff: feffffff00000000
+    specialType: 2
+    story: 
+    detailType: 2
+  - id: 120
+    name: "\u5F7C\u5CB8\u82B1"
+    desc: "\u96F7\u52AB\u4F24\u5BB3+5\uFF0C\u751F\u547D\u503C-5"
+    type: 0900000001000000
+    buff: 05000000fbffffff
+    specialType: 2
+    story: 
+    detailType: 1
+  - id: 121
+    name: "\u5F02\u706B\u83B2\u82B1"
+    desc: "\u96F7\u52AB\u4F24\u5BB3+5"
+    type: 09000000
+    buff: 05000000
+    specialType: 2
+    story: 
+    detailType: 2
+  - id: 122
+    name: "\u7956\u7B26"
+    desc: "\u96F7\u52AB\u9053\u6570+2"
+    type: 07000000
+    buff: 02000000
+    specialType: 2
+    story: 
+    detailType: 2
+  - id: 123
+    name: "\u6625\u79CB\u86CA"
+    desc: "\u96F7\u52AB\u9891\u7387-0.05\uFF0C\u751F\u547D\u503C+5"
+    type: 0800000001000000
+    buff: 0000000005000000
+    specialType: 2
+    story: 
+    detailType: 2
+  - id: 124
+    name: "\u6D6E\u5C60\u5854"
+    desc: "\u62A4\u7532\u503C+3\uFF0C\u96F7\u52AB\u4F24\u5BB3+5"
+    type: 0300000009000000
+    buff: 0300000005000000
+    specialType: 2
+    story: 
+    detailType: 2
+  - id: 125
+    name: "\u638C\u5929\u74F6"
+    desc: "\u751F\u547D\u6062\u590D\u901F\u5EA6+5\uFF0C\u96F7\u52AB\u9053\u6570+1"
+    type: 0500000007000000
+    buff: 0500000001000000
     specialType: 2
     story: 
     detailType: 2

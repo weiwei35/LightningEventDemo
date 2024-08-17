@@ -17,7 +17,7 @@ public class LineCollider : MonoBehaviour
         lightning = FindObjectOfType<LightningController>();
         if(other.gameObject.layer == 6){
             EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
-            if(enemy != null && !enemy.isHitting)
+            if(enemy != null /*&& !enemy.isHitting*/)
             {
                 Debug.Log("雷电攻击：" + other.name);
                 if(player.isMegaCopy){
