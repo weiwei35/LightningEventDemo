@@ -15,9 +15,9 @@ MonoBehaviour:
   itemLevelRanks:
   - levelId: 1
     levelType: 1
-    item1Rank: 880
-    item2Rank: 100
-    item3Rank: 20
+    item1Rank: 750
+    item2Rank: 200
+    item3Rank: 50
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -27,9 +27,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 1
     levelType: 2
-    item1Rank: 200
+    item1Rank: 100
     item2Rank: 300
-    item3Rank: 500
+    item3Rank: 600
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -39,8 +39,8 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 2
     levelType: 1
-    item1Rank: 880
-    item2Rank: 100
+    item1Rank: 750
+    item2Rank: 200
     item3Rank: 20
     smallRank: 50
     midRank: 30
@@ -51,9 +51,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 2
     levelType: 2
-    item1Rank: 200
+    item1Rank: 100
     item2Rank: 300
-    item3Rank: 500
+    item3Rank: 600
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -63,9 +63,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 3
     levelType: 1
-    item1Rank: 880
-    item2Rank: 100
-    item3Rank: 20
+    item1Rank: 750
+    item2Rank: 200
+    item3Rank: 50
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -75,9 +75,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 3
     levelType: 2
-    item1Rank: 200
+    item1Rank: 100
     item2Rank: 300
-    item3Rank: 500
+    item3Rank: 600
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -87,9 +87,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 4
     levelType: 1
-    item1Rank: 880
-    item2Rank: 100
-    item3Rank: 20
+    item1Rank: 750
+    item2Rank: 200
+    item3Rank: 50
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -99,9 +99,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 4
     levelType: 2
-    item1Rank: 200
+    item1Rank: 100
     item2Rank: 300
-    item3Rank: 500
+    item3Rank: 600
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -111,9 +111,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 5
     levelType: 1
-    item1Rank: 880
-    item2Rank: 100
-    item3Rank: 20
+    item1Rank: 750
+    item2Rank: 200
+    item3Rank: 50
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -123,9 +123,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 5
     levelType: 2
-    item1Rank: 200
+    item1Rank: 100
     item2Rank: 300
-    item3Rank: 500
+    item3Rank: 600
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -135,9 +135,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 6
     levelType: 1
-    item1Rank: 880
-    item2Rank: 100
-    item3Rank: 20
+    item1Rank: 750
+    item2Rank: 200
+    item3Rank: 50
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -147,9 +147,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 6
     levelType: 2
-    item1Rank: 200
+    item1Rank: 100
     item2Rank: 300
-    item3Rank: 500
+    item3Rank: 600
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -159,9 +159,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 7
     levelType: 1
-    item1Rank: 880
-    item2Rank: 100
-    item3Rank: 20
+    item1Rank: 750
+    item2Rank: 200
+    item3Rank: 50
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -171,9 +171,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 7
     levelType: 2
-    item1Rank: 200
+    item1Rank: 100
     item2Rank: 300
-    item3Rank: 500
+    item3Rank: 600
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -183,9 +183,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 8
     levelType: 1
-    item1Rank: 880
-    item2Rank: 100
-    item3Rank: 20
+    item1Rank: 750
+    item2Rank: 200
+    item3Rank: 50
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -195,9 +195,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 8
     levelType: 2
-    item1Rank: 200
+    item1Rank: 100
     item2Rank: 300
-    item3Rank: 500
+    item3Rank: 600
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -207,9 +207,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 9
     levelType: 1
-    item1Rank: 880
-    item2Rank: 100
-    item3Rank: 20
+    item1Rank: 750
+    item2Rank: 200
+    item3Rank: 50
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -219,9 +219,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 9
     levelType: 2
-    item1Rank: 200
+    item1Rank: 100
     item2Rank: 300
-    item3Rank: 500
+    item3Rank: 600
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -231,9 +231,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 10
     levelType: 1
-    item1Rank: 880
-    item2Rank: 100
-    item3Rank: 20
+    item1Rank: 750
+    item2Rank: 200
+    item3Rank: 50
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -243,9 +243,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 10
     levelType: 2
-    item1Rank: 200
+    item1Rank: 100
     item2Rank: 300
-    item3Rank: 500
+    item3Rank: 600
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -255,9 +255,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 11
     levelType: 1
-    item1Rank: 880
-    item2Rank: 100
-    item3Rank: 20
+    item1Rank: 750
+    item2Rank: 200
+    item3Rank: 50
     smallRank: 50
     midRank: 30
     largeRank: 20
@@ -267,9 +267,9 @@ MonoBehaviour:
     bigBabyRank: 10
   - levelId: 11
     levelType: 2
-    item1Rank: 200
+    item1Rank: 100
     item2Rank: 300
-    item3Rank: 500
+    item3Rank: 600
     smallRank: 50
     midRank: 30
     largeRank: 20
