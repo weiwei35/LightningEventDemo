@@ -10,23 +10,30 @@ public class PaperHP : PaperModel
     // Animator anim;
     public GameObject treeEffect;
     public GameObject HPBall;
+    public int ballCount;
     private void Start() {
         // anim = GetComponent<Animator>();
         InvokeRepeating("HPRecover",4,8);
     }
     private void Update() {
-        if(isOverLoad && !Global.isSlowDown){
-            countTime += Time.deltaTime;
+        if(ballCount <= 8){
+            if(isOverLoad && !Global.isSlowDown){
+                countTime += Time.deltaTime;
+            }
+            if(countTime>=overTime && isOverLoad){
+                countTime = 0;
+                isOverLoad = false;
+                anim.speed = 1;
+                EndOverLoadFun();
+    
+                CancelInvoke("HPRecover");
+            
+                InvokeRepeating("HPRecover",0,4);
+            }
         }
-        if(countTime>=overTime && isOverLoad){
-            countTime = 0;
-            isOverLoad = false;
-            anim.speed = 1;
-            EndOverLoadFun();
-
-            CancelInvoke("HPRecover");
         
-            InvokeRepeating("HPRecover",0,4);
+        if(ballCount > 8){
+            CancelInvoke("HPRecover");
         }
     }
     void HPRecover(){
@@ -39,7 +46,7 @@ public class PaperHP : PaperModel
         hpBall.GetComponent<HPBall>().hp = Mathf.Max(Mathf.Ceil(player.GetHurtCount() * 0.1f), 1);
         treeEffect.SetActive(true);
         Invoke("SetTreeEffect",1f);
-
+        ballCount ++;
     }
     void SetTreeEffect(){
         treeEffect.SetActive(false);

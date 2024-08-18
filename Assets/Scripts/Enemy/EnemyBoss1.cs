@@ -22,7 +22,7 @@ public class EnemyBoss1 : EnemyController
     Quaternion blackRotate;
     Tweener tweenWhite;
     Tweener tweenBlack;
-    bool secondSection = true;
+    bool secondSection = false;
     public SpriteRenderer sprite;
 
     // Start is called before the first frame update

@@ -419,16 +419,18 @@ public class EnemyController : MonoBehaviour
         var boomCur = Instantiate(boom);
         boomCur.transform.position = transform.position;
     }
+    bool isOverFocused = false;
     //死亡后溢出伤害加到最近的敌人上
     void SetMoreHurt(float hurt){
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        GameObject[] filteredEnemies = System.Array.FindAll(enemies, enemy => enemy != gameObject);
+        GameObject[] filteredEnemies = System.Array.FindAll(enemies, x => x != gameObject);
         if(filteredEnemies.Length <= 0){
             Debug.Log("死光了");
         }else
         {
             float minDistance = -1;
             int enemyId = -1;
+            EnemyController enemyController;
             for (int i = 0; i < filteredEnemies.Length; i++)
             {
                 if(i == 0){
@@ -440,13 +442,16 @@ public class EnemyController : MonoBehaviour
                     Vector3 pos1 = new Vector3(filteredEnemies[i].transform.position.x,filteredEnemies[i].transform.position.y,0);
                     Vector3 pos2 = new Vector3(transform.transform.position.x,transform.position.y,0);
                     float distance = Vector3.Distance(pos1,pos2);
-                    if(distance < minDistance){
+                    enemyController = filteredEnemies[enemyId].GetComponent<EnemyController>();
+                    if(distance < minDistance && !enemyController.isOverFocused){
                         enemyId = i;
                     }
                 }
             }
             Debug.Log("距离最近的敌人："+enemyId);
             if(enemyId<filteredEnemies.Length && enemyId>=0){
+                enemyController = filteredEnemies[enemyId].GetComponent<EnemyController>();
+                enemyController.isOverFocused = true;
                 Debug.Log(filteredEnemies[enemyId].transform.position);
                 var lineCur = Instantiate(lineCopy.gameObject);
                 lineCur.transform.position = transform.position;

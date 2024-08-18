@@ -11,23 +11,29 @@ public class PaperProtect : PaperModel
     public GameObject protectEffect;
     public GameObject ProtectBall;
     public GameObject fireBall;
+    public int ballCount;
     private void Start() {
         // anim = GetComponent<Animator>();
         InvokeRepeating("ProtectRecover",5,10);
     }
     private void Update() {
-        if(isOverLoad && !Global.isSlowDown){
-            countTime += Time.deltaTime;
-        }
-        if(countTime>=overTime && isOverLoad){
-            countTime = 0;
-            isOverLoad = false;
-            anim.speed = 1;
-            EndOverLoadFun();
+        if(ballCount <= 8){
+            if(isOverLoad && !Global.isSlowDown){
+                countTime += Time.deltaTime;
+            }
+            if(countTime>=overTime && isOverLoad){
+                countTime = 0;
+                isOverLoad = false;
+                anim.speed = 1;
+                EndOverLoadFun();
 
-            CancelInvoke("FireBall");
-        
-            InvokeRepeating("ProtectRecover",0,5);
+                CancelInvoke("FireBall");
+
+                InvokeRepeating("ProtectRecover",0,5);
+            }
+        }
+        if(ballCount > 8){
+            CancelInvoke("ProtectRecover");
         }
     }
     void ProtectRecover(){
@@ -40,6 +46,7 @@ public class PaperProtect : PaperModel
         protectBall.GetComponent<ProtectBall>().protect = Mathf.Max(Mathf.Ceil(player.GetHurtProtectCount() * 0.1f), 1);
         protectEffect.SetActive(true);
         Invoke("SetTreeEffect",2);
+        ballCount ++;
     }
     void SetTreeEffect(){
         protectEffect.SetActive(false);

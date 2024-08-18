@@ -9,8 +9,10 @@ public class ProtectBall : MonoBehaviour
     PlayerController player;
     Tweener tweener;
     bool isMoving = false;
+    PaperProtect paperProtect;
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        paperProtect = transform.parent.GetComponent<PaperProtect>();
     }
     private void Update() {
         if(player.protectRecovery){
@@ -22,6 +24,7 @@ public class ProtectBall : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Player"){
+            paperProtect.ballCount--;
             PlayerController playerCollider = other.GetComponent<PlayerController>();
             playerCollider.OutsideRecoveryProtect(protect);
             Destroy(gameObject);

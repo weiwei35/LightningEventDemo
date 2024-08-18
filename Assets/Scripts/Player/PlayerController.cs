@@ -833,18 +833,41 @@ public class PlayerController : MonoBehaviour
     public void SetLightningBoomPlayer() {
         isLightningBoomPlayer = !isLightningBoomPlayer;
     }
+    bool isBooming = false;
     public void SetBoom() {
-        var boomCur = Instantiate(boom);
-        boomCur.transform.position = transform.position + new Vector3(0,1,0);
-        var scaleOffset = 1 + 2*(HPCurrent/HP); 
-        boomCur.transform.localScale = new Vector3(scaleOffset,scaleOffset,scaleOffset);
+        if(!isBooming){
+            isBooming = true;
+            var boomCur = Instantiate(boom);
+            boomCur.transform.position = transform.position + new Vector3(0,1,0);
+            StartCoroutine(SetBoomState());
+        }
+        
+        // var scaleOffset = 1 + 2*(HPCurrent/HP); 
+        // boomCur.transform.localScale = new Vector3(scaleOffset,scaleOffset,scaleOffset);
     }
+    Dictionary<GameObject,bool> copyBooming = new Dictionary<GameObject, bool>();
     public void SetCopyBoom(GameObject copy) {
-        var boomCur = Instantiate(boom);
-        boomCur.transform.position = copy.transform.position + new Vector3(0,0.6f,0);
-        var scaleOffset = 1 + 2*(HPCurrent/HP); 
-        boomCur.transform.localScale = new Vector3(scaleOffset,scaleOffset,scaleOffset);
+        if(!copyBooming.ContainsKey(copy)||!copyBooming[copy]){
+            if(!copyBooming.ContainsKey(copy))
+                copyBooming.Add(copy,true);
+            copyBooming[copy] = true;
+            var boomCur = Instantiate(boom);
+            boomCur.transform.position = copy.transform.position + new Vector3(0,0.6f,0);
+            StartCoroutine(SetBoomState(copy));
+        }
+        
+        // var scaleOffset = 1 + 2*(HPCurrent/HP); 
+        // boomCur.transform.localScale = new Vector3(scaleOffset,scaleOffset,scaleOffset);
     }
+    IEnumerator SetBoomState(GameObject copy = null){
+        yield return new WaitForSeconds(1);
+        if(copy == null)
+            isBooming = false;
+        else{
+            copyBooming[copy] = false;
+        }
+    }
+    
 
     //虫虫1：持续2秒回复生命值，每秒给角色回复10%已损失生命值，最小值为1
     public void SetBugHP() {

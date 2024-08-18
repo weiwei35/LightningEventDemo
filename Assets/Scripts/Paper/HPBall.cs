@@ -9,8 +9,10 @@ public class HPBall : MonoBehaviour
     PlayerController player;
     Tweener tweener;
     bool isMoving = false;
+    PaperHP paperHP;
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        paperHP = transform.parent.GetComponent<PaperHP>();
     }
     private void Update() {
         if(player.needRecovery){
@@ -22,6 +24,7 @@ public class HPBall : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Player"){
+            paperHP.ballCount--;
             PlayerController playerCollider = other.GetComponent<PlayerController>();
             playerCollider.OutsideRecoveryHP(hp);
             Destroy(gameObject);

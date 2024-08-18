@@ -59,7 +59,7 @@ public class GameController : MonoBehaviour
         Global.exp_level = 0;
         Global.GameBegain = false;
         Global.isGameOver = false;
-        levelId = 10;
+        levelId = 1;
         if(Global.continueGame){
             if(LoadData())
                 selectPanel.LoadItem();
@@ -130,7 +130,7 @@ public class GameController : MonoBehaviour
     {
         papers = GameObject.FindGameObjectWithTag("Papers");
 
-        if(levelId == 10){
+        if(levelId == 1){
             endLevelPanel.SetActive(true);
             // Invoke("SetTimeStop",0.5f);
         }
@@ -330,6 +330,7 @@ public class GameController : MonoBehaviour
                 PaperController paper = item.GetComponent<PaperController>();
                 if(paper!= null)
                 {
+                    paper.DestroyChild();
                     paper.countCurrent = paper.count;
                 }
             }

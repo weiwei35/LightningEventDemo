@@ -166,6 +166,7 @@ MonoBehaviour:
     type: 3}
   fireBall: {fileID: 3500004177450050912, guid: 52d02d570bd03a74dac587f39808f997,
     type: 3}
+  ballCount: 0
 --- !u!65 &2035732888619254410
 BoxCollider:
   m_ObjectHideFlags: 0

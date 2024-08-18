@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 775199020172877514}
+  effect_over: {fileID: 0}
   isOverLoad: 0
   boom: {fileID: 2892117171290514479, guid: 1d385aee270ab194e93a2bd5bf63bd0a, type: 3}
 --- !u!65 &2035732888619254410
