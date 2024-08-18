@@ -7,7 +7,7 @@ public class SlowCollider : MonoBehaviour
     public float createTime;
     void OnTriggerEnter(Collider coll)
     {
-        if (coll.tag == "Enemy")
+        if (coll.gameObject.layer == 6)
         {
             EnemyController enemy = coll.GetComponent<EnemyController>();
             enemy.debuffSlowing = true;

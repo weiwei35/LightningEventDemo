@@ -16,11 +16,18 @@ public class SceneController : MonoBehaviour
     public AudioSource audioBgm;
     public GameObject heroPanel;
     public GameObject collectionPanel;
+    public GameSaveManager saveManager;
+    public GameObject continueBtn;
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(canvas);
+        if(saveManager.SaveDataExists()){
+            continueBtn.SetActive(true);
+        }else{
+            continueBtn.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -42,6 +49,7 @@ public class SceneController : MonoBehaviour
         heroPanel.SetActive(true);
         // fadeAnim.SetTrigger("fade");
     }
+    
     public void StartMainGame () {
         StartCoroutine(SetScene());
     }
@@ -51,8 +59,18 @@ public class SceneController : MonoBehaviour
         DOTween.To(()=>audioBgm.volume, x =>audioBgm.volume = x,0,1);
         yield return new WaitForSeconds(1);
         hideUI.SetActive(false);
-        AsyncOperation async = SceneManager.LoadSceneAsync("LightningMainScene");
-        async.completed += UnloadScene;
+        AsyncOperation async;
+        if(!PlayerPrefs.HasKey("Story")){
+            async = SceneManager.LoadSceneAsync("StoryScene");
+        }
+        if(PlayerPrefs.HasKey("Story") && PlayerPrefs.GetInt("Story") == 1){
+            async = SceneManager.LoadSceneAsync("LightningMainScene");
+            async.completed += UnloadScene;
+        }
+    }
+    private void UnloadScene(AsyncOperation operation)
+    {
+        fadeAnim.SetTrigger("fade");
     }
 
     public void StartCollectionPanel(){
@@ -80,10 +98,7 @@ public class SceneController : MonoBehaviour
         fadeAnim.SetTrigger("fade");
     }
 
-    private void UnloadScene(AsyncOperation operation)
-    {
-        fadeAnim.SetTrigger("fade");
-    }
+    
 
     public void SetUI() {
         fadeAnim.SetTrigger("fade");
@@ -111,4 +126,6 @@ public class SceneController : MonoBehaviour
     public void PlayAudio(int index) {
         audioSource.PlayOneShot(audios[index]);
     }
+
+
 }

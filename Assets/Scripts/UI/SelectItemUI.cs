@@ -18,60 +18,71 @@ public class SelectItemUI : MonoBehaviour
     PlayerController player;
     public GameSaveManager gameSave;
     public GameController gameController;
+    public GameObject stopPanel;
+    public GameObject levelPanel;
+
     Animator anim;
+    public bool isStopGame = false;
     // Start is called before the first frame update
     void OnEnable() {
         anim = GetComponent<Animator>();
         PlayAudio(2);
         // itemData = AssetDatabase.LoadAssetAtPath<ItemDataSO>("Assets/Resources/ItemData.asset");
-        if(Global.exp_level > 0 || Global.exp > 0){
-            if(Global.continueGame && gameSave.data.isEndLevel){
-                items.Clear();
-                foreach (var item in gameSave.data.selectItemId)
-                {
-                    items.Add(itemData.GetSelectItemById(item));
-                }
-                Global.continueGame = false;
-            }else{
-                List<int> specType = new List<int>();
-                List<int> detailType = new List<int>();
-                int type = 0;
-                if(Global.isChangeLevel){
-                    type = 2;
-                }else{
-                    type = 1;
-                }
-
-                for (int i = 0; i < 3; i++)
-                {
-                    int spec = itemLevelRank.GetItemSpecType(gameController.levelId,type);
-                    specType.Add(spec);
-                    if(spec == 3){
-                        int detail = itemLevelRank.GetTreasureType(gameController.levelId,type);
-                        detailType.Add(detail);
-                    }else if(spec == 1){
-                        int detail = itemLevelRank.GetPieceType(gameController.levelId,type);
-                        detailType.Add(detail);
-                    }else if(spec == 2){
-                        int detail = itemLevelRank.GetBabyType(gameController.levelId,type);
-                        detailType.Add(detail);
+        if(!isStopGame){
+            levelPanel.SetActive(true);
+            stopPanel.SetActive(false);
+            if(Global.exp_level > 0 || Global.exp > 0){
+                if(Global.continueGame && gameSave.data.isEndLevel){
+                    items.Clear();
+                    foreach (var item in gameSave.data.selectItemId)
+                    {
+                        items.Add(itemData.GetSelectItemById(item));
                     }
+                    Global.continueGame = false;
+                }else{
+                    List<int> specType = new List<int>();
+                    List<int> detailType = new List<int>();
+                    int type = 0;
+                    if(Global.isChangeLevel){
+                        type = 2;
+                    }else{
+                        type = 1;
+                    }
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        int spec = itemLevelRank.GetItemSpecType(gameController.levelId,type);
+                        specType.Add(spec);
+                        if(spec == 3){
+                            int detail = itemLevelRank.GetTreasureType(gameController.levelId,type);
+                            detailType.Add(detail);
+                        }else if(spec == 1){
+                            int detail = itemLevelRank.GetPieceType(gameController.levelId,type);
+                            detailType.Add(detail);
+                        }else if(spec == 2){
+                            int detail = itemLevelRank.GetBabyType(gameController.levelId,type);
+                            detailType.Add(detail);
+                        }
+                    }
+                    items = itemData.GetRandomSelectItem(3,specType,detailType);
+                    gameSave.data.selectItemId.Clear();
+                    foreach (var item in items)
+                    {
+                        gameSave.data.selectItemId.Add(item.id);
+                        PlayerPrefs.SetInt(item.id.ToString(),1);
+                    }
+                    gameSave.Save();
                 }
-                items = itemData.GetRandomSelectItem(3,specType,detailType);
-                gameSave.data.selectItemId.Clear();
-                foreach (var item in items)
-                {
-                    gameSave.data.selectItemId.Add(item.id);
-                    PlayerPrefs.SetInt(item.id.ToString(),1);
-                }
-                gameSave.Save();
+            }else{
+                items.Clear();
+                items.Add(itemData.GetRandomTrans());
             }
+
+            ShowSelectItem();
         }else{
-            items.Clear();
-            items.Add(itemData.GetRandomTrans());
+            levelPanel.SetActive(false);
+            stopPanel.SetActive(true);
         }
-        
-        ShowSelectItem();
     }
     void ShowSelectItem(){
         for (int i = 0; i < items.Count; i++)
@@ -446,6 +457,8 @@ public class SelectItemUI : MonoBehaviour
             Transform child = select.GetChild(i); // 获取子物体的Transform
             Destroy(child.gameObject); // 打印子物体的名字
         }
+        isStopGame = false;
+            Time.timeScale = 1;
     }
 
     public AudioSource audioSource;

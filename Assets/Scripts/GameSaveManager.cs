@@ -112,6 +112,17 @@ public class GameSaveManager : MonoBehaviour
             File.Delete(Application.persistentDataPath+"/"+SaveFolder+"/"+SaveFileName);
         }
     }
+
+    public bool SaveDataExists(){
+        if (File.Exists(Application.persistentDataPath+"/"+SaveFolder+"/"+SaveFileName)) 
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
 public class SaveDataEncryption

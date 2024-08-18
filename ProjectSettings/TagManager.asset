@@ -20,6 +20,7 @@ TagManager:
   - ScreenWave
   - CirclePanel
   - BulletFather
+  - Boss
   layers:
   - Default
   - TransparentFX

@@ -11,7 +11,7 @@ public class BoomController : MonoBehaviour
     }
     public void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Enemy")
+        if(other.gameObject.layer == 6)
         {
             EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
             PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();

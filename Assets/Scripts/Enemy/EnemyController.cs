@@ -150,6 +150,10 @@ public class EnemyController : MonoBehaviour
             circlePanel_addSpeed = false;
         }
     }
+    public float ShowHPBar(){
+        float bar = HP/maxHP;
+        return bar;
+    }
     void TrueStart(){
         preStart = false;
         canHurt = true;

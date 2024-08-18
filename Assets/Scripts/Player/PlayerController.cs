@@ -287,7 +287,7 @@ public class PlayerController : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5);
         foreach (var hitCollider in hitColliders)
         {
-            if(hitCollider.tag == "Enemy"){
+            if(hitCollider.gameObject.layer == 6){
                 EnemyController enemy = hitCollider.GetComponent<EnemyController>();
                 if(enemy != null)
                     enemy.MoveToLine(follow.position);

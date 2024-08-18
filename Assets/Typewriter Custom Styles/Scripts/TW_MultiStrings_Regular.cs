@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -67,17 +69,17 @@ public class TW_MultiStrings_Regular : MonoBehaviour {
     public string ORIGINAL_TEXT;
 
     private float time = 0f;
-    private int сharIndex = 0;
-    private int index_of_string = 0;
+    public int сharIndex = 0;
+    public int index_of_string = 0;
     private bool start;
     private List<int> n_l_list;
     private static string[] PointerSymbols = { "None", "<", "_", "|", ">" };
 
     void Start ()
     {
-        MultiStrings[0] = gameObject.GetComponent<Text>().text;
-        ORIGINAL_TEXT = gameObject.GetComponent<Text>().text;
-        gameObject.GetComponent<Text>().text = "";
+        MultiStrings[0] = gameObject.GetComponent<TMP_Text>().text;
+        ORIGINAL_TEXT = gameObject.GetComponent<TMP_Text>().text;
+        gameObject.GetComponent<TMP_Text>().text = "";
         if (LaunchOnStart)
         {
             StartTypewriter();
@@ -143,7 +145,7 @@ public class TW_MultiStrings_Regular : MonoBehaviour {
             string emptyString = new string(' ', ORIGINAL.Length-POINTER.Length);
             string TEXT = ORIGINAL.Substring(0, сharIndex);
             if (сharIndex < ORIGINAL.Length) TEXT = TEXT + POINTER + emptyString.Substring(сharIndex);
-            gameObject.GetComponent<Text>().text = TEXT;
+            gameObject.GetComponent<TMP_Text>().text = TEXT;
             time += 1;
             yield return new WaitForSeconds(0.01f);
             CharIndexPlus();
@@ -160,7 +162,7 @@ public class TW_MultiStrings_Regular : MonoBehaviour {
             string TEXT = ORIGINAL.Substring(0, сharIndex);
             if (сharIndex < ORIGINAL.Length) TEXT = TEXT + POINTER + emptyString.Substring(сharIndex);
             TEXT = InsertNewLine(TEXT, List);
-            gameObject.GetComponent<Text>().text = TEXT;
+            gameObject.GetComponent<TMP_Text>().text = TEXT;
             time += 1f;
             yield return new WaitForSeconds(0.01f);
             CharIndexPlus();

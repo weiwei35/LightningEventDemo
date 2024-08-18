@@ -50,6 +50,7 @@ public class GameController : MonoBehaviour
     public AudioSource levelStart;
     public AudioSource levelBack;
     public CirclePanelController circlePanel;
+    public bool isBossLevel;
     // Start is called before the first frame update
     private void Awake() {
         Application.targetFrameRate = 60;
@@ -73,6 +74,14 @@ public class GameController : MonoBehaviour
         if(levelId < 6){
             levelBGM.clip = levelBGMClips[0];
             levelBGM.Play();
+        }else if(levelId > 5 && levelId < 11){
+            levelBGM.clip = levelBGMClips[1];
+            levelBGM.volume = 0.5f;
+            levelBGM.Play();
+        }else if(levelId > 10 && levelId < 16){
+            levelBGM.clip = levelBGMClips[2];
+            levelBGM.volume = 0.5f;
+            levelBGM.Play();
         }
         levelBack.Play();
         level1Img.gameObject.SetActive(true);
@@ -81,8 +90,11 @@ public class GameController : MonoBehaviour
 
         level = levelData.GetLevelById(levelId);
         if(level.type != 2){
+            isBossLevel = false;
         levelTime = levelData.GetLevelTimeById(levelId);
         rewardTime = levelData.GetRewardTimeById(levelId);
+        }else{
+            isBossLevel = true;
         }
         // enemyPool.SetLevel(levelId);
         // enemyPool.SetLevelEnemy();
@@ -100,6 +112,7 @@ public class GameController : MonoBehaviour
             if(item.layer == 19)
                 Destroy(item);
         }
+        SaveStartData();
     }
     private GameObject[] getDontDestroyOnLoadGameObjects()
     {
@@ -212,10 +225,12 @@ public class GameController : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.Escape)){
-            Time.timeScale = 1;
-            bgChangeLevel.SetActive(true);
-            levelImg.gameObject.SetActive(false);
-            SceneManager.LoadSceneAsync("UIScene");
+            Time.timeScale = 0;
+            // bgChangeLevel.SetActive(true);
+            // levelImg.gameObject.SetActive(false);
+            // SceneManager.LoadSceneAsync("UIScene");
+            selectPanel.isStopGame = true;
+            endLevelPanel.SetActive(true);
         }
 
         if(levelBGM.isPlaying == false){
@@ -319,8 +334,11 @@ public class GameController : MonoBehaviour
             level = levelData.GetLevelById(levelId);
             
             if(level.type != 2){
+                isBossLevel = false;
                 levelTime = levelData.GetLevelTimeById(levelId);
                 rewardTime = levelData.GetRewardTimeById(levelId);
+            }else{
+                isBossLevel = true;
             }
             // enemyPool.SetLevel(levelId);
             // enemyPool.SetEnemyArray();
@@ -372,6 +390,24 @@ public class GameController : MonoBehaviour
             endLevelPanel.SetActive(false);
         }
         PlayLevelSound();
+    }
+    public void Continue(){
+        Time.timeScale = 1;
+        Animator anim = selectPanel.GetComponent<Animator>();
+        anim.SetTrigger("close");
+        panelAnim.SetTrigger("close");
+        Invoke("ClosePanel",1f);
+    }
+    void ClosePanel(){
+        if(endLevelPanel.activeSelf){
+            endLevelPanel.SetActive(false);
+        }
+    }
+    public void BackMenu(){
+        Time.timeScale = 1;
+        bgChangeLevel.SetActive(true);
+        levelImg.gameObject.SetActive(false);
+        SceneManager.LoadSceneAsync("UIScene");
     }
 
     public GameSaveManager gameSave;
