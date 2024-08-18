@@ -237,7 +237,6 @@ public class EnemyController : MonoBehaviour
             hurt = hurt * 1.1f;
         }
         if(type == HurtType.BugCircle && canHurt){
-            enemyPoolController.PlayAudio(2);
             circleCountTime += Time.deltaTime;
             if(circleCountTime >= 0.1f){
                 circleCountTime = 0;
@@ -245,6 +244,7 @@ public class EnemyController : MonoBehaviour
                 hurtUI.SetTrigger("hurt");
                 HP -= hurt;
                 anim.SetTrigger("hurt");
+            // enemyPoolController.PlayAudio(2);
                 // text.text = HP.ToString();
                 if(HP <= 0 && !isDead){
                     Death();
