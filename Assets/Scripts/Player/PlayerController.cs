@@ -261,6 +261,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem particle3;
 
     void RushMove(){
+        wave.CallShockWave(transform.position);
         audioSource.clip = audios[4];
         audioSource.Play();
         canRush = false;
@@ -299,6 +300,7 @@ public class PlayerController : MonoBehaviour
     bool circlePanel_addSpeed = false;
     float HPSave = 0;
     float speedSave = 0;
+    public ScreenBoomWave wave;
     private void Update() {
         if(Input.GetKeyDown(KeyCode.Space) && !Global.isSlowDown && canRush && new Vector2(moveX, moveY) != Vector2.zero){
             rushing = true;
