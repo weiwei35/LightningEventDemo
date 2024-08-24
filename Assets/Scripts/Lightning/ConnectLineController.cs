@@ -7,10 +7,10 @@ public class ConnectLineController : MonoBehaviour
 {
     public GameObject start;
     public GameObject end;
-    public GameObject pos;
     public Vector3 follow;
     public GameObject startPointEP;//特殊雷点
     public GameObject startPoint;
+    public float showTime = 0;
     public float startTime = 0.1f;
     public float keepTime = 0.5f;
     LineRenderer line;
@@ -24,7 +24,6 @@ public class ConnectLineController : MonoBehaviour
     CapsuleCollider capsuleCollider;
     public LightningEffect lightningAsset;
     LightningEffect lightningEffect;
-    bool canMove = false;
     public bool isStartLine = false;
     public bool isLastLine = false;
     private void Start()
@@ -44,7 +43,7 @@ public class ConnectLineController : MonoBehaviour
         timeCount += Time.deltaTime;
         if(timeCount > lightning.lightningPreTime){
             lightning.PlayAudio(1);
-            Global.isSlowDown = true;
+            // Global.isSlowDown = true;
 
             timeCount = 0;
             if(follow == null)
@@ -57,14 +56,11 @@ public class ConnectLineController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if(pos.transform.position != player.transform.position && canMove && isLastLine && lightningEffect!= null){
-            pos.transform.position = player.transform.position + new Vector3(0,1f,0);
-
-            // pos.transform.position = end.transform.position + new Vector3(0,1f,0);
-            // end.transform.position = follow.transform.position;
-            // SetCircleLine();
-            lightningEffect.pos1.transform.position = pos.transform.position;
-            lightningEffect.pos2.transform.position = pos.transform.position;
+        if(lightningEffect != null){
+            lightningEffect.pos1.transform.position = start.transform.position;
+            lightningEffect.pos2.transform.position = start.transform.position;
+            lightningEffect.pos3.transform.position = end.transform.position;
+            lightningEffect.pos4.transform.position = end.transform.position;
         }
         if(colliderCur!= null){
             colliderCur.GetComponent<LineConnectCollider>().start = start.transform.position;
@@ -87,27 +83,21 @@ public class ConnectLineController : MonoBehaviour
             }
         }
         line.SetPosition(0,start.transform.position);
-        line.SetPosition(1,pos.transform.position);
+        line.SetPosition(1,end.transform.position);
     }
 
     public void DrawLinePoints() {
-        canMove = false;
-        // Global.isSlowDown = true;
         lightningEffect = Instantiate(lightningAsset);
         lightningEffect.transform.parent = transform;
         lightningEffect.pos1.transform.position = start.transform.position;
         lightningEffect.pos2.transform.position = start.transform.position;
-        lightningEffect.pos1.transform.DOMove(end.transform.position,startTime);
-        lightningEffect.pos2.transform.DOMove(end.transform.position,startTime);
-        lightningEffect.pos3.transform.position = start.transform.position;
-        lightningEffect.pos4.transform.position = start.transform.position;
+        lightningEffect.pos3.transform.position = end.transform.position;
+        lightningEffect.pos4.transform.position = end.transform.position;
         line.startWidth = lightning.lightningWidth;
         line.endWidth = lightning.lightningWidth;
-        pos.transform.position = start.transform.position;
-        pos.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
-        {
-            Invoke("EndLine", keepTime);
-        });
+
+        Invoke("EndLine", keepTime);
+
         Vector3 midPoint = (line.GetPosition(0) + line.GetPosition(1)) / 2;
         colliderCur = Instantiate(lineCollider);
         colliderCur.transform.position = midPoint;
@@ -121,13 +111,6 @@ public class ConnectLineController : MonoBehaviour
     }
 
     public void EndLine () {
-        lightningEffect.pos3.transform.DOMove(end.transform.position,startTime);
-        lightningEffect.pos4.transform.DOMove(end.transform.position,startTime);
-        start.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
-        {
-            canMove = false;
-            Destroy(gameObject);
-        });
-        
+        Destroy(gameObject);
     }
 }

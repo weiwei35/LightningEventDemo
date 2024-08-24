@@ -7,8 +7,6 @@ public class MirrorLineController : MonoBehaviour
 {
     public GameObject start;
     public GameObject end;
-    public GameObject pos;
-    public LayerMask layer;
     public float showTime = 0;
     public float startTime = 0.1f;
     public float keepTime = 0.5f;
@@ -36,8 +34,15 @@ public class MirrorLineController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        start.transform.position = follow.transform.position + new Vector3(0,1f,0);
+        if(lightningEffect != null){
+            lightningEffect.pos1.transform.position = start.transform.position;
+            lightningEffect.pos2.transform.position = start.transform.position;
+            lightningEffect.pos3.transform.position = end.transform.position;
+            lightningEffect.pos4.transform.position = end.transform.position;
+        }
         line.SetPosition(0,start.transform.position);
-        line.SetPosition(1,pos.transform.position);
+        line.SetPosition(1,end.transform.position);
         if(lineCollider!= null)
         {
             midPoint = (line.GetPosition(0) + line.GetPosition(1)) / 2;
@@ -60,18 +65,13 @@ public class MirrorLineController : MonoBehaviour
         lightningEffect.transform.parent = transform;
         lightningEffect.pos1.transform.position = start.transform.position;
         lightningEffect.pos2.transform.position = start.transform.position;
-        lightningEffect.pos1.transform.DOMove(end.transform.position,startTime);
-        lightningEffect.pos2.transform.DOMove(end.transform.position,startTime);
-        lightningEffect.pos3.transform.position = start.transform.position;
-        lightningEffect.pos4.transform.position = start.transform.position;
+        lightningEffect.pos3.transform.position = end.transform.position;
+        lightningEffect.pos4.transform.position = end.transform.position;
         line.startWidth = lightning.lightningWidth;
         line.endWidth = lightning.lightningWidth;
-        pos.transform.position = start.transform.position;
-        pos.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
-        {
-            // canMove = true;
-            Invoke("EndLine", keepTime);
-        });
+        
+        Invoke("EndLine", keepTime);
+
         lineCollider = Instantiate(lineCollider);
         lineCollider.transform.position = transform.position;
         lineCollider.transform.parent = transform;
@@ -79,17 +79,11 @@ public class MirrorLineController : MonoBehaviour
     }
 
     public void EndLine () {
-        lightningEffect.pos3.transform.DOMove(end.transform.position,startTime);
-        lightningEffect.pos4.transform.DOMove(end.transform.position,startTime);
-        start.transform.DOMove(end.transform.position,startTime).OnComplete(()=>
+        var enemys = Transform.FindObjectsOfType<EnemyController>();
+        foreach (var item in enemys)
         {
-            // Global.isSlowDown = false;
-            var enemys = Transform.FindObjectsOfType<EnemyController>();
-            foreach (var item in enemys)
-            {
-                item.isHitting = false;
-            }
-            Destroy(gameObject);
-        });
+            item.isHitting = false;
+        }
+        Destroy(gameObject);
     }
 }

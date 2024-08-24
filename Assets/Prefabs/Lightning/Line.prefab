@@ -203,8 +203,8 @@ MonoBehaviour:
     type: 3}
   startPoint: {fileID: 6243194527875724978}
   showTime: 0
-  startTime: 0.1
-  keepTime: 0.5
+  startTime: 0
+  keepTime: 0
   copyLine: {fileID: 4832612257934242252, guid: a93c78e49b0213546821097ae6553096,
     type: 3}
   isChecked: 0

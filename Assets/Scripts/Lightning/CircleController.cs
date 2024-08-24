@@ -10,8 +10,9 @@ public class CircleController : MonoBehaviour
     LineRenderer l;
     public Material m;
     // [HideInInspector]
-    public LineController line;
-    public LineController lineEndShow;
+    // public LineController line;
+    public LightningShow line;
+    public LightningShow lineEndShow;
     public ConnectLineController connectLine;
     public MirrorLineController mirrorLine;
     public GameObject startPoint;//雷点
@@ -57,7 +58,7 @@ public class CircleController : MonoBehaviour
         foreach (var item in lines)
         {
             if(item != null){
-                LineController lineController = item.GetComponent<LineController>();
+                LightningShow lineController = item.GetComponent<LightningShow>();
                 if(lineController.follow != null)
                     lineController.end.transform.position = lineController.follow.transform.position + new Vector3(0,1f,0);
             }
@@ -71,17 +72,6 @@ public class CircleController : MonoBehaviour
                     lineController.end.transform.position = player.transform.position;
             }
         }
-        // if(Global.isSlowDown){
-        //     if(tweener1 != null)
-        //         tweener1.timeScale = 0.1f;
-        //     if(tweener2 != null)
-        //         tweener2.timeScale = 0.1f;
-        // }else{
-        //     if(tweener1 != null)
-        //         tweener1.timeScale = 1f;
-        //     if(tweener2 != null)
-        //         tweener2.timeScale = 1f;
-        // }
         if(Mathf.Abs(Vector3.Distance(player.transform.position,center) - radius) <= 0.1f && !isSide){
             isSide = true;
             angle = Mathf.Atan2(player.transform.position.y - center.y, player.transform.position.x - center.x) * (180 / Mathf.PI);
@@ -424,7 +414,7 @@ public class CircleController : MonoBehaviour
         foreach(var point in points){
             var lineCur = Instantiate(line.gameObject);
             lineCur.transform.position = point;
-            LineController lineController = lineCur.GetComponent<LineController>();
+            LightningShow lineController = lineCur.GetComponent<LightningShow>();
             lineController.start.transform.position = point;
             lineController.end.transform.position = player.transform.position;
             lineController.startTime = startTime;
@@ -444,7 +434,7 @@ public class CircleController : MonoBehaviour
         foreach(var point in points){
             var lineCur = Instantiate(lineEndShow.gameObject);
             lineCur.transform.position = point;
-            LineController lineController = lineCur.GetComponent<LineController>();
+            LightningShow lineController = lineCur.GetComponent<LightningShow>();
             lineController.start.transform.position = point;
             lineController.end.transform.position = center;
             lineController.startTime = startTime;
