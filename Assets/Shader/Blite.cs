@@ -39,15 +39,18 @@ as a workaround for 2D Renderer not supporting features (prior to 2021.2). Uncom
 			private RenderTargetIdentifier source { get; set; }
 			private RenderTargetIdentifier destination { get; set; }
 
-			RenderTargetHandle m_TemporaryColorTexture;
-			RenderTargetHandle m_DestinationTexture;
+            [System.Obsolete]
+            RenderTargetHandle m_TemporaryColorTexture;
+            [System.Obsolete]
+            RenderTargetHandle m_DestinationTexture;
 			string m_ProfilerTag;
 
 #if !UNITY_2020_2_OR_NEWER // v8
 			private ScriptableRenderer renderer;
 #endif
 
-			public BlitPass(RenderPassEvent renderPassEvent, BlitSettings settings, string tag) {
+            [System.Obsolete]
+            public BlitPass(RenderPassEvent renderPassEvent, BlitSettings settings, string tag) {
 				this.renderPassEvent = renderPassEvent;
 				this.settings = settings;
 				blitMaterial = settings.blitMaterial;
@@ -67,7 +70,9 @@ as a workaround for 2D Renderer not supporting features (prior to 2021.2). Uncom
 #endif
 			}
 
-			public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData) {
+            [System.Obsolete]
+#pragma warning disable CS0809 // 过时成员重写未过时成员
+            public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData) {
 				CommandBuffer cmd = CommandBufferPool.Get(m_ProfilerTag);
 				RenderTextureDescriptor opaqueDesc = renderingData.cameraData.cameraTargetDescriptor;
 				opaqueDesc.depthBufferBits = 0;
@@ -121,8 +126,11 @@ as a workaround for 2D Renderer not supporting features (prior to 2021.2). Uncom
 				context.ExecuteCommandBuffer(cmd);
 				CommandBufferPool.Release(cmd);
 			}
+#pragma warning restore CS0809 // 过时成员重写未过时成员
 
-			public override void FrameCleanup(CommandBuffer cmd) {
+            [System.Obsolete]
+#pragma warning disable CS0809 // 过时成员重写未过时成员
+            public override void FrameCleanup(CommandBuffer cmd) {
 				if (settings.dstType == Target.TextureID) {
 					cmd.ReleaseTemporaryRT(m_DestinationTexture.id);
 				}
@@ -130,7 +138,8 @@ as a workaround for 2D Renderer not supporting features (prior to 2021.2). Uncom
 					cmd.ReleaseTemporaryRT(m_TemporaryColorTexture.id);
 				}
 			}
-		}
+#pragma warning restore CS0809 // 过时成员重写未过时成员
+        }
 
 		[System.Serializable]
 		public class BlitSettings {
@@ -164,7 +173,9 @@ as a workaround for 2D Renderer not supporting features (prior to 2021.2). Uncom
 		public BlitSettings settings = new BlitSettings();
 		public BlitPass blitPass;
 
-		public override void Create() {
+        [System.Obsolete]
+#pragma warning disable CS0809 // 过时成员重写未过时成员
+        public override void Create() {
 			var passIndex = settings.blitMaterial != null ? settings.blitMaterial.passCount - 1 : 1;
 			settings.blitMaterialPassIndex = Mathf.Clamp(settings.blitMaterialPassIndex, -1, passIndex);
 			blitPass = new BlitPass(settings.Event, settings, name);
@@ -179,8 +190,9 @@ as a workaround for 2D Renderer not supporting features (prior to 2021.2). Uncom
 				settings.graphicsFormat = SystemInfo.GetGraphicsFormat(UnityEngine.Experimental.Rendering.DefaultFormat.LDR);
 			}
 		}
+#pragma warning restore CS0809 // 过时成员重写未过时成员
 
-		public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData) {
+        public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData) {
 			if (renderingData.cameraData.isPreviewCamera) return;
 			if (!settings.canShowInSceneView && renderingData.cameraData.isSceneViewCamera) return;
 

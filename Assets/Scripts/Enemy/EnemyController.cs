@@ -379,6 +379,7 @@ public class EnemyController : MonoBehaviour
             Debug.Log("溢出伤害:" + moreHurt);
         }
         Global.exp += exp;
+        Global.exp_sum += exp;
         StartCoroutine(SetDestroy());
     }
     IEnumerator SetDestroy(){

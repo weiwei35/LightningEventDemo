@@ -23,11 +23,21 @@ public class SelectItemUI : MonoBehaviour
 
     Animator anim;
     public bool isStopGame = false;
+    public float refreshCost = 100;
     // Start is called before the first frame update
     void OnEnable() {
         anim = GetComponent<Animator>();
         PlayAudio(2);
         // itemData = AssetDatabase.LoadAssetAtPath<ItemDataSO>("Assets/Resources/ItemData.asset");
+        SetItemList();
+    }
+    public void Refresh(){
+        if(Global.exp_sum >= refreshCost){
+            Global.exp_sum -= refreshCost;
+            SetItemList();
+        }
+    }
+    public void SetItemList(){
         if(!isStopGame){
             levelPanel.SetActive(true);
             stopPanel.SetActive(false);
@@ -85,6 +95,10 @@ public class SelectItemUI : MonoBehaviour
         }
     }
     void ShowSelectItem(){
+        foreach (Transform item in selectBar.transform)
+        {
+            Destroy(item.gameObject);
+        }
         for (int i = 0; i < items.Count; i++)
         {
             var selectItem = Instantiate(selectPrefab);
@@ -103,17 +117,17 @@ public class SelectItemUI : MonoBehaviour
     public void SaveChooseItem(SelectItem item){
         saveItem = item;
     }
-    public bool SetPlayerStatus(){
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        if(saveItem != null)
-        {
+    public void SetPlayerStatus(SelectItem item,GameObject obj){
+        float cost = item.cost + item.cost * Global.levelCount * item.costGrow;
+        if(Global.exp_sum >= cost){
+            saveItem = item;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
             SwitchUI();
             SwitchLogic();
             gameSave.data.currentItemId.Add(saveItem.id);
             PlayerPrefs.SetInt(saveItem.id.ToString(),2);
-            return true;
-        }else{
-            return false;
+            Global.exp_sum -= cost;
+            Destroy(obj);
         }
     }
     public void LoadItem() {

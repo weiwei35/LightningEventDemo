@@ -71,11 +71,11 @@ public class CirclePanelController : MonoBehaviour
     public GameObject[] circles;
     public bool isFadeIn = false;
     public bool isFadeOut = false;
-    public bool checkFade = false;
     // bool saveDoor = false;
     public SpriteRenderer[] circle;
 
     private void Update() {
+            CheckDoorId();
         if(isTurn && Global.GameBegain){
             // DeletDoorUI();
             CheckDoorId();

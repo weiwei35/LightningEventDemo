@@ -10,6 +10,7 @@ public class ItemController : MonoBehaviour, IPointerEnterHandler, IPointerClick
     public TMP_Text buffName;
     public TMP_Text buffDesc;
     public TMP_Text buffStory;
+    public TMP_Text buffCost;
     SelectItem itemCurrent;
     SelectItemUI select;
     public void SetItemInfo(SelectItem item) {
@@ -17,13 +18,15 @@ public class ItemController : MonoBehaviour, IPointerEnterHandler, IPointerClick
         buffName.text = item.name;
         buffDesc.text = item.desc;
         buffStory.text = item.story;
+        buffCost.text = "$" + (item.cost + item.cost * Global.levelCount * item.costGrow);
         itemCurrent = item;
     }
     private void Start() {
         select = GameObject.FindWithTag("EndLevel").GetComponent<SelectItemUI>();
     }
     public void ChooseItem(){
-        select.SaveChooseItem(itemCurrent);
+        // select.SaveChooseItem(itemCurrent);
+        select.SetPlayerStatus(itemCurrent,gameObject);
     }
 
     public void OnPointerClick(PointerEventData eventData)

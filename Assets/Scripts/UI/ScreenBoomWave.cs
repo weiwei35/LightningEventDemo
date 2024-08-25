@@ -25,7 +25,7 @@ public class ScreenBoomWave : MonoBehaviour
 
         _material.SetVector(_ringSpawnPosition, uvPos); // 设置位置
 
-        _shockWaveCoroutine = StartCoroutine(ShockWaveAction(1f, -0.1f)); // 启动新的协程来实现冲击波效果
+        _shockWaveCoroutine = StartCoroutine(ShockWaveAction(0.3f, -0.1f)); // 启动新的协程来实现冲击波效果
     }
 
     // 冲击波效果的协程方法

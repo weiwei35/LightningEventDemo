@@ -126,6 +126,7 @@ public class LightningController : MonoBehaviour
         }
         if(!Global.isChangeLevel)
             Global.exp += lightningExp;
+            Global.exp_sum += lightningExp;
         if(player.isOnceLightningCopy)
             player.lightningCount ++;
         foreach (Transform item in petBugs.transform)

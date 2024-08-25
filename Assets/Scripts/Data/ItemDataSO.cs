@@ -328,4 +328,6 @@ public class SelectItem{
     public int specialType;
     public string story;
     public int detailType;
+    public float cost;
+    public float costGrow;
 }

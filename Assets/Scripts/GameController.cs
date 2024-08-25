@@ -29,9 +29,11 @@ public class GameController : MonoBehaviour
     public GameObject endLevelPanel;
     public GameObject rewardTitle;
     public TMP_Text expText;
+    public TMP_Text expLevelText;
+    public TMP_Text expLevelTextPanel;
     public Slider sliderExp;
     GameObject papers;
-    bool isLevelUp = false;
+    // bool isLevelUp = false;
 
     public GameObject bgChangeLevel;
     public Image levelImg;
@@ -51,6 +53,9 @@ public class GameController : MonoBehaviour
     public AudioSource levelBack;
     public CirclePanelController circlePanel;
     public bool isBossLevel;
+    public GameObject startBtn;
+    public GameObject nextBtn;
+    public GameObject refreshBtn;
     // Start is called before the first frame update
     private void Awake() {
         Application.targetFrameRate = 60;
@@ -64,8 +69,14 @@ public class GameController : MonoBehaviour
         if(Global.continueGame){
             if(LoadData())
                 selectPanel.LoadItem();
+                startBtn.SetActive(false);
+                nextBtn.SetActive(true);
+                refreshBtn.SetActive(true);
             if(levelId == 0){
                 levelId = 1;
+                startBtn.SetActive(true);
+                nextBtn.SetActive(false);
+                refreshBtn.SetActive(false);
             }
         }
         // bgChangeLevel.SetActive(false);
@@ -145,6 +156,9 @@ public class GameController : MonoBehaviour
 
         if(levelId == 1){
             endLevelPanel.SetActive(true);
+            startBtn.SetActive(true);
+            nextBtn.SetActive(false);
+            refreshBtn.SetActive(false);
             // Invoke("SetTimeStop",0.5f);
         }
         if(Global.isEndLevel){
@@ -161,6 +175,8 @@ public class GameController : MonoBehaviour
     {
         Global.levelCount = levelId - 1;
         expText.text = Global.exp.ToString();
+        expLevelText.text = Global.exp_sum.ToString();
+        expLevelTextPanel.text = Global.exp_sum.ToString();
         sliderExp.value = Global.exp/Global.exp_max;
         if(Global.exp >= Global.exp_max){
             //升级
@@ -171,13 +187,13 @@ public class GameController : MonoBehaviour
             }else{
                 Global.exp_max = expLevelData.GetExpMaxByLevel(expLevelData.GetLevelCount() - 1);
             }
-            isLevelUp = true;
+            // isLevelUp = true;
         }
-        if(isLevelUp && !Global.isSlowDown && !Global.isGameOver){
-            isLevelUp = false;
-            SetTimeStop();
-            endLevelPanel.SetActive(true);
-        }
+        // if(isLevelUp && !Global.isSlowDown && !Global.isGameOver){
+        //     isLevelUp = false;
+        //     SetTimeStop();
+        //     endLevelPanel.SetActive(true);
+        // }
         if(level.type == 0){
             if(isReward){
                 if(!Global.isSlowDown)
@@ -251,6 +267,30 @@ public class GameController : MonoBehaviour
                 levelBGM.Play();
             }
         }
+
+        if(Global.isGameOver){
+            BulletController1 bulletController = bulletFather.GetComponent<BulletController1>();
+            bulletController.DestroyAllBullets();
+            levelEnemyController.DestroyAllEnemy();
+            isReward = false;
+            Global.papersPosList.Clear();
+            foreach (Transform item in papers.transform)
+            {
+                PaperController paper = item.GetComponent<PaperController>();
+                if(paper!= null)
+                {
+                    paper.DestroyChild();
+                }
+            }
+            GameObject[] playerOnceCopy = GameObject.FindGameObjectsWithTag("PlayerOnceCopy");
+            if(playerOnceCopy.Length > 0){
+                foreach (var item in playerOnceCopy)
+                {
+                    Destroy(item);
+                }
+            }
+            DOTween.To(()=>levelBGM.volume, x =>levelBGM.volume = x,0,1);
+        }
     }
 
     public void NextLevel() {
@@ -286,15 +326,18 @@ public class GameController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         timeCur = 0;
         SetLevelItem();
-        levelId ++;
-        bgChangeLevel.SetActive(true);
-        levelImg.gameObject.SetActive(true);
-        levelImg.sprite = levelSprite[levelId-1];
-        player.transform.position = centerPos.transform.position;
-        Invoke("SetLevel",3.5f);
-        circlePanel.ResetCircle();
+        // levelId ++;
+        // bgChangeLevel.SetActive(true);
+        // levelImg.gameObject.SetActive(true);
+        // levelImg.sprite = levelSprite[levelId-1];
+        // player.transform.position = centerPos.transform.position;
+        // Invoke("SetLevel",3.5f);
+        // circlePanel.ResetCircle();
     }
     void SetLevelItem(){
+        startBtn.SetActive(false);
+        nextBtn.SetActive(true);
+        refreshBtn.SetActive(true);
         endLevelPanel.SetActive(true);
         Invoke("SetTimeStop",0.5f);
         SaveEndtData();
@@ -371,8 +414,8 @@ public class GameController : MonoBehaviour
         }
     }
     public Animator panelAnim;
-    public void SetItem(){
-        if(selectPanel.SetPlayerStatus()){
+    public void SetStartItem(){
+        // if(selectPanel.SetPlayerStatus()){
             Time.timeScale = 1;
             if(!Global.GameBegain)
                 Global.GameBegain = true;
@@ -381,7 +424,24 @@ public class GameController : MonoBehaviour
             panelAnim.SetTrigger("close");
             levelUI.SetLevelPlayer();
             Invoke("CloseEndPanel",1f);
-        }
+        // }
+    }
+    public void SetItem(){
+        Time.timeScale = 1;
+        if(!Global.GameBegain)
+            Global.GameBegain = true;
+        Animator anim = selectPanel.GetComponent<Animator>();
+        anim.SetTrigger("close");
+        panelAnim.SetTrigger("close");
+        levelUI.SetLevelPlayer();
+        Invoke("CloseEndPanel",1f);
+        levelId ++;
+        bgChangeLevel.SetActive(true);
+        levelImg.gameObject.SetActive(true);
+        levelImg.sprite = levelSprite[levelId-1];
+        player.transform.position = centerPos.transform.position;
+        Invoke("SetLevel",3.5f);
+        circlePanel.ResetCircle();
     }
 
     void CloseEndPanel(){

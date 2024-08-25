@@ -12,10 +12,12 @@ public class CircleGridController : MonoBehaviour
     public Material dark_m;
     bool inDoor = false;
     CirclePanelController circlePanel;
+    MeshCollider meshCollider;
 
     private void Start() {
         grid = transform.parent.GetComponent<SpriteRenderer>();
         circlePanel = GameObject.FindWithTag("CirclePanel").GetComponent<CirclePanelController>();
+        meshCollider = GetComponent<MeshCollider>();
     }
 
     private void OnEnable() {
@@ -25,6 +27,8 @@ public class CircleGridController : MonoBehaviour
         grid = transform.parent.GetComponent<SpriteRenderer>();
         grid.material = dark_m;
         inDoor = false;
+        meshCollider = GetComponent<MeshCollider>();
+        meshCollider.enabled = true;
     }
     private void OnCollisionEnter(Collision other) {
         if(other.gameObject.layer == 9){
@@ -76,7 +80,6 @@ public class CircleGridController : MonoBehaviour
 
     public void SetFadeIn(){
         startFade = true;
-        circlePanel.checkFade = true;
         grid = transform.parent.GetComponent<SpriteRenderer>();
         grid.DOFade(1,1f).OnComplete(()=>{
             circlePanel.isFadeIn = false;
@@ -85,7 +88,7 @@ public class CircleGridController : MonoBehaviour
     }
     public void SetFadeOut(){
         startFade = true;
-        circlePanel.checkFade = true;
+        meshCollider.enabled = true;
         grid = transform.parent.GetComponent<SpriteRenderer>();
         grid.DOFade(0,1f).OnComplete(()=>{
             circlePanel.isFadeOut = false;
