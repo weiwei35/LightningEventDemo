@@ -9,13 +9,13 @@ public class BugAttackCopy : MonoBehaviour
     public EnemyController enemy;
     public BugAttackController bugAttack;
     private void Start() {
-        if(enemy != null  && enemy.canHurt){
+        if(enemy != null  && enemy.canHurt && !enemy.isDead){
             Vector3 targetPos = new Vector3(enemy.transform.position.x,enemy.transform.position.y,-10);
             transform.DOMove(targetPos,0.2f).OnComplete(()=>
                 {
                     transform.DOMove(bugAttack.transform.position,0.2f).OnComplete(()=>
                         {
-        bugAttack.isTriggered = false;
+                            bugAttack.isTriggered = false;
                             bugAttack.canRecoverEnergy = true;
                             bugAttack.mesh.enabled = true;
                             Destroy(gameObject);
@@ -23,11 +23,10 @@ public class BugAttackCopy : MonoBehaviour
                 });
             enemy.HurtByBugAttack(attack,HurtType.BugAttack);
         }else{
-        bugAttack.isTriggered = false;
+            bugAttack.isTriggered = false;
             bugAttack.canRecoverEnergy = true;
             bugAttack.mesh.enabled = true;
             Destroy(gameObject);
         }
-        
     }
 }

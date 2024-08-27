@@ -160,7 +160,7 @@ MonoBehaviour:
   isOverLoad: 0
   overTime: 3
   countTime: 0
-  fireBall: {fileID: 3500004177450050912, guid: 52d02d570bd03a74dac587f39808f997,
+  fireBall: {fileID: 6276372161482113121, guid: 52d02d570bd03a74dac587f39808f997,
     type: 3}
 --- !u!65 &2035732888619254410
 BoxCollider:
@@ -222,6 +222,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightningBall2
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 6cca349810de21c4382e86f49566f6a7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 6cca349810de21c4382e86f49566f6a7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -262,7 +266,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 19800002, guid: 6cca349810de21c4382e86f49566f6a7, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800002, guid: 6cca349810de21c4382e86f49566f6a7, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.30980393
+      objectReference: {fileID: 0}
+    - target: {fileID: 6038347894260770812, guid: 6cca349810de21c4382e86f49566f6a7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6038347894260770812, guid: 6cca349810de21c4382e86f49566f6a7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

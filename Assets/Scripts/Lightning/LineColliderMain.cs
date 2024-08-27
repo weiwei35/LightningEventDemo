@@ -13,7 +13,7 @@ public class LineColliderMain : MonoBehaviour
         player = FindObjectOfType<PlayerController>();
         if(other.gameObject.layer == 6){
             EnemyController enemy = other.gameObject.GetComponent<EnemyController>();
-            if(enemy != null  /*&& !enemy.isHitting*/)
+            if(enemy != null  /*&& !enemy.isHitting*/&& enemy.canHurt)
             {
                 Debug.Log("雷电攻击：" + other.name);
                 lightning.HurtEnemy(enemy,HurtType.Lightning);

@@ -47,7 +47,7 @@ Material:
     - _ScreenRate: 1.777
     - _Size: 0.03
     m_Colors:
-    - _BoomStartPos: {r: 0.48338547, g: 0.47727272, b: 0, a: 0}
+    - _BoomStartPos: {r: 0.54087126, g: 0.32122743, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2812179044378915962
 MonoBehaviour:

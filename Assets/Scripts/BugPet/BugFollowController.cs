@@ -13,6 +13,8 @@ public class BugFollowController : BugController
     public int bugCount = 3;
     [Header("攻击伤害")]
     public float followHurt = 2;
+    [Header("追击方式:1最近;2血量最多")]
+    public int followType = 2;
     public MeshRenderer mesh;
     public BugFollowCopy bugFollowPre;
     List<BugFollowCopy> bugCopys = new List<BugFollowCopy>();
@@ -27,7 +29,10 @@ public class BugFollowController : BugController
             trueStart = true;
         }
         if(trueStart){
-            SetBugsFollow();
+            if(followType == 2)
+                SetBugsFollow();
+            if(followType == 1)
+                SetBugsFollowNear();
         }
         if(startFollow && !Global.isSlowDown){
             countTime += Time.deltaTime;
@@ -64,12 +69,44 @@ public class BugFollowController : BugController
             var enemyListByHP = enemys.OrderByDescending(p => p.HP).Take(bugCount).ToList();
             foreach (var item in enemyListByHP)
             {
-                Debug.Log(item.name +":"+item.HP);
+                // Debug.Log(item.name +":"+item.HP);
                 BugFollowCopy bugCopy = Instantiate(bugFollowPre);
                 // bugCopy.transform.parent = transform.parent;
                 bugCopy.transform.position = transform.position;
                 // BugFollowController bugCopyFollow = bugCopy.GetComponent<BugFollowController>();
                 bugCopy.target = item.transform;
+                bugCopy.followHurt = followHurt;
+                bugCopys.Add(bugCopy);
+            }
+        }
+    }
+    void SetBugsFollowNear(){
+        var enemys = Transform.FindObjectsOfType<EnemyController>();
+        if(enemys.Length > 0){
+            trueStart = false;
+            isTriggered = true;
+            mesh.enabled = false;
+            startFollow = true;
+            
+            EnemyController enemy = null;
+            float minDistance = 100;
+            foreach (var item in enemys)
+            {
+                float distance = Vector3.Distance(item.transform.position,transform.position);
+                if(minDistance > distance){
+                    enemy = item;
+                    minDistance = distance;
+                }
+            }
+            // var enemyListByHP = enemys.OrderByDescending(p => p.HP).Take(bugCount).ToList();
+            if(enemy != null)
+            {
+                // Debug.Log(item.name +":"+item.HP);
+                BugFollowCopy bugCopy = Instantiate(bugFollowPre);
+                // bugCopy.transform.parent = transform.parent;
+                bugCopy.transform.position = transform.position;
+                // BugFollowController bugCopyFollow = bugCopy.GetComponent<BugFollowController>();
+                bugCopy.target = enemy.transform;
                 bugCopy.followHurt = followHurt;
                 bugCopys.Add(bugCopy);
             }

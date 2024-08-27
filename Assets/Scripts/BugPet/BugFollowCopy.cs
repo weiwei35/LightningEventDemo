@@ -13,6 +13,8 @@ public class BugFollowCopy : MonoBehaviour
     void Update()
     {
         EnemyController[] enemys = Transform.FindObjectsOfType<EnemyController>();
+        List<EnemyController> enemyListByHP = enemys.OrderBy(p => Vector3.Distance(p.transform.position,transform.position)).ToList();
+
         if(target == null && !isBack){
             int i = -1;
             do
@@ -20,14 +22,14 @@ public class BugFollowCopy : MonoBehaviour
                 i++;
                 if(i>enemys.Length-1)
                     break;
-            } while (enemys[i].isFollowHitting);
+            } while (enemyListByHP[i].isFollowHitting);
             if(i<=enemys.Length-1){
-                target = enemys[i].transform;
+                target = enemyListByHP[i].transform;
                 Vector3 targetPosition = new Vector3(target.position.x, target.position.y, -10);
                 transform.position = Vector3.Lerp(transform.position, targetPosition, 8 * Time.deltaTime);
                 anim.SetActive(true);
-                if(enemys[i].canHurt)
-                    enemys[i].HurtByFollow(followHurt,HurtType.BugFollow);
+                if(enemyListByHP[i].canHurt)
+                    enemyListByHP[i].HurtByFollow(followHurt,HurtType.BugFollow);
             }
         }else if(target != null && !isBack){
             EnemyController enemy = target.gameObject.GetComponent<EnemyController>();
@@ -44,20 +46,20 @@ public class BugFollowCopy : MonoBehaviour
                     i++;
                     if(i>enemys.Length-1)
                         break;
-                } while (enemys[i].isFollowHitting);
+                } while (enemyListByHP[i].isFollowHitting);
                 if(i<=enemys.Length-1){
-                    target = enemys[i].transform;
+                    target = enemyListByHP[i].transform;
                     Vector3 targetPosition = new Vector3(target.position.x, target.position.y, -10);
                     transform.position = Vector3.Lerp(transform.position, targetPosition, 8 * Time.deltaTime);
                     anim.SetActive(true);
-                    if(enemys[i].canHurt)
-                        enemys[i].HurtByFollow(followHurt,HurtType.BugFollow);
+                    if(enemyListByHP[i].canHurt)
+                        enemyListByHP[i].HurtByFollow(followHurt,HurtType.BugFollow);
                 }
             }
         }else if(isBack){
             anim.SetActive(false);
             transform.position = Vector3.Lerp(transform.position, target.position, 8 * Time.deltaTime);
-            if(Vector3.Distance(transform.position, target.position) < 0.5f){
+            if(Vector3.Distance(transform.position, target.position) < 1f){
                 Destroy(gameObject);
             }
         }

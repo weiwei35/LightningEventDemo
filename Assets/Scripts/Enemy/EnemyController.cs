@@ -46,7 +46,7 @@ public class EnemyController : MonoBehaviour
     public GameObject boom;
     PlayerController player;
     float moreHurt = 0;
-    bool isDead = false;
+    public bool isDead = false;
     Tweener tweener;
     Tweener tweener1;
     float circleCountTime = 0;
@@ -149,6 +149,8 @@ public class EnemyController : MonoBehaviour
             speedSave = speedMaxSave;
             circlePanel_addSpeed = false;
         }
+
+
     }
     public float ShowHPBar(){
         float bar = HP/maxHP;
@@ -234,6 +236,9 @@ public class EnemyController : MonoBehaviour
                 }
             }
             
+        }
+        if(type == HurtType.Lightning && hurt < HP){
+            Global.swordFollowEnemy.Add(gameObject);
         }
     }
     public virtual void HurtByCircle(float hurt,HurtType type){
@@ -457,7 +462,7 @@ public class EnemyController : MonoBehaviour
             if(enemyId<filteredEnemies.Length && enemyId>=0){
                 enemyController = filteredEnemies[enemyId].GetComponent<EnemyController>();
                 enemyController.isOverFocused = true;
-                Debug.Log(filteredEnemies[enemyId].transform.position);
+                // Debug.Log(filteredEnemies[enemyId].transform.position);
                 var lineCur = Instantiate(lineCopy.gameObject);
                 lineCur.transform.position = transform.position;
                 OverLineController lineController = lineCur.GetComponent<OverLineController>();
@@ -504,5 +509,6 @@ public enum HurtType{
     BugAttack,
     PaperFireBall,
     PaperIce,
-    BlackHall
+    BlackHall,
+    Sword
 }

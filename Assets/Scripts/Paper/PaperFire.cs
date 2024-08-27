@@ -7,7 +7,7 @@ public class PaperFire : PaperModel
 {
     public float overTime;
     public float countTime = 0;
-    public GameObject fireBall;
+    public FireBall fireBall;
     // Animator anim;
     private void Start() {
         InvokeRepeating("FireBall",1,1);
@@ -31,9 +31,6 @@ public class PaperFire : PaperModel
     GameObject ball;
 
     void FireBall(){
-        if(ball != null){
-            Destroy(ball.gameObject);
-        }
         var enemys = Transform.FindObjectsOfType<EnemyController>();
         List<EnemyController> enemyInArea = new List<EnemyController>();
         foreach (var item in enemys)
@@ -47,16 +44,10 @@ public class PaperFire : PaperModel
             int id = Random.Range(0,enemyInArea.Count);
             Debug.Log("火球攻击"+enemyInArea[id].name);
             if(enemyInArea[id] != null){
-                ball = Instantiate(fireBall);
+                ball = Instantiate(fireBall.gameObject);
                 ball.transform.position = transform.position;
-                Vector3 pos = enemyInArea[id].transform.position;
-                ball.transform.DOMove(pos,0.2f).OnComplete(()=>{
-                    if(enemyInArea != null){
-                        enemyInArea[id].HurtByBugAttack(5f,HurtType.PaperFireBall);
-                    }
-                    Destroy(ball.gameObject);
-                    ball = null;
-                });
+                FireBall fire = ball.GetComponent<FireBall>();
+                fire.MoveFire(enemyInArea[id]);
             }
         }
     }

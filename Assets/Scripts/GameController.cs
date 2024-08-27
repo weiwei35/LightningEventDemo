@@ -311,6 +311,9 @@ public class GameController : MonoBehaviour
             {
                 paper.DestroyChild();
             }
+            if(item.gameObject.layer == 15){
+                Destroy(item.gameObject);
+            }
         }
         GameObject[] playerOnceCopy = GameObject.FindGameObjectsWithTag("PlayerOnceCopy");
         if(playerOnceCopy.Length > 0){
@@ -321,6 +324,7 @@ public class GameController : MonoBehaviour
         }
         DOTween.To(()=>levelBGM.volume, x =>levelBGM.volume = x,0,1);
         startCheckingEnemy = true;
+        Global.lightningCount = 0;
     }
     IEnumerator SetNextLevel(){
         yield return new WaitForSeconds(0.5f);
@@ -374,6 +378,10 @@ public class GameController : MonoBehaviour
             successPanel.SetActive(true);
         }else{
             SaveStartData();
+            if(player.isOnceTimeCopy)
+                player.isTimeCopied = false;
+            if(player.isOnceLightningCopy)
+                player.isLightCopied = false;
             level = levelData.GetLevelById(levelId);
             
             if(level.type != 2){

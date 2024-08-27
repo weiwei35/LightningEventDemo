@@ -437,8 +437,8 @@ public class CircleController : MonoBehaviour
             LightningShow lineController = lineCur.GetComponent<LightningShow>();
             lineController.start.transform.position = point;
             lineController.end.transform.position = center;
-            lineController.startTime = startTime;
-            lineController.keepTime = keepTime;
+            lineController.startTime = 0.3f;
+            lineController.keepTime = 1f;
             lineController.follow = centerPos;
             lineController.timeCount = lightning.lightningPreTime +1;
             lines.Add(lineCur.gameObject);

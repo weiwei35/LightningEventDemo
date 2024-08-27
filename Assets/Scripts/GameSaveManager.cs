@@ -26,6 +26,8 @@ public static class Global{
     public static List<SelectItem> item3Current = new List<SelectItem>();
     public static int enemyCount = 0;
     public static int levelCount = 0;
+    public static int lightningCount = 0;
+    public static List<GameObject> swordFollowEnemy = new List<GameObject>();
 }
 
 public class SaveData

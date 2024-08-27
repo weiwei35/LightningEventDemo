@@ -127,14 +127,15 @@ public class LightningController : MonoBehaviour
         if(!Global.isChangeLevel)
             Global.exp += lightningExp;
             Global.exp_sum += lightningExp;
-        if(player.isOnceLightningCopy)
-            player.lightningCount ++;
+        if(player.isOnceLightningCopy){
+            player.lightningCount += (int)lightningCountCurrent;
+        }
         foreach (Transform item in petBugs.transform)
         {
             BugController bug = item.GetComponent<BugController>();
             if(bug!= null && bug.canRecoverEnergy)
             {
-                bug.energyCurrent += (int)lightningCount;
+                bug.energyCurrent += (int)lightningCountCurrent;
             }
         }
         foreach (Transform item in papers.transform)
@@ -146,8 +147,16 @@ public class LightningController : MonoBehaviour
                 paper.isAddLight = true;
             }
         }
+        Global.lightningCount ++;
+        if(player.heroId == 4 && Global.swordFollowEnemy.Count > 0){
+            foreach(var enemy in Global.swordFollowEnemy){
+                player.item_Sword.Fire(enemy.gameObject);
+            }
+        }
+        
         yield return new WaitForSeconds(0.5f);
         endLight = false;
+        Global.swordFollowEnemy.Clear();
     }
     IEnumerator SetEndLight(){
         isSetLight = false;

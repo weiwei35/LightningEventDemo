@@ -114,7 +114,7 @@ public class CopyLineController : MonoBehaviour
             PlayerOnceController copy = follow.GetComponent<PlayerOnceController>();
             copy.lightningCount ++;
         }
-        lightning.isEndLight = true;
+        // lightning.isEndLight = true;
         Destroy(gameObject);
     }
 }

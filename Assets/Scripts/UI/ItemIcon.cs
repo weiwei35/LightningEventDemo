@@ -20,7 +20,6 @@ public class ItemIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log(itemName);
         rectTransform = GetComponent<RectTransform>();
         LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
         tips.SetActive(true);

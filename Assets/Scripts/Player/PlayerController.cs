@@ -176,10 +176,14 @@ public class PlayerController : MonoBehaviour
     public bool rushing = false;
     public int heroId = 0;
     public bool skill_rush = false;
+    public Item_PaperFire item_PaperFire;
+    public BugController item_PaperBug;
+    public Item_Sword item_SwordPre;
+    public Item_Sword item_Sword;
 
     [Header("音效")]
     public AudioClip[] audios;
-    AudioSource audioSource;
+    public AudioSource audioSource;
 
     [Header("屏幕特效")]
     public GameObject screenWave;
@@ -204,11 +208,33 @@ public class PlayerController : MonoBehaviour
         startSpeed = speed;
 
         heroId = Global.heroId;
-        if(heroId == 1){
-            skill_rush = true;
+        switch (heroId)
+        {
+            case 1:
+                skill_rush = true;
+                return;
+            case 2:
+                var item_paper = Instantiate(item_PaperFire.gameObject);
+                item_paper.transform.SetParent(transform);
+                item_paper.transform.localPosition = Vector3.zero + new Vector3(0,0.8f,0);
+                return;
+            case 3:
+                var item_bug = Instantiate(item_PaperBug.gameObject);
+                BugFollowController bug = item_bug.GetComponent<BugFollowController>();
+                bug.transform.parent = petBugs.transform;
+                bug.bugId = bugs.Count;
+                bugs.Add(bug);
+                return;
+            case 4:
+                var sword = Instantiate(item_SwordPre.gameObject);
+                item_Sword = sword.GetComponent<Item_Sword>();
+                sword.transform.SetParent(transform);
+                sword.transform.localPosition = Vector3.zero + new Vector3(1.46f,0.8f,0);
+                return;
+            default:
+                break;
         }
-
-        audioSource = GetComponent<AudioSource>();
+        // audioSource = GetComponent<AudioSource>();
     }
     public DynamicJoystick dynamicJoystick;
     // Update is called once per frame
@@ -229,10 +255,16 @@ public class PlayerController : MonoBehaviour
             // transform.localScale = new Vector3(-0.8f,0.8f,0.8f);
             sprite.flipX = true;
             follow.transform.position = follow_left.transform.position;
+            if(heroId == 4){
+                follow.transform.position += new Vector3(-1.2f,0,0);
+            }
         }else if(moveX < 0){
             // transform.localScale = new Vector3(0.8f,0.8f,0.8f);
             sprite.flipX = false;
             follow.transform.position = follow_right.transform.position;
+            if(heroId == 4){
+                follow.transform.position += new Vector3(1.2f,0,0);
+            }
         }
 
         if(moveX != 0 || moveY != 0){
@@ -356,6 +388,7 @@ public class PlayerController : MonoBehaviour
 
         //处理雷击间隔分身
         if(lightningCount >= lightningNum && !isLightCopied){
+            Debug.Log("雷击次数："+lightningCount);
             lightningCount = 0;
             PlayerOnceLightCopy();
         }
