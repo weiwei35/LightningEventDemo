@@ -28,7 +28,7 @@ public class Item_Sword : MonoBehaviour
     public GameObject sword;
 
     public void Fire(){
-        animator.SetTrigger("attack");
+        // animator.SetTrigger("attack");
         for (int i = 0; i < Global.swordFollowEnemy.Count; i++)
         {
             StartCoroutine("SetAnim",Global.swordFollowEnemy[i]);

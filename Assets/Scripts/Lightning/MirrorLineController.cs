@@ -27,10 +27,15 @@ public class MirrorLineController : MonoBehaviour
         line = GetComponent<LineRenderer>();
         lightning = FindObjectOfType<LightningController>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        DrawLinePoints();
+        // DrawLinePoints();
     }
     private void Update() {
-            
+        timeCount += Time.deltaTime;
+        if(timeCount > lightning.lightningPreTime){
+            // Global.isSlowDown = true;
+            timeCount = 0;
+            DrawLinePoints();
+        }
     }
     private void FixedUpdate()
     {
@@ -43,7 +48,7 @@ public class MirrorLineController : MonoBehaviour
         }
         line.SetPosition(0,start.transform.position);
         line.SetPosition(1,end.transform.position);
-        if(lineCollider!= null)
+        if(lineCollider!= null && capsule!=null)
         {
             midPoint = (line.GetPosition(0) + line.GetPosition(1)) / 2;
             lineCollider.transform.position = midPoint;

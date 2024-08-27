@@ -153,7 +153,6 @@ public class LightningController : MonoBehaviour
         //         player.item_Sword.Fire(enemy.gameObject);
         //     }
         // }
-        
         yield return new WaitForSeconds(0.5f);
         endLight = false;
         // Global.swordFollowEnemy.Clear();
@@ -164,8 +163,10 @@ public class LightningController : MonoBehaviour
         if(player.isMegaCopy){
             circle.RandomPointsCopy(lightningCountCurrent);
         }
-        
+        if(player.heroId == 4 && Global.swordFollowEnemy.Count > 0)
+            player.item_Sword.animator.SetTrigger("attack");
         yield return new WaitForSeconds(0.5f);
+        
         endsetLight = false;
     }
 

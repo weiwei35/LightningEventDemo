@@ -16,6 +16,7 @@ public class CircleController : MonoBehaviour
     public ConnectLineController connectLine;
     public MirrorLineController mirrorLine;
     public GameObject startPoint;//雷点
+    public GameObject arrowPlayer;//雷点
     GameObject player;
     GameObject playerCopy;
     GameObject[] playerOnceCopy;
@@ -59,7 +60,7 @@ public class CircleController : MonoBehaviour
         {
             if(item != null){
                 LightningShow lineController = item.GetComponent<LightningShow>();
-                if(lineController.follow != null)
+                if(lineController.follow != null && !lineController.isRush)
                     lineController.end.transform.position = lineController.follow.transform.position + new Vector3(0,1f,0);
             }
         }
@@ -115,7 +116,7 @@ public class CircleController : MonoBehaviour
             }
         }
         if(canFind){
-            GetScreenSlid(lightPrefab);
+            GetScreenSlid(lightPrefab,arrowPrefab);
         }
     }
 
@@ -244,12 +245,16 @@ public class CircleController : MonoBehaviour
         }
         SetLines(lightning.startTime,lightning.keepTime,points);
         lightPrefab.Clear();
+        arrowPrefab.Clear();
         foreach (var item in points)
         {
+            var arrow = Instantiate(arrowPlayer,playerController.transform);
+            arrow.transform.localPosition = new Vector3(0,0.8f,0);
+            arrowPrefab.Add(arrow);
             lightPrefab.Add(Instantiate(startPoint));
             canFind = true;
         }
-        GetScreenSlid(lightPrefab);
+        GetScreenSlid(lightPrefab,arrowPrefab);
     }
     //关底自动雷电生成雷点
     public void CirclePoints () {
@@ -271,7 +276,7 @@ public class CircleController : MonoBehaviour
             lightPrefab.Add(Instantiate(startPoint));
             canFind = true;
         }
-        GetScreenSlid(lightPrefab);
+        GetScreenSlid(lightPrefab,null);
     }
     //在圆上取count个数的随机点
     public void RandomPointsMirror (float count) {
@@ -428,6 +433,10 @@ public class CircleController : MonoBehaviour
         {
             Destroy(item);
         }
+        foreach (var item in arrowPrefab)
+        {
+            Destroy(item);
+        }
         lightPrefab.Clear();
     }
     public void SetCircleLines (float startTime,float keepTime,List<Vector3> points) {
@@ -460,7 +469,7 @@ public class CircleController : MonoBehaviour
             lineController.keepTime = keepTime;
             lineController.showTime = 0;
             lineController.follow = player;
-            lineController.timeCount = lightning.lightningPreTime +1;
+            lineController.timeCount = lightning.lightningPreTime -0.3f;
         }
     }
 
@@ -528,7 +537,8 @@ public class CircleController : MonoBehaviour
     //获取屏幕边缘
     bool canFind = false;
     List<GameObject> lightPrefab = new List<GameObject>();
-    void GetScreenSlid(List<GameObject> light){
+    List<GameObject> arrowPrefab = new List<GameObject>();
+    void GetScreenSlid(List<GameObject> light,List<GameObject> arrow = null){
         // 获取屏幕中心点
         Camera mainCamera = Camera.main;
         float screenWidth = Screen.width;
@@ -555,6 +565,14 @@ public class CircleController : MonoBehaviour
         {
             //角色与雷点夹角
             float anglePlayer = Vector2.Angle(lightPos - player.transform.position,Vector2.right);
+            float anglePlayerUp = Vector2.SignedAngle(lightPos - player.transform.position,Vector2.up);
+            // Debug.Log(anglePlayerUp);
+            if(arrow != null)
+            {
+                if(i < arrow.Count){
+                    arrow[i].transform.eulerAngles = new Vector3(0,0,-anglePlayerUp);
+                }
+            }
 
             // GameObject light = Instantiate(startPoint);
             if(lightPos.x>maxX || lightPos.x<minX || lightPos.y>maxY || lightPos.y<minY)

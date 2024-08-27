@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 1420919943749571905}
   - component: {fileID: 5853287268270458424}
   - component: {fileID: 8791542643398544232}
+  - component: {fileID: 6349061669454889264}
   m_Layer: 0
   m_Name: LineRush
   m_TagString: Lightning
@@ -187,7 +188,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4832612257934242252}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 96b3d5756756bf546b65159449d2c21a, type: 3}
   m_Name: 
@@ -205,6 +206,39 @@ MonoBehaviour:
   showTime: 0
   startTime: 0.1
   keepTime: 0.5
+  copyLine: {fileID: 4832612257934242252, guid: a93c78e49b0213546821097ae6553096,
+    type: 3}
+  isChecked: 0
+  timeCount: 0
+  lineCollider: {fileID: 1882638087667443515, guid: 5efaab14189b0e14bb942a8d6d503653,
+    type: 3}
+  lightningAsset: {fileID: 2054700712137755922, guid: a1d3a3913e0d99c48a2672aecea7283c,
+    type: 3}
+  isRush: 0
+  lineRush: {fileID: 4832612257934242252}
+  canCopy: 1
+--- !u!114 &6349061669454889264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4832612257934242252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 042a93a1422a67d418385f4c14ea4306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  start: {fileID: 6243194527875724978, guid: b0a009c0cfe08634392a2128ccf575e9, type: 3}
+  end: {fileID: 9097606053153688989, guid: b0a009c0cfe08634392a2128ccf575e9, type: 3}
+  follow: {fileID: 0}
+  startPointEP: {fileID: 5971536029102848306, guid: d54773b0f12d5834b950d8b217de0af4,
+    type: 3}
+  startPoint: {fileID: 5971536029102848306, guid: e4c83a1d6722b364b989ec99d91dd717,
+    type: 3}
+  showTime: 0
+  startTime: 0.01
+  keepTime: 0.01
   copyLine: {fileID: 4832612257934242252, guid: a93c78e49b0213546821097ae6553096,
     type: 3}
   isChecked: 0

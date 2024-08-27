@@ -352,7 +352,7 @@ public class PlayerController : MonoBehaviour
         sliderPro.value = protectCurrent/protect;
         //速度处理
         if(Global.isSlowDown){
-            moveSpeed = speed/20;
+            moveSpeed = speed/10;
         }else{
             moveSpeed = speed;
         }

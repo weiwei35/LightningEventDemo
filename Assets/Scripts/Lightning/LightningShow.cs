@@ -27,7 +27,9 @@ public class LightningShow : MonoBehaviour
     LightningEffect lightningEffect;
 
     //冲刺折线相关
+    Vector3 endPos1;
     public bool isRush = false;
+    public GameObject lineRush;
     public bool canCopy = true;
     private void Start()
     {
@@ -50,7 +52,9 @@ public class LightningShow : MonoBehaviour
         timeCount += Time.deltaTime;
         if(timeCount > lightning.lightningPreTime - 0.5f){
             if(Input.GetKeyDown(KeyCode.Space) && !Global.isSlowDown && player.rushing && player.skill_rush){
+                endPos1 = player.transform.position;
                 isRush = true;
+                Global.isSlowDown = true;
             }
         }
         if(timeCount > lightning.lightningPreTime - 0.1f){
@@ -106,7 +110,8 @@ public class LightningShow : MonoBehaviour
         line.SetPosition(1,end.transform.position);
         }
         else{
-            end.transform.position = follow.transform.position + new Vector3(0,1f,0);
+            // end.transform.position = follow.transform.position + new Vector3(0,1f,0);
+            end.transform.position = endPos1;
             if(colliderCur!= null){
                 colliderCur.GetComponent<LineColliderMain>().start = start.transform.position;
                 colliderCur.GetComponent<LineColliderMain>().end = end.transform.position;
@@ -131,7 +136,8 @@ public class LightningShow : MonoBehaviour
                 }
             }
             line.SetPosition(0,start.transform.position);
-            line.SetPosition(1,end.transform.position);
+            // line.SetPosition(1,end.transform.position);
+            line.SetPosition(1,endPos1);
         }
     }
 
@@ -170,11 +176,20 @@ public class LightningShow : MonoBehaviour
     public void DrawLinePoints() {
         lightningEffect = Instantiate(lightningAsset);
         lightningEffect.transform.parent = transform;
-        lightningEffect.pos1.transform.position = start.transform.position;
-        lightningEffect.pos2.transform.position = start.transform.position;
-        lightningEffect.pos3.transform.position = end.transform.position;
-        lightningEffect.pos4.transform.position = end.transform.position;
-
+        if(!isRush)
+        {
+            lightningEffect.pos1.transform.position = start.transform.position;
+            lightningEffect.pos2.transform.position = start.transform.position;
+            lightningEffect.pos3.transform.position = end.transform.position;
+            lightningEffect.pos4.transform.position = end.transform.position;
+        }else{
+            keepTime *= 2;
+            lightningEffect.pos1.transform.position = start.transform.position;
+            lightningEffect.pos2.transform.position = start.transform.position;
+            lightningEffect.pos3.transform.position = endPos1;
+            lightningEffect.pos4.transform.position = endPos1;
+            StartCoroutine(SetRushLine());
+        }
         Invoke("EndLine", keepTime);
         Invoke("SetEndLine", 0);
 
@@ -194,8 +209,24 @@ public class LightningShow : MonoBehaviour
             capsuleCollider.direction = 2;
         }
     }
+    IEnumerator SetRushLine(){
+        yield return new WaitForSeconds(startTime);
+        var lineCur = Instantiate(lineRush);
+        lineCur.transform.position = endPos1;
+        LightningShow lineController = lineCur.GetComponent<LightningShow>();
+        lineController.start.transform.position = endPos1;
+        lineController.end.transform.position = player.transform.position + new Vector3(0,1f,0);;
+        lineController.startTime = startTime;
+        lineController.keepTime = keepTime;
+        lineController.follow = player.gameObject;
+        lineController.isRush = false;
+        lineController.timeCount = lightning.lightningPreTime+1;
+        lineController.canCopy = false;
+    }
 
     public void EndLine () {
+        
+        Global.isSlowDown = false;
         lightning.isSetLight = false;
         var enemys = Transform.FindObjectsOfType<EnemyController>();
         foreach (var item in enemys)

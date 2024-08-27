@@ -449,7 +449,8 @@ public class GameController : MonoBehaviour
         levelImg.sprite = levelSprite[levelId-1];
         player.transform.position = centerPos.transform.position;
         Invoke("SetLevel",3.5f);
-        circlePanel.ResetCircle();
+        if(circlePanel.enabled)
+            circlePanel.ResetCircle();
     }
 
     void CloseEndPanel(){
