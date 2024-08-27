@@ -20,12 +20,20 @@ public class Item_Sword : MonoBehaviour
         }else if(player.moveX < 0){
             transform.localPosition = new Vector3(1.46f,0.8f,0f);
         }
+
+        if(Global.swordFollowEnemy.Count > 0){
+            Fire();
+        }
     }
     public GameObject sword;
 
-    public void Fire(GameObject pos){
+    public void Fire(){
         animator.SetTrigger("attack");
-        StartCoroutine("SetAnim",pos);
+        for (int i = 0; i < Global.swordFollowEnemy.Count; i++)
+        {
+            StartCoroutine("SetAnim",Global.swordFollowEnemy[i]);
+            Global.swordFollowEnemy.Remove(Global.swordFollowEnemy[i]);
+        }
     }
 
     IEnumerator SetAnim(GameObject pos){

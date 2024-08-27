@@ -148,15 +148,15 @@ public class LightningController : MonoBehaviour
             }
         }
         Global.lightningCount ++;
-        if(player.heroId == 4 && Global.swordFollowEnemy.Count > 0){
-            foreach(var enemy in Global.swordFollowEnemy){
-                player.item_Sword.Fire(enemy.gameObject);
-            }
-        }
+        // if(player.heroId == 4 && Global.swordFollowEnemy.Count > 0){
+        //     foreach(var enemy in Global.swordFollowEnemy){
+        //         player.item_Sword.Fire(enemy.gameObject);
+        //     }
+        // }
         
         yield return new WaitForSeconds(0.5f);
         endLight = false;
-        Global.swordFollowEnemy.Clear();
+        // Global.swordFollowEnemy.Clear();
     }
     IEnumerator SetEndLight(){
         isSetLight = false;
