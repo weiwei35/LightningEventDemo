@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyFarMove : EnemyController
 {
+    public float followRate = 0.5f;
+    Vector3 prePos;
+    float time = 0;
     [Header("逃跑距离")]
     public float backDistance = 3f;
     [Header("攻击距离")]
@@ -35,6 +38,7 @@ public class EnemyFarMove : EnemyController
     public override void Start()
     {
         base.Start();
+        prePos = transform.position;
         // SpawnAtRandomEdge();
         // SpawnAtRandomCircle();
         // animator = GetComponent<Animator>();
@@ -45,9 +49,16 @@ public class EnemyFarMove : EnemyController
     public override void Update()
     {
         base.Update();
+        if(!Global.isSlowDown){
+            time += Time.deltaTime;
+        }
+        if(time >= followRate){
+            time = 0;
+            prePos = target.transform.position;
+        }
         if(!isInBlackHall && !isBoom)
         {
-            FollowMove ();
+            FollowMove (prePos);
             if(!CheckInACircle()){
                 isFollow = true;
                 isBack = false;
@@ -101,15 +112,15 @@ public class EnemyFarMove : EnemyController
         // anim.Play("hurt3");
     }
 
-    private void FollowMove () {
+    private void FollowMove (Vector3 pos) {
         float distance = Mathf.Abs(Vector3.Distance(transform.position,target.position));
         //逃跑路线：逃跑--backDistance--逃跑&攻击--attackDistance--逃跑--followDistance--追击
         //追击路线：逃跑--backDistance--追击&攻击--attackDistance--追击--followDistance--追击
         if(isFollow){
             if(distance>attackDistance){
-                transform.position = Vector3.MoveTowards(transform.position,target.position,Time.deltaTime * speed);
+                transform.position = Vector3.MoveTowards(transform.position,pos,Time.deltaTime * speed);
             }else if(distance<attackDistance && distance>backDistance){
-                transform.position = Vector3.MoveTowards(transform.position,target.position,Time.deltaTime * speed);
+                transform.position = Vector3.MoveTowards(transform.position,pos,Time.deltaTime * speed);
             }else if(distance<=backDistance){
                 isFollow = false;
             }

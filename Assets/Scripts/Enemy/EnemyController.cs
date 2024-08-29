@@ -206,7 +206,7 @@ public class EnemyController : MonoBehaviour
         if(circlePanel.inDoor_SI){
             hurt = hurt * 1.1f;
         }
-        if(!isHitting && !isDead && canHurt){
+        if(/*!isHitting && */!isDead && canHurt){
             enemyPoolController.PlayAudio(2);
             if (tweener != null)
             {

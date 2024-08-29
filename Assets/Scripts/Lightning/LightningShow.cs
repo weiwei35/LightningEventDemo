@@ -73,7 +73,7 @@ public class LightningShow : MonoBehaviour
             }
             DrawLinePoints();
         }
-        if(lightningEffect != null){
+        if(lightningEffect != null && startTime <= 0.2f){
             lightningEffect.pos1.transform.position = start.transform.position;
             lightningEffect.pos2.transform.position = start.transform.position;
             lightningEffect.pos3.transform.position = end.transform.position;
@@ -172,16 +172,27 @@ public class LightningShow : MonoBehaviour
                 lineControllerCopy.timeCount = lightning.lightningPreTime+1;
         }
     }
+    Tween tween1;
+    Tween tween2;
 
     public void DrawLinePoints() {
         lightningEffect = Instantiate(lightningAsset);
         lightningEffect.transform.parent = transform;
         if(!isRush)
         {
-            lightningEffect.pos1.transform.position = start.transform.position;
-            lightningEffect.pos2.transform.position = start.transform.position;
-            lightningEffect.pos3.transform.position = end.transform.position;
-            lightningEffect.pos4.transform.position = end.transform.position;
+            if(startTime >= 0.2f){
+                lightningEffect.pos1.transform.position = start.transform.position;
+                lightningEffect.pos2.transform.position = start.transform.position;
+                lightningEffect.pos3.transform.position = start.transform.position;
+                lightningEffect.pos4.transform.position = start.transform.position;
+                tween1 = lightningEffect.pos1.transform.DOMove(end.transform.position,startTime);
+                tween2 = lightningEffect.pos2.transform.DOMove(end.transform.position,startTime);
+            }else{
+                lightningEffect.pos1.transform.position = start.transform.position;
+                lightningEffect.pos2.transform.position = start.transform.position;
+                lightningEffect.pos3.transform.position = end.transform.position;
+                lightningEffect.pos4.transform.position = end.transform.position;
+            }
         }else{
             keepTime *= 2;
             lightningEffect.pos1.transform.position = start.transform.position;
@@ -190,7 +201,7 @@ public class LightningShow : MonoBehaviour
             lightningEffect.pos4.transform.position = endPos1;
             StartCoroutine(SetRushLine());
         }
-        Invoke("EndLine", keepTime);
+        Invoke("EndLine", keepTime+startTime);
         Invoke("SetEndLine", 0);
 
         line.startWidth = lightning.lightningWidth;
@@ -248,6 +259,12 @@ public class LightningShow : MonoBehaviour
     }
 
     private void OnDestroy() {
+        if(tween1 != null){
+            tween1.Kill();
+        }
+        if(tween2!= null){
+            tween2.Kill();
+        }
         isRush = false;
     }
 }

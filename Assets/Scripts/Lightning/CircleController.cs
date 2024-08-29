@@ -447,7 +447,7 @@ public class CircleController : MonoBehaviour
             lineController.start.transform.position = point;
             lineController.end.transform.position = center;
             lineController.startTime = 0.3f;
-            lineController.keepTime = 1f;
+            lineController.keepTime = 0.7f;
             lineController.follow = centerPos;
             lineController.timeCount = lightning.lightningPreTime +1;
             lines.Add(lineCur.gameObject);

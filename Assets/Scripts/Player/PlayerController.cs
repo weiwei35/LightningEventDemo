@@ -417,7 +417,7 @@ public class PlayerController : MonoBehaviour
         }
         if(needRecovery && !startRecovery){
             startRecovery = true;
-            InvokeRepeating("RecoveryHP",1,1);
+            // InvokeRepeating("RecoveryHP",1,1);
         }else if(!needRecovery){
             startRecovery = false;
             CancelInvoke("RecoveryHP");

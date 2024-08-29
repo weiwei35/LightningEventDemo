@@ -5,12 +5,16 @@ using UnityEngine;
 //移动方式：跟随主角；出现方式：屏幕边缘随机位置
 public class EnemyFollowMove : EnemyController
 {
+    public float followRate = 0.5f;
+    Vector3 prePos;
+    float time = 0;
     public SpriteRenderer sprite;
     public Transform mainEnemy;
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
+        prePos = transform.position;
         // SpawnAtRandomEdge();
         // SpawnAtRandomCircle();
         // sprite = GetComponent<SpriteRenderer>();
@@ -20,9 +24,16 @@ public class EnemyFollowMove : EnemyController
     public override void Update()
     {
         base.Update();
+        if(!Global.isSlowDown){
+            time += Time.deltaTime;
+        }
+        if(time >= followRate){
+            time = 0;
+            prePos = target.transform.position;
+        }
         if(!isInBlackHall && !isBoom)
         {
-            FollowMove ();
+            FollowMove (prePos);
         }
         // 获取当前物体的欧拉角
         Vector3 currentRotation = transform.rotation.eulerAngles;
@@ -50,10 +61,10 @@ public class EnemyFollowMove : EnemyController
         // anim.Play("hurt2");
     }
 
-    private void FollowMove () {
-        if(target != null){
-            Vector3 followPos = new Vector3(target.position.x, target.position.y,-5);
-            transform.position = Vector3.MoveTowards(transform.position,followPos+new Vector3(0,1,0),Time.deltaTime * speed);
+    private void FollowMove (Vector3 pos) {
+        if(target != null && pos != transform.position){
+            // Vector3 followPos = new Vector3(target.position.x, target.position.y,-5);
+            transform.position = Vector3.MoveTowards(transform.position,pos+new Vector3(0,1,0),Time.deltaTime * speed);
             Vector2 v = target.transform.position - transform.position;
             var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
             var trailRotation = Quaternion.AngleAxis(angle, Vector3.forward);
