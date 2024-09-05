@@ -232,7 +232,15 @@ public class ItemDataSO : ScriptableObject {
                     }
                 }
                 int randomId = Random.Range(0,type3Item.Count);
+                while (Global.itemShowInShop.Contains(type3Item[randomId]))
+                {
+                    randomId++;
+                    if(randomId >= type3Item.Count){
+                        randomId = 0;
+                    }
+                }
                 item.Add(type3Item[randomId]);
+
                 for (int j = 0; j < saveItem.Count; j++)
                 {
                     if(saveItem[j].type == type3Item[randomId].type){
@@ -254,6 +262,13 @@ public class ItemDataSO : ScriptableObject {
                     }
                 }
                 int randomId = Random.Range(0,type2Item.Count);
+                while (Global.itemShowInShop.Contains(type2Item[randomId]))
+                {
+                    randomId++;
+                    if(randomId >= type2Item.Count){
+                        randomId = 0;
+                    }
+                }
                 item.Add(type2Item[randomId]);
                 for (int j = 0; j < saveItem.Count; j++)
                 {
@@ -287,6 +302,9 @@ public class ItemDataSO : ScriptableObject {
                     }
                 }
             }
+        }
+        foreach(var obj in item){
+            Global.itemShowInShop.Add(obj);
         }
         return item;
     }

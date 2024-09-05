@@ -24,6 +24,7 @@ public static class Global{
     public static List<SelectItem> item1Current = new List<SelectItem>();
     public static List<SelectItem> item2Current = new List<SelectItem>();
     public static List<SelectItem> item3Current = new List<SelectItem>();
+    public static List<SelectItem> itemShowInShop = new List<SelectItem>();
     public static int enemyCount = 0;
     public static int levelCount = 0;
     public static int lightningCount = 0;
@@ -36,6 +37,7 @@ public class SaveData
     public int levelId = 0;
     public bool isEndLevel = false;
     public List<int> selectItemId = new List<int>();
+    public List<int> selectItemMainId = new List<int>();
     //角色
     public int heroId = 0;
     public float speed = 5f;

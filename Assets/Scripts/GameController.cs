@@ -53,9 +53,9 @@ public class GameController : MonoBehaviour
     public AudioSource levelBack;
     public CirclePanelController circlePanel;
     public bool isBossLevel;
-    public GameObject startBtn;
-    public GameObject nextBtn;
-    public GameObject refreshBtn;
+    // public GameObject startBtn;
+    // public GameObject nextBtn;
+    // public GameObject refreshBtn;
     // Start is called before the first frame update
     private void Awake() {
         Application.targetFrameRate = 60;
@@ -69,14 +69,14 @@ public class GameController : MonoBehaviour
         if(Global.continueGame){
             if(LoadData())
                 selectPanel.LoadItem();
-                startBtn.SetActive(false);
-                nextBtn.SetActive(true);
-                refreshBtn.SetActive(true);
+                // startBtn.SetActive(false);
+                // nextBtn.SetActive(true);
+                // refreshBtn.SetActive(true);
             if(levelId == 0){
                 levelId = 1;
-                startBtn.SetActive(true);
-                nextBtn.SetActive(false);
-                refreshBtn.SetActive(false);
+                // startBtn.SetActive(true);
+                // nextBtn.SetActive(false);
+                // refreshBtn.SetActive(false);
             }
         }
         // bgChangeLevel.SetActive(false);
@@ -156,9 +156,9 @@ public class GameController : MonoBehaviour
 
         if(levelId == 1){
             endLevelPanel.SetActive(true);
-            startBtn.SetActive(true);
-            nextBtn.SetActive(false);
-            refreshBtn.SetActive(false);
+            // startBtn.SetActive(true);
+            // nextBtn.SetActive(false);
+            // refreshBtn.SetActive(false);
             // Invoke("SetTimeStop",0.5f);
         }
         if(Global.isEndLevel){
@@ -339,9 +339,9 @@ public class GameController : MonoBehaviour
         // circlePanel.ResetCircle();
     }
     void SetLevelItem(){
-        startBtn.SetActive(false);
-        nextBtn.SetActive(true);
-        refreshBtn.SetActive(true);
+        // startBtn.SetActive(false);
+        // nextBtn.SetActive(true);
+        // refreshBtn.SetActive(true);
         endLevelPanel.SetActive(true);
         Invoke("SetTimeStop",0.5f);
         SaveEndtData();
@@ -449,6 +449,7 @@ public class GameController : MonoBehaviour
         levelImg.sprite = levelSprite[levelId-1];
         player.transform.position = centerPos.transform.position;
         Invoke("SetLevel",3.5f);
+        Global.itemShowInShop.Clear();
         if(circlePanel.enabled)
             circlePanel.ResetCircle();
     }

@@ -13,14 +13,21 @@ public class SelectItemUI : MonoBehaviour
     public ItemDataSO itemData;
     public ItemLevelRankSO itemLevelRank;
     public GameObject selectBar;
+    public GameObject selectMainBar;
     public GameObject selectPrefab;
     SelectItem saveItem;
     List<SelectItem> items = new List<SelectItem>();
+    List<SelectItem> itemsMain = new List<SelectItem>();
     PlayerController player;
     public GameSaveManager gameSave;
     public GameController gameController;
     public GameObject stopPanel;
     public GameObject levelPanel;
+    public GameObject transPanel;
+    public GameObject selectBarTrans;
+    public GameObject selectPrefabTrans;
+    bool startShoping = false;
+    bool isMainItemBought = false;
 
     Animator anim;
     public bool isStopGame = false;
@@ -31,89 +38,161 @@ public class SelectItemUI : MonoBehaviour
         PlayAudio(2);
         // itemData = AssetDatabase.LoadAssetAtPath<ItemDataSO>("Assets/Resources/ItemData.asset");
         SetItemList();
+        isMainItemBought = false;
+        // Global.itemShowInShop.Clear();
     }
     public void Refresh(){
         if(Global.exp_sum >= refreshCost){
             Global.exp_sum -= refreshCost;
-            SetItemList();
+            SetItemList(true);
         }
     }
-    public void SetItemList(){
+    public void SetItemList(bool isRefresh = false) {
         if(!isStopGame){
-            levelPanel.SetActive(true);
             stopPanel.SetActive(false);
             if(Global.exp_level > 0 || Global.exp > 0){
+                levelPanel.SetActive(true);
+                transPanel.SetActive(false);
                 if(Global.continueGame && gameSave.data.isEndLevel){
                     items.Clear();
                     foreach (var item in gameSave.data.selectItemId)
                     {
                         items.Add(itemData.GetSelectItemById(item));
                     }
+                    itemsMain.Clear();
+                    foreach (var item in gameSave.data.selectItemMainId)
+                    {
+                        itemsMain.Add(itemData.GetSelectItemById(item));
+                    }
                     Global.continueGame = false;
                 }else{
                     List<int> specType = new List<int>();
                     List<int> detailType = new List<int>();
-                    int type = 0;
-                    if(Global.isChangeLevel){
-                        type = 2;
-                    }else{
-                        type = 1;
-                    }
-
-                    for (int i = 0; i < 3; i++)
+                    // int type = 0;
+                    // if(Global.isChangeLevel){
+                    //     type = 2;
+                    // }else{
+                    //     type = 1;
+                    // }
+                    //商店中随机4个
+                    for (int i = 0; i < 4; i++)
                     {
-                        int spec = itemLevelRank.GetItemSpecType(gameController.levelId,type);
+                        int spec = itemLevelRank.GetItemSpecType(gameController.levelId,1);
                         specType.Add(spec);
                         if(spec == 3){
-                            int detail = itemLevelRank.GetTreasureType(gameController.levelId,type);
+                            int detail = itemLevelRank.GetTreasureType(gameController.levelId,1);
                             detailType.Add(detail);
                         }else if(spec == 1){
-                            int detail = itemLevelRank.GetPieceType(gameController.levelId,type);
+                            int detail = itemLevelRank.GetPieceType(gameController.levelId,1);
                             detailType.Add(detail);
                         }else if(spec == 2){
-                            int detail = itemLevelRank.GetBabyType(gameController.levelId,type);
+                            int detail = itemLevelRank.GetBabyType(gameController.levelId,1);
                             detailType.Add(detail);
                         }
                     }
-                    items = itemData.GetRandomSelectItem(3,specType,detailType);
+                    items = itemData.GetRandomSelectItem(4,specType,detailType);
+
+                    //商店中随机1个
+                    if(!isMainItemBought){
+                        startShoping = true;
+                        List<int> specMain = new List<int>();
+                        List<int> detailMain = new List<int>();
+                        for (int i = 0; i < 1; i++)
+                        {
+                            specMain.Add(itemLevelRank.GetItemSpecType(gameController.levelId,2));
+                            // specType.Add(spec);
+                            if(specMain[0] == 3){
+                                detailMain.Add(itemLevelRank.GetTreasureType(gameController.levelId,2));
+                            }else if(specMain[0] == 1){
+                                detailMain.Add(itemLevelRank.GetPieceType(gameController.levelId,2));
+                            }else if(specMain[0] == 2){
+                                detailMain.Add(itemLevelRank.GetBabyType(gameController.levelId,2));
+                            }
+                        }
+                        itemsMain = itemData.GetRandomSelectItem(1,specMain,detailMain);
+                    }
+
                     gameSave.data.selectItemId.Clear();
                     foreach (var item in items)
                     {
                         gameSave.data.selectItemId.Add(item.id);
                         PlayerPrefs.SetInt(item.id.ToString(),1);
                     }
+                    gameSave.data.selectItemMainId.Clear();
+                    foreach (var item in itemsMain)
+                    {
+                        gameSave.data.selectItemMainId.Add(item.id);
+                        PlayerPrefs.SetInt(item.id.ToString(),1);
+                    }
                     gameSave.Save();
                 }
             }else{
+                levelPanel.SetActive(false);
+                transPanel.SetActive(true);
                 items.Clear();
                 items.Add(itemData.GetRandomTrans());
             }
 
-            ShowSelectItem();
+            ShowSelectItem(isRefresh);
         }else{
             levelPanel.SetActive(false);
             stopPanel.SetActive(true);
         }
     }
-    void ShowSelectItem(){
+    void ShowSelectItem(bool isRefresh = false){
         foreach (Transform item in selectBar.transform)
         {
             Destroy(item.gameObject);
         }
-        for (int i = 0; i < items.Count; i++)
+        foreach (Transform item in selectMainBar.transform)
         {
-            var selectItem = Instantiate(selectPrefab);
-            selectItem.transform.SetParent(selectBar.transform);
-            selectItem.transform.localScale = new Vector3(1,1,1);
-            selectItem.transform.localPosition = Vector3.zero;
-            ItemController item = selectItem.GetComponent<ItemController>();
-            item.SetItemInfo(items[i]);
-            if(items.Count == 1){
+            Destroy(item.gameObject);
+        }
+        if(Global.exp_level == 0 && Global.exp == 0){
+            for (int i = 0; i < items.Count; i++)
+            {
+                var selectItem = Instantiate(selectPrefabTrans);
+                selectItem.transform.SetParent(selectBarTrans.transform);
+                selectItem.transform.localScale = new Vector3(1,1,1);
+                selectItem.transform.localPosition = Vector3.zero;
+                ItemController item = selectItem.GetComponent<ItemController>();
+                item.SetItemInfo(items[i]);
                 saveItem = items[0];
-            }else{
-                saveItem = null;
+            }
+        }else{
+            for (int i = 0; i < items.Count; i++)
+            {
+                var selectItem = Instantiate(selectPrefab);
+                selectItem.transform.SetParent(selectBar.transform);
+                selectItem.transform.localScale = new Vector3(1,1,1);
+                selectItem.transform.localPosition = Vector3.zero;
+                SelectItemIconUI item = selectItem.GetComponent<SelectItemIconUI>();
+                item.SetItemInfo(items[i]);
+                if(items.Count == 1){
+                    saveItem = items[0];
+                }else{
+                    saveItem = null;
+                }
+            }
+            if(!isMainItemBought){
+                for (int i = 0; i < itemsMain.Count; i++)
+                {
+                    var selectItem = Instantiate(selectPrefab);
+                    selectItem.transform.SetParent(selectMainBar.transform);
+                    selectItem.transform.localScale = new Vector3(1,1,1);
+                    selectItem.transform.localPosition = Vector3.zero;
+                    SelectItemIconUI item = selectItem.GetComponent<SelectItemIconUI>();
+                    item.SetItemInfo(itemsMain[i]);
+                    if(itemsMain.Count == 1){
+                        saveItem = itemsMain[0];
+                    }else{
+                        saveItem = null;
+                    }
+                }
             }
         }
+
+        
     }
     public void SaveChooseItem(SelectItem item){
         saveItem = item;
@@ -463,6 +542,15 @@ public class SelectItemUI : MonoBehaviour
         }
             
     }
+
+    private void Update() {
+        if(startShoping){
+            if(selectMainBar.transform.childCount == 0){
+                isMainItemBought = true;
+                // Debug.Log("=====");
+            }
+        }
+    }
     private void OnDisable() {
         items.Clear();
         saveItem = new SelectItem();
@@ -473,7 +561,9 @@ public class SelectItemUI : MonoBehaviour
             Destroy(child.gameObject); // 打印子物体的名字
         }
         isStopGame = false;
-            Time.timeScale = 1;
+        Time.timeScale = 1;
+        startShoping = false;
+        isMainItemBought = false;
     }
 
     public AudioSource audioSource;
